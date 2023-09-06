@@ -12,18 +12,21 @@
                         <form @submit.prevent="submit">
 
                             <div class="columns">
+
                                 <div class="column">
                                     <b-field label="Event Date & Time" expanded
-                                        :type="this.errors.datetime_event ? 'is-danger':''"
-                                        :message="this.errors.datetime_event ? this.errors.datetime_event[0] : ''">
-                                        <el-date-picker
+                                        :type="this.errors.dateAndTime ? 'is-danger':''"
+                                        :message="this.errors.dateAndTime ? this.errors.dateAndTime[0] : ''">
+                                        <b-datetimepicker
+                                            icon="calendar-today"
                                             required
-                                            v-model="fields.datetime_event"
-                                            type="datetime"
-                                            placeholder="Select date and time">
-                                        </el-date-picker>
+                                            v-model="fields.dateAndTime"
+                                            placeholder="Select date and time"
+                                            horizontal-time-picker>
+                                        </b-datetimepicker>
                                     </b-field>
                                 </div>
+
                             </div>
                             <div class="columns">
                                 <div class="column">
@@ -102,8 +105,8 @@ export default {
             fields: {
                 event: null,
                 event_description: null,
-                datetime_event: null,
-                event_img: null
+                dateAndTime: null,
+                event_img: {}
             },
             errors: {},
         }
@@ -115,13 +118,11 @@ export default {
 
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
-   
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-            formData.append('datetime_event', this.fields.datetime_event ? this.fields.datetime_event : '');
+            formData.append('datetime_event', this.fields.dateAndTime ? this.fields.dateAndTime : '');
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
 
-
-            axios.post('/events', formData).then(res=>{
+            axios.post('/events', this.fields).then(res=>{
                 
             }).catch(err=>{
                 if(err.response.status == 422){

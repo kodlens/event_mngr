@@ -42,6 +42,9 @@ class EventController extends Controller
     public function store(Request $req){
 
         //return $req;
+        $event_date = date('Y-m-d H:i:s', strtotime($req->dateAndTime));
+
+        return $event_date;
 
         $req->validate([
             'event' => ['required'],
