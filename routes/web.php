@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
 
 Auth::routes([
-    'login' => false,
+    'login' => true,
     'register' => false, // Registration Routes...
     'reset' => false, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
@@ -39,11 +39,6 @@ Route::get('/get-user', function(){
 });
 
 
-
-Route::post('/custom-login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
-Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -81,8 +76,6 @@ Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\Forwar
 
 
 
-/*     ADMINSITRATOR          */
-Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
 
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
@@ -92,8 +85,13 @@ Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController:
 Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
 Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
-
+/*     ADMINSITRATOR          */
 Route::middleware(['auth', 'admin'])->group(function() {
+
+    Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
+
+    Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
+    Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
 
     Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
     Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);

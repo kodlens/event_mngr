@@ -18,13 +18,25 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'username' => 'admin',
-                'lname' => 'PUCOT',
-                'fname' => 'MARJHON',
+                'lname' => 'DELA CRUZ',
+                'fname' => 'JUAN',
                 'mname' => '',
                 'suffix' => '',
                 'sex' => 'MALE',
                 'email' => 'admin@dev.com',
                 'role' => 'ADMINISTRATOR',
+                'password' => Hash::make('a')
+            ],
+
+            [
+                'username' => 'student',
+                'lname' => 'DOE',
+                'fname' => 'JOHN',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'email' => 'student@dev.com',
+                'role' => 'STUDENT',
                 'password' => Hash::make('a')
             ],
 
