@@ -12,7 +12,7 @@ class EventController extends Controller
 
 
     public function index(){
-        return view('administrator.event-page');
+        return view('administrator.event.event-page');
     }
 
     public function getEvents(Request $req){
@@ -36,6 +36,33 @@ class EventController extends Controller
         return view('administrator.event.event-page-create-edit')
             ->with('id', $event->event_id)
             ->with('data', $event);
+    }
+
+
+    public function store(Request $req){
+
+        //return $req;
+
+        $req->validate([
+            'event' => ['required'],
+            'event_description' => ['required'],
+            'datetime_event' => ['required']
+        ]);
+
+        $n = [];
+        if($req->hasFile('event_img')) {
+
+            $pathFile = $req->event_img->store('public/events'); //get path of the file
+            $n = explode('/', $pathFile); //split into array using /
+        }
+
+        Event::create([
+            'event' => $req->event,
+            'event_description' => $req->event_description,
+            'img_path' => $req->hasFile($req->event_img) ? $n[2] : ''
+        ]);
+
+        
     }
 
 
