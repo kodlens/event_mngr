@@ -42331,3 +42331,17 @@ input[type=text], input type[type=email],
 input[type=password], input[type=tel] {
   border-radius: 0;
 }
+
+.navbar {
+  box-shadow: #32325d40 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.navbar .navbar-item {
+  font-weight: bold;
+}
+
+.table-box-title {
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 24px;
+}

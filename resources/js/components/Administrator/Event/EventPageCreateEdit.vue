@@ -7,7 +7,7 @@
 
                     <div class="box">
 
-                        <div style="font-weight: bold; margin-bottom: 15px; font-size: 24px;">POST EVENT</div>
+                        <div class="table-box-title">POST EVENTS</div>
                         <hr>
                         <form @submit.prevent="submit">
 
@@ -15,8 +15,8 @@
 
                                 <div class="column">
                                     <b-field label="Event Date & Time" expanded
-                                        :type="this.errors.dateAndTime ? 'is-danger':''"
-                                        :message="this.errors.dateAndTime ? this.errors.dateAndTime[0] : ''">
+                                        :type="this.errors.event_datetime ? 'is-danger':''"
+                                        :message="this.errors.event_datetime ? this.errors.event_datetime[0] : ''">
                                         <b-datetimepicker
                                             icon="calendar-today"
                                             required
@@ -26,8 +26,9 @@
                                         </b-datetimepicker>
                                     </b-field>
                                 </div>
-
                             </div>
+
+
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Event Title"
@@ -66,9 +67,10 @@
                                             </section>
                                         </b-upload>
                                     </b-field>
+
                                     <div v-if="fields.event_img" class="tags">
                                         <span class="tag is-primary">
-                                            {{fields.event_img.name}}
+                                            {{ fields.event_img.name }}
                                             <button class="delete is-small"
                                                 type="button"
                                                 @click="deleteDropFile(0)">
@@ -76,6 +78,7 @@
                                         </span>
                                     </div>
                                 </div>
+
                             </div>
 
                             <hr>
@@ -85,9 +88,7 @@
                                     <b>SAVE</b>
                                 </button>
                             </div>
-
                         </form> <!--form-->
-                        
                     </div>
                 </div>
             </div>
@@ -98,7 +99,20 @@
 
 <script>
 
+
 export default {
+
+    props: {
+        propId: {
+            type: Number,
+            default: 0
+        },
+
+        propData: {
+            type: Object,
+            default: {}
+        }
+    },
 
     data(){
         return{
@@ -106,7 +120,7 @@ export default {
                 event: null,
                 event_description: null,
                 dateAndTime: null,
-                event_img: {}
+                event_img: null
             },
             errors: {},
         }
@@ -119,21 +133,70 @@ export default {
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-            formData.append('datetime_event', this.fields.dateAndTime ? this.fields.dateAndTime : '');
+            formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
 
-            axios.post('/events', this.fields).then(res=>{
-                
-            }).catch(err=>{
-                if(err.response.status == 422){
-                    this.errors = err.response.data.errors
-                }
-            })
+
+            if(this.propId > 0){
+                //update
+                axios.post('/events-update', formData).then(res=>{
+                    if(res.data.status === 'saved'){
+                        this.$buefy.dialg.alert({
+                            title: 'Saved.',
+                            message: 'Successfully saved.',
+                            onConfirm: ()=>{
+                                window.location = '/events';
+                            }
+                        })
+
+                    }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors
+                    }
+                })
+            }else{
+                //insert
+                axios.post('/events', formData).then(res=>{
+                    if(res.data.status === 'saved'){
+                        this.$buefy.dialg.alert({
+                            title: 'Saved.',
+                            message: 'Successfully saved.',
+                            onConfirm: ()=>{
+                                window.location = '/events';
+                            }
+                        })
+
+                    }
+                }).catch(err=>{
+                    if(err.response.status === 422){
+                        this.errors = err.response.data.errors
+                    }
+                })
+            }
+
+           
+
+          
         },
 
         deleteDropFile(index) {
-            this.fields.event_img.splice(index, 1)
+            this.fields.event_img = null
+        },
+
+        getData(){
+            this.fields.event =  this.propData.event
+            this.fields.event_description =  this.propData.event_description
+            this.fields.dateAndTime =  new Date(this.propData.event_datetime)
+            this.fields.image_path = this.propData.img_path
+        }
+    },
+
+    mounted(){
+        if(this.propId > 0){
+            this.getData()
         }
     }
+
 }
 </script>

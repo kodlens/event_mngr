@@ -91,6 +91,8 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
 
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
+    Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvents']);
+
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
 
     Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);

@@ -8250,8 +8250,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8464,14 +8462,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propId: {
+      type: Number,
+      "default": 0
+    },
+    propData: {
+      type: Object,
+      "default": {}
+    }
+  },
   data: function data() {
     return {
       fields: {
         event: null,
         event_description: null,
         dateAndTime: null,
-        event_img: {}
+        event_img: null
       },
       errors: {}
     };
@@ -8483,16 +8492,58 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('event', this.fields.event ? this.fields.event : '');
       formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-      formData.append('datetime_event', this.fields.dateAndTime ? this.fields.dateAndTime : '');
+      formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
       formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
-      axios.post('/events', this.fields).then(function (res) {})["catch"](function (err) {
-        if (err.response.status == 422) {
-          _this.errors = err.response.data.errors;
-        }
-      });
+
+      if (this.propId > 0) {
+        //update
+        axios.post('/events-update', formData).then(function (res) {
+          if (res.data.status === 'saved') {
+            _this.$buefy.dialg.alert({
+              title: 'Saved.',
+              message: 'Successfully saved.',
+              onConfirm: function onConfirm() {
+                window.location = '/events';
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this.errors = err.response.data.errors;
+          }
+        });
+      } else {
+        //insert
+        axios.post('/events', formData).then(function (res) {
+          if (res.data.status === 'saved') {
+            _this.$buefy.dialg.alert({
+              title: 'Saved.',
+              message: 'Successfully saved.',
+              onConfirm: function onConfirm() {
+                window.location = '/events';
+              }
+            });
+          }
+        })["catch"](function (err) {
+          if (err.response.status === 422) {
+            _this.errors = err.response.data.errors;
+          }
+        });
+      }
     },
     deleteDropFile: function deleteDropFile(index) {
-      this.fields.event_img.splice(index, 1);
+      this.fields.event_img = null;
+    },
+    getData: function getData() {
+      this.fields.event = this.propData.event;
+      this.fields.event_description = this.propData.event_description;
+      this.fields.dateAndTime = new Date(this.propData.event_datetime);
+      this.fields.image_path = this.propData.img_path;
+    }
+  },
+  mounted: function mounted() {
+    if (this.propId > 0) {
+      this.getData();
     }
   }
 });
@@ -11198,8 +11249,38 @@ Vue.filter('formatDateTime', function (value) {
   var h = H % 12 || 12;
   var ampm = H < 12 ? " AM" : " PM";
   timeString = h + timeString.substr(2, 3) + ampm;
-  return ndate.toDateString() + ', Time: ' + timeString;
-});
+  return ndate.toDateString() + ', ' + timeString;
+}); //credit to @Bill Criswell for this filter
+
+Vue.filter('truncate', function (text, stop, clamp) {
+  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '');
+}); //let text = Vue.filter('truncate')(sometextToTruncate, 18);
+//create function
+
+Vue.prototype.$formatDateAndTime = function (value) {
+  if (!value) return '';
+  var date = new Date(value);
+  var year = date.getFullYear();
+  var month = String(date.getMonth() + 1).padStart(2, '0');
+  var day = String(date.getDate()).padStart(2, '0');
+  var h = String(date.getHours()).padStart(2, '0'); // => 9
+
+  var min = String(date.getMinutes()).padStart(2, '0'); // => 9
+
+  ; // =>  30
+
+  return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(h, ":").concat(min, ":00");
+};
+
+Vue.prototype.$formatTime = function (value) {
+  var timeString = value;
+  var H = +timeString.substr(0, 2);
+  var h = H % 12 || 12;
+  var ampm = H < 12 ? " AM" : " PM";
+  timeString = h + timeString.substr(2, 3) + ampm;
+  return timeString;
+};
+
 var app = new Vue({
   el: '#app'
 });
@@ -32814,20 +32895,20 @@ var render = function () {
                             },
                           },
                           [
-                            _c("option", { attrs: { value: "5" } }, [
-                              _vm._v("5 per page"),
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "10" } }, [
                               _vm._v("10 per page"),
                             ]),
                             _vm._v(" "),
-                            _c("option", { attrs: { value: "15" } }, [
-                              _vm._v("15 per page"),
-                            ]),
-                            _vm._v(" "),
                             _c("option", { attrs: { value: "20" } }, [
                               _vm._v("20 per page"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "30" } }, [
+                              _vm._v("30 per page"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "40" } }, [
+                              _vm._v("40 per page"),
                             ]),
                           ]
                         ),
@@ -33001,7 +33082,12 @@ var render = function () {
                           return [
                             _vm._v(
                               "\n                            " +
-                                _vm._s(props.row.event_desc) +
+                                _vm._s(
+                                  _vm._f("truncate")(
+                                    props.row.event_description,
+                                    70
+                                  )
+                                ) +
                                 "\n                        "
                             ),
                           ]
@@ -33019,7 +33105,11 @@ var render = function () {
                           return [
                             _vm._v(
                               "\n                            " +
-                                _vm._s(props.row.event_datetime) +
+                                _vm._s(
+                                  _vm._f("formatDateTime")(
+                                    props.row.event_datetime
+                                  )
+                                ) +
                                 "\n                        "
                             ),
                           ]
@@ -33054,11 +33144,10 @@ var render = function () {
                                       attrs: {
                                         tag: "a",
                                         "icon-right": "pencil",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.getData(props.row.event_id)
-                                        },
+                                        href:
+                                          "/events/" +
+                                          props.row.event_id +
+                                          "/edit",
                                       },
                                     }),
                                   ],
@@ -33156,17 +33245,9 @@ var render = function () {
       _c("div", { staticClass: "columns is-centered" }, [
         _c("div", { staticClass: "column is-8-widescreen is-10-desktop" }, [
           _c("div", { staticClass: "box" }, [
-            _c(
-              "div",
-              {
-                staticStyle: {
-                  "font-weight": "bold",
-                  "margin-bottom": "15px",
-                  "font-size": "24px",
-                },
-              },
-              [_vm._v("POST EVENT")]
-            ),
+            _c("div", { staticClass: "table-box-title" }, [
+              _vm._v("POST EVENTS"),
+            ]),
             _vm._v(" "),
             _c("hr"),
             _vm._v(" "),
@@ -33192,9 +33273,9 @@ var render = function () {
                           attrs: {
                             label: "Event Date & Time",
                             expanded: "",
-                            type: this.errors.dateAndTime ? "is-danger" : "",
-                            message: this.errors.dateAndTime
-                              ? this.errors.dateAndTime[0]
+                            type: this.errors.event_datetime ? "is-danger" : "",
+                            message: this.errors.event_datetime
+                              ? this.errors.event_datetime[0]
                               : "",
                           },
                         },

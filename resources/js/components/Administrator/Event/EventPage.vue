@@ -6,16 +6,15 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF EVENTS</div>
-
                         <hr>
                         <div class="level">
                             <div class="level-left">
                                 <b-field label="Page">
                                     <b-select v-model="perPage" @input="setPerPage">
-                                        <option value="5">5 per page</option>
                                         <option value="10">10 per page</option>
-                                        <option value="15">15 per page</option>
                                         <option value="20">20 per page</option>
+                                        <option value="30">30 per page</option>
+                                        <option value="40">40 per page</option>
                                     </b-select>
                                     <b-select v-model="sortOrder" @input="loadAsyncData">
                                         <option value="asc">ASC</option>
@@ -29,8 +28,8 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.lname" placeholder="Search Lastname"
-                                                 @keyup.native.enter="loadAsyncData"/>
+                                            v-model="search.lname" placeholder="Search Lastname"
+                                            @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
                                                 <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
@@ -66,33 +65,32 @@
                             </b-table-column>
 
                             <b-table-column field="event_desc" label="Description" v-slot="props">
-                                {{ props.row.event_desc }}
+                                {{ props.row.event_description | truncate(70) }}
                             </b-table-column>
 
-
                             <b-table-column field="event_datetime" label="Date Time" v-slot="props">
-                                {{ props.row.event_datetime }}
+                                {{ props.row.event_datetime | formatDateTime }}
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil"
-                                                  @click="getData(props.row.event_id)"></b-button>
+                                        <b-button class="button is-small is-warning mr-1" tag="a" 
+                                            icon-right="pencil"
+                                            :href="`/events/${props.row.event_id}/edit`"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small is-danger mr-1" icon-right="delete"
-                                                  @click="confirmDelete(props.row.event_id)"></b-button>
+                                            @click="confirmDelete(props.row.event_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
-
+                        
                         <div class="buttons mt-3">
                             <b-button tag="a"
-                                      href="/events/create" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
+                                href="/events/create" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
                         </div>
-
                     </div>
                 </div><!--col -->
             </div><!-- cols -->
@@ -187,10 +185,6 @@ export default{
             this.loadAsyncData()
         },
 
-
-
-
-
         //alert box ask for deletion
         confirmDelete(delete_id) {
             this.$buefy.dialog.confirm({
@@ -202,6 +196,7 @@ export default{
                 onConfirm: () => this.deleteSubmit(delete_id)
             });
         },
+
         //execute delete after confirming
         deleteSubmit(delete_id) {
             axios.delete('/events/' + delete_id).then(res => {

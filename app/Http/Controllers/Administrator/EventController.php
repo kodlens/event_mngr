@@ -41,32 +41,38 @@ class EventController extends Controller
 
     public function store(Request $req){
 
-        //return $req;
-        $event_date = date('Y-m-d H:i:s', strtotime($req->dateAndTime));
-
-        return $event_date;
+       // return $req;
+        $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
 
         $req->validate([
             'event' => ['required'],
             'event_description' => ['required'],
-            'datetime_event' => ['required']
+            'event_datetime' => ['required']
         ]);
 
         $n = [];
         if($req->hasFile('event_img')) {
-
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
+
         }
 
         Event::create([
             'event' => $req->event,
             'event_description' => $req->event_description,
-            'img_path' => $req->hasFile($req->event_img) ? $n[2] : ''
+            'event_datetime' => $event_date,
+            'img_path' => $req->hasFile('event_img') ? $n[2] : ''
         ]);
 
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
+    }
+
+    public function updateEvents(Request $req, $id){
         
     }
+
 
 
 }
