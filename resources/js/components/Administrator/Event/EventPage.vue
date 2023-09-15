@@ -41,7 +41,6 @@
                             </div>
                         </div>
 
-
                         <hr>
                         <b-table
                             :data="data"

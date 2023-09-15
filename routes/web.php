@@ -48,14 +48,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
-
-
-Route::resource('/offices', App\Http\Controllers\Administrator\OfficeController::class);
-Route::get('/get-offices', [App\Http\Controllers\Administrator\OfficeController::class, 'getOffices']);
-Route::get('/get-offices-for-routes', [App\Http\Controllers\Administrator\OfficeController::class, 'getOfficesForRoutes']);
 
 /*     ADMINSITRATOR          */
 Route::middleware(['auth', 'admin'])->group(function() {
