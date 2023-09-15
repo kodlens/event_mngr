@@ -41,38 +41,10 @@ Route::get('/get-user', function(){
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
 //ADDRESS
 //Route::get('/load-provinces', [App\Http\Controllers\AddressController::class, 'loadProvinces']);
 //Route::get('/load-cities', [App\Http\Controllers\AddressController::class, 'loadCities']);
 //Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
-
-
-//LIASON
-Route::resource('/liason-home', App\Http\Controllers\Liason\LiasonHomeController::class);
-Route::get('/search-track-no', [App\Http\Controllers\Liason\LiasonHomeController::class, 'searchTrackNo']);
-
-Route::resource('/documents', App\Http\Controllers\Liason\LiasonDocumentController::class);
-Route::get('/get-documents', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocuments']);
-Route::get('/get-document-routes', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'getDocumentRoutes']);
-Route::post('/document-forward/{docId}', [App\Http\Controllers\Liason\LiasonDocumentController::class, 'forwardDoc']);
-
-
-
-//STAFF
-Route::resource('/staff-home', App\Http\Controllers\Staff\StaffHomeController::class);
-
-Route::resource('/staff-documents', App\Http\Controllers\Staff\StaffDocumentController::class);
-
-
-Route::get('/get-forwarded-documents', [App\Http\Controllers\Staff\ForwardedDocumentController::class, 'getForwardedDocument']);
-
-Route::post('/document-receive/{id}', [App\Http\Controllers\Staff\ReceiveDocumentController::class, 'receiveDocument']);
-
-Route::post('/document-process/{id}', [App\Http\Controllers\Staff\ProcessDocumentController::class, 'processDocument']);
-
-Route::post('/document-forward/{id}/{docId}', [App\Http\Controllers\Staff\ForwardDocumentController::class, 'forwardDocument']);
 
 
 
@@ -101,9 +73,16 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::resource('/document-route-details', App\Http\Controllers\Administrator\DocumentRouteDetailController::class);
 
 });
-
-
 /*     ADMINSITRATOR          */
+
+
+
+
+Route::middleware(['auth', 'student'])->group(function() {
+    Route::resource('/event-feeds', App\Http\Controllers\User\UserEventFeedController::class);
+});
+
+
 
 Route::get('/session', function(){
     return Session::all();

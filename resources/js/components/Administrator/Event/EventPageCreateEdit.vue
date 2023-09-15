@@ -140,7 +140,7 @@ export default {
             if(this.propId > 0){
                 //update
                 axios.post('/events-update', formData).then(res=>{
-                    if(res.data.status === 'saved'){
+                    if(res.data.status === 'updated'){
                         this.$buefy.dialg.alert({
                             title: 'Saved.',
                             message: 'Successfully saved.',
@@ -158,15 +158,16 @@ export default {
             }else{
                 //insert
                 axios.post('/events', formData).then(res=>{
+
                     if(res.data.status === 'saved'){
-                        this.$buefy.dialg.alert({
+
+                        this.$buefy.dialog.alert({
                             title: 'Saved.',
                             message: 'Successfully saved.',
                             onConfirm: ()=>{
                                 window.location = '/events';
                             }
                         })
-
                     }
                 }).catch(err=>{
                     if(err.response.status === 422){

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserMiddleware
+class StudentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,14 @@ class UserMiddleware
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if($role === 'USER'){
-            return $next($request);
+        if($role === 'STUDENT'){
+
+            $response = $next($request);
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            return $response;
         }
 
         abort(403);

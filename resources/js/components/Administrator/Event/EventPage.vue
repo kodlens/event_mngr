@@ -5,7 +5,8 @@
                 <div class="column is-10-desktop is-8-widescreen">
                     <div class="box">
 
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF EVENTS</div>
+                        <div class="is-flex is-justify-content-center mb-2" 
+                            style="font-size: 20px; font-weight: bold;">LIST OF EVENTS</div>
                         <hr>
                         <div class="level">
                             <div class="level-left">
@@ -32,7 +33,7 @@
                                             @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
-                                                <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                                <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
                                             </b-tooltip>
                                         </p>
                                     </b-field>
@@ -40,6 +41,8 @@
                             </div>
                         </div>
 
+
+                        <hr>
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -75,21 +78,24 @@
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" 
+                                        <b-button class="button is-small mr-1" tag="a" 
                                             icon-right="pencil"
                                             :href="`/events/${props.row.event_id}/edit`"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete"
+                                        <b-button class="button is-small mr-1" icon-right="delete"
                                             @click="confirmDelete(props.row.event_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
+
+                        <hr>
                         
                         <div class="buttons mt-3">
                             <b-button tag="a"
-                                href="/events/create" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
+                                href="/events/create" 
+                                    icon-right="account-arrow-up-outline" class="is-primary is-outlined">NEW</b-button>
                         </div>
                     </div>
                 </div><!--col -->

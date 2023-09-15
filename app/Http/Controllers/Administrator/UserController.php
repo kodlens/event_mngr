@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Models\Office;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,8 +24,7 @@ class UserController extends Controller
     public function getUsers(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $users = User::with(['office'])
-            ->where('lname', 'like', $req->lname . '%')
+        $users = User::where('lname', 'like', $req->lname . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -49,7 +47,7 @@ class UserController extends Controller
             'password' => ['required', 'string', 'confirmed'],
             'role' => ['required', 'string'],
             'office_id' => ['required_if:role,STAFF',],
-            
+
         ],[
             'office_id.required_if' => 'The office field is required when role is STAFF.'
         ]);

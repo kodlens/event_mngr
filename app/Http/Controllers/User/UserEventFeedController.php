@@ -1,33 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Liason;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
-use Auth;
-use App\Models\Document;
-use App\Models\DocumentRoute;
-use App\Models\DocumentRouteDetail;
-use App\Models\DocumentTrack;
 
-
-
-class LiasonDocumentController extends Controller
+class UserEventFeedController extends Controller
 {
-    //
-
-    public function __construct(){
-        $this->middleware('auth');
-    }
-
 
     public function index(){
-        return view('liason.liason-documents');
+        return view('user.event-feed');
     }
 
-    public function getDocumentRoutes(){
-        return DocumentRoute::with('route_details')
-            ->get();
+    public function getEventFeeds(){
+        return Event::pagination(10);
     }
 
     public function getDocuments(Request $req){
@@ -99,15 +86,15 @@ class LiasonDocumentController extends Controller
         DocumentTrack::where('document_id', $id)
             ->where('is_origin', 1)
             ->update([
-                'is_forwarded' => 1, 
+                'is_forwarded' => 1,
                 'datetime_forwarded' => date('Y-m-d H:i:s')
             ]);
 
         DocumentTrack::where('document_track_id', $nextData->document_track_id)
             ->update([
-                'is_forward_from' => 1, 
-            ]);   
- 
+                'is_forward_from' => 1,
+            ]);
+
         return response()->json([
             'status' => 'forwarded'
         ], 200);

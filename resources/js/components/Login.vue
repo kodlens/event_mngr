@@ -5,7 +5,7 @@
                 <div class="box">
                     <div class="box-heading">
                         <div class="box-heading-text">
-                            Event and Attendance Monitoring System
+                            Event Manangement Application
                         </div>
                     </div>
 

@@ -14,15 +14,15 @@
 
     <!-- Fonts -->
 
-
-
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
-
-    
-
-
+    <style>
+        html body{
+            font-family: 'Roboto Slab', serif;
+            font-family: 'Ubuntu', sans-serif;
+        }
+    </style>
 
 </head>
 <body>
@@ -32,21 +32,14 @@
         <template #brand>
             <b-navbar-item>
                 <img
-                    src=""
-                    alt=""
+                    src="/img/logo.png"
+                    alt="emapp logo"
                 >
             </b-navbar-item>
         </template>
         <template #start>
-            <b-navbar-item href="/dashboard">
-                Home
-            </b-navbar-item>
-            <b-navbar-item href="/events">
-                Events
-            </b-navbar-item>
-            <b-navbar-item href="/users">
-                User
-            </b-navbar-item>
+           
+          
             <!-- <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
                     About
@@ -58,6 +51,10 @@
         </template>
 
         <template #end>
+            <b-navbar-item href="/event-feeds">
+                HOME
+            </b-navbar-item>
+
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button
@@ -69,10 +66,8 @@
             </b-navbar-item>
         </template>
     </b-navbar>
+       
 
-    <form action="/logout" method="post" id="logout">
-        <?php echo csrf_field(); ?>
-    </form>
 
     <div>
         <?php echo $__env->yieldContent('content'); ?>
@@ -82,4 +77,4 @@
     </div>
 </body>
 </html>
-<?php /**PATH C:\Users\eshen\Desktop\Github\event_mngr\resources\views/layouts/admin-layout.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\eshen\Desktop\Github\event_mngr\resources\views/layouts/user-layout.blade.php ENDPATH**/ ?>

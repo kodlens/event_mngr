@@ -5,8 +5,10 @@
                 <div class="column is-8">
                     <div class="box">
 
-                        <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF USER</div>
+                        <div class="is-flex is-justify-content-center mb-2" 
+                            style="font-size: 20px; font-weight: bold;">LIST OF USER</div>
 
+                        <hr>
                         <div class="level">
                             <div class="level-left">
                                 <b-field label="Page">
@@ -32,7 +34,7 @@
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                              <b-tooltip label="Search" type="is-success">
-                                            <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                            <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
                                              </b-tooltip>
                                         </p>
                                     </b-field>
@@ -40,6 +42,7 @@
                             </div>
                         </div>
 
+                        <hr>
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -78,23 +81,26 @@
 
                             <b-table-column field="office" label="Office" v-slot="props">
                                 <span v-if="props.row.office">{{ props.row.office.office }}</span>
-                                
+
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small is-warning mr-1" tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.user_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
 
+                        <hr>
                         <div class="buttons mt-3">
-                            <b-button @click="openModal" icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
+                            <b-button @click="openModal" 
+                                icon-right="account-arrow-up-outline"
+                                class="is-primary is-outlined">NEW</b-button>
                         </div>
 
                     </div>
@@ -223,7 +229,6 @@
                                         </b-select>
                                     </b-field>
                                 </div>
-
                                 <div class="column">
                                     <b-field label="Role" label-position="on-border" expanded
                                              :type="this.errors.role ? 'is-danger':''"
@@ -231,21 +236,7 @@
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                                             <option value="STAFF">STAFF</option>
-                                            <option value="LIASON">LIASON</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns" v-if="fields.role === 'STAFF'">
-                                <div class="column">
-                                    <b-field label="Office" label-position="on-border" expanded
-                                            :type="this.errors.office_id ? 'is-danger':''"
-                                            :message="this.errors.office_id ? this.errors.office_id[0] : ''">
-                                        <b-select v-model="fields.office_id" expanded>
-                                            <option v-for="(item,index) in offices"
-                                                :key="index" 
-                                                :value="item.office_id">{{ item.office }}</option>
+                                            <option value="STUDENT">STUDENT</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -375,7 +366,7 @@ export default{
 
         submit: function(){
             this.fields.office_id = this.fields.role === 'STAFF' ? this.fields.office_id : 0;
-            
+
 
             if(this.global_id > 0){
                 //update
@@ -431,7 +422,7 @@ export default{
                 type: 'is-danger',
                 message: 'Are you sure you want to delete this data?',
                 cancelText: 'Cancel',
-                confirmText: 'Delete user account?',
+                confirmText: 'Delete',
                 onConfirm: () => this.deleteSubmit(delete_id)
             });
         },
@@ -456,7 +447,6 @@ export default{
             this.fields.password = '';
             this.fields.password_confirmation = '';
             this.fields.role = '';
-         
             this.fields.contact_no = '';
         },
 
@@ -473,17 +463,13 @@ export default{
             });
         },
 
-        loadOffices(){
-            axios.get('/get-offices-for-routes').then(res=>{
-                this.offices = res.data;
-            });
-        }
+
 
     },
 
     mounted() {
         this.loadAsyncData();
-        this.loadOffices()
+
     }
 }
 </script>

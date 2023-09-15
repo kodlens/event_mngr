@@ -30,50 +30,50 @@
     <div id="app">
 
     <b-navbar>
-            <template #brand>
-                <b-navbar-item>
-                    <img
-                        src=""
-                        alt=""
-                    >
+        <template #brand>
+            <b-navbar-item>
+                <img
+                    src=""
+                    alt=""
+                >
+            </b-navbar-item>
+        </template>
+        <template #start>
+            <b-navbar-item href="/dashboard">
+                Home
+            </b-navbar-item>
+            <b-navbar-item href="/events">
+                Events
+            </b-navbar-item>
+            <b-navbar-item href="/users">
+                User
+            </b-navbar-item>
+            <!-- <b-navbar-dropdown label="Info">
+                <b-navbar-item href="#">
+                    About
                 </b-navbar-item>
-            </template>
-            <template #start>
-                <b-navbar-item href="/dashboard">
-                    Home
+                <b-navbar-item href="#">
+                    Contact
                 </b-navbar-item>
-                <b-navbar-item href="/events">
-                    Events
-                </b-navbar-item>
-                <b-navbar-item href="/users">
-                    User
-                </b-navbar-item>
-                <!-- <b-navbar-dropdown label="Info">
-                    <b-navbar-item href="#">
-                        About
-                    </b-navbar-item>
-                    <b-navbar-item href="#">
-                        Contact
-                    </b-navbar-item>
-                </b-navbar-dropdown> -->
-            </template>
+            </b-navbar-dropdown> -->
+        </template>
 
-            <template #end>
-                <b-navbar-item tag="div">
-                    <div class="buttons">
-                        <b-button
-                            onclick="document.getElementById('logout').submit()"
-                            icon-left="logout"
-                            class="button is-danger" outlined>
-                        </b-button>
-                    </div>
-                </b-navbar-item>
-            </template>
-        </b-navbar>
+        <template #end>
+            <b-navbar-item tag="div">
+                <div class="buttons">
+                    <b-button
+                        onclick="document.getElementById('logout').submit()"
+                        icon-left="logout"
+                        class="button is-danger" outlined>
+                    </b-button>
+                </div>
+            </b-navbar-item>
+        </template>
+    </b-navbar>
 
-        <form action="/logout" method="post" id="logout">
-            @csrf
-        </form>
+    <form action="/logout" method="post" id="logout">
+        @csrf
+    </form>
 
     <div>
         @yield('content')

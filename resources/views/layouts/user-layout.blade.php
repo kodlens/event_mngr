@@ -1,28 +1,28 @@
 <!doctype html>
-<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
 
-
-
     <!-- Styles -->
-    <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-
-    
-
-
+    <style>
+        html body{
+            font-family: 'Roboto Slab', serif;
+            font-family: 'Ubuntu', sans-serif;
+        }
+    </style>
 
 </head>
 <body>
@@ -32,21 +32,14 @@
         <template #brand>
             <b-navbar-item>
                 <img
-                    src=""
-                    alt=""
+                    src="/img/logo.png"
+                    alt="emapp logo"
                 >
             </b-navbar-item>
         </template>
         <template #start>
-            <b-navbar-item href="/dashboard">
-                Home
-            </b-navbar-item>
-            <b-navbar-item href="/events">
-                Events
-            </b-navbar-item>
-            <b-navbar-item href="/users">
-                User
-            </b-navbar-item>
+           
+          
             <!-- <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
                     About
@@ -58,6 +51,10 @@
         </template>
 
         <template #end>
+            <b-navbar-item href="/event-feeds">
+                HOME
+            </b-navbar-item>
+
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button
@@ -69,17 +66,14 @@
             </b-navbar-item>
         </template>
     </b-navbar>
+       
 
-    <form action="/logout" method="post" id="logout">
-        <?php echo csrf_field(); ?>
-    </form>
 
     <div>
-        <?php echo $__env->yieldContent('content'); ?>
+        @yield('content')
     </div>
 
 
     </div>
 </body>
 </html>
-<?php /**PATH C:\Users\eshen\Desktop\Github\event_mngr\resources\views/layouts/admin-layout.blade.php ENDPATH**/ ?>
