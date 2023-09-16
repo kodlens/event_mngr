@@ -61,10 +61,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
 
-    Route::resource('/document-routes', App\Http\Controllers\Administrator\DocumentRouteController::class);
-    Route::get('/get-admin-document-routes', [App\Http\Controllers\Administrator\DocumentRouteController::class, 'getDocumentRoutes']);
-
-    Route::resource('/document-route-details', App\Http\Controllers\Administrator\DocumentRouteDetailController::class);
 
 });
 /*     ADMINSITRATOR          */
@@ -74,6 +70,9 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
 Route::middleware(['auth', 'student'])->group(function() {
     Route::resource('/event-feeds', App\Http\Controllers\User\UserEventFeedController::class);
+    Route::get('/load-event-feeds', [App\Http\Controllers\User\UserEventFeedController::class, 'loadEventFeeds']);
+
+
 });
 
 

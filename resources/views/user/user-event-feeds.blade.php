@@ -1,5 +1,5 @@
 @extends('layouts.user-layout')
 
 @section('content')
-    <event-feeds></event-feeds>
+    <user-event-feeds></user-event-feeds>
 @endsection

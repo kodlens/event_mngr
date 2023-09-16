@@ -10,11 +10,12 @@ class UserEventFeedController extends Controller
 {
 
     public function index(){
-        return view('user.event-feed');
+        return view('user.user-event-feeds');
     }
 
-    public function getEventFeeds(){
-        return Event::pagination(10);
+    public function loadEventFeeds(){
+        return Event::orderBy('created_at', 'desc')
+            ->paginate(10);
     }
 
     public function getDocuments(Request $req){

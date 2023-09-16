@@ -70,7 +70,18 @@ class EventController extends Controller
     }
 
     public function updateEvents(Request $req, $id){
-        
+
+    }
+
+
+
+    public function destroy($id){
+
+        Event::destroy($id);
+
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
     }
 
 

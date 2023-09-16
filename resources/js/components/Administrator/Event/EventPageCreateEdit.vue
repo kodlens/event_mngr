@@ -51,7 +51,7 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Event Image">
+                                    <b-field label="Event Image (Landscape is recommended for better view)">
                                         <b-upload v-model="fields.event_img"
                                                 drag-drop>
                                             <section class="section">
