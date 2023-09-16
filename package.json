@@ -30,7 +30,6 @@
         "animate.css": "^4.1.1",
         "buefy": "^0.9.13",
         "bulma": "^0.9.3",
-        "element-ui": "^2.15.14",
         "font-awesome": "^4.7.0",
         "qrcode": "^1.4.4",
         "vue-qrcode-reader": "^3.1.0"

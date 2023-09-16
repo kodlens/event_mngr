@@ -219,7 +219,9 @@ input[type=password], input[type=tel]{
     font-size: 24px;
 }
 
-
+.debug{
+    border: 1px solid red;
+}
 // Import only what you need from Bulma
 //@import "~bulma/sass/utilities/_all.sass";
 //@import "~bulma/sass/base/_all.sass";

@@ -72,6 +72,8 @@ Route::middleware(['auth', 'student'])->group(function() {
     Route::resource('/event-feeds', App\Http\Controllers\User\UserEventFeedController::class);
     Route::get('/load-event-feeds', [App\Http\Controllers\User\UserEventFeedController::class, 'loadEventFeeds']);
 
+    Route::resource('/profile', App\Http\Controllers\User\UserProfileController::class);
+    Route::get('/load-profile', [App\Http\Controllers\User\UserProfileController::class, 'loadProfile']);
 
 });
 

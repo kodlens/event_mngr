@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         //
         $data = [
             [
+                'qr_code' => 'ABC123',
                 'username' => 'admin',
                 'lname' => 'SARSABA',
                 'fname' => 'ELNIE CHAN',
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             ],
 
             [
+                'qr_code' => 'AAA111',
                 'username' => 'sheen',
                 'lname' => 'DELOSA',
                 'fname' => 'SHEEN',
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
             ],
 
             [
+                'qr_code' => 'AAA222',
                 'username' => 'mark',
                 'lname' => 'PRIETO',
                 'fname' => 'MARK ANTHONY',

@@ -55,6 +55,10 @@
                 HOME
             </b-navbar-item>
 
+            <b-navbar-item href="/profile">
+                {{ auth()->user()->fname }}
+            </b-navbar-item>
+
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button
@@ -66,6 +70,10 @@
             </b-navbar-item>
         </template>
     </b-navbar>
+
+    <form action="/logout" id="logout" method="post">
+        @csrf
+    </form>
        
 
 

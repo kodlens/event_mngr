@@ -48,12 +48,10 @@ class UserController extends Controller
             'role' => ['required', 'string'],
             'office_id' => ['required_if:role,STAFF',],
 
-        ],[
-            'office_id.required_if' => 'The office field is required when role is STAFF.'
         ]);
 
         User::create([
-
+            'qr_code' => strtoupper($req->qr_code),
             'username' => $req->username,
             'password' => Hash::make($req->password),
             'lname' => strtoupper($req->lname),
@@ -61,8 +59,6 @@ class UserController extends Controller
             'mname' => strtoupper($req->mname),
             'sex' => $req->sex,
             'suffix' => strtoupper($req->suffix),
-            'contact_no' => $req->contact_no,
-            'office_id' => $req->office_id ? $req->office_id : 0,
             'role' => $req->role,
 
         ]);
@@ -79,9 +75,7 @@ class UserController extends Controller
             'fname' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string', 'max:20'],
             'role' => ['required', 'string'],
-            'office_id' => ['required_if:role,STAFF',]
-        ],[
-            'office_id.required_if' => 'The office field is required when role is STAFF.'
+
         ]);
 
         $data = User::find($id);
@@ -90,8 +84,7 @@ class UserController extends Controller
         $data->fname = strtoupper($req->fname);
         $data->mname = strtoupper($req->mname);
         $data->suffix = strtoupper($req->suffix);
-        $data->office_id = $req->office_id;
-        $data->sex = $req->sex;
+        $data->sex = strtoupper($req->sex);
         $data->role = $req->role;
 
         $data->save();

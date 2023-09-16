@@ -18,19 +18,6 @@ class UserEventFeedController extends Controller
             ->paginate(10);
     }
 
-    public function getDocuments(Request $req){
-        $sort = explode('.', $req->sort_by);
-
-        $user = Auth::user();
-
-        $data = Document::with(['route', 'document_tracks'])
-            ->where('user_id', $user->user_id)
-            ->orderBy($sort[0], $sort[1])
-            ->paginate($req->perpage);
-
-        return $data;
-    }
-
 
     public function store(Request $req){
         //return $req;
@@ -74,6 +61,9 @@ class UserEventFeedController extends Controller
         ], 200);;
 
     }
+
+
+
 
     public function forwardDoc($id){
 
