@@ -58,8 +58,13 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvents']);
-
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
+
+
+
+    Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
+
+
 
 
 });

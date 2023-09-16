@@ -44,6 +44,9 @@
             <b-navbar-item href="/events">
                 Events
             </b-navbar-item>
+            <b-navbar-item href="/questions">
+                Questions
+            </b-navbar-item>
             <b-navbar-item href="/users">
                 User
             </b-navbar-item>

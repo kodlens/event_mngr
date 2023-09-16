@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2" 
-                            style="font-size: 20px; font-weight: bold;">LIST OF USER</div>
+                            style="font-size: 20px; font-weight: bold;">LIST OF QUESTION</div>
 
                         <hr>
                         <div class="level">
@@ -102,6 +102,7 @@
                                 icon-right="account-arrow-up-outline"
                                 class="is-primary is-outlined">NEW</b-button>
                         </div>
+
                     </div>
                 </div><!--col -->
             </div><!-- cols -->
