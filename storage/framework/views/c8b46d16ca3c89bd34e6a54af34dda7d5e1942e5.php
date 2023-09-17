@@ -28,7 +28,7 @@
 <body>
     <div id="app">
 
-    <b-navbar>
+    <b-navbar fixed-top>
         <template #brand>
             <b-navbar-item>
                 <img
@@ -38,8 +38,8 @@
             </b-navbar-item>
         </template>
         <template #start>
-           
-          
+
+
             <!-- <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
                     About
@@ -75,7 +75,7 @@
     <form action="/logout" id="logout" method="post">
         <?php echo csrf_field(); ?>
     </form>
-       
+
 
 
     <div>

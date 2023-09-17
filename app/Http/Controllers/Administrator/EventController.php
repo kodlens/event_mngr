@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\AcademicYear;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,12 @@ class EventController extends Controller
     }
 
     public function getEvents(Request $req){
+        $acadYear = AcademicYear::where('active', 1)->first();
+
         $sort = explode('.', $req->sort_by);
 
         $event = Event::where('event', 'like', $req->event . '%')
+            ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

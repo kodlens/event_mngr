@@ -42,6 +42,10 @@
             <b-navbar-item href="/dashboard">
                 Home
             </b-navbar-item>
+
+            <b-navbar-item href="/academic-years">
+                Academic Years
+            </b-navbar-item>
             <b-navbar-item href="/events">
                 Events
             </b-navbar-item>

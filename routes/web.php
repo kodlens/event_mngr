@@ -54,6 +54,13 @@ Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::cla
 /*     ADMINSITRATOR          */
 Route::middleware(['auth', 'admin'])->group(function() {
 
+
+    Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
+    Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
+    Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
+
+
+
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
 
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
@@ -63,6 +70,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
+    Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
 
 
 

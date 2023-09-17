@@ -5,7 +5,7 @@
                 <div class="column is-10-desktop is-8-widescreen">
                     <div class="box">
 
-                        <div class="is-flex is-justify-content-center mb-2" 
+                        <div class="is-flex is-justify-content-center mb-2"
                             style="font-size: 20px; font-weight: bold;">LIST OF EVENTS</div>
                         <hr>
                         <div class="level">
@@ -77,7 +77,7 @@
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small mr-1" tag="a" 
+                                        <b-button class="button is-small mr-1" tag="a"
                                             icon-right="pencil"
                                             :href="`/events/${props.row.event_id}/edit`"></b-button>
                                     </b-tooltip>
@@ -90,11 +90,11 @@
                         </b-table>
 
                         <hr>
-                        
+
                         <div class="buttons mt-3">
                             <b-button tag="a"
-                                href="/events/create" 
-                                    icon-right="account-arrow-up-outline" class="is-primary is-outlined">NEW</b-button>
+                                href="/events/create"
+                                    icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
                         </div>
                     </div>
                 </div><!--col -->

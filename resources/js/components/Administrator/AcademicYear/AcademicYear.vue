@@ -5,10 +5,10 @@
                 <div class="column is-8">
                     <div class="box">
 
-                        <div class="is-flex is-justify-content-center mb-2" 
-                            style="font-size: 20px; font-weight: bold;">LIST OF QUESTION</div>
-
+                        <div class="is-flex is-justify-content-center mb-2"
+                             style="font-size: 20px; font-weight: bold;">LIST OF ACADEMIC YEAR</div>
                         <hr>
+
                         <div class="level">
                             <div class="level-left">
                                 <b-field label="Page">
@@ -30,18 +30,17 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.lname" placeholder="Search Lastname"
+                                                 v-model="search.academic_year" placeholder="Search Academic Year"
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
-                                             <b-tooltip label="Search" type="is-success">
-                                            <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
-                                             </b-tooltip>
+                                            <b-tooltip label="Search" type="is-success">
+                                                <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
+                                            </b-tooltip>
                                         </p>
                                     </b-field>
                                 </div>
                             </div>
                         </div>
-
                         <hr>
                         <b-table
                             :data="data"
@@ -49,6 +48,7 @@
                             paginated
                             backend-pagination
                             :total="total"
+                            :hoverable="true"
                             :per-page="perPage"
                             @page-change="onPageChange"
                             aria-next-label="Next page"
@@ -59,48 +59,40 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="user_id" label="ID" v-slot="props">
-                                {{ props.row.user_id }}
+                            <b-table-column field="academic_year_id" label="ID" v-slot="props">
+                                {{ props.row.academic_year_id }}
                             </b-table-column>
 
-                            <b-table-column field="username" label="Username" v-slot="props">
-                                {{ props.row.username }}
+                            <b-table-column field="academic_year_code" label="Code" v-slot="props">
+                                {{ props.row.academic_year_code }}
                             </b-table-column>
 
-                            <b-table-column field="name" label="Name" v-slot="props">
-                                {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
+                            <b-table-column field="name" label="Description" v-slot="props">
+                                {{ props.row.academic_year_desc }}
                             </b-table-column>
 
-                            <b-table-column field="sex" label="Sex" v-slot="props">
-                                {{ props.row.sex }}
-                            </b-table-column>
-
-                            <b-table-column field="role" label="Role" v-slot="props">
-                                {{ props.row.role }}
-                            </b-table-column>
-
-                            <b-table-column field="office" label="Office" v-slot="props">
-                                <span v-if="props.row.office">{{ props.row.office.office }}</span>
-
+                            <b-table-column field="active" label="Active" v-slot="props">
+                                <span v-if="props.row.active === 1">Yes</span>
+                                <span v-else>No</span>
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
+                                    <b-tooltip label="Set Active" type="is-info">
+                                        <b-button class="button is-small mr-1" tag="a" icon-right="thumb-up" @click="setActive(props.row.academic_year_id)"></b-button>
+                                    </b-tooltip>
                                     <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.user_id)"></b-button>
+                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
 
-                        <hr>
                         <div class="buttons mt-3">
-                            <b-button @click="openModal" 
-                                icon-right="account-arrow-up-outline"
-                                class="is-primary is-outlined">NEW</b-button>
+                            <b-button @click="openModal" icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
                         </div>
 
                     </div>
@@ -121,7 +113,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">User Information</p>
+                        <p class="modal-card-title">Academic Year</p>
                         <button
                             type="button"
                             class="delete"
@@ -132,11 +124,11 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Username" label-position="on-border"
-                                        :type="this.errors.username ? 'is-danger':''"
-                                        :message="this.errors.username ? this.errors.username[0] : ''">
-                                        <b-input v-model="fields.username"
-                                                 placeholder="Username" required>
+                                    <b-field label="Academic Year Code" label-position="on-border"
+                                             :type="this.errors.academic_year_code ? 'is-danger':''"
+                                             :message="this.errors.academic_year_code ? this.errors.academic_year_code[0] : ''">
+                                        <b-input v-model="fields.academic_year_code"
+                                                 placeholder="Academic Year Code" required>
                                         </b-input>
                                     </b-field>
                                 </div>
@@ -144,20 +136,11 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Last Name" label-position="on-border"
-                                             :type="this.errors.lname ? 'is-danger':''"
-                                             :message="this.errors.lname ? this.errors.lname[0] : ''">
-                                        <b-input v-model="fields.lname"
-                                                 placeholder="Last Name" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="First Name" label-position="on-border"
-                                             :type="this.errors.fname ? 'is-danger':''"
-                                             :message="this.errors.fname ? this.errors.fname[0] : ''">
-                                        <b-input v-model="fields.fname"
-                                                 placeholder="First Name" required>
+                                    <b-field label="Academic Year Description" label-position="on-border"
+                                             :type="this.errors.academic_year_desc ? 'is-danger':''"
+                                             :message="this.errors.academic_year_desc ? this.errors.academic_year_desc[0] : ''">
+                                        <b-input v-model="fields.academic_year_desc"
+                                                 placeholder="Academic Year Description" required>
                                         </b-input>
                                     </b-field>
                                 </div>
@@ -165,77 +148,17 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Middle Name" label-position="on-border"
-                                             :type="this.errors.mname ? 'is-danger':''"
-                                             :message="this.errors.mname ? this.errors.mname[0] : ''">
-                                        <b-input v-model="fields.mname"
-                                                 placeholder="Middle Name">
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="Suffix" label-position="on-border"
-                                             :type="this.errors.suffix ? 'is-danger':''"
-                                             :message="this.errors.suffix ? this.errors.suffix[0] : ''">
-                                        <b-input v-model="fields.suffix"
-                                                 placeholder="Suffix">
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns" v-if="global_id < 1">
-                                <div class="column">
-                                    <b-field label="Password" label-position="on-border"
-                                             :type="this.errors.password ? 'is-danger':''"
-                                             :message="this.errors.password ? this.errors.password[0] : ''">
-                                        <b-input type="password" password-reveal v-model="fields.password"
-                                                 placeholder="Password" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="Confirm Password" label-position="on-border"
-                                             :type="this.errors.password_confirmation ? 'is-danger':''"
-                                             :message="this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''">
-                                        <b-input type="password" v-model="fields.password_confirmation"
-                                                 placeholder="Confirm Password" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Sex" label-position="on-border" expanded
-                                             :type="this.errors.sex ? 'is-danger':''"
-                                             :message="this.errors.sex ? this.errors.sex[0] : ''"
-                                            >
-                                        <b-select v-model="fields.sex" expanded>
-                                            <option value="MALE">MALE</option>
-                                            <option value="FEMALE">FEMALE</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="Role" label-position="on-border" expanded
-                                             :type="this.errors.role ? 'is-danger':''"
-                                             :message="this.errors.role ? this.errors.role[0] : ''">
-                                        <b-select v-model="fields.role" expanded>
-                                            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            <option value="STAFF">STAFF</option>
-                                            <option value="STUDENT">STUDENT</option>
-                                        </b-select>
+                                    <b-field label="Active">
+                                        <b-checkbox v-model="fields.active"
+                                                    :true-value="1"
+                                                    :false-value="0">
+                                        </b-checkbox>
                                     </b-field>
                                 </div>
                             </div>
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button
-                            label="Close"
-                            @click="isModalCreate=false"/>
                         <button
                             :class="btnClass"
                             label="Save"
@@ -258,7 +181,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'user_id',
+            sortField: 'academic_year_code',
             sortOrder: 'desc',
             page: 1,
             perPage: 20,
@@ -268,25 +191,26 @@ export default{
             global_id : 0,
 
             search: {
-                lname: '',
+                academic_year: '',
             },
 
             isModalCreate: false,
 
             fields: {
-                username: '',
-                lname: '', fname: '', mname: '', suffix: '',
-                password: '', password_confirmation : '', office_id: 0,
-                sex : '', role: '', contact_no : '',
+                academic_year_code: '',
+                academic_year_desc: '',
+                active : 0
             },
             errors: {},
-            offices: [],
+
 
             btnClass: {
                 'is-success': true,
                 'button': true,
                 'is-loading':false,
             },
+
+
 
         }
 
@@ -299,13 +223,13 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `lname=${this.search.lname}`,
+                `academic_year=${this.search.academic_year}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-users?${params}`)
+            axios.get(`/get-academic-years?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -347,19 +271,17 @@ export default{
 
         openModal(){
             this.isModalCreate=true;
-            this.fields = {};
+            this.clearFields()
             this.errors = {};
         },
 
 
 
         submit: function(){
-            this.fields.office_id = this.fields.role === 'STAFF' ? this.fields.office_id : 0;
-
 
             if(this.global_id > 0){
                 //update
-                axios.put('/users/'+this.global_id, this.fields).then(res=>{
+                axios.put('/academic-years/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -380,7 +302,7 @@ export default{
                 })
             }else{
                 //INSERT HERE
-                axios.post('/users', this.fields).then(res=>{
+                axios.post('/academic-years', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -417,7 +339,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/users/' + delete_id).then(res => {
+            axios.delete('/academic-years/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -427,16 +349,10 @@ export default{
         },
 
         clearFields(){
-            this.fields.username = '';
-            this.fields.lname = '';
-            this.fields.fname = '';
-            this.fields.mname = '';
-            this.fields.suffix = '';
-            this.fields.sex = '';
-            this.fields.password = '';
-            this.fields.password_confirmation = '';
-            this.fields.role = '';
-            this.fields.contact_no = '';
+            this.global_id = 0;
+            this.fields.academic_year_code = '';
+            this.fields.academic_year_desc = '';
+            this.fields.active = 0;
         },
 
 
@@ -446,11 +362,31 @@ export default{
             this.global_id = data_id;
             this.isModalCreate = true;
 
-            //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/users/'+data_id).then(res=>{
+            axios.get('/academic-years/'+data_id).then(res=>{
                 this.fields = res.data;
+
+
             });
         },
+
+        setActive(id){
+            this.btnClass['is-loading'] = true
+            axios.post('/academic-year-set-active/' + id).then(res=>{
+                this.btnClass['is-loading'] = false
+                if(res.data.status === 'active'){
+                    this.$buefy.dialog.alert({
+                        title: 'Active.',
+                        message: 'Academic year set to active.',
+                        onConfirm: ()=>{
+                            this.loadAsyncData()
+                        }
+                    })
+                }
+            }).catch(err=>{
+                this.btnClass['is-loading'] = false
+            })
+        },
+
 
 
 
@@ -462,9 +398,3 @@ export default{
     }
 }
 </script>
-
-
-<style>
-
-
-</style>
