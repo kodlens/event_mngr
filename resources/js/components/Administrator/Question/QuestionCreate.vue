@@ -10,6 +10,34 @@
                         <div class="table-box-title">CREATE QUESTIONS</div>
                         <hr>
                         <form @submit.prevent="submit">
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Order No." label-position="on-border"
+                                        expanded
+                                        :type="this.errors.order_no ? 'is-danger':''"
+                                        :message="this.errors.order_no ? this.errors.order_no[0] : ''">
+                                        <b-numberinput v-model="fields.order_no"
+                                            placeholder="Order No."
+                                            :controls="false"></b-numberinput>
+                                    </b-field>
+                                </div>
+
+                                <div class="column">
+                                    <b-field label="Input Type" label-position="on-border"
+                                        expanded
+                                        :type="this.errors.input_type ? 'is-danger':''"
+                                        :message="this.errors.input_type ? this.errors.input_type[0] : ''">
+                                        <b-select v-model="fields.input_type"
+                                            expanded
+                                            placeholder="Question" required>
+                                            <option value="TEXT">TEXT</option>
+                                            <option value="RATING">RATING</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+
                             <div class="columns">
                                 <div class="column">
                                     <modal-browse-events :prop-name="fields.event"
@@ -17,32 +45,19 @@
                                 </div>
                             </div>
 
-
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Question" label-position="on-border"
-                                             :type="this.errors.question ? 'is-danger':''"
-                                             :message="this.errors.question ? this.errors.question[0] : ''">
+                                        :type="this.errors.question ? 'is-danger':''"
+                                        :message="this.errors.question ? this.errors.question[0] : ''">
                                         <b-input v-model="fields.question"
-                                                 placeholder="Question" required>
+                                            placeholder="Question" required>
                                         </b-input>
                                     </b-field>
                                 </div>
                             </div>
 
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Input Type" label-position="on-border"
-                                             :type="this.errors.input_type ? 'is-danger':''"
-                                             :message="this.errors.input_type ? this.errors.input_type[0] : ''">
-                                        <b-select v-model="fields.input_type"
-                                                  placeholder="Question" required>
-                                            <option value="TEXT">TEXT</option>
-                                            <option value="RATING">RATING</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                            </div>
+
 
                             <hr>
                             <div class="buttons is-right">
@@ -79,10 +94,11 @@ export default {
     data(){
         return{
             fields: {
+                order_no: null,
+                event_id: null,
                 event: null,
-                event_description: null,
-                dateAndTime: null,
-                event_img: null
+                question: null,
+                input_type: null
             },
             errors: {},
         }
@@ -92,22 +108,15 @@ export default {
 
         submit(){
 
-            let formData = new FormData();
-            formData.append('event', this.fields.event ? this.fields.event : '');
-            formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-            formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
-            formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
-
-
             if(this.propId > 0){
                 //update
-                axios.post('/events-update', formData).then(res=>{
+                axios.post('/questions/' + this.propId, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialg.alert({
                             title: 'Saved.',
                             message: 'Successfully saved.',
                             onConfirm: ()=>{
-                                window.location = '/events';
+                                window.location = '/questions';
                             }
                         })
 
@@ -119,7 +128,7 @@ export default {
                 })
             }else{
                 //insert
-                axios.post('/events', formData).then(res=>{
+                axios.post('/questions', this.fields).then(res=>{
 
                     if(res.data.status === 'saved'){
 
@@ -127,7 +136,7 @@ export default {
                             title: 'Saved.',
                             message: 'Successfully saved.',
                             onConfirm: ()=>{
-                                window.location = '/events';
+                                window.location = '/questions';
                             }
                         })
                     }
@@ -138,9 +147,6 @@ export default {
                 })
             }
 
-
-
-
         },
 
         deleteDropFile(index) {
@@ -148,15 +154,16 @@ export default {
         },
 
         getData(){
-            this.fields.event =  this.propData.event
-            this.fields.event_description =  this.propData.event_description
-            this.fields.dateAndTime =  new Date(this.propData.event_datetime)
-            this.fields.image_path = this.propData.img_path
+            this.fields.event_id =  this.propData.event_id
+            this.fields.question =  this.propData.question
+            this.fields.input_type =  this.propData.input_type
         },
 
 
         emitBrowseEvent(row){
-            console.log(row)
+            this.fields.event_id = row.event_id
+            this.fields.event = row.event
+            this.fields.academic_year_id = row.academic_year_id
         }
     },
 

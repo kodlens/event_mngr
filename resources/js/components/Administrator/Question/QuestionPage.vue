@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-8">
+                <div class="column is-8-widescreen is-10-tablet">
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
@@ -29,7 +29,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.lname" placeholder="Search Lastname"
+                                                 v-model="search.question" placeholder="Search..."
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                              <b-tooltip label="Search" type="is-success">
@@ -42,6 +42,14 @@
                         </div>
 
                         <hr>
+
+                        <b-field label="Academic Year" label-position="on-border">
+                            <b-select v-model="search.academic_year_id" @input="loadAsyncData()">
+                                <option v-for="(item, index) in academic_years" :key="index"
+                                    :value="item.academic_year_id">{{ item.academic_year_code }}</option>
+                            </b-select>
+                        </b-field>
+
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -62,8 +70,16 @@
                                 {{ props.row.question_id }}
                             </b-table-column>
 
+                            <b-table-column field="academic_year" label="AY Code" v-slot="props">
+                                {{ props.row.academic_year.academic_year_code }}
+                            </b-table-column>
+
+                            <b-table-column field="order_no" label="Order No" centered v-slot="props">
+                                {{ props.row.order_no }}
+                            </b-table-column>
+
                             <b-table-column field="question" label="Question" v-slot="props">
-                                {{ props.row.question }}
+                                {{ props.row.question | truncate(50) }}
                             </b-table-column>
 
                             <b-table-column field="input_type" label="Type" v-slot="props">
@@ -107,6 +123,7 @@
 <script>
 
 export default{
+
     data() {
         return{
             data: [],
@@ -118,7 +135,10 @@ export default{
             perPage: 20,
             defaultSortDirection: 'asc',
 
+            academic_years: [],
+
             search: {
+                academic_year_id: 0,
                 question: '',
             },
 
@@ -142,7 +162,8 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `lname=${this.search.lname}`,
+                `question=${this.search.question}`,
+                `ay=${this.search.academic_year_id}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
@@ -188,6 +209,20 @@ export default{
             this.loadAsyncData()
         },
 
+        loadAcademicYears(){
+            axios.get('/load-academic-years').then(res=>{
+                this.academic_years = res.data
+
+                this.academic_years.forEach(item => {
+                    if(item.active === 1){
+                        this.search.academic_year_id = item.academic_year_id
+                    }
+                })
+
+                this.loadAsyncData();
+            })
+        },
+
 
         //alert box ask for deletion
         confirmDelete(delete_id) {
@@ -215,8 +250,7 @@ export default{
     },
 
     mounted() {
-        this.loadAsyncData();
-
+        this.loadAcademicYears()
     }
 }
 </script>

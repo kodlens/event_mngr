@@ -51,6 +51,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
+Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearController::class, 'loadAcademicYears']);
+
+
 /*     ADMINSITRATOR          */
 Route::middleware(['auth', 'admin'])->group(function() {
 
@@ -66,7 +69,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvents']);
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
-
 
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);

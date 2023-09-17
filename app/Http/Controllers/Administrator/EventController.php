@@ -21,7 +21,8 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::where('event', 'like', $req->event . '%')
+        $event = Event::with(['academic_year'])
+            ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
@@ -46,6 +47,9 @@ class EventController extends Controller
     public function store(Request $req){
 
        // return $req;
+       $ay = AcademicYear::where('active', 1)->first();
+
+
         $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
 
         $req->validate([
@@ -58,10 +62,10 @@ class EventController extends Controller
         if($req->hasFile('event_img')) {
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
-
         }
 
         Event::create([
+            'academic_year_id' => $ay->academic_year_id,
             'event' => $req->event,
             'event_description' => $req->event_description,
             'event_datetime' => $event_date,

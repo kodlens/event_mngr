@@ -13,11 +13,18 @@ class Event extends Model
     protected $table = 'events';
 
     protected $fillable = [
+        'academic_year_id',
         'event',
         'event_description',
         'event_datetime',
         'img_path',
         'rating'
     ];
+
+
+
+    public function academic_year(){
+        return $this->hasOne(AcademicYear::class, 'academic_year_id', 'academic_year_id');
+    }
 
 }

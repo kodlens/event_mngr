@@ -62,6 +62,10 @@
                                 {{ props.row.event_id }}
                             </b-table-column>
 
+                            <b-table-column field="academic_year" label="AY" v-slot="props">
+                                {{ props.row.academic_year.academic_year_code }}
+                            </b-table-column>
+
                             <b-table-column field="event" label="Event" v-slot="props">
                                 {{ props.row.event }}
                             </b-table-column>

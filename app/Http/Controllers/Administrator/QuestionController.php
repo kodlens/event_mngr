@@ -30,7 +30,8 @@ class QuestionController extends Controller
     public function getQuestions(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = Question::with(['event'])
+        $data = Question::with(['academic_year', 'event'])
+            ->where('academic_year_id', $req->ay)
             ->where('question', 'like', $req->lname . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
@@ -47,12 +48,17 @@ class QuestionController extends Controller
     }
 
     public function store(Request $req){
+
         $req->validate([
+            'order_no' => ['required'],
             'question' => ['required'],
             'input_type' => ['required']
         ]);
 
         Question::create([
+            'academic_year_id' => $req->academic_year_id,
+            'order_no' => $req->order_no,
+            'event_id' => $req->event_id,
             'question' => strtoupper($req->question),
             'input_type' => strtoupper($req->input_type)
         ]);

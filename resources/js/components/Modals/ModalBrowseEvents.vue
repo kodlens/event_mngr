@@ -2,7 +2,7 @@
     <div>
         <b-field>
             <b-input :value="valueName" expanded
-                     icon="calendar" placeholder="SELECT EVENT" required readonly>
+                     icon="calendar" placeholder="Select Event" required readonly>
             </b-input>
 
             <p class="control">

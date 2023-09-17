@@ -8048,10 +8048,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       fields: {
+        order_no: null,
+        event_id: null,
         event: null,
-        event_description: null,
-        dateAndTime: null,
-        event_img: null
+        question: null,
+        input_type: null
       },
       errors: {}
     };
@@ -8059,20 +8060,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submit: function submit() {
       var _this = this;
-      var formData = new FormData();
-      formData.append('event', this.fields.event ? this.fields.event : '');
-      formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-      formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
-      formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
       if (this.propId > 0) {
         //update
-        axios.post('/events-update', formData).then(function (res) {
+        axios.post('/questions/' + this.propId, this.fields).then(function (res) {
           if (res.data.status === 'updated') {
             _this.$buefy.dialg.alert({
               title: 'Saved.',
               message: 'Successfully saved.',
               onConfirm: function onConfirm() {
-                window.location = '/events';
+                window.location = '/questions';
               }
             });
           }
@@ -8083,13 +8079,13 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         //insert
-        axios.post('/events', formData).then(function (res) {
+        axios.post('/questions', this.fields).then(function (res) {
           if (res.data.status === 'saved') {
             _this.$buefy.dialog.alert({
               title: 'Saved.',
               message: 'Successfully saved.',
               onConfirm: function onConfirm() {
-                window.location = '/events';
+                window.location = '/questions';
               }
             });
           }
@@ -8104,13 +8100,14 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_img = null;
     },
     getData: function getData() {
-      this.fields.event = this.propData.event;
-      this.fields.event_description = this.propData.event_description;
-      this.fields.dateAndTime = new Date(this.propData.event_datetime);
-      this.fields.image_path = this.propData.img_path;
+      this.fields.event_id = this.propData.event_id;
+      this.fields.question = this.propData.question;
+      this.fields.input_type = this.propData.input_type;
     },
     emitBrowseEvent: function emitBrowseEvent(row) {
-      console.log(row);
+      this.fields.event_id = row.event_id;
+      this.fields.event = row.event;
+      this.fields.academic_year_id = row.academic_year_id;
     }
   },
   mounted: function mounted() {
@@ -8144,7 +8141,9 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       perPage: 20,
       defaultSortDirection: 'asc',
+      academic_years: [],
       search: {
+        academic_year_id: 0,
         question: ''
       },
       fields: {},
@@ -8162,7 +8161,7 @@ __webpack_require__.r(__webpack_exports__);
     */
     loadAsyncData: function loadAsyncData() {
       var _this = this;
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "question=".concat(this.search.question), "ay=".concat(this.search.academic_year_id), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/get-questions?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -8199,9 +8198,21 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
+    loadAcademicYears: function loadAcademicYears() {
+      var _this2 = this;
+      axios.get('/load-academic-years').then(function (res) {
+        _this2.academic_years = res.data;
+        _this2.academic_years.forEach(function (item) {
+          if (item.active === 1) {
+            _this2.search.academic_year_id = item.academic_year_id;
+          }
+        });
+        _this2.loadAsyncData();
+      });
+    },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this2 = this;
+      var _this3 = this;
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
         type: 'is-danger',
@@ -8209,24 +8220,24 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete',
         onConfirm: function onConfirm() {
-          return _this2.deleteSubmit(delete_id);
+          return _this3.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this3 = this;
+      var _this4 = this;
       axios["delete"]('/questions/' + delete_id).then(function (res) {
-        _this3.loadAsyncData();
+        _this4.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this3.errors = err.response.data.errors;
+          _this4.errors = err.response.data.errors;
         }
       });
     }
   },
   mounted: function mounted() {
-    this.loadAsyncData();
+    this.loadAcademicYears();
   }
 });
 
@@ -9669,6 +9680,17 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c('b-table-column', {
     attrs: {
+      "field": "academic_year",
+      "label": "AY"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [_vm._v("\n                            " + _vm._s(props.row.academic_year.academic_year_code) + "\n                        ")];
+      }
+    }])
+  }), _vm._v(" "), _c('b-table-column', {
+    attrs: {
       "field": "event",
       "label": "Event"
     },
@@ -9953,6 +9975,61 @@ var render = function render() {
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column"
+  }, [_c('b-field', {
+    attrs: {
+      "label": "Order No.",
+      "label-position": "on-border",
+      "expanded": "",
+      "type": this.errors.order_no ? 'is-danger' : '',
+      "message": this.errors.order_no ? this.errors.order_no[0] : ''
+    }
+  }, [_c('b-numberinput', {
+    attrs: {
+      "placeholder": "Order No.",
+      "controls": false
+    },
+    model: {
+      value: _vm.fields.order_no,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "order_no", $$v);
+      },
+      expression: "fields.order_no"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('b-field', {
+    attrs: {
+      "label": "Input Type",
+      "label-position": "on-border",
+      "expanded": "",
+      "type": this.errors.input_type ? 'is-danger' : '',
+      "message": this.errors.input_type ? this.errors.input_type[0] : ''
+    }
+  }, [_c('b-select', {
+    attrs: {
+      "expanded": "",
+      "placeholder": "Question",
+      "required": ""
+    },
+    model: {
+      value: _vm.fields.input_type,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "input_type", $$v);
+      },
+      expression: "fields.input_type"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "TEXT"
+    }
+  }, [_vm._v("TEXT")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "RATING"
+    }
+  }, [_vm._v("RATING")])])], 1)], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column"
   }, [_c('modal-browse-events', {
     attrs: {
       "prop-name": _vm.fields.event
@@ -9985,38 +10062,7 @@ var render = function render() {
       },
       expression: "fields.question"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "columns"
-  }, [_c('div', {
-    staticClass: "column"
-  }, [_c('b-field', {
-    attrs: {
-      "label": "Input Type",
-      "label-position": "on-border",
-      "type": this.errors.input_type ? 'is-danger' : '',
-      "message": this.errors.input_type ? this.errors.input_type[0] : ''
-    }
-  }, [_c('b-select', {
-    attrs: {
-      "placeholder": "Question",
-      "required": ""
-    },
-    model: {
-      value: _vm.fields.input_type,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "input_type", $$v);
-      },
-      expression: "fields.input_type"
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "TEXT"
-    }
-  }, [_vm._v("TEXT")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "RATING"
-    }
-  }, [_vm._v("RATING")])])], 1)], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "buttons is-right"
   }, [_c('button', {
     staticClass: "button is-outlined is-primary"
@@ -10052,7 +10098,7 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "columns is-centered"
   }, [_c('div', {
-    staticClass: "column is-8"
+    staticClass: "column is-8-widescreen is-10-tablet"
   }, [_c('div', {
     staticClass: "box"
   }, [_c('div', {
@@ -10126,7 +10172,7 @@ var render = function render() {
   }, [_c('b-input', {
     attrs: {
       "type": "text",
-      "placeholder": "Search Lastname"
+      "placeholder": "Search..."
     },
     nativeOn: {
       "keyup": function keyup($event) {
@@ -10135,11 +10181,11 @@ var render = function render() {
       }
     },
     model: {
-      value: _vm.search.lname,
+      value: _vm.search.question,
       callback: function callback($$v) {
-        _vm.$set(_vm.search, "lname", $$v);
+        _vm.$set(_vm.search, "question", $$v);
       },
-      expression: "search.lname"
+      expression: "search.question"
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "control"
@@ -10156,7 +10202,32 @@ var render = function render() {
     on: {
       "click": _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-table', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-field', {
+    attrs: {
+      "label": "Academic Year",
+      "label-position": "on-border"
+    }
+  }, [_c('b-select', {
+    on: {
+      "input": function input($event) {
+        return _vm.loadAsyncData();
+      }
+    },
+    model: {
+      value: _vm.search.academic_year_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.search, "academic_year_id", $$v);
+      },
+      expression: "search.academic_year_id"
+    }
+  }, _vm._l(_vm.academic_years, function (item, index) {
+    return _c('option', {
+      key: index,
+      domProps: {
+        "value": item.academic_year_id
+      }
+    }, [_vm._v(_vm._s(item.academic_year_code))]);
+  }), 0)], 1), _vm._v(" "), _c('b-table', {
     attrs: {
       "data": _vm.data,
       "loading": _vm.loading,
@@ -10188,13 +10259,36 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c('b-table-column', {
     attrs: {
+      "field": "academic_year",
+      "label": "AY Code"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [_vm._v("\n                            " + _vm._s(props.row.academic_year.academic_year_code) + "\n                        ")];
+      }
+    }])
+  }), _vm._v(" "), _c('b-table-column', {
+    attrs: {
+      "field": "order_no",
+      "label": "Order No",
+      "centered": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [_vm._v("\n                            " + _vm._s(props.row.order_no) + "\n                        ")];
+      }
+    }])
+  }), _vm._v(" "), _c('b-table-column', {
+    attrs: {
       "field": "question",
       "label": "Question"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(props.row.question) + "\n                        ")];
+        return [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.question, 50)) + "\n                        ")];
       }
     }])
   }), _vm._v(" "), _c('b-table-column', {
@@ -10972,7 +11066,7 @@ var render = function render() {
       "value": _vm.valueName,
       "expanded": "",
       "icon": "calendar",
-      "placeholder": "SELECT EVENT",
+      "placeholder": "Select Event",
       "required": "",
       "readonly": ""
     }
