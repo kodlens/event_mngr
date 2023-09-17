@@ -1,8 +1,8 @@
 <template>
     <div>
         <b-field>
-            <b-input :value="valueItemName" expanded icon-pack="fa"
-                     icon="user" placeholder="SELECT ITEM NAME" required readonly>
+            <b-input :value="valueName" expanded
+                     icon="calendar" placeholder="SELECT EVENT" required readonly>
             </b-input>
 
             <p class="control">
@@ -15,7 +15,7 @@
                  trap-focus scroll="keep" aria-role="dialog" aria-modal>
             <div class="modal-card card-width">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">SELECT ITEM</p>
+                    <p class="modal-card-title">Select Event</p>
                     <button type="button" class="delete"
                             @click="isModalActive = false" />
 
@@ -24,8 +24,9 @@
                 <section class="modal-card-body">
                     <div>
                         <b-field label="Search" label-position="on-border" >
-                            <b-input type="text" v-model="search.barcode" placeholder="Search Item Barcode..." @keyup.native.enter="loadAsyncData" expanded auto-focus></b-input>
-                            <b-input type="text" v-model="search.itemname" placeholder="Search Item Name..." @keyup.native.enter="loadAsyncData" expanded auto-focus></b-input>
+                            <b-input type="text" v-model="search.event"
+                                 placeholder="Search Item Name..."
+                                 @keyup.native.enter="loadAsyncData" expanded auto-focus></b-input>
                             <p class="control">
                                 <b-button class="is-primary" icon-pack="fa" icon-left="search" @click="loadAsyncData"></b-button>
                             </p>
@@ -49,20 +50,16 @@
                                 default-sort-direction="defualtSortDirection"
                                 @sort="onSort">
 
-                                <b-table-column field="item_id" label="ID" v-slot="props">
-                                    {{props.row.item_id}}
+                                <b-table-column field="event_id" label="ID" v-slot="props">
+                                    {{props.row.event_id}}
                                 </b-table-column>
 
-                                <b-table-column field="barcode" label="Barcode" v-slot="props">
-                                    {{props.row.barcode}}
+                                <b-table-column field="event" label="Event" v-slot="props">
+                                    {{props.row.event }}
                                 </b-table-column>
 
-                                <b-table-column field="item_name" label="Item Name" v-slot="props">
-                                    {{props.row.item_name}}
-                                </b-table-column>
-
-                                <b-table-column field="item_description" label="Description" v-slot="props">
-                                    {{props.row.item_description}}
+                                <b-table-column field="event_desc" label="Description" v-slot="props">
+                                    {{ props.row.event_description | truncate(70) }}
                                 </b-table-column>
 
                                 <b-table-column field="" label="Action" v-slot="props">
@@ -92,7 +89,7 @@
 <script>
 export default {
     props: {
-        propItem: {
+        propName: {
             type: String,
             default: '',
         },
@@ -105,7 +102,7 @@ export default {
             data: [],
             total: 0,
             loading: false,
-            sortField: 'item_id',
+            sortField: 'event_id',
             sortOrder:'desc',
             page: 1,
             perPage: 5,
@@ -114,12 +111,10 @@ export default {
             isModalActive: false,
             errors:{},
 
-            item: {},
+            event: {},
 
             search: {
-                itemname: '',
-                barcode: '',
-                serial: '',
+                event: '',
             },
         }
     },
@@ -127,15 +122,13 @@ export default {
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `itemname=${this.search.itemname}`,
-                `barcode=${this.search.barcode}`,
-                `serial=${this.search.serial}`,
+                `event=${this.search.event}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-items?${params}`)
+            axios.get(`/get-browse-events?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -180,14 +173,14 @@ export default {
 
         selectData(dataRow){
             this.isModalActive = false;
-            this.$emit('browseItem', dataRow);
+            this.$emit('browseEvents', dataRow);
         }
 
     },
 
     computed: {
-        valueItemName(){
-            return this.propItem;
+        valueName(){
+            return this.propName;
         },
 
 

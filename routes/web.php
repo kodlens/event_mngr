@@ -71,6 +71,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
     Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
+    Route::get('/get-browse-events', [App\Http\Controllers\Administrator\QuestionController::class, 'getBrowseEvents']);
 
 
 
