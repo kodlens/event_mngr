@@ -95,6 +95,16 @@ Route::middleware(['auth', 'student'])->group(function() {
 
 
 
+
+
+
+
+
+// ANDROID ROUTES
+Route::post('/api/android/auth/login', [App\Http\Controllers\Android\LoginController::class, 'login']);
+
+
+
 Route::get('/session', function(){
     return Session::all();
 });
