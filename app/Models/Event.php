@@ -18,7 +18,8 @@ class Event extends Model
         'event_description',
         'event_datetime',
         'img_path',
-        'rating'
+        'rating',
+        'event_type'
     ];
 
 

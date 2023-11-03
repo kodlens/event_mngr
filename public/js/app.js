@@ -7967,14 +7967,15 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event', this.fields.event ? this.fields.event : '');
       formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
       formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
-      formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+      //formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+      formData.append('event_type', this.fields.event_type ? this.fields.event_type : '');
       if (this.propId > 0) {
         //update
-        axios.post('/events-update', formData).then(function (res) {
+        axios.post('/events-update/' + this.propId, formData).then(function (res) {
           if (res.data.status === 'updated') {
-            _this.$buefy.dialg.alert({
+            _this.$buefy.dialog.alert({
               title: 'Saved.',
-              message: 'Successfully saved.',
+              message: 'Successfully updated.',
               onConfirm: function onConfirm() {
                 window.location = '/events';
               }
@@ -8012,6 +8013,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_description = this.propData.event_description;
       this.fields.dateAndTime = new Date(this.propData.event_datetime);
       this.fields.image_path = this.propData.img_path;
+      this.fields.event_type = this.propData.event_type;
     }
   },
   mounted: function mounted() {
@@ -9702,6 +9704,17 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c('b-table-column', {
     attrs: {
+      "field": "event_type",
+      "label": "Type"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [_vm._v("\n                            " + _vm._s(props.row.event_type) + "\n                        ")];
+      }
+    }])
+  }), _vm._v(" "), _c('b-table-column', {
+    attrs: {
       "field": "event_desc",
       "label": "Description"
     },
@@ -9835,7 +9848,37 @@ var render = function render() {
       },
       expression: "fields.dateAndTime"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('b-field', {
+    attrs: {
+      "label": "Event Type",
+      "expanded": "",
+      "type": this.errors.event_type ? 'is-danger' : '',
+      "message": this.errors.event_type ? this.errors.event_type[0] : ''
+    }
+  }, [_c('b-select', {
+    attrs: {
+      "expanded": "",
+      "required": "",
+      "placeholder": "Event Type"
+    },
+    model: {
+      value: _vm.fields.event_type,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "event_type", $$v);
+      },
+      expression: "fields.event_type"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "WHOLEDAY"
+    }
+  }, [_vm._v("WHOLEDAY")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "HALFDAY"
+    }
+  }, [_vm._v("HALFDAY")])])], 1)], 1)]), _vm._v(" "), _c('div', {
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column"
@@ -9881,49 +9924,7 @@ var render = function render() {
       },
       expression: "fields.event_description"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "columns"
-  }, [_c('div', {
-    staticClass: "column"
-  }, [_c('b-field', {
-    attrs: {
-      "label": "Event Image (Landscape is recommended for better view)"
-    }
-  }, [_c('b-upload', {
-    attrs: {
-      "drag-drop": ""
-    },
-    model: {
-      value: _vm.fields.event_img,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "event_img", $$v);
-      },
-      expression: "fields.event_img"
-    }
-  }, [_c('section', {
-    staticClass: "section"
-  }, [_c('div', {
-    staticClass: "content has-text-centered"
-  }, [_c('p', [_c('b-icon', {
-    attrs: {
-      "icon": "upload",
-      "size": "is-large"
-    }
-  })], 1), _vm._v(" "), _c('p', [_vm._v("Drop your files here or click to upload")])])])])], 1), _vm._v(" "), _vm.fields.event_img ? _c('div', {
-    staticClass: "tags"
-  }, [_c('span', {
-    staticClass: "tag is-primary"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.fields.event_img.name) + "\n                                        "), _c('button', {
-    staticClass: "delete is-small",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.deleteDropFile(0);
-      }
-    }
-  })])]) : _vm._e()], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "buttons is-right"
   }, [_c('button', {
     staticClass: "button is-outlined is-primary"

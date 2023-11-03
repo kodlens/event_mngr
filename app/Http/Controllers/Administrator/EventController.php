@@ -55,7 +55,8 @@ class EventController extends Controller
         $req->validate([
             'event' => ['required'],
             'event_description' => ['required'],
-            'event_datetime' => ['required']
+            'event_datetime' => ['required'],
+            'event_type' => ['required']
         ]);
 
         $n = [];
@@ -69,6 +70,7 @@ class EventController extends Controller
             'event' => $req->event,
             'event_description' => $req->event_description,
             'event_datetime' => $event_date,
+            'event_type' => $req->event_type,
             'img_path' => $req->hasFile('event_img') ? $n[2] : ''
         ]);
 
@@ -77,8 +79,35 @@ class EventController extends Controller
         ], 200);
     }
 
-    public function updateEvents(Request $req, $id){
+    public function updateEvent(Request $req, $id){
 
+        //get the current active semester
+        $ay = AcademicYear::where('active', 1)->first();
+
+        //format the date
+        $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
+
+
+        $req->validate([
+            'event' => ['required'],
+            'event_description' => ['required'],
+            'event_datetime' => ['required'],
+            'event_type' => ['required']
+
+        ]);
+
+        Event::where('event_id', $id)
+            ->update([
+                'academic_year_id' => $ay->academic_year_id,
+                'event' => $req->event,
+                'event_description' => $req->event_description,
+                'event_datetime' => $event_date,
+                'event_type' => $req->event_type,
+            ]);
+        
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
     }
 
 
