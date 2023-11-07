@@ -3,8 +3,8 @@
 /public/storage
 /storage/*.key
 /storage/logs
-/storage/framework/views
-/storage/framework/sessions
+/storage/framework/views/
+/storage/framework/sessions/
 /vendor
 .env
 .env.backup
