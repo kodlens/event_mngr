@@ -15,7 +15,7 @@ class Event extends Model
     protected $fillable = [
         'academic_year_id',
         'event',
-        'event_description',
+        'content',
         'event_datetime',
         'img_path',
         'rating',

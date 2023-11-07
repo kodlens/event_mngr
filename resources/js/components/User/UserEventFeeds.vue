@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="event-content">
-                            {{ event.event_description }}
+                            <div v-html="event.content"></div>
                         </div>
 
                         <div class="img-container">

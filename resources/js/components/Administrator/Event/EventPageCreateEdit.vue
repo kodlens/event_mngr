@@ -61,13 +61,20 @@
                                     <b-field label="Description"
                                         :type="this.errors.event_description ? 'is-danger':''"
                                         :message="this.errors.event_description ? this.errors.event_description[0] : ''">
-                                        <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input>
+                                        <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
+                                        <quill-editor
+                                            :content="content"
+                                            :options="editorOption"
+                                            @change="onEditorChange($event)"
+                                        />
+                                    
                                     </b-field>
                                 </div>
                             </div>
 
-                            <!-- <div class="columns">
+                            <div class="columns">
                                 <div class="column">
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: red;">To update the image, just attach new image and the system will automatically remove the old save image.</p>
                                     <b-field label="Event Image (Landscape is recommended for better view)">
                                         <b-upload v-model="fields.event_img"
                                                 drag-drop>
@@ -96,7 +103,7 @@
                                     </div>
                                 </div>
 
-                            </div> -->
+                            </div>
 
                             <hr>
                             <div class="buttons is-right">
@@ -117,6 +124,8 @@
 <script>
 
 
+
+
 export default {
 
     props: {
@@ -133,9 +142,17 @@ export default {
 
     data(){
         return{
+            editorOption: {
+            // Some Quill options...
+            },
+            content: null,
+
+          
+            
             fields: {
                 event: null,
                 event_description: null,
+                content: null,
                 dateAndTime: null,
                 event_img: null
             },
@@ -150,8 +167,9 @@ export default {
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
+            formData.append('content', this.fields.content ? this.fields.content : '');
             formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
-            //formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+            formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
             formData.append('event_type', this.fields.event_type ? this.fields.event_type : '');
 
 
@@ -207,12 +225,31 @@ export default {
 
         getData(){
             this.fields.event =  this.propData.event
-            this.fields.event_description =  this.propData.event_description
+            this.content =  this.propData.content
             this.fields.dateAndTime =  new Date(this.propData.event_datetime)
             this.fields.image_path = this.propData.img_path
             this.fields.event_type = this.propData.event_type
 
+        },
+
+
+
+        // quill editor
+        onEditorBlur(quill) {
+            console.log('editor blur!', quill)
+        },
+        onEditorFocus(quill) {
+            console.log('editor focus!', quill)
+        },
+        onEditorReady(quill) {
+            console.log('editor ready!', quill)
+        },
+        onEditorChange({ quill, html, text }) {
+            console.log('editor change!', quill, html, text)
+            this.fields.content = html
         }
+
+
     },
 
     mounted(){

@@ -70,12 +70,12 @@
                                 {{ props.row.event }}
                             </b-table-column>
 
-                             <b-table-column field="event_type" label="Type" v-slot="props">
+                            <b-table-column field="event_type" label="Type" v-slot="props">
                                 {{ props.row.event_type }}
                             </b-table-column>
 
-                            <b-table-column field="event_desc" label="Description" v-slot="props">
-                                {{ props.row.event_description | truncate(70) }}
+                            <b-table-column field="content" label="content" v-slot="props">
+                                {{ props.row.content | truncate(70) }}
                             </b-table-column>
 
                             <b-table-column field="event_datetime" label="Date Time" v-slot="props">

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AcademicYear;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class EventController extends Controller
 {
@@ -46,15 +48,14 @@ class EventController extends Controller
 
     public function store(Request $req){
 
-       // return $req;
-       $ay = AcademicYear::where('active', 1)->first();
-
+        //return $req;
+        $ay = AcademicYear::where('active', 1)->first();
 
         $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
 
         $req->validate([
             'event' => ['required'],
-            'event_description' => ['required'],
+            'content' => ['required'],
             'event_datetime' => ['required'],
             'event_type' => ['required']
         ]);
@@ -68,7 +69,7 @@ class EventController extends Controller
         Event::create([
             'academic_year_id' => $ay->academic_year_id,
             'event' => $req->event,
-            'event_description' => $req->event_description,
+            'content' => $req->content,
             'event_datetime' => $event_date,
             'event_type' => $req->event_type,
             'img_path' => $req->hasFile('event_img') ? $n[2] : ''
@@ -87,24 +88,39 @@ class EventController extends Controller
         //format the date
         $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
 
-
         $req->validate([
             'event' => ['required'],
-            'event_description' => ['required'],
+            'content' => ['required'],
             'event_datetime' => ['required'],
             'event_type' => ['required']
 
         ]);
+      
+        $data = Event::find($id);
+        $n = [];
+        if($req->hasFile('event_img')) {
+            $pathFile = $req->event_img->store('public/events'); //get path of the file
+            $n = explode('/', $pathFile); //split into array using /
 
-        Event::where('event_id', $id)
-            ->update([
-                'academic_year_id' => $ay->academic_year_id,
-                'event' => $req->event,
-                'event_description' => $req->event_description,
-                'event_datetime' => $event_date,
-                'event_type' => $req->event_type,
-            ]);
+            //if an image has already in database, it will delete from events folder to avoid redundancy
+            if(Storage::exists('public/events/' .$data->img_path)) {
+                Storage::delete('public/events/' . $data->img_path);
+            }
+        }
+
+        //get data from database
+       
+        $data->academic_year_id = $ay->academic_year_id;
+        $data->event = $req->event;
+        $data->content = $req->content;
+        $data->event_datetime = $req->event_date;
+        $data->event_type = $req->event_type;
+        $data->img_path = $req->hasFile('event_img') ? $n[2] : '';
+
+
         
+        $data->save();
+
         return response()->json([
             'status' => 'updated'
         ], 200);

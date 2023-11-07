@@ -39,20 +39,17 @@
             </b-navbar-item>
         </template>
         <template #start>
-            <b-navbar-item href="/dashboard">
+
+            <b-navbar-item href="/student-officer/dashboard">
                 Home
             </b-navbar-item>
-
-            <b-navbar-item href="/academic-years">
-                Academic Years
+            
             </b-navbar-item>
             <b-navbar-item href="/events">
                 Events
             </b-navbar-item>
          
-            <b-navbar-item href="/users">
-                User
-            </b-navbar-item>
+         
             <!-- <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
                     About

@@ -28,6 +28,10 @@ class RedirectIfAuthenticated
                     return redirect('/dashboard');
                 }
 
+                if($role === 'STUDENT OFFICER'){
+                    return redirect('/student-officer/dashboard');
+                }
+
                 if($role === 'STUDENT'){
                     return redirect('/event-feeds');
                 }
