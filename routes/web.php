@@ -67,7 +67,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
 
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
-    Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvents']);
+    Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
 
 
@@ -92,6 +92,19 @@ Route::middleware(['auth', 'student'])->group(function() {
     Route::get('/load-profile', [App\Http\Controllers\User\UserProfileController::class, 'loadProfile']);
 
 });
+
+
+
+
+
+
+
+
+// ANDROID ROUTES
+Route::post('/api/android/auth/login', [App\Http\Controllers\Android\LoginController::class, 'login']);
+Route::post('/api/android/auth/change-password', [App\Http\Controllers\Android\ChangePasswordController::class, 'changePassword']);
+Route::get('/api/android/events', [App\Http\Controllers\Android\EventsController::class, 'eventsList']);
+Route::get('/api/android/events/{id}', [App\Http\Controllers\Android\EventsController::class, 'show']);
 
 
 

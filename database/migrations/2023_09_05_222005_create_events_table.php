@@ -23,6 +23,8 @@ class CreateEventsTable extends Migration
             $table->text('event_description')->nullable();
             $table->dateTime('event_datetime')->nullable();
             $table->string('img_path')->nullable();
+            $table->string('event_type')->nullable();
+
             $table->timestamps();
         });
     }

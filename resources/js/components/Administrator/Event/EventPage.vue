@@ -70,6 +70,10 @@
                                 {{ props.row.event }}
                             </b-table-column>
 
+                             <b-table-column field="event_type" label="Type" v-slot="props">
+                                {{ props.row.event_type }}
+                            </b-table-column>
+
                             <b-table-column field="event_desc" label="Description" v-slot="props">
                                 {{ props.row.event_description | truncate(70) }}
                             </b-table-column>
@@ -98,7 +102,7 @@
                         <div class="buttons mt-3">
                             <b-button tag="a"
                                 href="/events/create"
-                                    icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
+                                icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
                         </div>
                     </div>
                 </div><!--col -->

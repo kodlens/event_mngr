@@ -26,6 +26,23 @@
                                         </b-datetimepicker>
                                     </b-field>
                                 </div>
+
+
+                                <div class="column">
+                                    <b-field label="Event Type" expanded
+                                        :type="this.errors.event_type ? 'is-danger':''"
+                                        :message="this.errors.event_type ? this.errors.event_type[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_type"
+                                            placeholder="Event Type">
+                                            <option value="WHOLEDAY">WHOLEDAY</option>
+                                            <option value="HALFDAY">HALFDAY</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+
                             </div>
 
 
@@ -49,7 +66,7 @@
                                 </div>
                             </div>
 
-                            <div class="columns">
+                            <!-- <div class="columns">
                                 <div class="column">
                                     <b-field label="Event Image (Landscape is recommended for better view)">
                                         <b-upload v-model="fields.event_img"
@@ -79,7 +96,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
 
                             <hr>
                             <div class="buttons is-right">
@@ -134,16 +151,19 @@ export default {
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
             formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
-            formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+            //formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+            formData.append('event_type', this.fields.event_type ? this.fields.event_type : '');
 
 
             if(this.propId > 0){
                 //update
-                axios.post('/events-update', formData).then(res=>{
-                    if(res.data.status === 'updated'){
-                        this.$buefy.dialg.alert({
+                axios.post('/events-update/' + this.propId, formData).then(res=>{
+       
+                    if (res.data.status === 'updated'){
+                       
+                        this.$buefy.dialog.alert({
                             title: 'Saved.',
-                            message: 'Successfully saved.',
+                            message: 'Successfully updated.',
                             onConfirm: ()=>{
                                 window.location = '/events';
                             }
@@ -190,6 +210,8 @@ export default {
             this.fields.event_description =  this.propData.event_description
             this.fields.dateAndTime =  new Date(this.propData.event_datetime)
             this.fields.image_path = this.propData.img_path
+            this.fields.event_type = this.propData.event_type
+
         }
     },
 
