@@ -9105,31 +9105,31 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "is-flex is-justify-content-center mb-2",
     staticStyle: {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF ACADEMIC YEAR")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v("LIST OF ACADEMIC YEAR")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-left"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Page"
+      label: "Page"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": _vm.setPerPage
+      input: _vm.setPerPage
     },
     model: {
       value: _vm.perPage,
@@ -9138,25 +9138,25 @@ var render = function render() {
       },
       expression: "perPage"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "5"
+      value: "5"
     }
-  }, [_vm._v("5 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("5 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "10"
+      value: "10"
     }
-  }, [_vm._v("10 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "15"
+      value: "15"
     }
-  }, [_vm._v("15 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("15 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "20"
+      value: "20"
     }
-  }, [_vm._v("20 per page")])]), _vm._v(" "), _c('b-select', {
+  }, [_vm._v("20 per page")])]), _vm._v(" "), _c("b-select", {
     on: {
-      "input": _vm.loadAsyncData
+      input: _vm.loadAsyncData
     },
     model: {
       value: _vm.sortOrder,
@@ -9165,30 +9165,30 @@ var render = function render() {
       },
       expression: "sortOrder"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "asc"
+      value: "asc"
     }
-  }, [_vm._v("ASC")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ASC")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "desc"
+      value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "level-right"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-item"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Search"
+      label: "Search"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Search Academic Year"
+      type: "text",
+      placeholder: "Search Academic Year"
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -9199,29 +9199,29 @@ var render = function render() {
       },
       expression: "search.academic_year"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-tooltip', {
+  }, [_c("b-tooltip", {
     attrs: {
-      "label": "Search",
-      "type": "is-success"
+      label: "Search",
+      type: "is-success"
     }
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "type": "is-primary",
+      type: "is-primary",
       "icon-right": "magnify"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-table', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
       "backend-pagination": "",
-      "total": _vm.total,
-      "hoverable": true,
+      total: _vm.total,
+      hoverable: true,
       "per-page": _vm.perPage,
       "aria-next-label": "Next page",
       "aria-previous-label": "Previous page",
@@ -9232,12 +9232,12 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     }
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "academic_year_id",
-      "label": "ID"
+      field: "academic_year_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9245,10 +9245,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.academic_year_id) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "academic_year_code",
-      "label": "Code"
+      field: "academic_year_code",
+      label: "Code"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9256,10 +9256,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.academic_year_code) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "name",
-      "label": "Description"
+      field: "name",
+      label: "Description"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9267,91 +9267,91 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.academic_year_desc) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "active",
-      "label": "Active"
+      field: "active",
+      label: "Active"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [props.row.active === 1 ? _c('span', [_vm._v("Yes")]) : _c('span', [_vm._v("No")])];
+        return [props.row.active === 1 ? _c("span", [_vm._v("Yes")]) : _c("span", [_vm._v("No")])];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "label": "Action"
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "is-flex"
-        }, [_c('b-tooltip', {
+        }, [_c("b-tooltip", {
           attrs: {
-            "label": "Set Active",
-            "type": "is-info"
+            label: "Set Active",
+            type: "is-info"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
-            "tag": "a",
+            tag: "a",
             "icon-right": "thumb-up"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.setActive(props.row.academic_year_id);
             }
           }
-        })], 1), _vm._v(" "), _c('b-tooltip', {
+        })], 1), _vm._v(" "), _c("b-tooltip", {
           attrs: {
-            "label": "Edit",
-            "type": "is-warning"
+            label: "Edit",
+            type: "is-warning"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
-            "tag": "a",
+            tag: "a",
             "icon-right": "pencil"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.getData(props.row.academic_year_id);
             }
           }
-        })], 1), _vm._v(" "), _c('b-tooltip', {
+        })], 1), _vm._v(" "), _c("b-tooltip", {
           attrs: {
-            "label": "Delete",
-            "type": "is-danger"
+            label: "Delete",
+            type: "is-danger"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
             "icon-right": "delete"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.confirmDelete(props.row.academic_year_id);
             }
           }
         })], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "buttons mt-3"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
     attrs: {
       "icon-right": "calendar"
     },
     on: {
-      "click": _vm.openModal
+      click: _vm.openModal
     }
-  }, [_vm._v("NEW")])], 1)], 1)])])]), _vm._v(" "), _c('b-modal', {
+  }, [_vm._v("NEW")])], 1)], 1)])])]), _vm._v(" "), _c("b-modal", {
     attrs: {
       "has-modal-card": "",
       "trap-focus": "",
-      "width": 640,
+      width: 640,
       "aria-role": "dialog",
       "aria-label": "Modal",
       "aria-modal": ""
@@ -9363,46 +9363,46 @@ var render = function render() {
       },
       expression: "isModalCreate"
     }
-  }, [_c('form', {
+  }, [_c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "modal-card"
-  }, [_c('header', {
+  }, [_c("header", {
     staticClass: "modal-card-head"
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "modal-card-title"
-  }, [_vm._v("Academic Year")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Academic Year")]), _vm._v(" "), _c("button", {
     staticClass: "delete",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalCreate = false;
       }
     }
-  })]), _vm._v(" "), _c('section', {
+  })]), _vm._v(" "), _c("section", {
     staticClass: "modal-card-body"
-  }, [_c('div', {}, [_c('div', {
+  }, [_c("div", {}, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Academic Year Code",
+      label: "Academic Year Code",
       "label-position": "on-border",
-      "type": this.errors.academic_year_code ? 'is-danger' : '',
-      "message": this.errors.academic_year_code ? this.errors.academic_year_code[0] : ''
+      type: this.errors.academic_year_code ? "is-danger" : "",
+      message: this.errors.academic_year_code ? this.errors.academic_year_code[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Academic Year Code",
-      "required": ""
+      placeholder: "Academic Year Code",
+      required: ""
     },
     model: {
       value: _vm.fields.academic_year_code,
@@ -9411,21 +9411,21 @@ var render = function render() {
       },
       expression: "fields.academic_year_code"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Academic Year Description",
+      label: "Academic Year Description",
       "label-position": "on-border",
-      "type": this.errors.academic_year_desc ? 'is-danger' : '',
-      "message": this.errors.academic_year_desc ? this.errors.academic_year_desc[0] : ''
+      type: this.errors.academic_year_desc ? "is-danger" : "",
+      message: this.errors.academic_year_desc ? this.errors.academic_year_desc[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Academic Year Description",
-      "required": ""
+      placeholder: "Academic Year Description",
+      required: ""
     },
     model: {
       value: _vm.fields.academic_year_desc,
@@ -9434,15 +9434,15 @@ var render = function render() {
       },
       expression: "fields.academic_year_desc"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Active"
+      label: "Active"
     }
-  }, [_c('b-checkbox', {
+  }, [_c("b-checkbox", {
     attrs: {
       "true-value": 1,
       "false-value": 0
@@ -9454,13 +9454,13 @@ var render = function render() {
       },
       expression: "fields.active"
     }
-  })], 1)], 1)])])]), _vm._v(" "), _c('footer', {
+  })], 1)], 1)])])]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
-  }, [_c('button', {
+  }, [_c("button", {
     "class": _vm.btnClass,
     attrs: {
-      "label": "Save",
-      "type": "is-success"
+      label: "Save",
+      type: "is-success"
     }
   }, [_vm._v("SAVE")])])])])])], 1);
 };
@@ -9485,7 +9485,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div');
+  return _c("div");
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9513,9 +9513,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('section', {
+  return _c("div", [_c("section", {
     staticClass: "hero is-fullheight"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "hero-head"
   })])]);
 }];
@@ -9539,31 +9539,31 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-10-desktop is-8-widescreen"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "is-flex is-justify-content-center mb-2",
     staticStyle: {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF EVENTS")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v("LIST OF EVENTS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-left"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Page"
+      label: "Page"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": _vm.setPerPage
+      input: _vm.setPerPage
     },
     model: {
       value: _vm.perPage,
@@ -9572,25 +9572,25 @@ var render = function render() {
       },
       expression: "perPage"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "10"
+      value: "10"
     }
-  }, [_vm._v("10 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "20"
+      value: "20"
     }
-  }, [_vm._v("20 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("20 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "30"
+      value: "30"
     }
-  }, [_vm._v("30 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("30 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "40"
+      value: "40"
     }
-  }, [_vm._v("40 per page")])]), _vm._v(" "), _c('b-select', {
+  }, [_vm._v("40 per page")])]), _vm._v(" "), _c("b-select", {
     on: {
-      "input": _vm.loadAsyncData
+      input: _vm.loadAsyncData
     },
     model: {
       value: _vm.sortOrder,
@@ -9599,30 +9599,30 @@ var render = function render() {
       },
       expression: "sortOrder"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "asc"
+      value: "asc"
     }
-  }, [_vm._v("ASC")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ASC")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "desc"
+      value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "level-right"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-item"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Search"
+      label: "Search"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Search Lastname"
+      type: "text",
+      placeholder: "Search Lastname"
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -9633,28 +9633,28 @@ var render = function render() {
       },
       expression: "search.lname"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-tooltip', {
+  }, [_c("b-tooltip", {
     attrs: {
-      "label": "Search",
-      "type": "is-success"
+      label: "Search",
+      type: "is-success"
     }
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "type": "is-primary",
+      type: "is-primary",
       "icon-right": "magnify"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-table', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
       "backend-pagination": "",
-      "total": _vm.total,
+      total: _vm.total,
       "per-page": _vm.perPage,
       "aria-next-label": "Next page",
       "aria-previous-label": "Previous page",
@@ -9665,12 +9665,12 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     }
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "user_id",
-      "label": "ID"
+      field: "user_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9678,10 +9678,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.event_id) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "academic_year",
-      "label": "AY"
+      field: "academic_year",
+      label: "AY"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9689,10 +9689,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.academic_year.academic_year_code) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event",
-      "label": "Event"
+      field: "event",
+      label: "Event"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9700,10 +9700,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.event) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event_desc",
-      "label": "Description"
+      field: "event_desc",
+      label: "Description"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9711,10 +9711,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_description, 70)) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event_datetime",
-      "label": "Date Time"
+      field: "event_datetime",
+      label: "Date Time"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -9722,52 +9722,52 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(_vm._f("formatDateTime")(props.row.event_datetime)) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "label": "Action"
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "is-flex"
-        }, [_c('b-tooltip', {
+        }, [_c("b-tooltip", {
           attrs: {
-            "label": "Edit",
-            "type": "is-warning"
+            label: "Edit",
+            type: "is-warning"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
-            "tag": "a",
+            tag: "a",
             "icon-right": "pencil",
-            "href": "/events/".concat(props.row.event_id, "/edit")
+            href: "/events/".concat(props.row.event_id, "/edit")
           }
-        })], 1), _vm._v(" "), _c('b-tooltip', {
+        })], 1), _vm._v(" "), _c("b-tooltip", {
           attrs: {
-            "label": "Delete",
-            "type": "is-danger"
+            label: "Delete",
+            type: "is-danger"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
             "icon-right": "delete"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.confirmDelete(props.row.event_id);
             }
           }
         })], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "buttons mt-3"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
     attrs: {
-      "tag": "a",
-      "href": "/events/create",
+      tag: "a",
+      href: "/events/create",
       "icon-right": "calendar"
     }
   }, [_vm._v("NEW")])], 1)], 1)])])])]);
@@ -9793,39 +9793,39 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8-widescreen is-10-desktop"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "table-box-title"
-  }, [_vm._v("POST EVENTS")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('form', {
+  }, [_vm._v("POST EVENTS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Event Date & Time",
-      "expanded": "",
-      "type": this.errors.event_datetime ? 'is-danger' : '',
-      "message": this.errors.event_datetime ? this.errors.event_datetime[0] : ''
+      label: "Event Date & Time",
+      expanded: "",
+      type: this.errors.event_datetime ? "is-danger" : "",
+      message: this.errors.event_datetime ? this.errors.event_datetime[0] : ""
     }
-  }, [_c('b-datetimepicker', {
+  }, [_c("b-datetimepicker", {
     attrs: {
-      "icon": "calendar-today",
-      "required": "",
-      "placeholder": "Select date and time",
+      icon: "calendar-today",
+      required: "",
+      placeholder: "Select date and time",
       "horizontal-time-picker": ""
     },
     model: {
@@ -9835,21 +9835,21 @@ var render = function render() {
       },
       expression: "fields.dateAndTime"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Event Title",
-      "type": this.errors.event ? 'is-danger' : '',
-      "message": this.errors.event ? this.errors.event[0] : ''
+      label: "Event Title",
+      type: this.errors.event ? "is-danger" : "",
+      message: this.errors.event ? this.errors.event[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Event",
-      "required": ""
+      type: "text",
+      placeholder: "Event",
+      required: ""
     },
     model: {
       value: _vm.fields.event,
@@ -9858,21 +9858,21 @@ var render = function render() {
       },
       expression: "fields.event"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Description",
-      "type": this.errors.event_description ? 'is-danger' : '',
-      "message": this.errors.event_description ? this.errors.event_description[0] : ''
+      label: "Description",
+      type: this.errors.event_description ? "is-danger" : "",
+      message: this.errors.event_description ? this.errors.event_description[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "textarea",
-      "placeholder": "Descirption",
-      "required": ""
+      type: "textarea",
+      placeholder: "Descirption",
+      required: ""
     },
     model: {
       value: _vm.fields.event_description,
@@ -9881,15 +9881,15 @@ var render = function render() {
       },
       expression: "fields.event_description"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Event Image (Landscape is recommended for better view)"
+      label: "Event Image (Landscape is recommended for better view)"
     }
-  }, [_c('b-upload', {
+  }, [_c("b-upload", {
     attrs: {
       "drag-drop": ""
     },
@@ -9900,38 +9900,38 @@ var render = function render() {
       },
       expression: "fields.event_img"
     }
-  }, [_c('section', {
+  }, [_c("section", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "content has-text-centered"
-  }, [_c('p', [_c('b-icon', {
+  }, [_c("p", [_c("b-icon", {
     attrs: {
-      "icon": "upload",
-      "size": "is-large"
+      icon: "upload",
+      size: "is-large"
     }
-  })], 1), _vm._v(" "), _c('p', [_vm._v("Drop your files here or click to upload")])])])])], 1), _vm._v(" "), _vm.fields.event_img ? _c('div', {
+  })], 1), _vm._v(" "), _c("p", [_vm._v("Drop your files here or click to upload")])])])])], 1), _vm._v(" "), _vm.fields.event_img ? _c("div", {
     staticClass: "tags"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "tag is-primary"
-  }, [_vm._v("\n                                        " + _vm._s(_vm.fields.event_img.name) + "\n                                        "), _c('button', {
+  }, [_vm._v("\n                                        " + _vm._s(_vm.fields.event_img.name) + "\n                                        "), _c("button", {
     staticClass: "delete is-small",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.deleteDropFile(0);
       }
     }
-  })])]) : _vm._e()], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })])]) : _vm._e()], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "buttons is-right"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "button is-outlined is-primary"
-  }, [_c('b-icon', {
+  }, [_c("b-icon", {
     attrs: {
-      "icon": "content-save-all-outline"
+      icon: "content-save-all-outline"
     }
-  }), _vm._v(" "), _c('b', [_vm._v("SAVE")])], 1)])])])])])])]);
+  }), _vm._v(" "), _c("b", [_vm._v("SAVE")])], 1)])])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9954,39 +9954,39 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8-widescreen is-10-desktop"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "table-box-title"
-  }, [_vm._v("CREATE QUESTIONS")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('form', {
+  }, [_vm._v("CREATE QUESTIONS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Order No.",
+      label: "Order No.",
       "label-position": "on-border",
-      "expanded": "",
-      "type": this.errors.order_no ? 'is-danger' : '',
-      "message": this.errors.order_no ? this.errors.order_no[0] : ''
+      expanded: "",
+      type: this.errors.order_no ? "is-danger" : "",
+      message: this.errors.order_no ? this.errors.order_no[0] : ""
     }
-  }, [_c('b-numberinput', {
+  }, [_c("b-numberinput", {
     attrs: {
-      "placeholder": "Order No.",
-      "controls": false
+      placeholder: "Order No.",
+      controls: false
     },
     model: {
       value: _vm.fields.order_no,
@@ -9995,21 +9995,21 @@ var render = function render() {
       },
       expression: "fields.order_no"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Input Type",
+      label: "Input Type",
       "label-position": "on-border",
-      "expanded": "",
-      "type": this.errors.input_type ? 'is-danger' : '',
-      "message": this.errors.input_type ? this.errors.input_type[0] : ''
+      expanded: "",
+      type: this.errors.input_type ? "is-danger" : "",
+      message: this.errors.input_type ? this.errors.input_type[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": "",
-      "placeholder": "Question",
-      "required": ""
+      expanded: "",
+      placeholder: "Question",
+      required: ""
     },
     model: {
       value: _vm.fields.input_type,
@@ -10018,42 +10018,42 @@ var render = function render() {
       },
       expression: "fields.input_type"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "TEXT"
+      value: "TEXT"
     }
-  }, [_vm._v("TEXT")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("TEXT")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "RATING"
+      value: "RATING"
     }
-  }, [_vm._v("RATING")])])], 1)], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("RATING")])])], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('modal-browse-events', {
+  }, [_c("modal-browse-events", {
     attrs: {
       "prop-name": _vm.fields.event
     },
     on: {
-      "browseEvents": function browseEvents($event) {
+      browseEvents: function browseEvents($event) {
         return _vm.emitBrowseEvent($event);
       }
     }
-  })], 1)]), _vm._v(" "), _c('div', {
+  })], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Question",
+      label: "Question",
       "label-position": "on-border",
-      "type": this.errors.question ? 'is-danger' : '',
-      "message": this.errors.question ? this.errors.question[0] : ''
+      type: this.errors.question ? "is-danger" : "",
+      message: this.errors.question ? this.errors.question[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Question",
-      "required": ""
+      placeholder: "Question",
+      required: ""
     },
     model: {
       value: _vm.fields.question,
@@ -10062,15 +10062,15 @@ var render = function render() {
       },
       expression: "fields.question"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "buttons is-right"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "button is-outlined is-primary"
-  }, [_c('b-icon', {
+  }, [_c("b-icon", {
     attrs: {
-      "icon": "content-save-all-outline"
+      icon: "content-save-all-outline"
     }
-  }), _vm._v(" "), _c('b', [_vm._v("SAVE")])], 1)])])])])])])]);
+  }), _vm._v(" "), _c("b", [_vm._v("SAVE")])], 1)])])])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -10093,31 +10093,31 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8-widescreen is-10-tablet"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "is-flex is-justify-content-center mb-2",
     staticStyle: {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF QUESTION")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v("LIST OF QUESTION")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-left"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Page"
+      label: "Page"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": _vm.setPerPage
+      input: _vm.setPerPage
     },
     model: {
       value: _vm.perPage,
@@ -10126,25 +10126,25 @@ var render = function render() {
       },
       expression: "perPage"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "5"
+      value: "5"
     }
-  }, [_vm._v("5 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("5 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "10"
+      value: "10"
     }
-  }, [_vm._v("10 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "15"
+      value: "15"
     }
-  }, [_vm._v("15 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("15 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "20"
+      value: "20"
     }
-  }, [_vm._v("20 per page")])]), _vm._v(" "), _c('b-select', {
+  }, [_vm._v("20 per page")])]), _vm._v(" "), _c("b-select", {
     on: {
-      "input": _vm.loadAsyncData
+      input: _vm.loadAsyncData
     },
     model: {
       value: _vm.sortOrder,
@@ -10153,30 +10153,30 @@ var render = function render() {
       },
       expression: "sortOrder"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "asc"
+      value: "asc"
     }
-  }, [_vm._v("ASC")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ASC")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "desc"
+      value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "level-right"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-item"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Search"
+      label: "Search"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Search..."
+      type: "text",
+      placeholder: "Search..."
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -10187,29 +10187,29 @@ var render = function render() {
       },
       expression: "search.question"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-tooltip', {
+  }, [_c("b-tooltip", {
     attrs: {
-      "label": "Search",
-      "type": "is-success"
+      label: "Search",
+      type: "is-success"
     }
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "type": "is-primary",
+      type: "is-primary",
       "icon-right": "magnify"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-field', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-field", {
     attrs: {
-      "label": "Academic Year",
+      label: "Academic Year",
       "label-position": "on-border"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": function input($event) {
+      input: function input($event) {
         return _vm.loadAsyncData();
       }
     },
@@ -10221,19 +10221,19 @@ var render = function render() {
       expression: "search.academic_year_id"
     }
   }, _vm._l(_vm.academic_years, function (item, index) {
-    return _c('option', {
+    return _c("option", {
       key: index,
       domProps: {
-        "value": item.academic_year_id
+        value: item.academic_year_id
       }
     }, [_vm._v(_vm._s(item.academic_year_code))]);
-  }), 0)], 1), _vm._v(" "), _c('b-table', {
+  }), 0)], 1), _vm._v(" "), _c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
       "backend-pagination": "",
-      "total": _vm.total,
+      total: _vm.total,
       "per-page": _vm.perPage,
       "aria-next-label": "Next page",
       "aria-previous-label": "Previous page",
@@ -10244,12 +10244,12 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     }
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "user_id",
-      "label": "ID"
+      field: "user_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10257,10 +10257,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.question_id) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "academic_year",
-      "label": "AY Code"
+      field: "academic_year",
+      label: "AY Code"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10268,11 +10268,11 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.academic_year.academic_year_code) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "order_no",
-      "label": "Order No",
-      "centered": ""
+      field: "order_no",
+      label: "Order No",
+      centered: ""
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10280,10 +10280,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.order_no) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "question",
-      "label": "Question"
+      field: "question",
+      label: "Question"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10291,10 +10291,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.question, 50)) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "input_type",
-      "label": "Type"
+      field: "input_type",
+      label: "Type"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10302,10 +10302,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.input_type) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event",
-      "label": "Event"
+      field: "event",
+      label: "Event"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10313,56 +10313,56 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.event.event) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "label": "Action"
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "is-flex"
-        }, [_c('b-tooltip', {
+        }, [_c("b-tooltip", {
           attrs: {
-            "label": "Edit",
-            "type": "is-warning"
+            label: "Edit",
+            type: "is-warning"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
-            "tag": "a",
+            tag: "a",
             "icon-right": "pencil"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.getData(props.row.question_id);
             }
           }
-        })], 1), _vm._v(" "), _c('b-tooltip', {
+        })], 1), _vm._v(" "), _c("b-tooltip", {
           attrs: {
-            "label": "Delete",
-            "type": "is-danger"
+            label: "Delete",
+            type: "is-danger"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
             "icon-right": "delete"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.confirmDelete(props.row.question_id);
             }
           }
         })], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "buttons mt-3"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
     attrs: {
-      "href": "/questions/create",
-      "tag": "a",
+      href: "/questions/create",
+      tag: "a",
       "icon-right": "chat-question"
     }
   }, [_vm._v("NEW")])], 1)], 1)])])])]);
@@ -10388,31 +10388,31 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "is-flex is-justify-content-center mb-2",
     staticStyle: {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF USER")]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v("LIST OF USER")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-left"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Page"
+      label: "Page"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": _vm.setPerPage
+      input: _vm.setPerPage
     },
     model: {
       value: _vm.perPage,
@@ -10421,25 +10421,25 @@ var render = function render() {
       },
       expression: "perPage"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "5"
+      value: "5"
     }
-  }, [_vm._v("5 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("5 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "10"
+      value: "10"
     }
-  }, [_vm._v("10 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "15"
+      value: "15"
     }
-  }, [_vm._v("15 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("15 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "20"
+      value: "20"
     }
-  }, [_vm._v("20 per page")])]), _vm._v(" "), _c('b-select', {
+  }, [_vm._v("20 per page")])]), _vm._v(" "), _c("b-select", {
     on: {
-      "input": _vm.loadAsyncData
+      input: _vm.loadAsyncData
     },
     model: {
       value: _vm.sortOrder,
@@ -10448,30 +10448,30 @@ var render = function render() {
       },
       expression: "sortOrder"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "asc"
+      value: "asc"
     }
-  }, [_vm._v("ASC")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ASC")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "desc"
+      value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "level-right"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-item"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Search"
+      label: "Search"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Search Lastname"
+      type: "text",
+      placeholder: "Search Lastname"
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -10482,28 +10482,28 @@ var render = function render() {
       },
       expression: "search.lname"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-tooltip', {
+  }, [_c("b-tooltip", {
     attrs: {
-      "label": "Search",
-      "type": "is-success"
+      label: "Search",
+      type: "is-success"
     }
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "type": "is-primary",
+      type: "is-primary",
       "icon-right": "magnify"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('b-table', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
       "backend-pagination": "",
-      "total": _vm.total,
+      total: _vm.total,
       "per-page": _vm.perPage,
       "aria-next-label": "Next page",
       "aria-previous-label": "Previous page",
@@ -10514,12 +10514,12 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     }
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "user_id",
-      "label": "ID"
+      field: "user_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10527,10 +10527,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.user_id) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "username",
-      "label": "Username"
+      field: "username",
+      label: "Username"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10538,10 +10538,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.username) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "name",
-      "label": "Name"
+      field: "name",
+      label: "Name"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10549,10 +10549,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.lname) + ", " + _vm._s(props.row.fname) + " " + _vm._s(props.row.mname) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "sex",
-      "label": "Sex"
+      field: "sex",
+      label: "Sex"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10560,10 +10560,10 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.sex) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "role",
-      "label": "Role"
+      field: "role",
+      label: "Role"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10571,75 +10571,75 @@ var render = function render() {
         return [_vm._v("\n                            " + _vm._s(props.row.role) + "\n                        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "office",
-      "label": "Office"
+      field: "office",
+      label: "Office"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [props.row.office ? _c('span', [_vm._v(_vm._s(props.row.office.office))]) : _vm._e()];
+        return [props.row.office ? _c("span", [_vm._v(_vm._s(props.row.office.office))]) : _vm._e()];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "label": "Action"
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "is-flex"
-        }, [_c('b-tooltip', {
+        }, [_c("b-tooltip", {
           attrs: {
-            "label": "Edit",
-            "type": "is-warning"
+            label: "Edit",
+            type: "is-warning"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
-            "tag": "a",
+            tag: "a",
             "icon-right": "pencil"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.getData(props.row.user_id);
             }
           }
-        })], 1), _vm._v(" "), _c('b-tooltip', {
+        })], 1), _vm._v(" "), _c("b-tooltip", {
           attrs: {
-            "label": "Delete",
-            "type": "is-danger"
+            label: "Delete",
+            type: "is-danger"
           }
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-small mr-1",
           attrs: {
             "icon-right": "delete"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.confirmDelete(props.row.user_id);
             }
           }
         })], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "buttons mt-3"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
     attrs: {
       "icon-right": "account-arrow-up-outline"
     },
     on: {
-      "click": _vm.openModal
+      click: _vm.openModal
     }
-  }, [_vm._v("NEW")])], 1)], 1)])])]), _vm._v(" "), _c('b-modal', {
+  }, [_vm._v("NEW")])], 1)], 1)])])]), _vm._v(" "), _c("b-modal", {
     attrs: {
       "has-modal-card": "",
       "trap-focus": "",
-      "width": 640,
+      width: 640,
       "aria-role": "dialog",
       "aria-label": "Modal",
       "aria-modal": ""
@@ -10651,46 +10651,46 @@ var render = function render() {
       },
       expression: "isModalCreate"
     }
-  }, [_c('form', {
+  }, [_c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "modal-card"
-  }, [_c('header', {
+  }, [_c("header", {
     staticClass: "modal-card-head"
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "modal-card-title"
-  }, [_vm._v("User Information")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("User Information")]), _vm._v(" "), _c("button", {
     staticClass: "delete",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalCreate = false;
       }
     }
-  })]), _vm._v(" "), _c('section', {
+  })]), _vm._v(" "), _c("section", {
     staticClass: "modal-card-body"
-  }, [_c('div', {}, [_c('div', {
+  }, [_c("div", {}, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Username",
+      label: "Username",
       "label-position": "on-border",
-      "type": this.errors.username ? 'is-danger' : '',
-      "message": this.errors.username ? this.errors.username[0] : ''
+      type: this.errors.username ? "is-danger" : "",
+      message: this.errors.username ? this.errors.username[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Username",
-      "required": ""
+      placeholder: "Username",
+      required: ""
     },
     model: {
       value: _vm.fields.username,
@@ -10699,21 +10699,21 @@ var render = function render() {
       },
       expression: "fields.username"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Last Name",
+      label: "Last Name",
       "label-position": "on-border",
-      "type": this.errors.lname ? 'is-danger' : '',
-      "message": this.errors.lname ? this.errors.lname[0] : ''
+      type: this.errors.lname ? "is-danger" : "",
+      message: this.errors.lname ? this.errors.lname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Last Name",
-      "required": ""
+      placeholder: "Last Name",
+      required: ""
     },
     model: {
       value: _vm.fields.lname,
@@ -10722,19 +10722,19 @@ var render = function render() {
       },
       expression: "fields.lname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "First Name",
+      label: "First Name",
       "label-position": "on-border",
-      "type": this.errors.fname ? 'is-danger' : '',
-      "message": this.errors.fname ? this.errors.fname[0] : ''
+      type: this.errors.fname ? "is-danger" : "",
+      message: this.errors.fname ? this.errors.fname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "First Name",
-      "required": ""
+      placeholder: "First Name",
+      required: ""
     },
     model: {
       value: _vm.fields.fname,
@@ -10743,20 +10743,20 @@ var render = function render() {
       },
       expression: "fields.fname"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Middle Name",
+      label: "Middle Name",
       "label-position": "on-border",
-      "type": this.errors.mname ? 'is-danger' : '',
-      "message": this.errors.mname ? this.errors.mname[0] : ''
+      type: this.errors.mname ? "is-danger" : "",
+      message: this.errors.mname ? this.errors.mname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Middle Name"
+      placeholder: "Middle Name"
     },
     model: {
       value: _vm.fields.mname,
@@ -10765,18 +10765,18 @@ var render = function render() {
       },
       expression: "fields.mname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Suffix",
+      label: "Suffix",
       "label-position": "on-border",
-      "type": this.errors.suffix ? 'is-danger' : '',
-      "message": this.errors.suffix ? this.errors.suffix[0] : ''
+      type: this.errors.suffix ? "is-danger" : "",
+      message: this.errors.suffix ? this.errors.suffix[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Suffix"
+      placeholder: "Suffix"
     },
     model: {
       value: _vm.fields.suffix,
@@ -10785,23 +10785,23 @@ var render = function render() {
       },
       expression: "fields.suffix"
     }
-  })], 1)], 1)]), _vm._v(" "), _vm.global_id < 1 ? _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _vm.global_id < 1 ? _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Password",
+      label: "Password",
       "label-position": "on-border",
-      "type": this.errors.password ? 'is-danger' : '',
-      "message": this.errors.password ? this.errors.password[0] : ''
+      type: this.errors.password ? "is-danger" : "",
+      message: this.errors.password ? this.errors.password[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "password",
+      type: "password",
       "password-reveal": "",
-      "placeholder": "Password",
-      "required": ""
+      placeholder: "Password",
+      required: ""
     },
     model: {
       value: _vm.fields.password,
@@ -10810,20 +10810,20 @@ var render = function render() {
       },
       expression: "fields.password"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Confirm Password",
+      label: "Confirm Password",
       "label-position": "on-border",
-      "type": this.errors.password_confirmation ? 'is-danger' : '',
-      "message": this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''
+      type: this.errors.password_confirmation ? "is-danger" : "",
+      message: this.errors.password_confirmation ? this.errors.password_confirmation[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "password",
-      "placeholder": "Confirm Password",
-      "required": ""
+      type: "password",
+      placeholder: "Confirm Password",
+      required: ""
     },
     model: {
       value: _vm.fields.password_confirmation,
@@ -10832,21 +10832,21 @@ var render = function render() {
       },
       expression: "fields.password_confirmation"
     }
-  })], 1)], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+  })], 1)], 1)]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Sex",
+      label: "Sex",
       "label-position": "on-border",
-      "expanded": "",
-      "type": this.errors.sex ? 'is-danger' : '',
-      "message": this.errors.sex ? this.errors.sex[0] : ''
+      expanded: "",
+      type: this.errors.sex ? "is-danger" : "",
+      message: this.errors.sex ? this.errors.sex[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": ""
+      expanded: ""
     },
     model: {
       value: _vm.fields.sex,
@@ -10855,27 +10855,27 @@ var render = function render() {
       },
       expression: "fields.sex"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "MALE"
+      value: "MALE"
     }
-  }, [_vm._v("MALE")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("MALE")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "FEMALE"
+      value: "FEMALE"
     }
-  }, [_vm._v("FEMALE")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("FEMALE")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Role",
+      label: "Role",
       "label-position": "on-border",
-      "expanded": "",
-      "type": this.errors.role ? 'is-danger' : '',
-      "message": this.errors.role ? this.errors.role[0] : ''
+      expanded: "",
+      type: this.errors.role ? "is-danger" : "",
+      message: this.errors.role ? this.errors.role[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": ""
+      expanded: ""
     },
     model: {
       value: _vm.fields.role,
@@ -10884,34 +10884,34 @@ var render = function render() {
       },
       expression: "fields.role"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "ADMINISTRATOR"
+      value: "ADMINISTRATOR"
     }
-  }, [_vm._v("ADMINISTRATOR")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ADMINISTRATOR")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "STAFF"
+      value: "STAFF"
     }
-  }, [_vm._v("STAFF")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("STAFF")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "STUDENT"
+      value: "STUDENT"
     }
-  }, [_vm._v("STUDENT")])])], 1)], 1)])])]), _vm._v(" "), _c('footer', {
+  }, [_vm._v("STUDENT")])])], 1)], 1)])])]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "label": "Close"
+      label: "Close"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalCreate = false;
       }
     }
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), _c("button", {
     "class": _vm.btnClass,
     attrs: {
-      "label": "Save",
-      "type": "is-success"
+      label: "Save",
+      type: "is-success"
     }
   }, [_vm._v("SAVE")])], 1)])])])], 1);
 };
@@ -10941,7 +10941,7 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', [_vm._v(" hello")])]);
+  return _c("div", [_c("div", [_vm._v(" hello")])]);
 }];
 render._withStripped = true;
 
@@ -10963,32 +10963,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "login-wrapper"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "login"
-  }, [_c('form', {
+  }, [_c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "box-body"
-  }, [_vm._m(1), _vm._v(" "), _c('b-field', {
+  }, [_vm._m(1), _vm._v(" "), _c("b-field", {
     attrs: {
-      "label": "Username",
+      label: "Username",
       "label-position": "on-border",
-      "type": this.errors.username ? 'is-danger' : '',
-      "message": this.errors.username ? this.errors.username[0] : ''
+      type: this.errors.username ? "is-danger" : "",
+      message: this.errors.username ? this.errors.username[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Username"
+      type: "text",
+      placeholder: "Username"
     },
     model: {
       value: _vm.fields.username,
@@ -10997,16 +10997,16 @@ var render = function render() {
       },
       expression: "fields.username"
     }
-  })], 1), _vm._v(" "), _c('b-field', {
+  })], 1), _vm._v(" "), _c("b-field", {
     attrs: {
-      "label": "Password",
+      label: "Password",
       "label-position": "on-border"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "password",
+      type: "password",
       "password-reveal": "",
-      "placeholder": "Password"
+      placeholder: "Password"
     },
     model: {
       value: _vm.fields.password,
@@ -11015,29 +11015,29 @@ var render = function render() {
       },
       expression: "fields.password"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "buttons is-center"
-  }, [_c('button', {
+  }, [_c("button", {
     "class": _vm.btnClass
   }, [_vm._v("LOGIN")])])], 1)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "box-heading"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box-heading-text"
   }, [_vm._v("\n                        Event Manangement Application\n                    ")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "img-container"
-  }, [_c('img', {
+  }, [_c("img", {
     staticClass: "img",
     attrs: {
-      "src": "/img/save-files.png"
+      src: "/img/save-files.png"
     }
   })]);
 }];
@@ -11061,27 +11061,27 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('b-field', [_c('b-input', {
+  return _c("div", [_c("b-field", [_c("b-input", {
     attrs: {
-      "value": _vm.valueName,
-      "expanded": "",
-      "icon": "calendar",
-      "placeholder": "Select Event",
-      "required": "",
-      "readonly": ""
+      value: _vm.valueName,
+      expanded: "",
+      icon: "calendar",
+      placeholder: "Select Event",
+      required: "",
+      readonly: ""
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "button is-primary",
     on: {
-      "click": _vm.openModal
+      click: _vm.openModal
     }
-  }, [_vm._v("...")])], 1)], 1), _vm._v(" "), _c('b-modal', {
+  }, [_vm._v("...")])], 1)], 1), _vm._v(" "), _c("b-modal", {
     attrs: {
       "has-modal-card": "",
       "trap-focus": "",
-      "scroll": "keep",
+      scroll: "keep",
       "aria-role": "dialog",
       "aria-modal": ""
     },
@@ -11092,39 +11092,39 @@ var render = function render() {
       },
       expression: "this.isModalActive"
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "modal-card card-width"
-  }, [_c('header', {
+  }, [_c("header", {
     staticClass: "modal-card-head"
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "modal-card-title"
-  }, [_vm._v("Select Event")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Select Event")]), _vm._v(" "), _c("button", {
     staticClass: "delete",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalActive = false;
       }
     }
-  })]), _vm._v(" "), _c('section', {
+  })]), _vm._v(" "), _c("section", {
     staticClass: "modal-card-body"
-  }, [_c('div', [_c('b-field', {
+  }, [_c("div", [_c("b-field", {
     attrs: {
-      "label": "Search",
+      label: "Search",
       "label-position": "on-border"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Search Item Name...",
-      "expanded": "",
+      type: "text",
+      placeholder: "Search Item Name...",
+      expanded: "",
       "auto-focus": ""
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -11135,26 +11135,26 @@ var render = function render() {
       },
       expression: "search.event"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary",
     attrs: {
       "icon-pack": "fa",
       "icon-left": "search"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "table-container"
-  }, [_c('b-table', {
+  }, [_c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
       "backend-pagination": "",
-      "total": _vm.total,
+      total: _vm.total,
       "per-page": _vm.perPage,
       "detail-transition": "",
       "aria-next-label": "Next page",
@@ -11166,12 +11166,12 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     }
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "event_id",
-      "label": "ID"
+      field: "event_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11179,10 +11179,10 @@ var render = function render() {
         return [_vm._v("\n                                " + _vm._s(props.row.event_id) + "\n                            ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event",
-      "label": "Event"
+      field: "event",
+      label: "Event"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11190,10 +11190,10 @@ var render = function render() {
         return [_vm._v("\n                                " + _vm._s(props.row.event) + "\n                            ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "event_desc",
-      "label": "Description"
+      field: "event_desc",
+      label: "Description"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11201,36 +11201,36 @@ var render = function render() {
         return [_vm._v("\n                                " + _vm._s(_vm._f("truncate")(props.row.event_description, 70)) + "\n                            ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "",
-      "label": "Action"
+      field: "",
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "buttons"
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "is-small is-warning",
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.selectData(props.row);
             }
           }
-        }, [_c('i', {
+        }, [_c("i", {
           staticClass: "fa fa-pencil"
         }), _vm._v("  SELECT")])], 1)];
       }
     }])
-  })], 1)], 1)], 1)]), _vm._v(" "), _c('footer', {
+  })], 1)], 1)], 1)]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "label": "Close"
+      label: "Close"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalActive = false;
       }
     }
@@ -11257,39 +11257,39 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('section', {
+  return _c("section", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8 is-offset-2"
-  }, [_c('form', {
+  }, [_c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "panel"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "panel-heading"
-  }, [_vm._v("\n                        REGISTER HERE\n                    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                        REGISTER HERE\n                    ")]), _vm._v(" "), _c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Username",
-      "type": this.errors.username ? 'is-danger' : '',
-      "message": this.errors.username ? this.errors.username[0] : ''
+      label: "Username",
+      type: this.errors.username ? "is-danger" : "",
+      message: this.errors.username ? this.errors.username[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "icon": "account"
+      type: "text",
+      icon: "account"
     },
     model: {
       value: _vm.fields.username,
@@ -11298,20 +11298,20 @@ var render = function render() {
       },
       expression: "fields.username"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Password",
-      "type": this.errors.password ? 'is-danger' : '',
-      "message": this.errors.password ? this.errors.password[0] : ''
+      label: "Password",
+      type: this.errors.password ? "is-danger" : "",
+      message: this.errors.password ? this.errors.password[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "password",
-      "icon": "lock",
+      type: "password",
+      icon: "lock",
       "password-reveal": ""
     },
     model: {
@@ -11321,16 +11321,16 @@ var render = function render() {
       },
       expression: "fields.password"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Re-type Password"
+      label: "Re-type Password"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "password",
-      "icon": "lock",
+      type: "password",
+      icon: "lock",
       "password-reveal": ""
     },
     model: {
@@ -11340,20 +11340,20 @@ var render = function render() {
       },
       expression: "fields.password_confirmation"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Email",
-      "type": this.errors.email ? 'is-danger' : '',
-      "message": this.errors.email ? this.errors.email[0] : ''
+      label: "Email",
+      type: this.errors.email ? "is-danger" : "",
+      message: this.errors.email ? this.errors.email[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "email",
-      "icon": "email"
+      type: "email",
+      icon: "email"
     },
     model: {
       value: _vm.fields.email,
@@ -11362,18 +11362,18 @@ var render = function render() {
       },
       expression: "fields.email"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Contact No.",
-      "type": this.errors.contact_no ? 'is-danger' : '',
-      "message": this.errors.contact_no ? this.errors.contact_no[0] : ''
+      label: "Contact No.",
+      type: this.errors.contact_no ? "is-danger" : "",
+      message: this.errors.contact_no ? this.errors.contact_no[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "icon": ""
+      type: "text",
+      icon: ""
     },
     model: {
       value: _vm.fields.contact_no,
@@ -11382,21 +11382,21 @@ var render = function render() {
       },
       expression: "fields.contact_no"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Last Name",
-      "type": this.errors.lname ? 'is-danger' : '',
-      "message": this.errors.lname ? this.errors.lname[0] : ''
+      label: "Last Name",
+      type: this.errors.lname ? "is-danger" : "",
+      message: this.errors.lname ? this.errors.lname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "icon": "account",
-      "placeholder": "First Lastname",
-      "type": "text"
+      icon: "account",
+      placeholder: "First Lastname",
+      type: "text"
     },
     model: {
       value: _vm.fields.lname,
@@ -11405,19 +11405,19 @@ var render = function render() {
       },
       expression: "fields.lname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "First Name",
-      "type": this.errors.fname ? 'is-danger' : '',
-      "message": this.errors.fname ? this.errors.fname[0] : ''
+      label: "First Name",
+      type: this.errors.fname ? "is-danger" : "",
+      message: this.errors.fname ? this.errors.fname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "icon": "account",
-      "placeholder": "First Name",
-      "type": "text"
+      icon: "account",
+      placeholder: "First Name",
+      type: "text"
     },
     model: {
       value: _vm.fields.fname,
@@ -11426,18 +11426,18 @@ var render = function render() {
       },
       expression: "fields.fname"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Middle Name"
+      label: "Middle Name"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Middle Name"
+      type: "text",
+      placeholder: "Middle Name"
     },
     model: {
       value: _vm.fields.mname,
@@ -11446,16 +11446,16 @@ var render = function render() {
       },
       expression: "fields.mname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Suffix"
+      label: "Suffix"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Suffix"
+      type: "text",
+      placeholder: "Suffix"
     },
     model: {
       value: _vm.fields.suffix,
@@ -11464,20 +11464,20 @@ var render = function render() {
       },
       expression: "fields.suffix"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Sex",
-      "expanded": "",
-      "type": this.errors.sex ? 'is-danger' : '',
-      "message": this.errors.sex ? this.errors.sex[0] : ''
+      label: "Sex",
+      expanded: "",
+      type: this.errors.sex ? "is-danger" : "",
+      message: this.errors.sex ? this.errors.sex[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "placeholder": "Sex",
-      "icon": "account",
-      "expanded": ""
+      placeholder: "Sex",
+      icon: "account",
+      expanded: ""
     },
     model: {
       value: _vm.fields.sex,
@@ -11486,32 +11486,32 @@ var render = function render() {
       },
       expression: "fields.sex"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "MALE"
+      value: "MALE"
     }
-  }, [_vm._v("MALE")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("MALE")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "FEMALE"
+      value: "FEMALE"
     }
-  }, [_vm._v("FEMALE")])])], 1)], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("FEMALE")])])], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Province",
-      "expanded": "",
-      "type": this.errors.province ? 'is-danger' : '',
-      "message": this.errors.province ? this.errors.province[0] : ''
+      label: "Province",
+      expanded: "",
+      type: this.errors.province ? "is-danger" : "",
+      message: this.errors.province ? this.errors.province[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": "",
-      "placeholder": "Province"
+      expanded: "",
+      placeholder: "Province"
     },
     on: {
-      "input": _vm.loadCity
+      input: _vm.loadCity
     },
     model: {
       value: _vm.fields.province,
@@ -11521,28 +11521,28 @@ var render = function render() {
       expression: "fields.province"
     }
   }, _vm._l(_vm.provinces, function (item, index) {
-    return _c('option', {
+    return _c("option", {
       key: index,
       domProps: {
-        "value": item.provCode
+        value: item.provCode
       }
     }, [_vm._v(_vm._s(item.provDesc))]);
-  }), 0)], 1)], 1), _vm._v(" "), _c('div', {
+  }), 0)], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "City/Municipality",
-      "expanded": "",
-      "type": this.errors.city ? 'is-danger' : '',
-      "message": this.errors.city ? this.errors.city[0] : ''
+      label: "City/Municipality",
+      expanded: "",
+      type: this.errors.city ? "is-danger" : "",
+      message: this.errors.city ? this.errors.city[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": "",
-      "placeholder": "City"
+      expanded: "",
+      placeholder: "City"
     },
     on: {
-      "input": _vm.loadBarangay
+      input: _vm.loadBarangay
     },
     model: {
       value: _vm.fields.city,
@@ -11552,27 +11552,27 @@ var render = function render() {
       expression: "fields.city"
     }
   }, _vm._l(_vm.cities, function (item, index) {
-    return _c('option', {
+    return _c("option", {
       key: index,
       domProps: {
-        "value": item.citymunCode
+        value: item.citymunCode
       }
     }, [_vm._v(_vm._s(item.citymunDesc))]);
-  }), 0)], 1)], 1)]), _vm._v(" "), _c('div', {
+  }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Barangay",
-      "expanded": "",
-      "type": this.errors.barangay ? 'is-danger' : '',
-      "message": this.errors.barangay ? this.errors.barangay[0] : ''
+      label: "Barangay",
+      expanded: "",
+      type: this.errors.barangay ? "is-danger" : "",
+      message: this.errors.barangay ? this.errors.barangay[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": "",
-      "placeholder": "Barangay"
+      expanded: "",
+      placeholder: "Barangay"
     },
     model: {
       value: _vm.fields.barangay,
@@ -11582,30 +11582,30 @@ var render = function render() {
       expression: "fields.barangay"
     }
   }, _vm._l(_vm.barangays, function (item, index) {
-    return _c('option', {
+    return _c("option", {
       key: index,
       domProps: {
-        "value": item.brgyCode
+        value: item.brgyCode
       }
     }, [_vm._v(_vm._s(item.brgyDesc))]);
-  }), 0)], 1)], 1), _vm._v(" "), _c('div', {
+  }), 0)], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "House #. Street"
+      label: "House #. Street"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text"
+      type: "text"
     }
   })], 1)], 1)]), _vm._v(" "), _vm._m(0)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "buttons is-right"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "button is-success"
   }, [_vm._v("Register")])]);
 }];
@@ -11629,19 +11629,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-10-desktop"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box box-table"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box-header"
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c("div", {
     staticClass: "box-body"
-  }, [_c('table-forwarded')], 1)])])])])]);
+  }, [_c("table-forwarded")], 1)])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -11664,13 +11664,13 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-6-desktop"
-  }, [_c('tracking-component')], 1)])])]);
+  }, [_c("tracking-component")], 1)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -11693,14 +11693,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('b-navbar', {
+  return _c("div", [_c("b-navbar", {
     scopedSlots: _vm._u([{
       key: "brand",
       fn: function fn() {
-        return [_c('b-navbar-item', [_c('img', {
+        return [_c("b-navbar-item", [_c("img", {
           attrs: {
-            "src": "",
-            "alt": ""
+            src: "",
+            alt: ""
           }
         })])];
       },
@@ -11714,32 +11714,32 @@ var render = function render() {
     }, {
       key: "end",
       fn: function fn() {
-        return [_c('b-navbar-item', {
+        return [_c("b-navbar-item", {
           attrs: {
-            "href": "/staff-home"
+            href: "/staff-home"
           }
-        }, [_vm._v("\n                Home\n            ")]), _vm._v(" "), _c('b-navbar-item', {
+        }, [_vm._v("\n                Home\n            ")]), _vm._v(" "), _c("b-navbar-item", {
           attrs: {
-            "href": "/staff-documents"
+            href: "/staff-documents"
           }
-        }, [_vm._v("\n                Documents\n            ")]), _vm._v(" "), _c('b-navbar-item', {
+        }, [_vm._v("\n                Documents\n            ")]), _vm._v(" "), _c("b-navbar-item", {
           attrs: {
-            "href": "#"
+            href: "#"
           }
-        }, [_vm._v("\n                " + _vm._s(_vm.firstName) + "\n            ")]), _vm._v(" "), _c('b-navbar-item', {
+        }, [_vm._v("\n                " + _vm._s(_vm.firstName) + "\n            ")]), _vm._v(" "), _c("b-navbar-item", {
           attrs: {
-            "tag": "div"
+            tag: "div"
           }
-        }, [_c('div', {
+        }, [_c("div", {
           staticClass: "buttons"
-        }, [_c('b-button', {
+        }, [_c("b-button", {
           staticClass: "button is-primary",
           attrs: {
             "icon-left": "logout",
-            "outlined": ""
+            outlined: ""
           },
           on: {
-            "click": _vm.logout
+            click: _vm.logout
           }
         })], 1)])];
       },
@@ -11768,23 +11768,23 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "is-flex is-justify-content-center mb-2",
     staticStyle: {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF DOCUMENTS")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("LIST OF DOCUMENTS")]), _vm._v(" "), _c("div", {
     staticClass: "level"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-left"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Page"
+      label: "Page"
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     on: {
-      "input": _vm.setPerPage
+      input: _vm.setPerPage
     },
     model: {
       value: _vm.perPage,
@@ -11793,25 +11793,25 @@ var render = function render() {
       },
       expression: "perPage"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "5"
+      value: "5"
     }
-  }, [_vm._v("5 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("5 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "10"
+      value: "10"
     }
-  }, [_vm._v("10 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("10 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "15"
+      value: "15"
     }
-  }, [_vm._v("15 per page")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("15 per page")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "20"
+      value: "20"
     }
-  }, [_vm._v("20 per page")])]), _vm._v(" "), _c('b-select', {
+  }, [_vm._v("20 per page")])]), _vm._v(" "), _c("b-select", {
     on: {
-      "input": _vm.loadAsyncData
+      input: _vm.loadAsyncData
     },
     model: {
       value: _vm.sortOrder,
@@ -11820,30 +11820,30 @@ var render = function render() {
       },
       expression: "sortOrder"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "asc"
+      value: "asc"
     }
-  }, [_vm._v("ASC")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("ASC")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "desc"
+      value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "level-right"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "level-item"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Search"
+      label: "Search"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Tracking No."
+      type: "text",
+      placeholder: "Tracking No."
     },
     nativeOn: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
         return _vm.loadAsyncData.apply(null, arguments);
       }
     },
@@ -11854,29 +11854,29 @@ var render = function render() {
       },
       expression: "search.track_no"
     }
-  }), _vm._v(" "), _c('p', {
+  }), _vm._v(" "), _c("p", {
     staticClass: "control"
-  }, [_c('b-tooltip', {
+  }, [_c("b-tooltip", {
     attrs: {
-      "label": "Search",
-      "type": "is-success"
+      label: "Search",
+      type: "is-success"
     }
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     attrs: {
-      "type": "is-primary",
+      type: "is-primary",
       "icon-right": "account-filter"
     },
     on: {
-      "click": _vm.loadAsyncData
+      click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c('b-table', {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("b-table", {
     attrs: {
-      "data": _vm.data,
-      "loading": _vm.loading,
-      "paginated": "",
-      "detailed": "",
+      data: _vm.data,
+      loading: _vm.loading,
+      paginated: "",
+      detailed: "",
       "backend-pagination": "",
-      "total": _vm.total,
+      total: _vm.total,
       "per-page": _vm.perPage,
       "aria-next-label": "Next page",
       "aria-previous-label": "Previous page",
@@ -11887,22 +11887,22 @@ var render = function render() {
     },
     on: {
       "page-change": _vm.onPageChange,
-      "sort": _vm.onSort
+      sort: _vm.onSort
     },
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c('tr', [_c('th', [_vm._v("Process Status")]), _vm._v(" "), _c('th', [_vm._v("Process Date Time")]), _vm._v(" "), _c('th', [_vm._v("Forward Status")]), _vm._v(" "), _c('th', [_vm._v("Forward Date Time")])]), _vm._v(" "), _c('tr', [props.row.is_process === 1 ? _c('td', [_c('span', {
+        return [_c("tr", [_c("th", [_vm._v("Process Status")]), _vm._v(" "), _c("th", [_vm._v("Process Date Time")]), _vm._v(" "), _c("th", [_vm._v("Forward Status")]), _vm._v(" "), _c("th", [_vm._v("Forward Date Time")])]), _vm._v(" "), _c("tr", [props.row.is_process === 1 ? _c("td", [_c("span", {
           staticClass: "process"
-        }, [_vm._v("Processing")])]) : _vm._e(), _vm._v(" "), props.row.is_process === 1 ? _c('td', [_vm._v(_vm._s(_vm._f("formatDateTime")(props.row.datetime_process)))]) : _vm._e(), _vm._v(" "), props.row.is_forwarded === 1 ? _c('td', [_c('span', {
+        }, [_vm._v("Processing")])]) : _vm._e(), _vm._v(" "), props.row.is_process === 1 ? _c("td", [_vm._v(_vm._s(_vm._f("formatDateTime")(props.row.datetime_process)))]) : _vm._e(), _vm._v(" "), props.row.is_forwarded === 1 ? _c("td", [_c("span", {
           staticClass: "process"
-        }, [_vm._v("Forwarded")])]) : _vm._e(), _vm._v(" "), props.row.is_forwarded === 1 ? _c('td', [_vm._v(_vm._s(_vm._f("formatDateTime")(props.row.datetime_forwarded)))]) : _vm._e()])];
+        }, [_vm._v("Forwarded")])]) : _vm._e(), _vm._v(" "), props.row.is_forwarded === 1 ? _c("td", [_vm._v(_vm._s(_vm._f("formatDateTime")(props.row.datetime_forwarded)))]) : _vm._e()])];
       }
     }])
-  }, [_c('b-table-column', {
+  }, [_c("b-table-column", {
     attrs: {
-      "field": "document_id",
-      "label": "ID"
+      field: "document_id",
+      label: "ID"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11910,10 +11910,10 @@ var render = function render() {
         return [_vm._v("\n            " + _vm._s(props.row.document_id) + "\n        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "tracking_no",
-      "label": "Tracking No."
+      field: "tracking_no",
+      label: "Tracking No."
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11921,10 +11921,10 @@ var render = function render() {
         return [_vm._v("\n            " + _vm._s(props.row.document.tracking_no) + "\n        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "document_name",
-      "label": "Document Name"
+      field: "document_name",
+      label: "Document Name"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11932,23 +11932,23 @@ var render = function render() {
         return [_vm._v("\n            " + _vm._s(props.row.document.document_name) + "\n        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "is_received",
-      "label": "Received Status"
+      field: "is_received",
+      label: "Received Status"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [props.row.is_received === 1 ? _c('span', {
+        return [props.row.is_received === 1 ? _c("span", {
           staticClass: "process"
         }, [_vm._v("\n                Received\n            ")]) : _vm._e()];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "field": "datetime_received",
-      "label": "Date Received"
+      field: "datetime_received",
+      label: "Date Received"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11956,16 +11956,16 @@ var render = function render() {
         return [_vm._v("\n            " + _vm._s(_vm._f("formatDateTime")(props.row.datetime_received)) + "\n        ")];
       }
     }])
-  }), _vm._v(" "), _c('b-table-column', {
+  }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      "label": "Action"
+      label: "Action"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_c('div', {
+        return [_c("div", {
           staticClass: "is-flex"
-        }, [_c('b-dropdown', {
+        }, [_c("b-dropdown", {
           attrs: {
             "aria-role": "list"
           },
@@ -11973,61 +11973,61 @@ var render = function render() {
             key: "trigger",
             fn: function fn(_ref) {
               var active = _ref.active;
-              return [_c('b-button', {
+              return [_c("b-button", {
                 staticClass: "is-small",
                 attrs: {
-                  "label": "Option",
-                  "type": "is-primary",
-                  "icon-right": active ? 'menu-up' : 'menu-down'
+                  label: "Option",
+                  type: "is-primary",
+                  "icon-right": active ? "menu-up" : "menu-down"
                 }
               })];
             }
           }], null, true)
-        }, [_vm._v(" "), props.row.is_origin === 0 ? _c('b-dropdown-item', {
+        }, [_vm._v(" "), props.row.is_origin === 0 ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.receivedDocument(props.row);
             }
           }
-        }, [_vm._v("Receive")]) : _vm._e(), _vm._v(" "), props.row.is_origin === 0 ? _c('b-dropdown-item', {
+        }, [_vm._v("Receive")]) : _vm._e(), _vm._v(" "), props.row.is_origin === 0 ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.processDocument(props.row);
             }
           }
-        }, [_vm._v("Process")]) : _vm._e(), _vm._v(" "), _c('b-dropdown-item', {
+        }, [_vm._v("Process")]) : _vm._e(), _vm._v(" "), _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
           on: {
-            "click": function click($event) {
+            click: function click($event) {
               return _vm.forwardDocument(props.row);
             }
           }
         }, [_vm._v("Forward")])], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "float-button"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-success is-rounded is-large",
     attrs: {
       "icon-right": "plus-circle-outline"
     },
     on: {
-      "click": _vm.openModal
+      click: _vm.openModal
     }
-  })], 1), _vm._v(" "), _c('b-modal', {
+  })], 1), _vm._v(" "), _c("b-modal", {
     attrs: {
       "has-modal-card": "",
       "trap-focus": "",
-      "width": 640,
+      width: 640,
       "aria-role": "dialog",
       "aria-label": "Modal",
       "aria-modal": ""
@@ -12039,46 +12039,46 @@ var render = function render() {
       },
       expression: "isModalCreate"
     }
-  }, [_c('form', {
+  }, [_c("form", {
     on: {
-      "submit": function submit($event) {
+      submit: function submit($event) {
         $event.preventDefault();
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "modal-card"
-  }, [_c('header', {
+  }, [_c("header", {
     staticClass: "modal-card-head"
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "modal-card-title"
-  }, [_vm._v("Document Information")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Document Information")]), _vm._v(" "), _c("button", {
     staticClass: "delete",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         _vm.isModalCreate = false;
       }
     }
-  })]), _vm._v(" "), _c('section', {
+  })]), _vm._v(" "), _c("section", {
     staticClass: "modal-card-body"
-  }, [_c('div', {}, [_c('div', {
+  }, [_c("div", {}, [_c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Document",
+      label: "Document",
       "label-position": "on-border",
-      "type": this.errors.document_name ? 'is-danger' : '',
-      "message": this.errors.document_name ? this.errors.document_name[0] : ''
+      type: this.errors.document_name ? "is-danger" : "",
+      message: this.errors.document_name ? this.errors.document_name[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "placeholder": "Document Name",
-      "required": ""
+      placeholder: "Document Name",
+      required: ""
     },
     model: {
       value: _vm.fields.document_name,
@@ -12087,20 +12087,20 @@ var render = function render() {
       },
       expression: "fields.document_name"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Document Route",
+      label: "Document Route",
       "label-position": "on-border",
-      "type": this.errors.route_id ? 'is-danger' : '',
-      "message": this.errors.route_id ? this.errors.route_id[0] : ''
+      type: this.errors.route_id ? "is-danger" : "",
+      message: this.errors.route_id ? this.errors.route_id[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "placeholder": "Document Route"
+      placeholder: "Document Route"
     },
     model: {
       value: _vm.fields.route_id,
@@ -12110,19 +12110,19 @@ var render = function render() {
       expression: "fields.route_id"
     }
   }, _vm._l(_vm.document_routes, function (item, index) {
-    return _c('option', {
+    return _c("option", {
       key: index,
       domProps: {
-        "value": item.route_id
+        value: item.route_id
       }
     }, [_vm._v("\n                                            " + _vm._s(item.route_name) + "\n                                        ")]);
-  }), 0)], 1)], 1)])])]), _vm._v(" "), _c('footer', {
+  }), 0)], 1)], 1)])])]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
-  }, [_c('button', {
+  }, [_c("button", {
     "class": _vm.btnClass,
     attrs: {
-      "label": "Save",
-      "type": "is-success"
+      label: "Save",
+      type: "is-success"
     }
   }, [_vm._v("SAVE")])])])])])], 1);
 };
@@ -12147,32 +12147,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "container"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-6"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "event box-shadow"
   }, [_vm._v("\n                    EVENT FEED\n                ")]), _vm._v(" "), _vm._l(_vm.eventFeeds, function (event, index) {
-    return _c('div', {
+    return _c("div", {
       key: index,
       staticClass: "event-feed box-shadow"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "event-title"
-    }, [_vm._v("\n                        " + _vm._s(event.event) + "\n                    ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                        " + _vm._s(event.event) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "event-date"
-    }, [_vm._v("\n                        EVENT DATE: " + _vm._s(_vm._f("formatDateTime")(event.event_datetime)) + "\n                    ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                        EVENT DATE: " + _vm._s(_vm._f("formatDateTime")(event.event_datetime)) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "posted-date"
-    }, [_vm._v("\n                        POSTED: " + _vm._s(_vm._f("formatDateTime")(event.created_at)) + "\n                    ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                        POSTED: " + _vm._s(_vm._f("formatDateTime")(event.created_at)) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "event-content"
-    }, [_vm._v("\n                        " + _vm._s(event.event_description) + "\n                    ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                        " + _vm._s(event.event_description) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "img-container"
-    }, [_c('img', {
+    }, [_c("img", {
       attrs: {
-        "src": "/storage/events/".concat(event.img_path),
-        "alt": ""
+        src: "/storage/events/".concat(event.img_path),
+        alt: ""
       }
     })])]);
   })], 2)])])]);
@@ -12198,42 +12198,42 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "section"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "columns is-centered"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column is-8-widescreen is-8-desktop"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "box-body"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_vm.user.qr_code ? _c('qrcode', {
+  }, [_vm.user.qr_code ? _c("qrcode", {
     staticClass: "qr-code",
     attrs: {
-      "value": _vm.user.qr_code,
-      "options": {
+      value: _vm.user.qr_code,
+      options: {
         width: 200
       }
     }
-  }) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Last Name",
-      "type": this.errors.lname ? 'is-danger' : '',
-      "message": this.errors.lname ? this.errors.lname[0] : ''
+      label: "Last Name",
+      type: this.errors.lname ? "is-danger" : "",
+      message: this.errors.lname ? this.errors.lname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Last Name"
+      type: "text",
+      placeholder: "Last Name"
     },
     model: {
       value: _vm.user.lname,
@@ -12242,18 +12242,18 @@ var render = function render() {
       },
       expression: "user.lname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "First Name",
-      "type": this.errors.fname ? 'is-danger' : '',
-      "message": this.errors.fname ? this.errors.fname[0] : ''
+      label: "First Name",
+      type: this.errors.fname ? "is-danger" : "",
+      message: this.errors.fname ? this.errors.fname[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "First Name"
+      type: "text",
+      placeholder: "First Name"
     },
     model: {
       value: _vm.user.fname,
@@ -12262,18 +12262,18 @@ var render = function render() {
       },
       expression: "user.fname"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Middle Name"
+      label: "Middle Name"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Middle Name"
+      type: "text",
+      placeholder: "Middle Name"
     },
     model: {
       value: _vm.user.mname,
@@ -12282,16 +12282,16 @@ var render = function render() {
       },
       expression: "user.mname"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Middle Name"
+      label: "Middle Name"
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Middle Name"
+      type: "text",
+      placeholder: "Middle Name"
     },
     model: {
       value: _vm.user.suffix,
@@ -12300,20 +12300,20 @@ var render = function render() {
       },
       expression: "user.suffix"
     }
-  })], 1)], 1)]), _vm._v(" "), _c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Email",
-      "type": this.errors.email ? 'is-danger' : '',
-      "message": this.errors.email ? this.errors.email[0] : ''
+      label: "Email",
+      type: this.errors.email ? "is-danger" : "",
+      message: this.errors.email ? this.errors.email[0] : ""
     }
-  }, [_c('b-input', {
+  }, [_c("b-input", {
     attrs: {
-      "type": "text",
-      "placeholder": "Email"
+      type: "text",
+      placeholder: "Email"
     },
     model: {
       value: _vm.user.email,
@@ -12322,19 +12322,19 @@ var render = function render() {
       },
       expression: "user.email"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
-  }, [_c('b-field', {
+  }, [_c("b-field", {
     attrs: {
-      "label": "Sex",
-      "expanded": "",
-      "type": this.errors.sex ? 'is-danger' : '',
-      "message": this.errors.sex ? this.errors.sex[0] : ''
+      label: "Sex",
+      expanded: "",
+      type: this.errors.sex ? "is-danger" : "",
+      message: this.errors.sex ? this.errors.sex[0] : ""
     }
-  }, [_c('b-select', {
+  }, [_c("b-select", {
     attrs: {
-      "expanded": "",
-      "placeholder": "Sex"
+      expanded: "",
+      placeholder: "Sex"
     },
     model: {
       value: _vm.user.sex,
@@ -12343,34 +12343,34 @@ var render = function render() {
       },
       expression: "user.sex"
     }
-  }, [_c('option', {
+  }, [_c("option", {
     attrs: {
-      "value": "MALE"
+      value: "MALE"
     }
-  }, [_vm._v("MALE")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("MALE")]), _vm._v(" "), _c("option", {
     attrs: {
-      "value": "FEMALE"
+      value: "FEMALE"
     }
-  }, [_vm._v("FEMALE")])])], 1)], 1)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("FEMALE")])])], 1)], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "box-footer"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "buttons mt-2 is-right"
-  }, [_c('b-button', {
+  }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
     attrs: {
-      "label": "Update Profile"
+      label: "Update Profile"
     },
     on: {
-      "click": _vm.updateProfile
+      click: _vm.updateProfile
     }
   })], 1)])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "mb-2"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "profile-text"
   }, [_vm._v("PROFILE")])]);
 }];
@@ -33133,7 +33133,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.event[data-v-a5a923e2]{\n   margin: 15px 0 15px 0;\n   padding: 15px;\n   font-weight: bold;\n   font-size: 1.2em;\n   border: 1px solid gray;\n}\n.event-feed[data-v-a5a923e2]{\n    margin: 5px 0 15px 0;\n    padding: 15px;\n}\n.event-title[data-v-a5a923e2]{\n    font-weight: bold;\n    margin-bottom: 5px;\n}\n.event-date[data-v-a5a923e2]{\n    font-size: 12px;\n    color: gray;\n    font-weight: bold;\n}\n.posted-date[data-v-a5a923e2]{\n    margin: 0 0 5px 0;\n    font-size: 12px;\n    color: gray;\n    font-weight: bold;\n}\n.box-shadow[data-v-a5a923e2]{\n    box-shadow: 0 1px 6px -3px #777;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.event[data-v-a5a923e2]{\r\n   margin: 15px 0 15px 0;\r\n   padding: 15px;\r\n   font-weight: bold;\r\n   font-size: 1.2em;\r\n   border: 1px solid gray;\n}\n.event-feed[data-v-a5a923e2]{\r\n    margin: 5px 0 15px 0;\r\n    padding: 15px;\n}\n.event-title[data-v-a5a923e2]{\r\n    font-weight: bold;\r\n    margin-bottom: 5px;\n}\n.event-date[data-v-a5a923e2]{\r\n    font-size: 12px;\r\n    color: gray;\r\n    font-weight: bold;\n}\n.posted-date[data-v-a5a923e2]{\r\n    margin: 0 0 5px 0;\r\n    font-size: 12px;\r\n    color: gray;\r\n    font-weight: bold;\n}\n.box-shadow[data-v-a5a923e2]{\r\n    box-shadow: 0 1px 6px -3px #777;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
