@@ -19,10 +19,10 @@ class CreateEventsTable extends Migration
             $table->foreign('academic_year_id')->references('academic_year_id')->on('academic_years')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->string('event')->nullable();
-            $table->text('event_description')->nullable();
-            $table->text('content')->nullable();
+            $table->text('event_description')->default('');
+            $table->text('content')->default('');
             $table->dateTime('event_datetime')->nullable();
-            $table->string('img_path')->nullable();
+            $table->string('img_path')->default('');
             $table->string('event_type')->nullable();
 
             $table->timestamps();

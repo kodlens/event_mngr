@@ -50,10 +50,6 @@ class LoginController extends Controller
                 ]
             ], 422);
         }
-
-        
-
-        
         // if (Auth::attempt($credentials)) {
         //     //$request->session()->regenerate();
         //     //$user = Auth::user();

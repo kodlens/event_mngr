@@ -48,7 +48,6 @@ class EventController extends Controller
 
     public function store(Request $req){
 
-        //return $req;
         $ay = AcademicYear::where('active', 1)->first();
 
         $event_date = date('Y-m-d H:i:s', strtotime($req->event_datetime));
@@ -98,6 +97,7 @@ class EventController extends Controller
       
         $data = Event::find($id);
         $n = [];
+
         if($req->hasFile('event_img')) {
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
@@ -113,11 +113,12 @@ class EventController extends Controller
         $data->academic_year_id = $ay->academic_year_id;
         $data->event = $req->event;
         $data->content = $req->content;
-        $data->event_datetime = $req->event_date;
+        $data->event_datetime = $event_date;
         $data->event_type = $req->event_type;
-        $data->img_path = $req->hasFile('event_img') ? $n[2] : '';
-
-
+        
+        if($req->hasFile('event_img')){
+            $data->img_path = $n[2];
+        }
         
         $data->save();
 

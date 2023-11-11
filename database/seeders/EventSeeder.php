@@ -27,6 +27,14 @@ class EventSeeder extends Seeder
                 'img_path' => 'gbeDdXVEl7nljb93hFvE4vVc2pA8jhzqH9ChDqHe.jpg'
             ],
 
+            [
+                'event' => 'Monthly Mass',
+                'academic_year_id' => 1,
+                'content' => '<p><strong>Announcement Blue Generals.</strong></p><p><br></p><p><br></p><p>We will have a monthly mass this afternoon. All students are required to attend.</p>',
+                'event_datetime' => '2023-09-22 15:00:00',
+                'img_path' => 'T6qZYwDpIdOmhDkLvkFUTPV306j7DsoL18ieCxTG.jpg'
+            ],
+
 
 
         ];

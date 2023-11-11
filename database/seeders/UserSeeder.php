@@ -50,8 +50,8 @@ class UserSeeder extends Seeder
                 'mname' => '',
                 'suffix' => '',
                 'sex' => 'MALE',
-                'email' => 'sheen@dev.com',
-                'role' => 'STUDENT',
+                'email' => 'mark@dev.com',
+                'role' => 'OFFICER',
                 'password' => Hash::make('a')
             ],
 
