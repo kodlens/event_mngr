@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\AcademicYear;
+use App\Models\EventAttendance;
+use App\Models\User;
+
 
 class EventsController extends Controller
 {
@@ -33,7 +36,24 @@ class EventsController extends Controller
 
 
     public function submitScanned(Request $req){
-        return $req;
+
+        //return $req;
+
+        $status = $req->status;
+        $timeLog = now();
+
+        $user = User::find($req->user_id);
+
+        EventAttendance::updateOrCreate([
+           
+            'user_id' => $req->user_id,
+            'event_id' => $req->event_id
+        ],
+        [
+            $status => $timeLog,
+        ]);
+        
+        return $user;
     }
 
     
