@@ -30,4 +30,11 @@ class EventsController extends Controller
 
         return $data;
     }
+
+
+    public function submitScanned(Request $req){
+        return $req;
+    }
+
+    
 }

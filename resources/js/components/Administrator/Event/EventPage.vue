@@ -74,7 +74,7 @@
                                 {{ props.row.event_type }}
                             </b-table-column>
 
-                            <b-table-column field="content" label="content" v-slot="props">
+                            <b-table-column field="content" label="Content" v-slot="props">
                                 {{ props.row.content | truncate(70) }}
                             </b-table-column>
 

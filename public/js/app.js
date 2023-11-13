@@ -9739,7 +9739,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "content",
-      label: "content"
+      label: "Content"
     },
     scopedSlots: _vm._u([{
       key: "default",

@@ -75,9 +75,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
     Route::get('/get-browse-events', [App\Http\Controllers\Administrator\QuestionController::class, 'getBrowseEvents']);
 
-
-
-
 });
 /*     ADMINSITRATOR          */
 
@@ -105,6 +102,8 @@ Route::post('/api/android/auth/login', [App\Http\Controllers\Android\LoginContro
 Route::post('/api/android/auth/change-password', [App\Http\Controllers\Android\ChangePasswordController::class, 'changePassword']);
 Route::get('/api/android/events', [App\Http\Controllers\Android\EventsController::class, 'eventsList']);
 Route::get('/api/android/events/{id}', [App\Http\Controllers\Android\EventsController::class, 'show']);
+//submit scanned
+Route::post('/api/android/submit-scanned', [App\Http\Controllers\Android\EventsController::class, 'submitScanned']);
 
 
 
