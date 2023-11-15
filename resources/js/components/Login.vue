@@ -10,21 +10,35 @@
                     </div>
 
                     <div class="box-body">
-                       <div class="img-container">
-                           <img class="img" src="/img/save-files.png" />
-                       </div>
-                        <b-field label="Username" label-position="on-border"
-                            :type="this.errors.username ? 'is-danger':''"
-                            :message="this.errors.username ? this.errors.username[0] : ''">
-                            <b-input type="text" v-model="fields.username" placeholder="Username" />
-                        </b-field>
 
-                        <b-field label="Password" label-position="on-border">
-                            <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
-                        </b-field>
+                        <div class="img-container">
+                           <img class="img" src="/img/save-files.png" />
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Username" label-position="on-border"
+                                    :type="this.errors.username ? 'is-danger':''"
+                                    :message="this.errors.username ? this.errors.username[0] : ''">
+                                    <b-input type="text" v-model="fields.username" placeholder="Username" />
+                                </b-field>
+                            </div>
+                        </div>
+                        
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Password" label-position="on-border">
+                                    <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
+                                </b-field>
+                            </div>
+                        </div>
 
                         <div class="buttons is-center">
                             <button :class="btnClass">LOGIN</button>
+                        </div>
+
+                        <div class="has-text-centered is-size-7 has-text-weight-bold">
+                            <a href="/register-page">REGISTER HERE</a>
                         </div>
                     </div>
                 </div>

@@ -44,23 +44,24 @@ class UserController extends Controller
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string', 'max:20'],
+            'email' => ['required','unique:users'],
             'password' => ['required', 'string', 'confirmed'],
             'role' => ['required', 'string'],
-            'office_id' => ['required_if:role,STAFF',],
+            'role' => ['required', 'string'],
 
         ]);
 
         User::create([
-            'qr_code' => strtoupper($req->qr_code),
+            'qr_code' => strtoupper($qr_code),
             'username' => $req->username,
             'password' => Hash::make($req->password),
             'lname' => strtoupper($req->lname),
             'fname' => strtoupper($req->fname),
             'mname' => strtoupper($req->mname),
-            'sex' => $req->sex,
             'suffix' => strtoupper($req->suffix),
+            'sex' => $req->sex,
+            'email' => $req->email,
             'role' => $req->role,
-
         ]);
 
         return response()->json([
@@ -74,8 +75,8 @@ class UserController extends Controller
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string', 'max:20'],
+            'email' => ['required','unique:users,email,' . $id . ',user_id'],
             'role' => ['required', 'string'],
-
         ]);
 
         $data = User::find($id);
@@ -85,6 +86,7 @@ class UserController extends Controller
         $data->mname = strtoupper($req->mname);
         $data->suffix = strtoupper($req->suffix);
         $data->sex = strtoupper($req->sex);
+        $data->email = $req->email;
         $data->role = $req->role;
 
         $data->save();

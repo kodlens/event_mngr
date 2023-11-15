@@ -26,7 +26,8 @@ class UserSeeder extends Seeder
                 'sex' => 'MALE',
                 'email' => 'admin@dev.com',
                 'role' => 'ADMINISTRATOR',
-                'password' => Hash::make('a')
+                'password' => Hash::make('a'),
+                'active' => 1
             ],
 
             [
@@ -39,7 +40,8 @@ class UserSeeder extends Seeder
                 'sex' => 'MALE',
                 'email' => 'sheen@dev.com',
                 'role' => 'STUDENT',
-                'password' => Hash::make('a')
+                'password' => Hash::make('a'),
+                'active' => 1
             ],
 
             [
@@ -52,7 +54,8 @@ class UserSeeder extends Seeder
                 'sex' => 'MALE',
                 'email' => 'mark@dev.com',
                 'role' => 'OFFICER',
-                'password' => Hash::make('a')
+                'password' => Hash::make('a'),
+                'active' => 1
             ],
 
 

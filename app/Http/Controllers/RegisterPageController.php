@@ -6,11 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class SignUpController extends Controller
+class RegisterPageController extends Controller
 {
     //
     public function index(){
-        return view('sign-up');
+        return view('auth.register');
     }
 
 
@@ -23,9 +23,9 @@ class SignUpController extends Controller
             'sex' => ['required', 'string', 'max:20'],
             'email' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
-            'province' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'barangay' => ['required', 'string'],
+            // 'province' => ['required', 'string'],
+            // 'city' => ['required', 'string'],
+            // 'barangay' => ['required', 'string'],
         ]);
 
         $qr_code = substr(md5(time() . $req->lname . $req->fname), -8);
@@ -41,11 +41,12 @@ class SignUpController extends Controller
             'suffix' => strtoupper($req->suffix),
             'sex' => $req->sex,
             'contact_no' => $req->contact_no,
-            'role' => 'USER',
-            'province' => $req->province,
-            'city' => $req->city,
-            'barangay' => $req->barangay,
-            'street' => strtoupper($req->street)
+            'role' => 'STUDENT',
+            'active' => 0
+            // 'province' => $req->province,
+            // 'city' => $req->city,
+            // 'barangay' => $req->barangay,
+            // 'street' => strtoupper($req->street)
         ]);
 
         return response()->json([

@@ -49,7 +49,9 @@
             <b-navbar-item href="/events">
                 Events
             </b-navbar-item>
-         
+            <b-navbar-item href="/event-attendances">
+                Event Attendance
+            </b-navbar-item>
             <b-navbar-item href="/users">
                 User
             </b-navbar-item>

@@ -58,9 +58,13 @@
                             backend-sorting
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
-
+<!-- 
                             <b-table-column field="user_id" label="ID" v-slot="props">
                                 {{ props.row.user_id }}
+                            </b-table-column> -->
+
+                            <b-table-column field="ref" label="Reference Code" v-slot="props">
+                                {{ props.row.qr_code }}
                             </b-table-column>
 
                             <b-table-column field="username" label="Username" v-slot="props">
@@ -75,15 +79,16 @@
                                 {{ props.row.sex }}
                             </b-table-column>
 
+                            <b-table-column field="email" label="Email" v-slot="props">
+                                {{ props.row.email }}
+                            </b-table-column>
+
+
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
                             </b-table-column>
 
-                            <b-table-column field="office" label="Office" v-slot="props">
-                                <span v-if="props.row.office">{{ props.row.office.office }}</span>
-
-                            </b-table-column>
-
+                            
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
@@ -204,6 +209,17 @@
                                 </div>
                             </div>
 
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Email" label-position="on-border"
+                                        :type="this.errors.email ? 'is-danger':''"
+                                        :message="this.errors.email ? this.errors.email[0] : ''">
+                                        <b-input type="email" v-model="fields.email"
+                                            placeholder="Email" required>
+                                        </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
 
                             <div class="columns">
                                 <div class="column">
@@ -232,9 +248,6 @@
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button
-                            label="Close"
-                            @click="isModalCreate=false"/>
                         <button
                             :class="btnClass"
                             label="Save"

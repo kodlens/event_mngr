@@ -41,6 +41,9 @@ Route::get('/get-user', function(){
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//registration
+Route::resource('/register-page', App\Http\Controllers\RegisterPageController::class);
+
 //ADDRESS
 //Route::get('/load-provinces', [App\Http\Controllers\AddressController::class, 'loadProvinces']);
 //Route::get('/load-cities', [App\Http\Controllers\AddressController::class, 'loadCities']);
@@ -69,6 +72,10 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
+
+
+    Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
+    Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);

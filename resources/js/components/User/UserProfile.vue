@@ -14,6 +14,14 @@
                                 <div class="profile-text">PROFILE</div>
                             </div>
 
+                            <b-notification
+                                v-if="user.active === 0"
+                                type="is-danger is-light"
+                                aria-close-label="Close notification"
+                                role="alert">
+                                Account is not yet activated for mobile use.
+                            </b-notification>
+
                             <div class="columns">
                                 <div class="column">
                                     <qrcode v-if="user.qr_code"

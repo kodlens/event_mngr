@@ -4,17 +4,16 @@
             <div class="column is-8 is-offset-2">
                 <form @submit.prevent="submit">
 
-                    <div class="panel">
-                        <div class="panel-heading">
+                    <div class="box">
+                        <div class="has-text-weight-bold mb-2">
                             REGISTER HERE
                         </div>
 
-                        <div class="section">
-                            <div class="columns">
+                        <div class="columns">
                                 <div class="column">
                                     <b-field label="Username"
-                                             :type="this.errors.username ? 'is-danger':''"
-                                             :message="this.errors.username ? this.errors.username[0] : ''">
+                                        :type="this.errors.username ? 'is-danger':''"
+                                        :message="this.errors.username ? this.errors.username[0] : ''">
                                         <b-input type="text" v-model="fields.username" icon="account"></b-input>
                                     </b-field>
                                 </div>
@@ -23,8 +22,8 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Password"
-                                             :type="this.errors.password ? 'is-danger':''"
-                                             :message="this.errors.password ? this.errors.password[0] : ''">
+                                        :type="this.errors.password ? 'is-danger':''"
+                                        :message="this.errors.password ? this.errors.password[0] : ''">
                                         <b-input type="password"  v-model="fields.password" icon="lock" password-reveal></b-input>
                                     </b-field>
                                 </div>
@@ -95,50 +94,15 @@
                                 </div>
                             </div>
 
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Province" expanded
-                                             :type="this.errors.province ? 'is-danger':''"
-                                             :message="this.errors.province ? this.errors.province[0] : ''">
-                                        <b-select v-model="fields.province" expanded placeholder="Province" @input="loadCity">
-                                            <option v-for="(item, index) in provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="City/Municipality" expanded
-                                             :type="this.errors.city ? 'is-danger':''"
-                                             :message="this.errors.city ? this.errors.city[0] : ''">
-                                        <b-select expanded v-model="fields.city" placeholder="City" @input="loadBarangay">
-                                            <option v-for="(item, index) in cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Barangay" expanded
-                                             :type="this.errors.barangay ? 'is-danger':''"
-                                             :message="this.errors.barangay ? this.errors.barangay[0] : ''">
-                                        <b-select v-model="fields.barangay" expanded placeholder="Barangay">
-                                            <option v-for="(item, index) in barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-                                <div class="column">
-                                    <b-field label="House #. Street">
-                                        <b-input type="text"></b-input>
-                                    </b-field>
-                                </div>
-                            </div>
+                            
 
                             <div class="buttons is-right">
-                                <button class="button is-success">Register</button>
+                                <button class="button is-info">
+                                    <b-icon class="mr-2" icon="content-save"></b-icon>
+                                    REGISTER</button>
                             </div>
-
-                        </div> <!--panel -body-->
-                    </div> <!--panel-->
+                        
+                    </div> <!--box-->
 
                 </form>
             </div><!--column-->
@@ -155,32 +119,13 @@ export default {
             fields: {},
             errors: {},
 
-            provinces: [],
-            cities: [],
-            barangays: [],
         }
     },
     methods: {
-        //ADDRESS
-        loadProvince: function(){
-            axios.get('/load-provinces').then(res=>{
-                this.provinces = res.data;
-            })
-        },
-        loadCity: function(){
-            axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
-                this.cities = res.data;
-            })
-        },
-
-        loadBarangay: function(){
-            axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
-                this.barangays = res.data;
-            })
-        },
+    
 
         submit(){
-            axios.post('/sign-up', this.fields).then(res=>{
+            axios.post('/register-page', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: "SAVED!",
@@ -199,7 +144,7 @@ export default {
 
     },
     mounted() {
-        this.loadProvince();
+   
     }
 }
 </script>
