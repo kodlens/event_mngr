@@ -36,7 +36,6 @@ class EventSeeder extends Seeder
             ],
 
 
-
         ];
 
         \App\Models\Event::insertOrIgnore($data);

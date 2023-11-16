@@ -1,7 +1,7 @@
 <template>
     <section class="section">
-        <div class="columns">
-            <div class="column is-8 is-offset-2">
+        <div class="columns is-centered">
+            <div class="column is-6-desktop is-8-tablet">
                 <form @submit.prevent="submit">
 
                     <div class="box">
@@ -94,8 +94,7 @@
                                 </div>
                             </div>
 
-                            
-
+        
                             <div class="buttons is-right">
                                 <button class="button is-info">
                                     <b-icon class="mr-2" icon="content-save"></b-icon>

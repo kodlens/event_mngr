@@ -72,8 +72,8 @@
                             </b-table-column>
 
                             <b-table-column field="active" label="Active" v-slot="props">
-                                <span v-if="props.row.active === 1">Yes</span>
-                                <span v-else>No</span>
+                                <span v-if="props.row.active === 1" class="yes">YES</span>
+                                <span v-else class="no">NO</span>
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
@@ -398,3 +398,20 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+    .yes, .no {
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        color: white;
+    }
+    .yes{
+        border: 1px solid green;
+        background-color: green;
+    }
+    .no{
+        border: 1px solid red;
+        background-color: red;
+    }
+</style>

@@ -62,6 +62,7 @@ class UserController extends Controller
             'sex' => $req->sex,
             'email' => $req->email,
             'role' => $req->role,
+            'active' => $req->active
         ]);
 
         return response()->json([
@@ -88,7 +89,7 @@ class UserController extends Controller
         $data->sex = strtoupper($req->sex);
         $data->email = $req->email;
         $data->role = $req->role;
-
+        $data->active = $req->active;
         $data->save();
 
         return response()->json([

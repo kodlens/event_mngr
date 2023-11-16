@@ -31,7 +31,7 @@ class RegisterPageController extends Controller
         $qr_code = substr(md5(time() . $req->lname . $req->fname), -8);
 
         User::create([
-            'qr_ref' => $qr_code,
+            'qr_code' => strtoupper($qr_code),
             'username' => $req->username,
             'password' => Hash::make($req->password),
             'email' => $req->email,

@@ -83,11 +83,15 @@
                                 {{ props.row.email }}
                             </b-table-column>
 
-
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
                             </b-table-column>
 
+                            <b-table-column field="active" label="Activated" v-slot="props">
+                                <span v-if="props.row.active === 1" class="yes">YES</span>
+                                <span v-else class="no">NO</span>
+                              
+                            </b-table-column>
                             
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
@@ -245,6 +249,20 @@
                                     </b-field>
                                 </div>
                             </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field>
+                                        <b-checkbox v-model="fields.active"
+                                            :true-value="1"
+                                            :false-value="0">
+                                            Active
+                                        </b-checkbox>
+                                    </b-field>
+                                </div>
+                            </div>
+
+
                         </div>
                     </section>
                     <footer class="modal-card-foot">
@@ -476,7 +494,21 @@ export default{
 </script>
 
 
-<style>
+<style scoped>
+    .yes, .no {
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        color: white;
+    }
+    .yes{
+        border: 1px solid green;
+        background-color: green;
+    }
+    .no{
+        border: 1px solid red;
+        background-color: red;
+    }
 
 
 </style>
