@@ -27,7 +27,7 @@ class LoginController extends Controller
 
         $user = \DB::table('users')
             ->where('username', $req->username)
-            ->where('active', 1)
+            ->whereNotNull('email_verified_at')
             ->first();
         
         if($user){

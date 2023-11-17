@@ -25,7 +25,7 @@ Auth::routes([
     'login' => true,
     'register' => false, // Registration Routes...
     'reset' => false, // Password Reset Routes...
-    'verify' => false, // Email Verification Routes...
+    'verify' => true, // Email Verification Routes...
 ]);
 
 
@@ -58,7 +58,7 @@ Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearControl
 
 
 /*     ADMINSITRATOR          */
-Route::middleware(['auth', 'admin'])->group(function() {
+Route::middleware(['verified', 'admin'])->group(function() {
 
 
     Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
@@ -88,7 +88,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
 
 
-Route::middleware(['auth', 'student'])->group(function() {
+Route::middleware(['verified', 'student'])->group(function() {
     Route::resource('/event-feeds', App\Http\Controllers\User\UserEventFeedController::class);
     Route::get('/load-event-feeds', [App\Http\Controllers\User\UserEventFeedController::class, 'loadEventFeeds']);
 

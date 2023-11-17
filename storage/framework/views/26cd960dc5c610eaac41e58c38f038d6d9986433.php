@@ -14,28 +14,43 @@
 
     <!-- Fonts -->
 
-
-
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
 
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-
     <style>
-        html body{
-            font-family: 'Roboto Slab', serif;
-            font-family: 'Ubuntu', sans-serif;
-        }
+
     </style>
 
 </head>
 <body>
     <div id="app">
-        
+    <b-navbar>
+        <template #brand>
+            <b-navbar-item>
+               EMAPP
+            </b-navbar-item>
+        </template>
+        <template #start>
+           
+        </template>
 
-        <navbar-component></navbar-component>
+        <template #end>
+            <b-navbar-item tag="div">
+                <div class="buttons">
+                    <b-button
+                        onclick="document.getElementById('logout').submit()"
+                        icon-left="logout"
+                        class="button is-danger" outlined>
+                    </b-button>
+                </div>
+            </b-navbar-item>
+        </template>
+    </b-navbar>
+
+    <form action="/logout" method="post" id="logout">
+        <?php echo csrf_field(); ?>
+    </form>
 
     <div>
         <?php echo $__env->yieldContent('content'); ?>
