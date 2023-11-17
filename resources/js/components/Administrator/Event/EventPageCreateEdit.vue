@@ -144,6 +144,13 @@ export default {
         return{
             editorOption: {
             // Some Quill options...
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        ['clean'],
+                    ],
+                },
             },
             content: null,
 

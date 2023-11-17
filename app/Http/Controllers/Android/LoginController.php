@@ -20,8 +20,6 @@ class LoginController extends Controller
     {
         
         //return $req;
-
-
         $credentials = $req->validate([
             'username' => ['required'],
             'password' => ['required'],
@@ -29,6 +27,7 @@ class LoginController extends Controller
 
         $user = \DB::table('users')
             ->where('username', $req->username)
+            ->where('active', 1)
             ->first();
         
         if($user){
