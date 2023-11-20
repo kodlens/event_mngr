@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
                 'email' => 'admin@dev.com',
                 'role' => 'ADMINISTRATOR',
                 'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
 
@@ -41,6 +42,7 @@ class UserSeeder extends Seeder
                 'email' => 'sheen@dev.com',
                 'role' => 'STUDENT',
                 'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
 
@@ -55,6 +57,7 @@ class UserSeeder extends Seeder
                 'email' => 'mark@dev.com',
                 'role' => 'OFFICER',
                 'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
 

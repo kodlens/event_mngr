@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Legend extends Model
 {
     use HasFactory;
 
 
-    protected $primaryKey = 'question_id';
-    protected $table = 'questions';
+    protected $primaryKey = 'id';
+    protected $table = 'legends';
 
     protected $fillable = [
-        
-        'order_no',
-        'question',
-        'active',
+        'rating',
+        'rating_description'
     ];
-
-
 
 
 }

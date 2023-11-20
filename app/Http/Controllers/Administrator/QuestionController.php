@@ -16,23 +16,25 @@ class QuestionController extends Controller
         return view('administrator.question.question-page');
     }
 
-    public function getBrowseEvents(Request $req){
-        $sort = explode('.', $req->sort_by);
-        $ay = AcademicYear::where('active', 1)->first();
+    // public function getBrowseEvents(Request $req){
+    //     $sort = explode('.', $req->sort_by);
+    //     $ay = AcademicYear::where('active', 1)->first();
 
-        $data = Event::where('academic_year_id', $ay->academic_year_id)
-            ->orderBy($sort[0], $sort[1])
-            ->paginate($req->perpage);
+    //     $data = Event::where('academic_year_id', $ay->academic_year_id)
+    //         ->orderBy($sort[0], $sort[1])
+    //         ->paginate($req->perpage);
 
-        return $data;
+    //     return $data;
+    // }
+
+    public function show($id){
+        return Question::find($id);
     }
 
     public function getQuestions(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $data = Question::with(['academic_year', 'event'])
-            ->where('academic_year_id', $req->ay)
-            ->where('question', 'like', $req->lname . '%')
+        $data = Question::where('question', 'like', $req->question . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -50,21 +52,45 @@ class QuestionController extends Controller
     public function store(Request $req){
 
         $req->validate([
-            'order_no' => ['required'],
-            'question' => ['required'],
-            'input_type' => ['required']
+            'order_no' => ['required', 'unique:questions'],
+            'question' => ['required']
         ]);
 
         Question::create([
-            'academic_year_id' => $req->academic_year_id,
             'order_no' => $req->order_no,
-            'event_id' => $req->event_id,
             'question' => strtoupper($req->question),
-            'input_type' => strtoupper($req->input_type)
+            'active' => $req->active
         ]);
 
         return response()->json([
             'status' => 'saved'
+        ], 200);
+    }
+
+
+    public function update(Request $req, $id){
+
+        $req->validate([
+            'order_no' => ['required', 'unique:questions,order_no,' . $id . ',question_id'],
+            'question' => ['required']
+        ]);
+        $data = Question::find($id);
+        $data->order_no = $req->order_no;
+        $data->question = strtoupper($req->question);
+        $data->active = $req->active;
+
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
+    }
+
+    public function destroy($id){
+        Question::destroy($id);
+
+        return response()->json([
+            'status' => 'deleted'
         ], 200);
     }
 }

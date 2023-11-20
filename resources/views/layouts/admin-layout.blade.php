@@ -42,10 +42,19 @@
             <b-navbar-item href="/dashboard">
                 Home
             </b-navbar-item>
-
-            <b-navbar-item href="/academic-years">
-                Academic Years
-            </b-navbar-item>
+            <b-navbar-dropdown label="Setting">
+                <b-navbar-item href="academic-years">
+                    Academic Years
+                </b-navbar-item>
+                <b-navbar-item href="/questions">
+                    Questions
+                </b-navbar-item>
+                <b-navbar-item href="/departments">
+                    Departments
+                </b-navbar-item>
+            </b-navbar-dropdown>
+          
+          
             <b-navbar-item href="/events">
                 Events
             </b-navbar-item>
@@ -55,14 +64,7 @@
             <b-navbar-item href="/users">
                 User
             </b-navbar-item>
-            <!-- <b-navbar-dropdown label="Info">
-                <b-navbar-item href="#">
-                    About
-                </b-navbar-item>
-                <b-navbar-item href="#">
-                    Contact
-                </b-navbar-item>
-            </b-navbar-dropdown> -->
+           
         </template>
 
         <template #end>

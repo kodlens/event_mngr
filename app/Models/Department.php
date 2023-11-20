@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Department extends Model
 {
     use HasFactory;
 
 
-    protected $primaryKey = 'question_id';
-    protected $table = 'questions';
+    protected $primaryKey = 'department_id';
+    protected $table = 'departments';
 
     protected $fillable = [
-        
-        'order_no',
-        'question',
+        'code',
+        'department',
         'active',
     ];
-
-
-
 
 }

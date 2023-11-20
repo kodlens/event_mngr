@@ -88,9 +88,8 @@
                             </b-table-column>
 
                             <b-table-column field="active" label="Activated" v-slot="props">
-                                <span v-if="props.row.active === 1" class="yes">YES</span>
+                                <span v-if="props.row.email_verified_at" class="yes">YES</span>
                                 <span v-else class="no">NO</span>
-                              
                             </b-table-column>
                             
                             <b-table-column label="Action" v-slot="props">
@@ -249,8 +248,7 @@
                                     </b-field>
                                 </div>
                             </div>
-
-                            <div class="columns">
+                            <!-- <div class="columns">
                                 <div class="column">
                                     <b-field>
                                         <b-checkbox v-model="fields.active"
@@ -260,8 +258,7 @@
                                         </b-checkbox>
                                     </b-field>
                                 </div>
-                            </div>
-
+                            </div> -->
 
                         </div>
                     </section>

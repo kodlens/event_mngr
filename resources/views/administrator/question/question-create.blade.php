@@ -3,11 +3,11 @@
 @section('content')
 
     @if($id > 0)
-        <question-create :prop-id="{{ $id }}"
-            :prop-data='@json($data)'></question-create>
+        <question-create-edit :prop-id="{{ $id }}"
+            :prop-data='@json($data)'></question-create-edit>
     @else
-        <question-create :prop-id="0"
-            :prop-data='{}'></question-create>
+        <question-create-edit :prop-id="0"
+            :prop-data='{}'></question-create-edit>
     @endif
 
 

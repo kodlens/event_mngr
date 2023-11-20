@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AcademicYearSeeder::class,
-            EventSeeder::class
+            EventSeeder::class,
+            QuestionSeeder::class,
+            LegendSeeder::class,
+            DepartmentSeeder::class,
         ]);
     }
 }

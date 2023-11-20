@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                            style="font-size: 20px; font-weight: bold;">LIST OF QUESTION</div>
+                            style="font-size: 20px; font-weight: bold;">LIST OF DEPARTMENTS</div>
 
                         <hr>
                         <div class="level">
@@ -29,7 +29,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.question" placeholder="Search..."
+                                                 v-model="search.code" placeholder="Search..."
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                              <b-tooltip label="Search" type="is-success">
@@ -66,12 +66,15 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="order_no" label="Order No" centered v-slot="props">
-                                {{ props.row.order_no }}
+                            <b-table-column field="department_id" label="Id" centered v-slot="props">
+                                {{ props.row.department_id }}
+                            </b-table-column>
+                            <b-table-column field="code" label="Code" centered v-slot="props">
+                                {{ props.row.code }}
                             </b-table-column>
 
-                            <b-table-column field="question" label="Question" v-slot="props">
-                                {{ props.row.question | truncate(50) }}
+                            <b-table-column field="department" label="Question" v-slot="props">
+                                {{ props.row.department | truncate(50) }}
                             </b-table-column>
 
                             <b-table-column field="active" label="Active" v-slot="props">
@@ -84,11 +87,11 @@
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
                                         <b-button class="button is-small mr-1" tag="a" icon-right="pencil" 
-                                            @click="getData(props.row.question_id)"></b-button>
+                                            @click="getData(props.row.department_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small mr-1" icon-right="delete" 
-                                            @click="confirmDelete(props.row.question_id)"></b-button>
+                                            @click="confirmDelete(props.row.department_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
@@ -122,7 +125,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Question Information</p>
+                        <p class="modal-card-title">Department Information</p>
                         <button
                             type="button"
                             class="delete"
@@ -133,27 +136,27 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Order No." label-position="on-border"
-                                        expanded
-                                        :type="this.errors.order_no ? 'is-danger':''"
-                                        :message="this.errors.order_no ? this.errors.order_no[0] : ''">
-                                        <b-numberinput v-model="fields.order_no"
-                                            placeholder="Order No."
-                                            :controls="false"></b-numberinput>
+                                    <b-field label="Code" label-position="on-border"
+                                        :type="this.errors.code ? 'is-danger':''"
+                                        :message="this.errors.code ? this.errors.code[0] : ''">
+                                        <b-input type="text" v-model="fields.code"
+                                            placeholder="Code"></b-input>
                                     </b-field>
                                 </div>
                             </div>
+
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Question" label-position="on-border"
-                                        :type="this.errors.question ? 'is-danger':''"
-                                        :message="this.errors.question ? this.errors.question[0] : ''">
-                                        <b-input type="textarea" v-model="fields.question"
-                                            placeholder="Question" required>
-                                        </b-input>
+                                    <b-field label="Department" label-position="on-border"
+                                        :type="this.errors.department ? 'is-danger':''"
+                                        :message="this.errors.department ? this.errors.department[0] : ''">
+                                        <b-input type="text" v-model="fields.department"
+                                            placeholder="Department"></b-input>
                                     </b-field>
                                 </div>
                             </div>
+
+                           
                             <div class="columns">
                                 <div class="column">
                                     <b-field>
@@ -195,7 +198,7 @@ export default{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'question_id',
+            sortField: 'department_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 20,
@@ -203,15 +206,14 @@ export default{
 
             global_id: 0,
 
-            academic_years: [],
-
+   
             search: {
-                question: '',
+                code: '',
             },
 
             fields: {
-                order_no: null,
-                question: null,
+                code: null,
+                department: null,
                 active: null
             },
             errors: {},
@@ -234,13 +236,13 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `question=${this.search.question}`,
+                `code=${this.search.code}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-questions?${params}`)
+            axios.get(`/get-departments?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -280,19 +282,7 @@ export default{
             this.loadAsyncData()
         },
 
-        // loadAcademicYears(){
-        //     axios.get('/load-academic-years').then(res=>{
-        //         this.academic_years = res.data
 
-        //         this.academic_years.forEach(item => {
-        //             if(item.active === 1){
-        //                 this.search.academic_year_id = item.academic_year_id
-        //             }
-        //         })
-
-        //         
-        //     })
-        // },
 
 
         //alert box ask for deletion
@@ -308,7 +298,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/questions/' + delete_id).then(res => {
+            axios.delete('/departments/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -329,7 +319,7 @@ export default{
 
             if(this.global_id > 0){
                 //update
-                axios.put('/questions/' + this.global_id, this.fields).then(res=>{
+                axios.put('/departments/' + this.global_id, this.fields).then(res=>{
                   
                     this.btnClass['is-loading'] = false
                     if(res.data.status === 'updated'){
@@ -353,7 +343,7 @@ export default{
                 })
             }else{
                 //insert
-                axios.post('/questions', this.fields).then(res=>{
+                axios.post('/departments', this.fields).then(res=>{
                     this.btnClass['is-loading'] = false
 
                     if(res.data.status === 'saved'){
@@ -379,8 +369,8 @@ export default{
         },
 
         clearFields(){
-            this.fields.order_no = null
-            this.fields.question = null
+            this.fields.code = null
+            this.fields.department = null
             this.fields.active = null
         },
 
@@ -392,7 +382,7 @@ export default{
             this.global_id = data_id;
             this.isModalCreate = true;
 
-            axios.get('/questions/'+ data_id).then(res=>{
+            axios.get('/departments/'+ data_id).then(res=>{
                 this.fields = res.data;
             });
         },
