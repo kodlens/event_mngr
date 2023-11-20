@@ -24,7 +24,7 @@ class UserController extends Controller
     public function getUsers(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $users = User::where('lname', 'like', $req->lname . '%')
+        $users = User::with(['department'])->where('lname', 'like', $req->lname . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -62,6 +62,7 @@ class UserController extends Controller
             'sex' => $req->sex,
             'email' => $req->email,
             'role' => $req->role,
+            'departmetn_id' => $req->departmetn_id,
             //'active' => $req->active
         ]);
 
@@ -89,6 +90,7 @@ class UserController extends Controller
         $data->sex = strtoupper($req->sex);
         $data->email = $req->email;
         $data->role = $req->role;
+        $data->department_id = $req->department_id;
         //$data->active = $req->active;
         $data->save();
 

@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-8">
+                <div class="column is-11-tablet is-11-desktop is-10-widescreen">
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2" 
@@ -85,6 +85,10 @@
 
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
+                            </b-table-column>
+
+                            <b-table-column field="department" label="Dept" v-slot="props">
+                                <span v-if="props.row.department"> {{ props.row.department.code }}</span>
                             </b-table-column>
 
                             <b-table-column field="active" label="Activated" v-slot="props">
@@ -223,7 +227,7 @@
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Role" label-position="on-border" expanded
+                                    <b-field label="Department" label-position="on-border" expanded
                                             :type="this.errors.department_id ? 'is-danger':''"
                                             :message="this.errors.department_id ? this.errors.department_id[0] : ''">
                                         <b-select v-model="fields.department_id" expanded>
