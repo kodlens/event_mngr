@@ -55,6 +55,7 @@ Route::resource('/users', App\Http\Controllers\Administrator\UserController::cla
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 
 Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearController::class, 'loadAcademicYears']);
+Route::get('/load-departments', [App\Http\Controllers\OpenController::class, 'loadDepartments']);
 
 
 /*     ADMINSITRATOR          */

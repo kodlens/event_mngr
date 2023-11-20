@@ -222,6 +222,17 @@
                                         </b-input>
                                     </b-field>
                                 </div>
+                                <div class="column">
+                                    <b-field label="Role" label-position="on-border" expanded
+                                            :type="this.errors.department_id ? 'is-danger':''"
+                                            :message="this.errors.department_id ? this.errors.department_id[0] : ''">
+                                        <b-select v-model="fields.department_id" expanded>
+                                            <option v-for="(item, index) in departments" 
+                                                :key="index"
+                                                :value="item.department_id">{{ item.code }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
                             <div class="columns">
@@ -301,13 +312,14 @@ export default{
             isModalCreate: false,
 
             fields: {
-                username: '',
-                lname: '', fname: '', mname: '', suffix: '',
-                password: '', password_confirmation : '', office_id: 0,
-                sex : '', role: '', contact_no : '',
+                username: null,
+                lname: null, fname: null, mname: null, suffix: null,
+                password: null, password_confirmation : null,
+                sex : null, role: null, contact_no : null, department_id: null
             },
+
             errors: {},
-            offices: [],
+            departments: [],
 
             btnClass: {
                 'is-success': true,
@@ -381,7 +393,7 @@ export default{
 
 
         submit: function(){
-            this.fields.office_id = this.fields.role === 'STAFF' ? this.fields.office_id : 0;
+            this.fields.department_id = this.fields.role === 'ADMINISTRATOR' ? 0 : this.fields.department_id;
 
 
             if(this.global_id > 0){
@@ -454,16 +466,17 @@ export default{
         },
 
         clearFields(){
-            this.fields.username = '';
-            this.fields.lname = '';
-            this.fields.fname = '';
-            this.fields.mname = '';
-            this.fields.suffix = '';
-            this.fields.sex = '';
-            this.fields.password = '';
-            this.fields.password_confirmation = '';
-            this.fields.role = '';
-            this.fields.contact_no = '';
+            this.fields.username = null;
+            this.fields.lname = null;
+            this.fields.fname = null;
+            this.fields.mname = null;
+            this.fields.suffix = null;
+            this.fields.sex = null;
+            this.fields.password = null;
+            this.fields.password_confirmation = null;
+            this.fields.role = null;
+            this.fields.contact_no = null;
+            this.fields.department_id = null
         },
 
 
@@ -479,11 +492,18 @@ export default{
             });
         },
 
+        loadDepartments(){
+            axios.get('/load-departments').then(res=>{
+                this.departments = res.data
+            })
+        }
+
 
 
     },
 
     mounted() {
+        this.loadDepartments()
         this.loadAsyncData();
 
     }
