@@ -12,11 +12,6 @@ class UserController extends Controller
 {
     //
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(){
         return view('administrator.user'); //blade.php
     }
@@ -99,7 +94,6 @@ class UserController extends Controller
         ]);
     }
 
-
     public function destroy($id){
         User::destroy($id);
 
@@ -107,4 +101,32 @@ class UserController extends Controller
             'status' => 'deleted'
         ]);
     }
+
+
+    public function userActivate($id){
+        $data = User::find($id);
+        $data->email_verified_at = now();
+        $data->save();
+
+        return response()->json([
+            'status' => 'activate'
+        ], 200);
+    }
+
+
+    public function resetPassword(Request $req, $id){
+        $req->validate([
+            'password' => ['required', 'confirmed', 'min:4']
+        ]);
+
+
+        $user = User::find($id);
+        $user->password = Hash::make($req->password);
+        $user->save();
+
+        return response()->json([
+            'status' => 'changed'
+        ],200);
+    }
+
 }

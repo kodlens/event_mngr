@@ -128,6 +128,24 @@ class EventController extends Controller
     }
 
 
+    public function eventApprove($id){
+        $data = Event::find($id);
+        $data->approval_status = 1;
+        $data->save();
+        return response()->json([
+            'status' => 'approved'
+        ], 200);
+    }
+    public function eventCancel($id){
+        $data = Event::find($id);
+        $data->approval_status = 2;
+        $data->save();
+        return response()->json([
+            'status' => 'cancelled'
+        ], 200);
+    }
+    
+
 
     public function destroy($id){
 

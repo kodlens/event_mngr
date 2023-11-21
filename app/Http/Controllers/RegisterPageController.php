@@ -23,6 +23,7 @@ class RegisterPageController extends Controller
             'sex' => ['required', 'string', 'max:20'],
             'email' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
+            'department_id' => ['required'],
             // 'province' => ['required', 'string'],
             // 'city' => ['required', 'string'],
             // 'barangay' => ['required', 'string'],
@@ -42,6 +43,7 @@ class RegisterPageController extends Controller
             'sex' => $req->sex,
             'contact_no' => $req->contact_no,
             'role' => 'STUDENT',
+            'department_id' => $req->department_id,
             'active' => 0
             // 'province' => $req->province,
             // 'city' => $req->city,

@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-10-desktop is-8-widescreen">
+                <div class="column is-11-desktop is-10-widescreen">
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
@@ -82,17 +82,50 @@
                                 {{ props.row.event_datetime | formatDateTime }}
                             </b-table-column>
 
+                            <b-table-column field="approval_status" label="Status" v-slot="props">
+                                <span v-if="props.row.approval_status === 1" class="yes">APPROVED</span>
+                                <span v-else-if="props.row.approval_status === 0" class="pending">PENDING</span>
+                                <span v-else-if="props.row.approval_status === 2" class="no">CANCELLED</span>
+                            </b-table-column>
+
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
-                                    <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small mr-1" tag="a"
-                                            icon-right="pencil"
-                                            :href="`/events/${props.row.event_id}/edit`"></b-button>
-                                    </b-tooltip>
-                                    <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small mr-1" icon-right="delete"
-                                            @click="confirmDelete(props.row.event_id)"></b-button>
-                                    </b-tooltip>
+
+                                    <b-dropdown aria-role="list">
+                                        <template #trigger="{ active }">
+                                            <b-button
+                                                label=""
+                                                class="is-small"
+                                                type="is-info"
+                                                icon-left="menu"
+                                                :icon-right="active ? 'menu-up' : 'menu-down'" />
+                                        </template>
+
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmApprove(props.row.event_id)">
+                                            Approve
+                                            <b-icon icon="thumb-up-outline" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmCancel(props.row.event_id)">Cancel
+                                            <b-icon icon="cancel" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            tag="a"
+                                            :href="`/events/${props.row.event_id}/edit`">
+                                            Edit
+                                            <b-icon icon="pencil" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmDelete(props.row.event_id)">
+                                            Delete
+                                            <b-icon icon="delete" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+                                    </b-dropdown>
                                 </div>
                             </b-table-column>
                         </b-table>
@@ -221,6 +254,47 @@ export default{
             });
         },
 
+        //approve
+        confirmApprove(dataId){
+            this.$buefy.dialog.confirm({
+                title: 'APPROVE?',
+                type: 'is-info',
+                message: 'Approve this event?',
+                cancelText: 'Cancel',
+                confirmText: 'Approve',
+                onConfirm: () => this.submitApprove(dataId)
+            });
+        },
+        submitApprove(dataId){
+            axios.post('/events-approve/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+
+        confirmCancel(dataId){
+            this.$buefy.dialog.confirm({
+                title: 'Cancel?',
+                type: 'is-info',
+                message: 'Cancel this event?',
+                confirmText: 'Cancel',
+                onConfirm: () => this.submitCancel(dataId)
+            });
+        },
+        submitCancel(dataId){
+            axios.post('/events-cancel/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        }
+
 
 
 
@@ -234,7 +308,25 @@ export default{
 </script>
 
 
-<style>
+<style scoped>
+    .yes, .no, .pending {
+        font-weight: bold;
+        font-size: 12px;
+        padding: 5px;
+        color: white;
+    }
+    .yes{
+        border: 1px solid green;
+        background-color: green;
+    }
+    .no{
+        border: 1px solid red;
+        background-color: red;
+    }
 
+    .pending {
+        border: 1px solid green;
+        background-color: rgb(64, 97, 185);
+    }
 
 </style>

@@ -24,7 +24,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('event_datetime')->nullable();
             $table->string('img_path')->default('');
             $table->string('event_type')->nullable();
-
+            $table->tinyInteger('approval_status')->default(0);
             $table->timestamps();
         });
     }

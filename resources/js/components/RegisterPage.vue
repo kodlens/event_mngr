@@ -82,6 +82,10 @@
                                     </b-field>
                                 </div>
 
+                                
+                            </div>
+
+                            <div class="columns">
                                 <div class="column">
                                     <b-field label="Sex" expanded
                                              :type="this.errors.sex ? 'is-danger':''"
@@ -92,11 +96,22 @@
                                         </b-select>
                                     </b-field>
                                 </div>
+                                <div class="column">
+                                    <b-field label="Department"  expanded
+                                            :type="this.errors.department_id ? 'is-danger':''"
+                                            :message="this.errors.department_id ? this.errors.department_id[0] : ''">
+                                        <b-select v-model="fields.department_id" expanded>
+                                            <option v-for="(item, index) in departments" 
+                                                :key="index"
+                                                :value="item.department_id">{{ item.code }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
         
                             <div class="buttons is-right">
-                                <button class="button is-info">
+                                <button class="button is-primary">
                                     <b-icon class="mr-2" icon="content-save"></b-icon>
                                     REGISTER</button>
                             </div>
@@ -117,6 +132,8 @@ export default {
 
             fields: {},
             errors: {},
+
+            departments: [],
 
         }
     },
@@ -141,8 +158,18 @@ export default {
             });
         },
 
+
+        
+        loadDepartments(){
+            axios.get('/load-departments').then(res=>{
+                this.departments = res.data
+            })
+        }
+
+
     },
     mounted() {
+        this.loadDepartments()
    
     }
 }

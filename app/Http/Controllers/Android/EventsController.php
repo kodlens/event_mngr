@@ -19,6 +19,7 @@ class EventsController extends Controller
 
         $data = Event::where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $ay->academic_year_id)
+            ->where('approval_status', 1)
             ->orderBy('event_id', 'desc')
             ->get();
 

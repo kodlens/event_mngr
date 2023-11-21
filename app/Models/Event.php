@@ -19,7 +19,8 @@ class Event extends Model
         'event_datetime',
         'img_path',
         'rating',
-        'event_type'
+        'event_type',
+        'approval_status'
     ];
 
 

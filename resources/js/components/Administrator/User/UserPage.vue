@@ -98,12 +98,40 @@
                             
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
-                                    <b-tooltip label="Edit" type="is-warning">
-                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.user_id)"></b-button>
-                                    </b-tooltip>
-                                    <b-tooltip label="Delete" type="is-danger">
-                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.user_id)"></b-button>
-                                    </b-tooltip>
+                                    <b-dropdown aria-role="list">
+                                        <template #trigger="{ active }">
+                                            <b-button
+                                                label=""
+                                                class="is-small"
+                                                type="is-info"
+                                                icon-left="menu"
+                                                :icon-right="active ? 'menu-up' : 'menu-down'" />
+                                        </template>
+
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmActivate(props.row.user_id)">
+                                            Activate
+                                            <b-icon icon="thumb-up-outline" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="openModalResetPassword(props.row.user_id)">Change Password
+                                            <b-icon icon="lock" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="getData(props.row.user_id)">
+                                            Edit
+                                            <b-icon icon="pencil" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmDelete(props.row.user_id)">
+                                            Delete
+                                            <b-icon icon="delete" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+                                    </b-dropdown>
                                 </div>
                             </b-table-column>
                         </b-table>
@@ -289,6 +317,67 @@
         <!--close modal-->
 
 
+
+
+
+
+
+
+
+
+        <!--modal reset password-->
+        <b-modal v-model="modalResetPassword" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="resetPassword">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Change Password</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalResetPassword = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Password" label-position="on-border"
+                                             :type="this.errors.password ? 'is-danger':''"
+                                             :message="this.errors.password ? this.errors.password[0] : ''">
+                                        <b-input type="password" v-model="fields.password" password-reveal
+                                                 placeholder="Password" required>
+                                        </b-input>
+                                    </b-field>
+                                    <b-field label="Confirm Password" label-position="on-border"
+                                             :type="this.errors.password_confirmation ? 'is-danger':''"
+                                             :message="this.errors.password_confirmation ? this.errors.password_confirmation[0] : ''">
+                                        <b-input type="password" v-model="fields.password_confirmation"
+                                                 password-reveal
+                                                 placeholder="Confirm Password" required>
+                                        </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button
+                            :class="btnClass"
+                            label="Save"
+                            type="is-success">SAVE</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
     </div>
 </template>
 
@@ -314,8 +403,10 @@ export default{
             },
 
             isModalCreate: false,
+            modalResetPassword: false,
 
             fields: {
+                user_id: null,
                 username: null,
                 lname: null, fname: null, mname: null, suffix: null,
                 password: null, password_confirmation : null,
@@ -470,6 +561,7 @@ export default{
         },
 
         clearFields(){
+            this.fields.user_id = null
             this.fields.username = null;
             this.fields.lname = null;
             this.fields.fname = null;
@@ -500,10 +592,61 @@ export default{
             axios.get('/load-departments').then(res=>{
                 this.departments = res.data
             })
-        }
+        },
 
 
+        //alert box ask for deletion
+        confirmActivate(dataId) {
+            this.$buefy.dialog.confirm({
+                title: 'Activate?',
+                type: 'is-info',
+                message: 'Do you want to activate this account?',
+                cancelText: 'Cancel',
+                confirmText: 'Activate',
+                onConfirm: () => this.submitActivate(dataId)
+            });
+        },
+        //execute delete after confirming
+        submitActivate(dataId) {
+            axios.post('/user-activate/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
 
+
+        openModalResetPassword(dataId){
+            this.modalResetPassword = true;
+            this.clearFields()
+            this.errors = {};
+            this.fields.user_id = dataId;
+        },
+
+        resetPassword(){
+            axios.post('/reset-password/' + this.fields.user_id, this.fields).then(res=>{
+
+                if(res.data.status === 'changed'){
+                    this.$buefy.dialog.alert({
+                        title: 'PASSWORD CHANGED',
+                        type: 'is-success',
+                        message: 'Password changed successfully.',
+                        confirmText: 'OK',
+                        onConfirm: () => {
+                            this.modalResetPassword = false;
+                            this.fields = {};
+                            this.errors = {};
+                            this.loadAsyncData()
+                        }
+                    });
+                }
+
+            }).catch(err=>{
+                this.errors = err.response.data.errors;
+            })
+        },
     },
 
     mounted() {
