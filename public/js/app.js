@@ -12160,9 +12160,9 @@ var render = function render() {
     }
   }, [_vm._v("ADMINISTRATOR")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "OFFICER"
+      value: "ORGANIZER"
     }
-  }, [_vm._v("STUDENT OFFICER")]), _vm._v(" "), _c("option", {
+  }, [_vm._v("ORGANIZER")]), _vm._v(" "), _c("option", {
     attrs: {
       value: "STUDENT"
     }

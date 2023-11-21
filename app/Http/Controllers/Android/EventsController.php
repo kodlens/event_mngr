@@ -57,5 +57,18 @@ class EventsController extends Controller
         return $user;
     }
 
+
+
+
+    public function checkIfOpen($eventId){
+        $data = Event::where('event_id', $eventId)
+            ->where('is_open', 1)
+            ->count();
+        return $data;
+    }
+
+
+
+
     
 }

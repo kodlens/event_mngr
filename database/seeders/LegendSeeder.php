@@ -25,15 +25,15 @@ class LegendSeeder extends Seeder
                 'rating_description' => 'BAD'
             ],
             [
-                'rating' => 2,
+                'rating' => 3,
                 'rating_description' => 'FAIR'
             ],
             [
-                'rating' => 2,
+                'rating' => 4,
                 'rating_description' => 'GOOD'
             ],
             [
-                'rating' => 2,
+                'rating' => 5,
                 'rating_description' => 'VERY GOOD'
             ],
 

@@ -130,6 +130,10 @@ Route::get('/api/android/events/{id}', [App\Http\Controllers\Android\EventsContr
 //submit scanned
 Route::post('/api/android/submit-scanned', [App\Http\Controllers\Android\EventsController::class, 'submitScanned']);
 
+//check if open ang evaluation
+Route::get('/api/android/check-if-open/{id}', [App\Http\Controllers\Android\EventsController::class, 'checkIfOpen']);
+Route::get('/api/android/get-questions', [App\Http\Controllers\Android\AndroidQuestionController::class, 'getQuestions']);
+
 
 
 Route::get('/session', function(){

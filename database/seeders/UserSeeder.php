@@ -24,28 +24,12 @@ class UserSeeder extends Seeder
                 'mname' => '',
                 'suffix' => '',
                 'sex' => 'MALE',
-                'email' => 'admin@dev.com',
+                'email' => 'elniechan.sarsaba@nmsc.edu.ph',
                 'role' => 'ADMINISTRATOR',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
-
-            [
-                'qr_code' => 'AAA111',
-                'username' => 'sheen',
-                'lname' => 'DELOSA',
-                'fname' => 'SHEEN',
-                'mname' => '',
-                'suffix' => '',
-                'sex' => 'MALE',
-                'email' => 'sheen@dev.com',
-                'role' => 'STUDENT',
-                'password' => Hash::make('a'),
-                'email_verified_at' => '2023-11-20 14:49:07',
-                'active' => 1
-            ],
-
             [
                 'qr_code' => 'AAA222',
                 'username' => 'mark',
@@ -54,12 +38,44 @@ class UserSeeder extends Seeder
                 'mname' => '',
                 'suffix' => '',
                 'sex' => 'MALE',
-                'email' => 'mark@dev.com',
-                'role' => 'OFFICER',
+                'email' => 'markanthony.prieto@nmsc.edu.ph',
+                'role' => 'ORGANIZER',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
+
+
+
+            [
+                'qr_code' => '847F4671',
+                'username' => 'sheen',
+                'lname' => 'DELOSA',
+                'fname' => 'SHEEN',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'email' => 'sheen.delosa@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+            [
+                'qr_code' => 'D2823EDF',
+                'username' => 'Cherryl',
+                'lname' => 'GALLEGO',
+                'fname' => 'CHERRYL',
+                'mname' => 'LANSAM',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'email' => 'cherryl.gallego@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+
 
 
         ];

@@ -17,14 +17,14 @@ class EventSeeder extends Seeder
 
         $data = [
             [
-                'event' => 'Online Process Enrolment',
+                'event' => 'TES & TDP RELEASE',
                 'academic_year_id' => 1,
-                'content' => 'Greetings from the Light of the World! ?
-                    Please be informed that ALL First and Fourth Year students are REQUIRED to attend the Monthly Mass and President\'s Time on September 15, 2023, (3:00 - 5:00 PM), at People\'s Gymnasium.
-                    Note:
-                    1. For Non- Catho',
+                'content' => 'ATTENTION FOR ALL TES AND TDP GRANTEES! THERE WILL BE AN UPCOPING RELEASE FOR YOUR GRANTS THIS COMING FRIDAY NOVEMBER 17,2023 IN THE ADMINSTRATION BULDING, RELEASE WILL START AT EXACTLY 8:00AM IN THE MORNING. THANK YOU!',
                 'event_datetime' => '2023-09-22 15:00:00',
-                'img_path' => 'gbeDdXVEl7nljb93hFvE4vVc2pA8jhzqH9ChDqHe.jpg'
+                'img_path' => 'gbeDdXVEl7nljb93hFvE4vVc2pA8jhzqH9ChDqHe.jpg',
+                'approval_status' => 1,
+                'is_open' => 0
+
             ],
 
             [
@@ -32,7 +32,9 @@ class EventSeeder extends Seeder
                 'academic_year_id' => 1,
                 'content' => '<p><strong>Announcement Blue Generals.</strong></p><p><br></p><p><br></p><p>We will have a monthly mass this afternoon. All students are required to attend.</p>',
                 'event_datetime' => '2023-09-22 15:00:00',
-                'img_path' => 'T6qZYwDpIdOmhDkLvkFUTPV306j7DsoL18ieCxTG.jpg'
+                'img_path' => 'T6qZYwDpIdOmhDkLvkFUTPV306j7DsoL18ieCxTG.jpg',
+                'approval_status' => 1,
+                'is_open' => 1
             ],
 
 
