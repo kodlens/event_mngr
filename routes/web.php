@@ -134,6 +134,8 @@ Route::post('/api/android/submit-scanned', [App\Http\Controllers\Android\EventsC
 Route::get('/api/android/check-if-open/{id}', [App\Http\Controllers\Android\EventsController::class, 'checkIfOpen']);
 Route::get('/api/android/get-questions', [App\Http\Controllers\Android\AndroidQuestionController::class, 'getQuestions']);
 
+Route::get('/api/android/load-legends', [App\Http\Controllers\Android\AndroidQuestionController::class, 'getQuestions']);
+
 
 
 Route::get('/session', function(){
