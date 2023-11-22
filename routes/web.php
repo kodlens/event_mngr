@@ -132,9 +132,9 @@ Route::post('/api/android/submit-scanned', [App\Http\Controllers\Android\EventsC
 
 //check if open ang evaluation
 Route::get('/api/android/check-if-open/{id}', [App\Http\Controllers\Android\EventsController::class, 'checkIfOpen']);
-Route::get('/api/android/get-questions', [App\Http\Controllers\Android\AndroidQuestionController::class, 'getQuestions']);
+Route::get('/api/android/load-questions', [App\Http\Controllers\Android\AndroidQuestionController::class, 'loadQuestions']);
 
-Route::get('/api/android/load-legends', [App\Http\Controllers\Android\AndroidQuestionController::class, 'getQuestions']);
+Route::get('/api/android/load-legends', [App\Http\Controllers\Android\AndroidLegendController::class, 'loadLegends']);
 
 
 

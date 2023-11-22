@@ -10,7 +10,7 @@ class AndroidQuestionController extends Controller
 {
     //
 
-    public function getQuestions(){
+    public function loadQuestions(){
         $data = Question::orderBy('order_no', 'asc')
             ->get();
         return $data;
