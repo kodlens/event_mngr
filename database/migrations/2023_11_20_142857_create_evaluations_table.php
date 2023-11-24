@@ -32,7 +32,7 @@ class CreateEvaluationsTable extends Migration
             $table->foreign('question_id')->references('question_id')->on('questions')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->unsignedBigInteger('rate')->default(0);
+            $table->unsignedBigInteger('rating')->default(0);
             
             $table->timestamps();
         });

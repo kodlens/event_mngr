@@ -55,12 +55,19 @@
             </b-navbar-dropdown>
           
           
-            <b-navbar-item href="/events">
-                Events
-            </b-navbar-item>
-            <b-navbar-item href="/event-attendances">
-                Event Attendance
-            </b-navbar-item>
+            <b-navbar-dropdown label="Events">
+                <b-navbar-item href="/events">
+                    Events
+                </b-navbar-item>
+                <b-navbar-item href="/event-attendances">
+                    Event Attendances
+                </b-navbar-item>
+                <b-navbar-item href="/event-evaluations">
+                    Event Evaluations
+                </b-navbar-item>
+            </b-navbar-dropdown>
+
+           
             <b-navbar-item href="/users">
                 User
             </b-navbar-item>

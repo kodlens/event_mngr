@@ -136,6 +136,8 @@ Route::get('/api/android/load-questions', [App\Http\Controllers\Android\AndroidQ
 
 Route::get('/api/android/load-legends', [App\Http\Controllers\Android\AndroidLegendController::class, 'loadLegends']);
 
+//submit evaluation
+Route::post('/api/android/evaluation/eval-submit', [App\Http\Controllers\Android\AndroidEvaluationController::class, 'store']);
 
 
 Route::get('/session', function(){
