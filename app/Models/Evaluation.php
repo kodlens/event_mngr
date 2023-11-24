@@ -14,10 +14,9 @@ class Evaluation extends Model
 
     protected $fillable = [
         'academic_year_id',
-        'event_id',
-        'question_id',
         'user_id',
-        'rating',
+        'event_id',
+       
     ];
 
 
@@ -30,12 +29,10 @@ class Evaluation extends Model
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 
-    public function question(){
-        return $this->hasOne(Question::class, 'question_id', 'question_id');
+    public function answers(){
+        return $this->hasMany(EvaluationAnswer::class, 'evaluation_id', 'evaluation_id');
     }
 
-    public function event(){
-        return $this->hasOne(Event::class, 'event_id', 'event_id');
-    }
+   
 
 }

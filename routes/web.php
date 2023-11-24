@@ -58,6 +58,7 @@ Route::resource('/register-page', App\Http\Controllers\RegisterPageController::c
 
 
 
+Route::get('/load-browse-events', [App\Http\Controllers\OpenController::class, 'loadBrowseEvents']);
 
 Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearController::class, 'loadAcademicYears']);
 Route::get('/load-departments', [App\Http\Controllers\OpenController::class, 'loadDepartments']);
@@ -84,9 +85,16 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
+    Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
+    Route::get('/get-students-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
     Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
+
+
+    Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
+    Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
+
 
     Route::resource('/departments', App\Http\Controllers\Administrator\DepartmentController::class);
     Route::get('/get-departments', [App\Http\Controllers\Administrator\DepartmentController::class, 'getData']);

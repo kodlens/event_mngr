@@ -62,8 +62,16 @@
                 <b-navbar-item href="/event-attendances">
                     Event Attendances
                 </b-navbar-item>
-                <b-navbar-item href="/event-evaluations">
-                    Event Evaluations
+               
+            </b-navbar-dropdown>
+
+            
+            <b-navbar-dropdown label="Evaluation">
+                <b-navbar-item href="/evaluations">
+                    Evaluations
+                </b-navbar-item>
+                <b-navbar-item href="/student-evaluated">
+                    Student Evaluated
                 </b-navbar-item>
             </b-navbar-dropdown>
 

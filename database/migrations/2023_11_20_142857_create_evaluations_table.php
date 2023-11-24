@@ -16,7 +16,7 @@ class CreateEvaluationsTable extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id('evaluation_id');
 
-             $table->unsignedBigInteger('academic_year_id');
+            $table->unsignedBigInteger('academic_year_id');
             $table->foreign('academic_year_id')->references('academic_year_id')->on('academic_years')
                 ->onDelete('cascade')->onUpdate('cascade');
 
@@ -27,12 +27,6 @@ class CreateEvaluationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
-            
-            $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')->references('question_id')->on('questions')
-                ->onDelete('cascade')->onUpdate('cascade');
-
-            $table->unsignedBigInteger('rating')->default(0);
             
             $table->timestamps();
         });

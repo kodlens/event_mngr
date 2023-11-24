@@ -25,4 +25,9 @@ class EventAttendanceController extends Controller
 
         return $event;
     }
+
+
+    public function getReportEventEvaluations(Request $req){
+        
+    }
 }

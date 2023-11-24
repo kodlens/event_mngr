@@ -77,6 +77,65 @@ class UserSeeder extends Seeder
             ],
 
 
+            //sample dummy user
+            [
+                'qr_code' => 'D2823E111',
+                'username' => 'juan',
+                'lname' => 'DELA CRUZ',
+                'fname' => 'JUAN',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'email' => 'juan@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+            [
+                'qr_code' => 'D2823222',
+                'username' => 'jane',
+                'lname' => 'GOMEZ',
+                'fname' => 'JANE',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'email' => 'jane@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+            [
+                'qr_code' => 'D2823333',
+                'username' => 'jenny',
+                'lname' => 'GALEZ',
+                'fname' => 'JENNY',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'email' => 'jenny@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+            [
+                'qr_code' => 'D2824444',
+                'username' => 'rhea',
+                'lname' => 'MENDEZ',
+                'fname' => 'RHEA',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'email' => 'rhea@nmsc.edu.ph',
+                'role' => 'STUDENT',
+                'password' => Hash::make('a'),
+                'email_verified_at' => '2023-11-20 14:49:07',
+                'active' => 1
+            ],
+
+
 
         ];
 

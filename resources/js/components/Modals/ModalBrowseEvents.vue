@@ -1,12 +1,27 @@
 <template>
     <div>
-        <b-field>
+        <b-field label="Academic Year" label-position="on-border" expanded>
+            <b-select expanded 
+                v-model="search.ayid" >
+                <option v-for="(item, index) in academicYears" 
+                    :key="index"
+                    :value="item.academic_year_id"> 
+                        {{ item.academic_year_code }} - {{ item.academic_year_desc }}
+                    </option>
+            </b-select>
+        </b-field>
+
+        <b-field label="Event" label-position="on-border">
             <b-input :value="valueName" expanded
-                     icon="calendar" placeholder="Select Event" required readonly>
+                icon="calendar-text-outline" 
+                placeholder="Select Event" 
+                required readonly>
             </b-input>
 
             <p class="control">
-                <b-button class="button is-primary" @click="openModal">...</b-button>
+                <b-button 
+                    class="button is-primary" 
+                    @click="openModal">...</b-button>
             </p>
         </b-field>
 
@@ -111,9 +126,12 @@ export default {
             isModalActive: false,
             errors:{},
 
+            academicYears: [],
+
             event: {},
 
             search: {
+                ayid: null,
                 event: '',
             },
         }
@@ -122,13 +140,14 @@ export default {
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
+                `ayid=${this.search.ayid}`,
                 `event=${this.search.event}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-browse-events?${params}`)
+            axios.get(`/load-browse-events?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -166,6 +185,13 @@ export default {
             this.loadAsyncData();
         },
 
+        loadAcademicYears(){
+            axios.get(`/load-academic-years`).then(res=>{
+                this.academicYears = res.data
+            })
+        },
+
+
         openModal(){
             this.loadAsyncData();
             this.isModalActive = true;
@@ -176,6 +202,10 @@ export default {
             this.$emit('browseEvents', dataRow);
         }
 
+    },
+
+    mounted(){
+        this.loadAcademicYears()
     },
 
     computed: {
