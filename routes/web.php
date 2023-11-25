@@ -93,7 +93,7 @@ Route::middleware(['verified', 'admin'])->group(function() {
 
 
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
-    Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
+    Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
 
 
     Route::resource('/departments', App\Http\Controllers\Administrator\DepartmentController::class);
@@ -128,24 +128,6 @@ Route::middleware(['verified', 'student'])->group(function() {
 
 
 
-
-
-// ANDROID ROUTES
-Route::post('/api/android/auth/login', [App\Http\Controllers\Android\LoginController::class, 'login']);
-Route::post('/api/android/auth/change-password', [App\Http\Controllers\Android\ChangePasswordController::class, 'changePassword']);
-Route::get('/api/android/events', [App\Http\Controllers\Android\EventsController::class, 'eventsList']);
-Route::get('/api/android/events/{id}', [App\Http\Controllers\Android\EventsController::class, 'show']);
-//submit scanned
-Route::post('/api/android/submit-scanned', [App\Http\Controllers\Android\EventsController::class, 'submitScanned']);
-
-//check if open ang evaluation
-Route::get('/api/android/check-if-open/{id}', [App\Http\Controllers\Android\EventsController::class, 'checkIfOpen']);
-Route::get('/api/android/load-questions', [App\Http\Controllers\Android\AndroidQuestionController::class, 'loadQuestions']);
-
-Route::get('/api/android/load-legends', [App\Http\Controllers\Android\AndroidLegendController::class, 'loadLegends']);
-
-//submit evaluation
-Route::post('/api/android/evaluation/eval-submit', [App\Http\Controllers\Android\AndroidEvaluationController::class, 'store']);
 
 
 Route::get('/session', function(){

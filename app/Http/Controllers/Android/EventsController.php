@@ -26,6 +26,16 @@ class EventsController extends Controller
         return response()->json($data);
     }
 
+    public function loadEvents(Request $req){
+        $ay = AcademicYear::where('active', 1)->first();
+
+        $data = Event::where('academic_year_id', $ay->academic_year_id)
+            ->where('approval_status', 1)
+            ->orderBy('event_id', 'desc')
+            ->get();
+
+        return response()->json($data);
+    }
 
     public function show($id){
 

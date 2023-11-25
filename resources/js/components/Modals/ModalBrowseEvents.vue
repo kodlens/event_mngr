@@ -1,15 +1,6 @@
 <template>
     <div>
-        <b-field label="Academic Year" label-position="on-border" expanded>
-            <b-select expanded 
-                v-model="search.ayid" >
-                <option v-for="(item, index) in academicYears" 
-                    :key="index"
-                    :value="item.academic_year_id"> 
-                        {{ item.academic_year_code }} - {{ item.academic_year_desc }}
-                    </option>
-            </b-select>
-        </b-field>
+        
 
         <b-field label="Event" label-position="on-border">
             <b-input :value="valueName" expanded
@@ -38,6 +29,17 @@
 
                 <section class="modal-card-body">
                     <div>
+                        <b-field label="Academic Year" label-position="on-border" expanded>
+                            <b-select expanded 
+                                @input="loadAsyncData"
+                                v-model="search.ayid" >
+                                <option v-for="(item, index) in academicYears" 
+                                    :key="index"
+                                    :value="item.academic_year_id"> 
+                                        {{ item.academic_year_code }} - {{ item.academic_year_desc }}
+                                    </option>
+                            </b-select>
+                        </b-field>
                         <b-field label="Search" label-position="on-border" >
                             <b-input type="text" v-model="search.event"
                                  placeholder="Search Item Name..."

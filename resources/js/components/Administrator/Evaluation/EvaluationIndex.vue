@@ -9,7 +9,7 @@
                             <div class="column">
 
                                 <div class="is-flex is-justify-content-center mb-2"
-                                    style="font-size: 20px; font-weight: bold;">STUDENT LIST WHO SUBMITTED EVALUATION</div>
+                                    style="font-size: 20px; font-weight: bold;">EVALUATION</div>
                                 <hr>
                                 
                                 
@@ -25,11 +25,31 @@
                             <div class="column">
 
                                 <div class="buttons is-right">
-                                    <b-button class="is-small is-primary" label="Search"
+                                    <b-button class="is-small is-primary" label="GENERATE"
                                         icon-left="magnify" @click="loadReportEventEvaluations"></b-button>
                                 </div>
                                 
                             </div>
+                        </div> <!--cols-->
+                       
+                
+
+                        <div class="columns">
+                            <div class="column">
+                                <table class="table">
+                                    <tr>
+                                       
+                                        <th>Question</th>
+                                        <th>Rating</th>
+
+                                    </tr>
+
+                                    <tr v-for="(item, ix) in report" :key="ix">
+                                        <td>{{  item.question }}</td>
+                                        <td>{{  item.rating }}</td>
+                                    </tr>
+                                </table>
+                            </div> <!--col--> 
                         </div> <!--cols-->
 
                     </div>
