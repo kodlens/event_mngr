@@ -67,7 +67,7 @@ class AndroidEvaluationController extends Controller
 
     public function getReportEvaluation(Request $req){
         $eventId = $req->eventid;
-
+ 
         $data = DB::table('questions as a')
             ->select(
                 'question_id', 'question',
