@@ -88,6 +88,12 @@
                                 <span v-else-if="props.row.approval_status === 2" class="no">CANCELLED</span>
                             </b-table-column>
 
+
+                            <b-table-column field="approval_status" label="Open" v-slot="props">
+                                <span v-if="props.row.is_open === 1" class="yes">YES</span>
+                                <span v-else class="no">NO</span>
+                            </b-table-column>
+
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
 
@@ -118,6 +124,17 @@
                                             :href="`/events/${props.row.event_id}/edit`">
                                             Edit
                                             <b-icon icon="pencil" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmEval(props.row.event_id)">
+                                            Open Evaluation
+                                            <b-icon icon="open-in-app" size="is-small"></b-icon>
+                                        </b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem"
+                                            @click="confirmCloseEval(props.row.event_id)">
+                                            Close Evaluation
+                                            <b-icon icon="close" size="is-small"></b-icon>
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
@@ -242,7 +259,6 @@ export default{
                 onConfirm: () => this.deleteSubmit(delete_id)
             });
         },
-
         //execute delete after confirming
         deleteSubmit(delete_id) {
             axios.delete('/events/' + delete_id).then(res => {
@@ -293,9 +309,49 @@ export default{
                     this.errors = err.response.data.errors;
                 }
             });
-        }
+        },
 
 
+        confirmEval(dataId) {
+            this.$buefy.dialog.confirm({
+                title: 'Open?',
+                type: 'is-info',
+                message: 'Are you sure you want to open the evaluation?',
+                cancelText: 'Cancel',
+                confirmText: 'Open',
+                onConfirm: () => this.submitOpenEval(dataId)
+            });
+        },
+        submitOpenEval(dataId){
+            axios.post('/events-open-evaluation/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+        confirmCloseEval(dataId) {
+            this.$buefy.dialog.confirm({
+                title: 'Close?',
+                type: 'is-info',
+                message: 'Are you sure you want to close the evaluation?',
+                cancelText: 'Cancel',
+                confirmText: 'Open',
+                onConfirm: () => this.submitCloseEval(dataId)
+            });
+        },
+        submitCloseEval(dataId){
+            axios.post('/events-close-evaluation/' + dataId).then(res => {
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+        
 
 
 

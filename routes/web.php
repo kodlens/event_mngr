@@ -81,7 +81,10 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
     Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
+    Route::post('/events-open-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventOpenEvaluation']);
+    Route::post('/events-close-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCloseEvaluation']);
     
+
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 

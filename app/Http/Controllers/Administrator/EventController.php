@@ -145,6 +145,25 @@ class EventController extends Controller
         ], 200);
     }
     
+    public function eventOpenEvaluation($id){
+        $data = Event::find($id);
+        $data->is_open = 1;
+        $data->save();
+        return response()->json([
+            'status' => 'open'
+        ], 200);
+    }
+    public function eventCloseEvaluation($id){
+        $data = Event::find($id);
+        $data->is_open = 0;
+        $data->save();
+        return response()->json([
+            'status' => 'open'
+        ], 200);
+    }
+    
+
+    
 
 
     public function destroy($id){
