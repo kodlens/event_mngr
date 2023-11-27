@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                 }
 
                 if($role === 'ORGANIZER'){
-                    return redirect('/organizer/dashboard');
+                    return redirect('/dashboard');
                 }
 
                 if($role === 'STUDENT'){

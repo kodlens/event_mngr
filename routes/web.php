@@ -74,29 +74,8 @@ Route::middleware(['verified', 'admin'])->group(function() {
 
 
 
-    Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
-
-    Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
-    Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
-    Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
-    Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
-    Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
-    Route::post('/events-open-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventOpenEvaluation']);
-    Route::post('/events-close-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCloseEvaluation']);
-    
-
-    Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
-    Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
-
-    Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
-    Route::get('/get-students-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
-
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
     Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
-
-
-    Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
-    Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
 
 
     Route::resource('/departments', App\Http\Controllers\Administrator\DepartmentController::class);
@@ -114,6 +93,36 @@ Route::middleware(['verified', 'admin'])->group(function() {
 });
 /*     ADMINSITRATOR          */
 
+
+
+/*     organizer          */
+Route::middleware(['verified', 'organizer'])->group(function() {
+
+
+    Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
+    
+    Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
+    Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
+    Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
+    Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
+    Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
+    Route::post('/events-open-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventOpenEvaluation']);
+    Route::post('/events-close-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCloseEvaluation']);
+
+    
+    Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
+    Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
+
+    Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
+    Route::get('/get-students-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
+
+    
+    Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
+    Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
+
+
+});
+/*     organizer          */
 
 
 

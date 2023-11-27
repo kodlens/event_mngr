@@ -19,7 +19,7 @@ class OrganizerMiddleware
     {
 
         $role = Auth::user()->role;
-        if($role === 'ORGANIZER'){
+        if($role === 'ORGANIZER' || $role === 'ADMINISTRATOR'){
 
             $response = $next($request);
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');

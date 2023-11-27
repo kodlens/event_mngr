@@ -38,46 +38,74 @@
             </b-navbar-item>
         </template>
         <template #start>
-            <b-navbar-item href="/dashboard">
-                Home
-            </b-navbar-item>
-            <b-navbar-dropdown label="Setting">
-                <b-navbar-item href="academic-years">
-                    Academic Years
-                </b-navbar-item>
-                <b-navbar-item href="/questions">
-                    Questions
-                </b-navbar-item>
-                <b-navbar-item href="/departments">
-                    Departments
-                </b-navbar-item>
-            </b-navbar-dropdown>
-          
-          
-            <b-navbar-dropdown label="Events">
-                <b-navbar-item href="/events">
-                    Events
-                </b-navbar-item>
-                <b-navbar-item href="/event-attendances">
-                    Event Attendances
-                </b-navbar-item>
-               
-            </b-navbar-dropdown>
-
             
-            <b-navbar-dropdown label="Evaluation">
-                <b-navbar-item href="/evaluations">
-                    Evaluations
-                </b-navbar-item>
-                <b-navbar-item href="/student-evaluated">
-                    Student Evaluated
-                </b-navbar-item>
-            </b-navbar-dropdown>
 
-           
-            <b-navbar-item href="/users">
-                User
-            </b-navbar-item>
+            <?php if(auth()->user()->role === 'ADMINISTRATOR'): ?>
+                <b-navbar-item href="/dashboard">
+                    Home
+                </b-navbar-item>
+                <b-navbar-dropdown label="Setting">
+                    <b-navbar-item href="academic-years">
+                        Academic Years
+                    </b-navbar-item>
+                    <b-navbar-item href="/questions">
+                        Questions
+                    </b-navbar-item>
+                    <b-navbar-item href="/departments">
+                        Departments
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+            
+            
+                <b-navbar-dropdown label="Events">
+                    <b-navbar-item href="/events">
+                        Events
+                    </b-navbar-item>
+                    <b-navbar-item href="/event-attendances">
+                        Event Attendances
+                    </b-navbar-item>
+                
+                </b-navbar-dropdown>
+
+                
+                <b-navbar-dropdown label="Evaluation">
+                    <b-navbar-item href="/evaluations">
+                        Evaluations
+                    </b-navbar-item>
+                    <b-navbar-item href="/student-evaluated">
+                        Student Evaluated
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+                <b-navbar-item href="/users">
+                    User
+                </b-navbar-item>
+
+            <?php else: ?>
+                <b-navbar-item href="/dashboard">
+                        Home
+                </b-navbar-item>
+
+                <b-navbar-dropdown label="Events">
+                    <b-navbar-item href="/events">
+                        Events
+                    </b-navbar-item>
+                    <b-navbar-item href="/event-attendances">
+                        Event Attendances
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+
+                
+                <b-navbar-dropdown label="Evaluation">
+                    <b-navbar-item href="/evaluations">
+                        Evaluations
+                    </b-navbar-item>
+                    <b-navbar-item href="/student-evaluated">
+                        Student Evaluated
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+             
+            <?php endif; ?>
+          
            
         </template>
 
