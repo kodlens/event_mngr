@@ -1,5 +1,7 @@
 @extends('layouts.admin-layout')
 
 @section('content')
-    <event-page></event-page>
+    @auth()
+        <event-page :prop-user='{{ Auth::user() }}'></event-page>
+    @endauth
 @endsection

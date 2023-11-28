@@ -28,6 +28,10 @@
                                     <b-button class="is-small is-primary" label="Search"
                                         icon-left="magnify" @click="loadAsyncData"></b-button>
                                 </div>
+
+                                <div>
+                                    TOTAL: {{ total }}
+                                </div>
                                 <b-table
                                     :data="data"
                                     :loading="loading"
@@ -45,11 +49,11 @@
                                     :default-sort-direction="defaultSortDirection"
                                     @sort="onSort">
 
-                                    <b-table-column field="user_id" label="ID" v-slot="props">
-                                        {{ props.row.user.user_id }}
+                                    <b-table-column field="no" label="No" v-slot="props">
+                                        {{ props.index + 1 }}
                                     </b-table-column>
-                         
-                                    <b-table-column field="name" label="Student Name" v-slot="props">
+
+                                    <b-table-column field="name" label="Student's Name" v-slot="props">
                                         {{ props.row.user.lname }}, {{ props.row.user.fname }} {{ props.row.user.mname}}
                                     </b-table-column>
 
@@ -60,20 +64,6 @@
                                     <b-table-column field="created_at" label="Date & Time" v-slot="props">
                                         {{ new Date(props.row.created_at).toLocaleString() }}
                                     </b-table-column>
-                                    <!-- <b-table-column label="Action" v-slot="props">
-                                        <div class="is-flex">
-                                            <b-tooltip label="Set Active" type="is-info">
-                                                <b-button class="button is-small mr-1" tag="a" icon-right="thumb-up" @click="setActive(props.row.academic_year_id)"></b-button>
-                                            </b-tooltip>
-                                            <b-tooltip label="Edit" type="is-warning">
-                                                <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.academic_year_id)"></b-button>
-                                            </b-tooltip>
-                                            <b-tooltip label="Delete" type="is-danger">
-                                                <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.academic_year_id)"></b-button>
-                                            </b-tooltip>
-                                        </div>
-                                    </b-table-column> -->
-
                                 </b-table>
                             </div>
                         </div> <!--cols-->

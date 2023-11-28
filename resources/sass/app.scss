@@ -30,13 +30,7 @@ html{
     background-color: #f8f8f8 !important;
 }
 
-@media print {
-    .mynav{
-        display: none;
-        border: 1px solid red;
-    }
-    .printarea { display:block; }
-}
+
 
 
 
@@ -171,11 +165,6 @@ $modal-card-head-radius: 0;
 
 
 
-
-
-
-
-
 .box{
     border-radius: 0 !important;
 }
@@ -233,3 +222,35 @@ input[type=password], input[type=tel]{
 //@import "~bulma/sass/layout/hero.sass";
 //@import "~bulma/sass/layout/section.sass";
 
+
+//printer setting
+.filter-control{
+    margin: 20px;
+}
+
+.print-page{
+    margin: 20px;
+}
+
+@page { 
+    size:8.5in 13in;
+}
+
+
+
+@media print{
+
+    html {
+        background-color: #ffffff !important;
+    }
+
+    .filter-control {
+        display: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    header, footer, aside, nav, .navbar, form, iframe, .menu, .hero, .adslot {
+        display: none;
+    }
+}

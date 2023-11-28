@@ -120,6 +120,21 @@ Vue.prototype.$formatDateAndTime = function(value) {
     return `${year}-${month}-${day} ${h}:${min}:00`;
 };
 
+
+Vue.prototype.$formatDate = function(value) {
+    if (!value) return '';
+    
+    const date = new Date(value);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    const h = String(date.getHours()).padStart(2, '0'); // => 9
+    const min = String(date.getMinutes()).padStart(2, '0'); // => 9
+    ; // =>  30
+     
+    return `${year}-${month}-${day}`;
+};
 Vue.prototype.$formatTime = function(value) {
     var timeString = value;
     var H = +timeString.substr(0, 2);

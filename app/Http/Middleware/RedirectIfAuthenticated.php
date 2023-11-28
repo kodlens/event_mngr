@@ -28,7 +28,7 @@ class RedirectIfAuthenticated
                     return redirect('/dashboard');
                 }
 
-                if($role === 'ORGANIZER'){
+                if($role === 'ORGANIZER' || $role === 'EVENT OFFICER'){
                     return redirect('/dashboard');
                 }
 

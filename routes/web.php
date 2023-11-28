@@ -62,6 +62,8 @@ Route::get('/load-browse-events', [App\Http\Controllers\OpenController::class, '
 
 Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearController::class, 'loadAcademicYears']);
 Route::get('/load-departments', [App\Http\Controllers\OpenController::class, 'loadDepartments']);
+Route::get('/load-event-types', [App\Http\Controllers\OpenController::class, 'loadEventTypes']);
+Route::get('/load-event-venues', [App\Http\Controllers\OpenController::class, 'loadEventVenues']);
 
 
 /*     ADMINSITRATOR          */
@@ -72,6 +74,8 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
     Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
 
+    Route::resource('/event-venues', App\Http\Controllers\Administrator\EventVenueController::class);
+    Route::get('/get-event-venues', [App\Http\Controllers\Administrator\EventVenueController::class, 'getData']);
 
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
@@ -89,15 +93,14 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
+    Route::get('/report-event-list', [App\Http\Controllers\Report\ReportEventListController::class, 'index']);
+    Route::get('/load-report-event-lists', [App\Http\Controllers\Report\ReportEventListController::class, 'loadReportEventLists']);
 
 });
 /*     ADMINSITRATOR          */
 
-
-
 /*     organizer          */
-Route::middleware(['verified', 'organizer'])->group(function() {
-
+Route::middleware(['verified', 'event_officer'])->group(function() {
 
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
     
@@ -115,12 +118,9 @@ Route::middleware(['verified', 'organizer'])->group(function() {
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
     Route::get('/get-students-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
-
     
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
-
-
 });
 /*     organizer          */
 
@@ -132,12 +132,7 @@ Route::middleware(['verified', 'student'])->group(function() {
 
     Route::resource('/profile', App\Http\Controllers\User\UserProfileController::class);
     Route::get('/load-profile', [App\Http\Controllers\User\UserProfileController::class, 'loadProfile']);
-
 });
-
-
-
-
 
 
 

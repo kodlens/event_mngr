@@ -14,35 +14,83 @@
                             <div class="columns">
 
                                 <div class="column">
-                                    <b-field label="Event Date & Time" expanded
-                                        :type="this.errors.event_datetime ? 'is-danger':''"
-                                        :message="this.errors.event_datetime ? this.errors.event_datetime[0] : ''">
-                                        <b-datetimepicker
+                                    <b-field label="Event Date" expanded
+                                        :type="this.errors.event_date ? 'is-danger':''"
+                                        :message="this.errors.event_date ? this.errors.event_date[0] : ''">
+                                        <b-datepicker
                                             icon="calendar-today"
                                             required
-                                            v-model="fields.dateAndTime"
+                                            v-model="fields.event_date"
                                             placeholder="Select date and time"
                                             horizontal-time-picker>
-                                        </b-datetimepicker>
+                                        </b-datepicker>
                                     </b-field>
                                 </div>
 
+                                <div class="column">
+                                    <b-field label="Time From" expanded
+                                        :type="this.errors.event_time_from ? 'is-danger':''"
+                                        :message="this.errors.event_time_from ? this.errors.event_time_from[0] : ''">
+                                        <b-timepicker
+                                            icon="clock"
+                                            required
+                                            v-model="fields.event_time_from"
+                                            placeholder="Select time from"
+                                            horizontal-time-picker>
+                                        </b-timepicker>
+                                    </b-field>
+                                </div>
 
                                 <div class="column">
+                                    <b-field label="Time To" expanded
+                                        :type="this.errors.event_time_to ? 'is-danger':''"
+                                        :message="this.errors.event_time_to ? this.errors.event_time_to[0] : ''">
+                                        <b-timepicker
+                                            icon="clock"
+                                            required
+                                            v-model="fields.event_time_to"
+                                            placeholder="Select time to"
+                                            horizontal-time-picker>
+                                        </b-timepicker>
+                                    </b-field>
+                                </div>
+
+                               
+                            </div>
+    
+
+                            <div class="columns">
+                                <div class="column">
                                     <b-field label="Event Type" expanded
-                                        :type="this.errors.event_type ? 'is-danger':''"
-                                        :message="this.errors.event_type ? this.errors.event_type[0] : ''">
+                                        :type="this.errors.event_type_id ? 'is-danger':''"
+                                        :message="this.errors.event_type_id ? this.errors.event_type_id[0] : ''">
                                         <b-select
                                             expanded
                                             required
-                                            v-model="fields.event_type"
+                                            v-model="fields.event_type_id"
                                             placeholder="Event Type">
-                                            <option value="WHOLEDAY">WHOLEDAY</option>
-                                            <option value="HALFDAY">HALFDAY</option>
+                                            <option v-for="(item, ix) in eventTypes" 
+                                                :value="item.event_type_id"
+                                                :key="`evtype${ix}`">{{item.event_type}}</option>
                                         </b-select>
                                     </b-field>
                                 </div>
 
+                                <div class="column">
+                                    <b-field label="Event Venue" expanded
+                                        :type="this.errors.event_venue_id ? 'is-danger':''"
+                                        :message="this.errors.event_venue_id ? this.errors.event_venue_id[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_venue_id"
+                                            placeholder="Event Venue">
+                                            <option v-for="(item, ix) in venues" 
+                                                :value="item.event_venue_id"
+                                                :key="`evtype${ix}`">{{item.event_venue}}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
 
@@ -161,23 +209,44 @@ export default {
                 event_description: null,
                 content: null,
                 dateAndTime: null,
-                event_img: null
+                event_img: null,
+                event_type_id: 0,
             },
             errors: {},
+
+            eventTypes: [],
+            venues: [],
         }
     },
 
     methods:{
 
-        submit(){
+        submit(){  
+
+
+            const timeFrom = new Date(this.fields.event_time_from);
+            const timeTo = new Date(this.fields.event_time_to);
+
+
+            const from = timeFrom.getHours().toString().padStart(2, "0") + ':' 
+                + (timeFrom.getMinutes() ).toString().padStart(2, "0") + ':00'
+            const to = timeTo.getHours().toString().padStart(2, "0") + ':' 
+                + (timeTo.getMinutes() ).toString().padStart(2, "0") + ':00'
+
+
+            console.log(from);
+
 
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
             formData.append('content', this.fields.content ? this.fields.content : '');
-            formData.append('event_datetime', this.fields.dateAndTime ? this.$formatDateAndTime(this.fields.dateAndTime) : '');
+            formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
-            formData.append('event_type', this.fields.event_type ? this.fields.event_type : '');
+            formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
+            formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
+            formData.append('event_time_from', from ? from : '');
+            formData.append('event_time_to', to ? to : '');
 
 
             if(this.propId > 0){
@@ -233,10 +302,12 @@ export default {
         getData(){
             this.fields.event =  this.propData.event
             this.content =  this.propData.content
-            this.fields.dateAndTime =  new Date(this.propData.event_datetime)
+            this.fields.event_date =  new Date(this.propData.event_date)
             this.fields.image_path = this.propData.img_path
-            this.fields.event_type = this.propData.event_type
-
+            this.fields.event_type_id = this.propData.event_type_id
+            this.fields.event_time_from =  new Date('2022-01-01 ' + this.propData.event_time_from)
+            this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
+            this.fields.event_venue_id =  this.propData.event_venue_id
         },
 
 
@@ -254,12 +325,28 @@ export default {
         onEditorChange({ quill, html, text }) {
             console.log('editor change!', quill, html, text)
             this.fields.content = html
+        },
+
+
+
+        loadEventTypes(){
+            axios.get('/load-event-types').then(res=>{
+                this.eventTypes = res.data
+            })
+        },
+        loadEventVenues(){
+            axios.get('/load-event-venues').then(res=>{
+                this.venues = res.data
+            })
         }
 
 
     },
 
     mounted(){
+        this.loadEventTypes()
+        this.loadEventVenues()
+
         if(this.propId > 0){
             this.getData()
         }

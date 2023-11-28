@@ -58,7 +58,7 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="user_id" label="ID" v-slot="props">
+                            <b-table-column field="event_id" label="ID" v-slot="props">
                                 {{ props.row.event_id }}
                             </b-table-column>
 
@@ -71,10 +71,10 @@
                             </b-table-column>
 
                             <b-table-column field="event_type" label="Type" v-slot="props">
-                                {{ props.row.event_type }}
+                                {{ props.row.event_type.event_type }}
                             </b-table-column>
 
-                            <b-table-column field="content" label="Content" v-slot="props">
+                            <b-table-column field="content" label="Description" v-slot="props">
                                 {{ props.row.content | truncate(70) }}
                             </b-table-column>
 
@@ -109,17 +109,21 @@
 
 
                                         <b-dropdown-item aria-role="listitem"
+                                            v-if="['ADMINISTRATOR', 'EVENT OFFICER'].includes(propUser.role)"
                                             @click="confirmApprove(props.row.event_id)">
                                             Approve
                                             <b-icon icon="thumb-up-outline" size="is-small"></b-icon>
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
-                                            @click="confirmCancel(props.row.event_id)">Cancel
+                                            v-if="['ADMINISTRATOR', 'EVENT OFFICER'].includes(propUser.role)"
+                                            @click="confirmCancel(props.row.event_id)">
+                                            Cancel
                                             <b-icon icon="cancel" size="is-small"></b-icon>
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
+                                            v-if="['ADMINISTRATOR'].includes(propUser.role)"
                                             tag="a"
                                             :href="`/events/${props.row.event_id}/edit`">
                                             Edit
@@ -138,6 +142,7 @@
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
+                                        v-if="['ADMINISTRATOR'].includes(propUser.role)"
                                             @click="confirmDelete(props.row.event_id)">
                                             Delete
                                             <b-icon icon="delete" size="is-small"></b-icon>
@@ -149,7 +154,7 @@
 
                         <hr>
 
-                        <div class="buttons mt-3">
+                        <div class="buttons mt-3" v-if="['ADMINISTRATOR', 'ORGANIZER'].includes(propUser.role)">
                             <b-button tag="a"
                                 href="/events/create"
                                 icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
@@ -168,6 +173,15 @@
 <script>
 
 export default{
+
+    props: {
+        propUser:{
+            type: Object,
+            default: {}
+        },
+    },
+   
+
     data() {
         return{
             data: [],

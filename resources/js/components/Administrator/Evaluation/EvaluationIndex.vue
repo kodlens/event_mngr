@@ -32,8 +32,6 @@
                             </div>
                         </div> <!--cols-->
                        
-                
-
                         <div class="columns">
                             <div class="column">
                                 <table class="table">
@@ -46,7 +44,14 @@
 
                                     <tr v-for="(item, ix) in report" :key="ix">
                                         <td>{{  item.question }}</td>
-                                        <td>{{  item.rating }}</td>
+                                        <td>
+                                            <span v-if="item.rating > 4.5 && item.rating <= 5">VERY GOOD</span>
+                                            <span v-else-if="item.rating > 3.6 && item.rating <= 4.5">GOOD</span>
+                                            <span v-else-if="item.rating > 2.7 && item.rating <= 3.6">FAIR</span>
+                                            <span v-else-if="item.rating > 1.8 && item.rating <= 2.7">BAD</span>
+                                            <span v-else-if="item.rating > 1 && item.rating <= 1.8">VERY BAD</span>
+                                           
+                                        </td>
                                     </tr>
                                 </table>
                             </div> <!--col--> 

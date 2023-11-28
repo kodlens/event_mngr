@@ -18,10 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AcademicYearSeeder::class,
+            EventTypeSeeder::class,
             EventSeeder::class,
             QuestionSeeder::class,
             LegendSeeder::class,
             DepartmentSeeder::class,
+            EventVenueSeeder::class
         ]);
     }
 }

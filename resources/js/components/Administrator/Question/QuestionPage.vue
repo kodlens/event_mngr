@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                            style="font-size: 20px; font-weight: bold;">LIST OF QUESTION</div>
+                            style="font-size: 20px; font-weight: bold;">EVALUATION QUESTIONS</div>
 
                         <hr>
                         <div class="level">
@@ -29,8 +29,8 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.question" placeholder="Search..."
-                                                 @keyup.native.enter="loadAsyncData"/>
+                                            v-model="search.question" placeholder="Search..."
+                                            @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                              <b-tooltip label="Search" type="is-success">
                                             <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>

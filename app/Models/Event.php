@@ -14,12 +14,19 @@ class Event extends Model
 
     protected $fillable = [
         'academic_year_id',
+        'user_id',
+        'event_type_id',
+        'event_venue_id',
         'event',
         'content',
+        'if_others',
         'event_datetime',
+        
+        'event_date',
+        'event_time_from',
+        'event_time_to',
         'img_path',
-        'rating',
-        'event_type',
+
         'approval_status'
     ];
 
@@ -28,5 +35,18 @@ class Event extends Model
     public function academic_year(){
         return $this->hasOne(AcademicYear::class, 'academic_year_id', 'academic_year_id');
     }
+
+    public function event_type(){
+        return $this->hasOne(EventType::class, 'event_type_id', 'event_type_id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'user_id', 'user_id');
+    }
+
+    public function venue(){
+        return $this->hasOne(EventVenue::class, 'event_venue_id', 'event_venue_id');
+    }
+    
 
 }

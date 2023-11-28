@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Department;
 use App\Models\Event;
+use App\Models\EventType;
+use App\Models\EventVenue;
 
 class OpenController extends Controller
 {
@@ -28,4 +30,17 @@ class OpenController extends Controller
 
         return $data;
     }
+
+
+    public function loadEventTypes(){
+        return EventType::orderBy('event_type', 'asc')
+            ->get();
+    }
+
+
+    public function loadEventVenues(){
+        return EventVenue::orderBy('event_venue', 'asc')
+            ->get();
+    }
+    
 }

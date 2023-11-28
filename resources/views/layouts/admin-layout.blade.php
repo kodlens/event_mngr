@@ -55,6 +55,12 @@
                     <b-navbar-item href="/departments">
                         Departments
                     </b-navbar-item>
+                    <b-navbar-item href="/event-types">
+                        Event Types
+                    </b-navbar-item>
+                    <b-navbar-item href="/event-venues">
+                        Event Venues
+                    </b-navbar-item>
                 </b-navbar-dropdown>
             
             
@@ -65,7 +71,6 @@
                     <b-navbar-item href="/event-attendances">
                         Event Attendances
                     </b-navbar-item>
-                
                 </b-navbar-dropdown>
 
                 
@@ -77,9 +82,20 @@
                         Student Evaluated
                     </b-navbar-item>
                 </b-navbar-dropdown>
+               
+
+                <b-navbar-dropdown label="Report">
+                    <b-navbar-item href="/report-event-list">
+                        Report Event List
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+
+
                 <b-navbar-item href="/users">
                     User
                 </b-navbar-item>
+
+
 
             @else
                 <b-navbar-item href="/dashboard">
@@ -106,11 +122,13 @@
                 </b-navbar-dropdown>
              
             @endif
-          
            
         </template>
 
         <template #end>
+            <b-navbar-item href="#">
+                {{ strtoupper(Auth::user()->fname) }}
+            </b-navbar-item>
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button

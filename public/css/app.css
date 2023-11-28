@@ -28229,15 +28229,6 @@ html {
   background-color: #f8f8f8 !important;
 }
 
-@media print {
-  .mynav {
-    display: none;
-    border: 1px solid red;
-  }
-  .printarea {
-    display: block;
-  }
-}
 /* Bulma Utilities */
 .pagination-previous,
 .pagination-next,
@@ -44131,4 +44122,29 @@ input[type=password], input[type=tel] {
 
 .debug {
   border: 1px solid red;
+}
+
+.filter-control {
+  margin: 20px;
+}
+
+.print-page {
+  margin: 20px;
+}
+
+@page {
+  size: 8.5in 13in;
+}
+@media print {
+  html {
+    background-color: #ffffff !important;
+  }
+  .filter-control {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+  header, footer, aside, nav, .navbar, form, iframe, .menu, .hero, .adslot {
+    display: none;
+  }
 }
