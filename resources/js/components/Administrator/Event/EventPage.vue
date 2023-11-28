@@ -89,9 +89,9 @@
                             </b-table-column>
 
 
-                            <b-table-column field="approval_status" label="Open" v-slot="props">
-                                <span v-if="props.row.is_open === 1" class="yes">YES</span>
-                                <span v-else class="no">NO</span>
+                            <b-table-column field="approval_status" label="Evaluation" v-slot="props">
+                                <span v-if="props.row.is_open === 1" class="yes">OPEN</span>
+                                <span v-else class="no">CLOSE</span>
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
