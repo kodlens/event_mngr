@@ -9,7 +9,7 @@
                             <div class="column">
 
                                 <div class="is-flex is-justify-content-center mb-2"
-                                    style="font-size: 20px; font-weight: bold;">STUDENT LIST WHO SUBMITTED EVALUATION</div>
+                                    style="font-size: 20px; font-weight: bold;">PARTICIPANT LIST WHO SUBMITTED EVALUATION</div>
                                 <hr>
                                 
                                 
@@ -53,7 +53,7 @@
                                         {{ props.index + 1 }}
                                     </b-table-column>
 
-                                    <b-table-column field="name" label="Student's Name" v-slot="props">
+                                    <b-table-column field="name" label="Participant's Name" v-slot="props">
                                         {{ props.row.user.lname }}, {{ props.row.user.fname }} {{ props.row.user.mname}}
                                     </b-table-column>
 
@@ -118,7 +118,7 @@ export default{
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-students-evaluated?${params}`)
+            axios.get(`/get-participant-evaluated?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total

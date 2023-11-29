@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                            style="font-size: 20px; font-weight: bold;">LIST OF STUDENT ATTENDANCES</div>
+                            style="font-size: 20px; font-weight: bold;">LIST OF PARTICIPANT ATTENDANCES</div>
                         <hr>
                         <div class="level">
                             <div class="level-left">
@@ -42,6 +42,10 @@
                         </div>
 
                         <hr>
+                        <div class="buttons">
+                            <b-button class="is-outlined is-primary" icon-left="printer"
+                                @click="printPreviewAttendances"></b-button>
+                        </div>
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -67,7 +71,7 @@
                                 {{ props.row.event.event }}
                             </b-table-column>
 
-                            <b-table-column field="user" label="Student's Name" v-slot="props">
+                            <b-table-column field="user" label="Participant's Name" v-slot="props">
                                 {{ props.row.user.lname }}, {{ props.row.user.fname }} {{ props.row.user.mname }}
                             </b-table-column>
 
@@ -247,6 +251,11 @@ export default{
                 }
             });
         },
+
+
+        printPreviewAttendances(){
+            window.location = '/event-attendances-print-preview'
+        }
 
 
     },

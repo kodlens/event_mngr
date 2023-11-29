@@ -8055,7 +8055,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "ayid=".concat(this.event.ayid), "eventid=".concat(this.event.event_id), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
-      axios.get("/get-students-evaluated?".concat(params)).then(function (_ref) {
+      axios.get("/get-participant-evaluated?".concat(params)).then(function (_ref) {
         var data = _ref.data;
         _this.data = [];
         var currentTotal = data.total;
@@ -8207,11 +8207,54 @@ __webpack_require__.r(__webpack_exports__);
           _this3.errors = err.response.data.errors;
         }
       });
+    },
+    printPreviewAttendances: function printPreviewAttendances() {
+      window.location = '/event-attendances-print-preview';
     }
   },
   mounted: function mounted() {
     this.loadAsyncData();
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      data: [],
+      search: {
+        from: new Date(),
+        to: new Date()
+      }
+    };
+  },
+  methods: {
+    loadData: function loadData() {
+      var _this = this;
+      var from = this.search.from.getFullYear() + '-' + (this.search.from.getMonth() + 1).toString().padStart(2, "0") + '-' + this.search.from.getDate().toString().padStart(2, '0');
+      var to = this.search.to.getFullYear() + '-' + (this.search.to.getMonth() + 1).toString().padStart(2, "0") + '-' + this.search.to.getDate().toString().padStart(2, '0');
+      var params = ["from=".concat(from), "to=".concat(to)].join('&');
+      axios.get("/load-report-event-lists?".concat(params)).then(function (res) {
+        _this.data = res.data;
+      });
+    },
+    printMe: function printMe() {
+      window.print();
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -10683,7 +10726,7 @@ var render = function render() {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("STUDENT LIST WHO SUBMITTED EVALUATION")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-field", {
+  }, [_vm._v("PARTICIPANT LIST WHO SUBMITTED EVALUATION")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-field", {
     attrs: {
       label: "Select Event"
     }
@@ -10743,7 +10786,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "name",
-      label: "Student's Name"
+      label: "Participant's Name"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -10810,7 +10853,7 @@ var render = function render() {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF STUDENT ATTENDANCES")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+  }, [_vm._v("LIST OF PARTICIPANT ATTENDANCES")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
   }, [_c("div", {
     staticClass: "level-left"
@@ -10905,7 +10948,17 @@ var render = function render() {
     on: {
       click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
+  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "buttons"
+  }, [_c("b-button", {
+    staticClass: "is-outlined is-primary",
+    attrs: {
+      "icon-left": "printer"
+    },
+    on: {
+      click: _vm.printPreviewAttendances
+    }
+  })], 1), _vm._v(" "), _c("b-table", {
     attrs: {
       data: _vm.data,
       loading: _vm.loading,
@@ -10956,7 +11009,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "user",
-      label: "Student Name"
+      label: "Participant's Name"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -11017,6 +11070,87 @@ var render = function render() {
   })], 1), _vm._v(" "), _c("hr")], 1)])])])]);
 };
 var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("div", {
+    staticClass: "filter-control"
+  }, [_c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Date Range"
+    }
+  }, [_c("b-datepicker", {
+    model: {
+      value: _vm.search.from,
+      callback: function callback($$v) {
+        _vm.$set(_vm.search, "from", $$v);
+      },
+      expression: "search.from"
+    }
+  }), _vm._v(" "), _c("b-datepicker", {
+    model: {
+      value: _vm.search.to,
+      callback: function callback($$v) {
+        _vm.$set(_vm.search, "to", $$v);
+      },
+      expression: "search.to"
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "controls"
+  }, [_c("b-button", {
+    staticClass: "is-primary",
+    attrs: {
+      "icon-left": "magnify"
+    },
+    on: {
+      click: _vm.loadData
+    }
+  }), _vm._v(" "), _c("b-button", {
+    staticClass: "is-info",
+    attrs: {
+      "icon-left": "printer"
+    },
+    on: {
+      click: _vm.printMe
+    }
+  })], 1)], 1)], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "print-page"
+  }, [_c("div", {
+    staticClass: "has-text-weight-bold has-text-centered is-size-5"
+  }, [_vm._v("LIST OF EVENTS")]), _vm._v(" "), _c("table", {
+    staticClass: "table is-fullwidth"
+  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.data, function (item, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", [_vm._v(_vm._s(index += 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event_type.event_type))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(new Date(item.event_datetime).toLocaleString()))])]);
+  })], 2)])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("tr", [_c("th", [_vm._v("No.")]), _vm._v(" "), _c("th", [_vm._v("Event Type")]), _vm._v(" "), _c("th", [_vm._v("Event")]), _vm._v(" "), _c("th", [_vm._v("Event Date")])]);
+}];
 render._withStripped = true;
 
 
@@ -11552,13 +11686,24 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      field: "event_datetime",
-      label: "Date Time"
+      field: "event_date",
+      label: "Date"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(_vm._f("formatDateTime")(props.row.event_datetime)) + "\n                        ")];
+        return [_vm._v("\n                            " + _vm._s(new Date(props.row.event_date).toLocaleDateString()) + "\n                        ")];
+      }
+    }])
+  }), _vm._v(" "), _c("b-table-column", {
+    attrs: {
+      field: "time",
+      label: "Time"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [_vm._v("\n                            " + _vm._s(_vm._f("formatTime")(props.row.event_time_from)) + " - \n                            " + _vm._s(_vm._f("formatTime")(props.row.event_time_to)) + "\n                        ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11621,7 +11766,7 @@ var render = function render() {
               })];
             }
           }], null, true)
-        }, [_vm._v(" "), ["ADMINISTRATOR", "EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        }, [_vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -11635,7 +11780,7 @@ var render = function render() {
             icon: "thumb-up-outline",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["ADMINISTRATOR", "EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -11649,7 +11794,7 @@ var render = function render() {
             icon: "cancel",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["ADMINISTRATOR"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem",
             tag: "a",
@@ -11660,7 +11805,7 @@ var render = function render() {
             icon: "pencil",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -11674,7 +11819,7 @@ var render = function render() {
             icon: "open-in-app",
             size: "is-small"
           }
-        })], 1), _vm._v(" "), _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -11688,7 +11833,7 @@ var render = function render() {
             icon: "close",
             size: "is-small"
           }
-        })], 1), _vm._v(" "), ["ADMINISTRATOR"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -11705,7 +11850,7 @@ var render = function render() {
         })], 1) : _vm._e()], 1)], 1)];
       }
     }])
-  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ADMINISTRATOR", "ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
+  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
@@ -12868,7 +13013,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "role",
-      label: "Role"
+      label: "User Type"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -13283,7 +13428,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Role",
+      label: "User Type",
       "label-position": "on-border",
       expanded: "",
       type: this.errors.role ? "is-danger" : "",
@@ -13308,7 +13453,7 @@ var render = function render() {
     attrs: {
       value: "EVENT OFFICER"
     }
-  }, [_vm._v("EVENT OFFICER")]), _vm._v(" "), _c("option", {
+  }, [_vm._v("APPROVING OFFICER")]), _vm._v(" "), _c("option", {
     attrs: {
       value: "ORGANIZER"
     }
@@ -13316,7 +13461,7 @@ var render = function render() {
     attrs: {
       value: "STUDENT"
     }
-  }, [_vm._v("STUDENT")])])], 1)], 1)])])]), _vm._v(" "), _c("footer", {
+  }, [_vm._v("PARTICIPANTS")])])], 1)], 1)])])]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
   }, [_c("button", {
     "class": _vm.btnClass,
@@ -37241,6 +37386,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.yes[data-v-5b04ef50], .no[data-v-5b
 
 /***/ }),
 
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.print-page[data-v-19e21e74]{\r\n    width: 816px;\r\n    background-color: white;\n}\r\n\r\n\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=style&index=0&id=f84e71a0&scoped=true&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=style&index=0&id=f84e71a0&scoped=true&lang=css& ***!
@@ -49511,6 +49680,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_style_index_0_id_19e21e74_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_style_index_0_id_19e21e74_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_style_index_0_id_19e21e74_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=style&index=0&id=f84e71a0&scoped=true&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=style&index=0&id=f84e71a0&scoped=true&lang=css& ***!
@@ -50330,6 +50529,47 @@ component.options.__file = "resources/js/components/Administrator/EventAttendanc
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true& */ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true&");
+/* harmony import */ var _ReportEventAttendance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReportEventAttendance.vue?vue&type=script&lang=js& */ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js&");
+/* harmony import */ var _ReportEventAttendance_vue_vue_type_style_index_0_id_19e21e74_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& */ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ReportEventAttendance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "19e21e74",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue ***!
@@ -51068,6 +51308,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReportEventAttendance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=script&lang=js& ***!
@@ -51410,6 +51666,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true&":
+/*!************************************************************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true& ***!
+  \************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_template_id_19e21e74_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=template&id=19e21e74&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=template&id=f84e71a0&scoped=true&":
 /*!*************************************************************************************************************************!*\
   !*** ./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue?vue&type=template&id=f84e71a0&scoped=true& ***!
@@ -51717,6 +51990,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DepartmentIndex_vue_vue_type_style_index_0_id_5b04ef50_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DepartmentIndex.vue?vue&type=style&index=0&id=5b04ef50&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/Department/DepartmentIndex.vue?vue&type=style&index=0&id=5b04ef50&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportEventAttendance_vue_vue_type_style_index_0_id_19e21e74_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue?vue&type=style&index=0&id=19e21e74&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -63927,6 +64213,7 @@ var map = {
 	"./components/Administrator/Event/EventPage.vue": "./resources/js/components/Administrator/Event/EventPage.vue",
 	"./components/Administrator/Event/EventPageCreateEdit.vue": "./resources/js/components/Administrator/Event/EventPageCreateEdit.vue",
 	"./components/Administrator/EventAttendance/EventAttendance.vue": "./resources/js/components/Administrator/EventAttendance/EventAttendance.vue",
+	"./components/Administrator/EventAttendance/ReportEventAttendance.vue": "./resources/js/components/Administrator/EventAttendance/ReportEventAttendance.vue",
 	"./components/Administrator/EventVenue/EventVenueIndex.vue": "./resources/js/components/Administrator/EventVenue/EventVenueIndex.vue",
 	"./components/Administrator/Question/QuestionCreate.vue": "./resources/js/components/Administrator/Question/QuestionCreate.vue",
 	"./components/Administrator/Question/QuestionCreateEdit.vue": "./resources/js/components/Administrator/Question/QuestionCreateEdit.vue",

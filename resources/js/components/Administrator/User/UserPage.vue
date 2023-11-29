@@ -83,7 +83,7 @@
                                 {{ props.row.email }}
                             </b-table-column>
 
-                            <b-table-column field="role" label="Role" v-slot="props">
+                            <b-table-column field="role" label="User Type" v-slot="props">
                                 {{ props.row.role }}
                             </b-table-column>
 
@@ -280,14 +280,14 @@
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Role" label-position="on-border" expanded
+                                    <b-field label="User Type" label-position="on-border" expanded
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            <option value="EVENT OFFICER">EVENT OFFICER</option>
+                                            <option value="EVENT OFFICER">APPROVING OFFICER</option>
                                             <option value="ORGANIZER">ORGANIZER</option>
-                                            <option value="STUDENT">STUDENT</option>
+                                            <option value="STUDENT">PARTICIPANTS</option>
                                         </b-select>
                                     </b-field>
                                 </div>

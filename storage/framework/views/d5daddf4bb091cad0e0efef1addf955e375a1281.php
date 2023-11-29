@@ -78,7 +78,7 @@
                         Evaluations
                     </b-navbar-item>
                     <b-navbar-item href="/student-evaluated">
-                        Student Evaluated
+                        Participant Evaluated
                     </b-navbar-item>
                 </b-navbar-dropdown>
                
@@ -116,7 +116,7 @@
                         Evaluations
                     </b-navbar-item>
                     <b-navbar-item href="/student-evaluated">
-                        Student Evaluated
+                        Participant Evaluated
                     </b-navbar-item>
                 </b-navbar-dropdown>
              

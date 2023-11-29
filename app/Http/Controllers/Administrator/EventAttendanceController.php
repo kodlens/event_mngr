@@ -30,4 +30,7 @@ class EventAttendanceController extends Controller
     public function getReportEventEvaluations(Request $req){
         
     }
+
+
+    
 }

@@ -117,7 +117,7 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
-    Route::get('/get-students-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
+    Route::get('/get-participant-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
     
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
