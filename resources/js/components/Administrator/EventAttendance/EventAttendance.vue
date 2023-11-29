@@ -67,7 +67,7 @@
                                 {{ props.row.event.event }}
                             </b-table-column>
 
-                            <b-table-column field="user" label="Student Name" v-slot="props">
+                            <b-table-column field="user" label="Student's Name" v-slot="props">
                                 {{ props.row.user.lname }}, {{ props.row.user.fname }} {{ props.row.user.mname }}
                             </b-table-column>
 
