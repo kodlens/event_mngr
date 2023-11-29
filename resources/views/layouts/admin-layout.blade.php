@@ -120,6 +120,11 @@
                         Participant Evaluated
                     </b-navbar-item>
                 </b-navbar-dropdown>
+                <b-navbar-dropdown label="Report">
+                    <b-navbar-item href="/report-event-list">
+                        Report Event List
+                    </b-navbar-item>
+                </b-navbar-dropdown>
              
             @endif
            

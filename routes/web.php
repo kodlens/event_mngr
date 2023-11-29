@@ -93,8 +93,6 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
-    Route::get('/report-event-list', [App\Http\Controllers\Report\ReportEventListController::class, 'index']);
-    Route::get('/load-report-event-lists', [App\Http\Controllers\Report\ReportEventListController::class, 'loadReportEventLists']);
 
 });
 /*     ADMINSITRATOR          */
@@ -118,6 +116,10 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
     Route::get('/get-participant-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
+    
+    
+    Route::get('/report-event-list', [App\Http\Controllers\Report\ReportEventListController::class, 'index']);
+    Route::get('/load-report-event-lists', [App\Http\Controllers\Report\ReportEventListController::class, 'loadReportEventLists']);
     
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);

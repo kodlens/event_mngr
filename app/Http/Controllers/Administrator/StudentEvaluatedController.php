@@ -11,6 +11,7 @@ class StudentEvaluatedController extends Controller
 {
     //
 
+
     public function index(){
         return view('administrator.evaluation.student_evaluated.student-evaluated-index');
     }
