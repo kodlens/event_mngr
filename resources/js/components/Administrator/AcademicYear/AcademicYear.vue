@@ -78,20 +78,24 @@
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
-                                    <b-tooltip label="Set Active" type="is-info">
+                                    <b-tooltip label="Set Active" type="is-info"
+                                        v-if="['ORGANIZER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" tag="a" icon-right="thumb-up" @click="setActive(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
-                                    <b-tooltip label="Edit" type="is-warning">
+                                    <b-tooltip label="Edit" type="is-warning"
+                                        v-if="['ORGANIZER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
-                                    <b-tooltip label="Delete" type="is-danger">
+                                    <b-tooltip label="Delete" type="is-danger"
+                                        v-if="['ORGANIZER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
 
-                        <div class="buttons mt-3">
+                        <div class="buttons mt-3"
+                            v-if="['EVENT OFFICER'].includes(propUser.role)">
                             <b-button @click="openModal" icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
                         </div>
 
@@ -176,6 +180,14 @@
 <script>
 
 export default{
+
+    props: {
+        propUser:{
+            type: Object,
+            default: {}
+        },
+    },
+
     data() {
         return{
             data: [],
