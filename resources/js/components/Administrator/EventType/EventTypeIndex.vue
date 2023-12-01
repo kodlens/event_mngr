@@ -2,11 +2,11 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-8">
+                <div class="column is-8-desktop is-10-tablet is-7-widescreen">
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                             style="font-size: 20px; font-weight: bold;">LIST OF ACADEMIC YEAR</div>
+                             style="font-size: 20px; font-weight: bold;">LIST OF EVENT TYPES</div>
                         <hr>
 
                         <div class="level">
@@ -30,7 +30,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.academic_year" placeholder="Search Academic Year"
+                                                 v-model="search.event" placeholder="Search Academic Year"
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
@@ -59,16 +59,12 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="academic_year_id" label="ID" v-slot="props">
-                                {{ props.row.academic_year_id }}
+                            <b-table-column field="event_type_id" label="ID" v-slot="props">
+                                {{ props.row.event_type_id }}
                             </b-table-column>
 
-                            <b-table-column field="academic_year_code" label="Code" v-slot="props">
-                                {{ props.row.academic_year_code }}
-                            </b-table-column>
-
-                            <b-table-column field="name" label="Description" v-slot="props">
-                                {{ props.row.academic_year_desc }}
+                            <b-table-column field="event_type" label="Event Type" v-slot="props">
+                                {{ props.row.event_type }}
                             </b-table-column>
 
                             <b-table-column field="active" label="Active" v-slot="props">
@@ -78,24 +74,18 @@
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
-                                    <b-tooltip label="Set Active" type="is-info"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
-                                        <b-button class="button is-small mr-1" tag="a" icon-right="thumb-up" @click="setActive(props.row.academic_year_id)"></b-button>
+                         
+                                    <b-tooltip label="Edit" type="is-warning">
+                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.event_type_id)"></b-button>
                                     </b-tooltip>
-                                    <b-tooltip label="Edit" type="is-warning"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
-                                        <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.academic_year_id)"></b-button>
-                                    </b-tooltip>
-                                    <b-tooltip label="Delete" type="is-danger"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
-                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.academic_year_id)"></b-button>
+                                    <b-tooltip label="Delete" type="is-danger">
+                                        <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.event_type_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
                         </b-table>
 
-                        <div class="buttons mt-3"
-                            v-if="['EVENT OFFICER'].includes(propUser.role)">
+                        <div class="buttons mt-3">
                             <b-button @click="openModal" icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
                         </div>
 
@@ -117,7 +107,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Academic Year</p>
+                        <p class="modal-card-title">Event Type Information</p>
                         <button
                             type="button"
                             class="delete"
@@ -128,23 +118,11 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Academic Year Code" label-position="on-border"
-                                             :type="this.errors.academic_year_code ? 'is-danger':''"
-                                             :message="this.errors.academic_year_code ? this.errors.academic_year_code[0] : ''">
-                                        <b-input v-model="fields.academic_year_code"
-                                                 placeholder="Academic Year Code" required>
-                                        </b-input>
-                                    </b-field>
-                                </div>
-                            </div>
-
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="Academic Year Description" label-position="on-border"
-                                             :type="this.errors.academic_year_desc ? 'is-danger':''"
-                                             :message="this.errors.academic_year_desc ? this.errors.academic_year_desc[0] : ''">
-                                        <b-input v-model="fields.academic_year_desc"
-                                                 placeholder="Academic Year Description" required>
+                                    <b-field label="Event Type" label-position="on-border"
+                                             :type="this.errors.event_type ? 'is-danger':''"
+                                             :message="this.errors.event_type ? this.errors.event_type[0] : ''">
+                                        <b-input v-model="fields.event_type"
+                                                 placeholder="Event Type" required>
                                         </b-input>
                                     </b-field>
                                 </div>
@@ -154,8 +132,8 @@
                                 <div class="column">
                                     <b-field label="Active">
                                         <b-checkbox v-model="fields.active"
-                                                    :true-value="1"
-                                                    :false-value="0">
+                                            :true-value="1"
+                                            :false-value="0">
                                         </b-checkbox>
                                     </b-field>
                                 </div>
@@ -180,20 +158,12 @@
 <script>
 
 export default{
-
-    props: {
-        propUser:{
-            type: Object,
-            default: {}
-        },
-    },
-
     data() {
         return{
             data: [],
             total: 0,
             loading: false,
-            sortField: 'academic_year_code',
+            sortField: 'event_type_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 20,
@@ -203,16 +173,16 @@ export default{
             global_id : 0,
 
             search: {
-                academic_year: '',
+                event: '',
             },
 
             isModalCreate: false,
 
             fields: {
-                academic_year_code: '',
-                academic_year_desc: '',
+                event_type: '',
                 active : 0
             },
+
             errors: {},
 
 
@@ -235,13 +205,13 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `academic_year=${this.search.academic_year}`,
+                `event=${this.search.event}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-academic-years?${params}`)
+            axios.get(`/get-event-types?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -293,7 +263,7 @@ export default{
 
             if(this.global_id > 0){
                 //update
-                axios.put('/academic-years/'+this.global_id, this.fields).then(res=>{
+                axios.put('/event-types/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -314,7 +284,7 @@ export default{
                 })
             }else{
                 //INSERT HERE
-                axios.post('/academic-years', this.fields).then(res=>{
+                axios.post('/event-types', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -351,7 +321,7 @@ export default{
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/academic-years/' + delete_id).then(res => {
+            axios.delete('/event-types/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -362,8 +332,7 @@ export default{
 
         clearFields(){
             this.global_id = 0;
-            this.fields.academic_year_code = '';
-            this.fields.academic_year_desc = '';
+            this.fields.event_type = '';
             this.fields.active = 0;
         },
 
@@ -374,33 +343,14 @@ export default{
             this.global_id = data_id;
             this.isModalCreate = true;
 
-            axios.get('/academic-years/'+data_id).then(res=>{
+            axios.get('/event-types/'+data_id).then(res=>{
                 this.fields = res.data;
 
 
             });
         },
 
-        setActive(id){
-            this.btnClass['is-loading'] = true
-            axios.post('/academic-year-set-active/' + id).then(res=>{
-                this.btnClass['is-loading'] = false
-                if(res.data.status === 'active'){
-                    this.$buefy.dialog.alert({
-                        title: 'Active.',
-                        message: 'Academic year set to active.',
-                        onConfirm: ()=>{
-                            this.loadAsyncData()
-                        }
-                    })
-                }
-            }).catch(err=>{
-                this.btnClass['is-loading'] = false
-            })
-        },
-
-
-
+    
 
     },
 

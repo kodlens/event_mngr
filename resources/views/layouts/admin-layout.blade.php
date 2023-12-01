@@ -102,6 +102,13 @@
                         Home
                 </b-navbar-item>
 
+                <b-navbar-dropdown label="Setting">
+                    <b-navbar-item href="academic-years">
+                        Academic Years
+                    </b-navbar-item>
+                   
+                </b-navbar-dropdown>
+
                 <b-navbar-dropdown label="Events">
                     <b-navbar-item href="/events">
                         Events

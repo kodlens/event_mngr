@@ -70,10 +70,7 @@ Route::get('/load-event-venues', [App\Http\Controllers\OpenController::class, 'l
 Route::middleware(['verified', 'admin'])->group(function() {
 
 
-    Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
-    Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
-    Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
-
+  
     Route::resource('/event-venues', App\Http\Controllers\Administrator\EventVenueController::class);
     Route::get('/get-event-venues', [App\Http\Controllers\Administrator\EventVenueController::class, 'getData']);
 
@@ -100,6 +97,12 @@ Route::middleware(['verified', 'admin'])->group(function() {
 Route::middleware(['verified', 'event_officer'])->group(function() {
 
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
+    
+    Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
+    Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
+    Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
+
+
     
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
