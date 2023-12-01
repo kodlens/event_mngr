@@ -27,7 +27,8 @@ class Event extends Model
         'event_time_to',
         'img_path',
 
-        'approval_status'
+        'approval_status',
+        'is_need_approval'
     ];
 
 

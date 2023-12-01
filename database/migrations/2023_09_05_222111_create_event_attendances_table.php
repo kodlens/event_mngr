@@ -24,6 +24,7 @@ class CreateEventAttendancesTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+  
             $table->dateTime('in_am')->nullable();
             $table->dateTime('out_am')->nullable();
             $table->dateTime('in_pm')->nullable();

@@ -20,12 +20,13 @@ class EventController extends Controller
 
     public function getEvents(Request $req){
         $acadYear = AcademicYear::where('active', 1)->first();
-        //$user = Auth::user();
+        $user = Auth::user();
 
         $sort = explode('.', $req->sort_by);
 
         $event = Event::with(['academic_year', 'event_type'])
             ->where('event', 'like', $req->event . '%')
+            ->where('user_id', 'like', $user->user_id)
             ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
@@ -83,7 +84,8 @@ class EventController extends Controller
             'event_date' => $event_date,
             'event_time_from' => $eventFrom,
             'event_time_to' => $eventTo,
-            'img_path' => $req->hasFile('event_img') ? $n[2] : ''
+            'img_path' => $req->hasFile('event_img') ? $n[2] : '',
+            'is_need_approval' => $req->is_need_approval,
         ]);
 
         return response()->json([
@@ -133,6 +135,7 @@ class EventController extends Controller
         $data->event_date = $event_date;
         $data->event_time_from = $eventFrom;
         $data->event_time_to = $eventTo;
+        $data->is_need_approval = $req->is_need_approval;
         
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];

@@ -46,6 +46,7 @@
                             :data="data"
                             :loading="loading"
                             paginated
+                            detailed
                             backend-pagination
                             :total="total"
                             :per-page="perPage"
@@ -112,6 +113,12 @@
                                                 :icon-right="active ? 'menu-up' : 'menu-down'" />
                                         </template>
 
+                                        <b-dropdown-item aria-role="listitem"
+                                            v-if="['ORGANIZER'].includes(propUser.role)"
+                                            @click="gotoListAttendee(props.row.event_id)">
+                                            List of Attendee
+                                            <b-icon icon="account" size="is-small"></b-icon>
+                                        </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
                                             v-if="['EVENT OFFICER'].includes(propUser.role)"
@@ -128,7 +135,7 @@
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
-                                            v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                            v-if="['EVENT OFFICER', 'ORGANIZER'].includes(propUser.role)"
                                             tag="a"
                                             :href="`/events/${props.row.event_id}/edit`">
                                             Edit
@@ -157,6 +164,18 @@
                                     </b-dropdown>
                                 </div>
                             </b-table-column>
+
+                            <template #detail="props">
+                                <tr>
+                                    <th>Need Approval</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span v-if="props.row.is_need_approval === 1" class="yes">YES</span>
+                                        <span v-else-if="props.row.is_need_approval === 0" class="pending">NO</span>
+                                    </td>
+                                </tr>
+                            </template>
                         </b-table>
 
                         <hr>
@@ -372,7 +391,9 @@ export default{
             });
         },
 
-        
+        gotoListAttendee(dataId){
+            window.location = '/event-attendees/' + dataId
+        }
 
 
 

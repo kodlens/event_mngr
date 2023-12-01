@@ -150,9 +150,29 @@
                                         </span>
                                     </div>
                                 </div>
-
                             </div>
 
+                          
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Need Approval for Attendee?">
+                                        <b-radio-button v-model="fields.is_need_approval"
+                                            :native-value="0"
+                                            type="is-danger is-light is-outlined">
+                                            <b-icon icon="close"></b-icon>
+                                            <span>NO</span>
+                                        </b-radio-button>
+
+                                        <b-radio-button v-model="fields.is_need_approval"
+                                            :native-value="1"
+                                            type="is-success is-light is-outlined">
+                                            <b-icon icon="check"></b-icon>
+                                            <span>YES</span>
+                                        </b-radio-button>
+
+                                    </b-field>
+                                </div>
+                            </div>
                             <hr>
                             <div class="buttons is-right">
                                 <button class="button is-outlined is-primary">
@@ -211,6 +231,7 @@ export default {
                 dateAndTime: null,
                 event_img: null,
                 event_type_id: 0,
+                is_need_approval: 0
             },
             errors: {},
 
