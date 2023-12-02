@@ -54,6 +54,21 @@ class EventsController extends Controller
 
         //return $req;
 
+
+        //first check if this user is registered on the event
+        $exist = EventAttendee::where('user_id', $req->user_id)
+            ->where('event_id', $req->event_id)
+            ->where('status', 1)
+            ->exists();
+
+        if(!$exist){
+            return response()->json([
+                'errors' => [
+                    'message' => ['Attendee information is invalid or not yet registered.']
+                ]
+            ], 422);
+        }
+
         $status = $req->status;
         $timeLog = now();
 
@@ -68,7 +83,10 @@ class EventsController extends Controller
             $status => $timeLog,
         ]);
         
-        return $user;
+        return response()->json([
+            'status' => 'saved',
+            'user' => $user
+        ], 200);;
     }
 
 
