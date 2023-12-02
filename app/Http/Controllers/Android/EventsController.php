@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\AcademicYear;
 use App\Models\EventAttendance;
+use App\Models\EventAttendee;
 use App\Models\User;
 
 
@@ -16,14 +17,17 @@ class EventsController extends Controller
 
     public function eventsList(Request $req){
         $ay = AcademicYear::where('active', 1)->first();
+        $userId = $req->id;
 
-        $data = Event::where('event', 'like', $req->event . '%')
+        $data = Event::where('event', 'like', $req->event . '%') 
             ->where('academic_year_id', $ay->academic_year_id)
             ->where('approval_status', 1)
-            ->orderBy('event_id', 'desc')
-            ->get();
+            ->orderBy('event_id', 'desc');
 
-        return response()->json($data);
+        if($userId > 0){
+            $data->where('user_id', $userId);
+        }
+        return $data->get();
     }
 
     public function loadEvents(Request $req){
@@ -76,7 +80,6 @@ class EventsController extends Controller
             ->count();
         return $data;
     }
-
 
 
 

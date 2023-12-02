@@ -154,8 +154,8 @@
                                 <div class="column">
                                     <b-field label="Active">
                                         <b-checkbox v-model="fields.active"
-                                                    :true-value="1"
-                                                    :false-value="0">
+                                            :true-value="1"
+                                            :false-value="0">
                                         </b-checkbox>
                                     </b-field>
                                 </div>

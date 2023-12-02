@@ -9070,6 +9070,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
       formData.append('event_time_from', from ? from : '');
       formData.append('event_time_to', to ? to : '');
+      formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
       if (this.propId > 0) {
         //update
         axios.post('/events-update/' + this.propId, formData).then(function (res) {

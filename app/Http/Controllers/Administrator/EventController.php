@@ -21,17 +21,20 @@ class EventController extends Controller
     public function getEvents(Request $req){
         $acadYear = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
+        $role = $user->role;
 
         $sort = explode('.', $req->sort_by);
 
         $event = Event::with(['academic_year', 'event_type'])
             ->where('event', 'like', $req->event . '%')
-            ->where('user_id', 'like', $user->user_id)
             ->where('academic_year_id', $acadYear->academic_year_id)
-            ->orderBy($sort[0], $sort[1])
-            ->paginate($req->perpage);
+            ->orderBy($sort[0], $sort[1]);
+        
+        if(in_array($role, ['ORGANIZER', 'STUDENT', 'ATTENDEE'])){
+            $event->where('user_id', 'like', $user->user_id);
+        }
 
-        return $event;
+        return $event->paginate($req->perpage);;
     }
 
     public function create(){
@@ -154,17 +157,8 @@ class EventController extends Controller
         $data = Event::find($id);
         $data->approval_status = 1;
         $userId = $data->user_id;
-
         $data->save();
 
-        if($userId > 0){
-            $organizers = User::where('role', 'ORGANIZER')
-                ->where('user_id', $userId)
-                ->first();
-        }
-        
-
-        
         return response()->json([
             'status' => 'approved'
         ], 200);

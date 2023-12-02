@@ -24,8 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ANDROID ROUTES
 Route::post('/android/auth/login', [App\Http\Controllers\Android\LoginController::class, 'login']);
 Route::post('/android/auth/change-password', [App\Http\Controllers\Android\ChangePasswordController::class, 'changePassword']);
+
 Route::get('/android/events', [App\Http\Controllers\Android\EventsController::class, 'eventsList']);
 Route::get('/android/events/{id}', [App\Http\Controllers\Android\EventsController::class, 'show']);
+
+Route::get('/android/my-events', [App\Http\Controllers\Android\AndroidMyEventController::class, 'myEvents']);
+
+
+Route::post('/android/event-attendees', [App\Http\Controllers\Android\AndroidEventAttendeeController::class, 'store']);
+
+
 //submit scanned
 Route::post('/android/submit-scanned', [App\Http\Controllers\Android\EventsController::class, 'submitScanned']);
 
