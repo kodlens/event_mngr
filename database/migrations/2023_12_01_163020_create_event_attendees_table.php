@@ -27,7 +27,7 @@ class CreateEventAttendeesTable extends Migration
             $table->date('date_request')->nullable();
     
             $table->tinyInteger('status')->default(0);
-            $table->date('date_approved')->nullable();
+            $table->date('date_mark')->nullable();
             
             $table->timestamps();
         });
