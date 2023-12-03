@@ -84,7 +84,10 @@
                             </b-table-column>
 
                             <b-table-column field="role" label="User Type" v-slot="props">
-                                {{ props.row.role }}
+                                <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
+                                <span v-if="props.row.role === 'EVENT OFFICER'">APPROVING OFFICER</span>
+                                <span v-if="props.row.role === 'ORGANIZER'">ORGANIZER</span>
+                                <span v-if="props.row.role === 'STUDENT'">PARTICIPANTS</span>
                             </b-table-column>
 
                             <b-table-column field="department" label="Dept" v-slot="props">
