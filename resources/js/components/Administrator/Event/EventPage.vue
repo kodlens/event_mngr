@@ -29,7 +29,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                            v-model="search.lname" placeholder="Search Lastname"
+                                            v-model="search.event" placeholder="Search Event"
                                             @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
@@ -59,9 +59,9 @@
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
 
-                            <b-table-column field="event_id" label="ID" v-slot="props">
+                            <!-- <b-table-column field="event_id" label="ID" v-slot="props">
                                 {{ props.row.event_id }}
-                            </b-table-column>
+                            </b-table-column> -->
 
                             <b-table-column field="academic_year" label="AY" v-slot="props">
                                 {{ props.row.academic_year.academic_year_code }}
@@ -76,7 +76,7 @@
                             </b-table-column>
 
                             <b-table-column field="content" label="Description" v-slot="props">
-                                {{ props.row.content | truncate(70) }}
+                                {{ props.row.content | truncate(50) }}
                             </b-table-column>
 
                             <b-table-column field="event_date" label="Date" v-slot="props">
@@ -91,7 +91,7 @@
                             <b-table-column field="approval_status" label="Status" v-slot="props">
                                 <span v-if="props.row.approval_status === 1" class="yes">APPROVED</span>
                                 <span v-else-if="props.row.approval_status === 0" class="pending">PENDING</span>
-                                <span v-else-if="props.row.approval_status === 2" class="no">CANCELLED</span>
+                                <span v-else-if="props.row.approval_status === 2" class="no">DECLINED</span>
                             </b-table-column>
 
 
@@ -130,12 +130,12 @@
                                         <b-dropdown-item aria-role="listitem"
                                             v-if="['EVENT OFFICER'].includes(propUser.role)"
                                             @click="confirmCancel(props.row.event_id)">
-                                            Cancel
+                                            Decline
                                             <b-icon icon="cancel" size="is-small"></b-icon>
                                         </b-dropdown-item>
 
                                         <b-dropdown-item aria-role="listitem"
-                                            v-if="['EVENT OFFICER', 'ORGANIZER'].includes(propUser.role)"
+                                            v-if="['EVENT OFFICER'].includes(propUser.role)"
                                             tag="a"
                                             :href="`/events/${props.row.event_id}/edit`">
                                             Edit
@@ -322,8 +322,19 @@ export default{
             });
         },
         submitApprove(dataId){
+            this.loading = true
             axios.post('/events-approve/' + dataId).then(res => {
-                this.loadAsyncData();
+                
+                if(res.data.status === 'approved'){
+                    this.loadAsyncData();
+                    this.loading = false
+
+                    this.$buefy.dialog.alert({
+                        title: 'Approved',
+                        type: 'is-info',
+                        message: 'Event approved and notification was sent to the creator of the event.'
+                    });
+                }
             }).catch(err => {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;
@@ -334,16 +345,27 @@ export default{
 
         confirmCancel(dataId){
             this.$buefy.dialog.confirm({
-                title: 'Cancel?',
+                title: 'Decline?',
                 type: 'is-info',
-                message: 'Cancel this event?',
-                confirmText: 'Cancel',
+                message: 'Decline this event?',
+                confirmText: 'Yes',
                 onConfirm: () => this.submitCancel(dataId)
             });
         },
         submitCancel(dataId){
+            this.loading = true
             axios.post('/events-cancel/' + dataId).then(res => {
-                this.loadAsyncData();
+                if(res.data.status === 'declined'){
+                    this.loadAsyncData();
+                    this.loading = false
+
+                    this.$buefy.dialog.alert({
+                        title: 'Declined',
+                        type: 'is-info',
+                        message: 'Event declined and notification was sent to the creator of the event.'
+                    });
+                }
+
             }).catch(err => {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;

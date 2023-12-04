@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApproveEmail;
+use App\Mail\DeclineEmail;
+
 class EventController extends Controller
 {
     //
@@ -154,21 +158,34 @@ class EventController extends Controller
 
     public function eventApprove($id){
 
-        $data = Event::find($id);
+        $data = Event::with(['user'])
+            ->find($id);
         $data->approval_status = 1;
         $userId = $data->user_id;
         $data->save();
+
+        //return $data->user->email;
+
+         //GINOO NLAANG JUD NAKABLO GE UNSA NI NAKO
+            // $when = now()->addSeconds(10);
+        Mail::to($data->user->email)
+            ->send(new ApproveEmail($data->event));
 
         return response()->json([
             'status' => 'approved'
         ], 200);
     }
     public function eventCancel($id){
-        $data = Event::find($id);
+        $data = Event::with(['user'])
+            ->find($id);
         $data->approval_status = 2;
-        $data->save();
+        //$data->save();
+
+        Mail::to($data->user->email)
+            ->send(new DeclineEmail($data->event));
+
         return response()->json([
-            'status' => 'cancelled'
+            'status' => 'declined'
         ], 200);
     }
     
