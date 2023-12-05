@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Models\AcademicYear;
 use App\Models\Event;
+use App\Models\EventVenue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
@@ -12,6 +13,7 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApproveEmail;
 use App\Mail\DeclineEmail;
+use App\Mail\UpdateEventMail;
 
 class EventController extends Controller
 {
@@ -119,7 +121,7 @@ class EventController extends Controller
             'event_time_to' => ['required'],
         ]);
       
-        $data = Event::find($id);
+        $data = Event::with(['user', 'venue'])->find($id);
         $n = [];
 
         if($req->hasFile('event_img')) {
@@ -150,9 +152,15 @@ class EventController extends Controller
         
         $data->save();
 
-        return response()->json([
-            'status' => 'updated'
-        ], 200);
+        $newEventVenue = EventVenue::find($req->event_venue_id);
+
+        Mail::to($data->user->email)
+            ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date, $eventFrom, $eventTo));
+
+
+        // return response()->json([
+        //     'status' => 'updated'
+        // ], 200);
     }
 
 

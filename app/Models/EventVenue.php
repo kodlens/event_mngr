@@ -20,4 +20,5 @@ class EventVenue extends Model
     ];
 
 
+ 
 }

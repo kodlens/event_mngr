@@ -1,5 +1,5 @@
 @component('mail::message')
-Northwesthern Mindanao State College<br>
+<strong>Northwesthern Mindanao State College</strong><br>
 Labuyo, Tangub City, Misamis Occidental<br>
 
 <br>
