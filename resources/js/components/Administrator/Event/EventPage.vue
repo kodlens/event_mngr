@@ -88,6 +88,14 @@
                                 {{ props.row.event_time_to | formatTime }}
                             </b-table-column>
 
+                            <b-table-column field="duration" label="Duration" v-slot="props">
+                                {{ durationHours(
+                                    new Date(props.row.event_date + ' ' + props.row.event_time_from),
+                                    new Date(props.row.event_date + ' ' + props.row.event_time_to)
+                                ) }}
+                               
+                            </b-table-column>
+
                             <b-table-column field="approval_status" label="Status" v-slot="props">
                                 <span v-if="props.row.approval_status === 1" class="yes">APPROVED</span>
                                 <span v-else-if="props.row.approval_status === 0" class="pending">PENDING</span>
@@ -415,15 +423,23 @@ export default{
 
         gotoListAttendee(dataId){
             window.location = '/event-attendees/' + dataId
+        },
+
+        durationHours(stime, etime){
+            let timeDifference =  etime - stime;
+            // Convert milliseconds to hours
+            let hoursDifference = timeDifference / (1000 * 60 * 60);
+            let result = parseFloat(hoursDifference.toFixed(2))
+            return result + 'hour(s)'
         }
-
-
 
     },
 
     mounted() {
         this.loadAsyncData();
-    }
+    },
+
+
 }
 </script>
 

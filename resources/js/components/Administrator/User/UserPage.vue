@@ -47,6 +47,8 @@
                             :data="data"
                             :loading="loading"
                             paginated
+                            narrowed
+                            detailed
                             backend-pagination
                             :total="total"
                             :per-page="perPage"
@@ -71,17 +73,22 @@
                                 {{ props.row.username }}
                             </b-table-column>
 
-                            <b-table-column field="name" label="Name" v-slot="props">
-                                {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
+                            <b-table-column field="lname" label="Last Name" v-slot="props">
+                                {{ props.row.lname }}
+                            </b-table-column>
+
+                            <b-table-column field="lname" label="First Name" v-slot="props">
+                                {{ props.row.fname }}
+                            </b-table-column>
+
+                            <b-table-column field="mname" label="Middle Name" v-slot="props">
+                                {{ props.row.fname }}
                             </b-table-column>
 
                             <b-table-column field="sex" label="Sex" v-slot="props">
                                 {{ props.row.sex }}
                             </b-table-column>
 
-                            <b-table-column field="email" label="Email" v-slot="props">
-                                {{ props.row.email }}
-                            </b-table-column>
 
                             <b-table-column field="role" label="User Type" v-slot="props">
                                 <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
@@ -90,9 +97,7 @@
                                 <span v-if="props.row.role === 'STUDENT'">PARTICIPANTS</span>
                             </b-table-column>
 
-                            <b-table-column field="department" label="Dept" v-slot="props">
-                                <span v-if="props.row.department"> {{ props.row.department.code }}</span>
-                            </b-table-column>
+                     
 
                             <b-table-column field="active" label="Activated" v-slot="props">
                                 <span v-if="props.row.email_verified_at" class="yes">YES</span>
@@ -137,6 +142,24 @@
                                     </b-dropdown>
                                 </div>
                             </b-table-column>
+
+
+                            <template  #detail="props">
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Department</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ props.row.email }}
+                                    </td>
+                                    <td>
+                                        <span v-if="props.row.department">
+                                            {{ props.row.department.code }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </template>
                         </b-table>
 
                         <hr>

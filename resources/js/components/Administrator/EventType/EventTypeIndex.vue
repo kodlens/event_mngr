@@ -30,7 +30,7 @@
                                 <div class="level-item">
                                     <b-field label="Search">
                                         <b-input type="text"
-                                                 v-model="search.event" placeholder="Search Academic Year"
+                                                 v-model="search.event" placeholder="Search Event Type"
                                                  @keyup.native.enter="loadAsyncData"/>
                                         <p class="control">
                                             <b-tooltip label="Search" type="is-success">
@@ -93,6 +93,7 @@
                 </div><!--col -->
             </div><!-- cols -->
         </div><!--section div-->
+
 
 
 

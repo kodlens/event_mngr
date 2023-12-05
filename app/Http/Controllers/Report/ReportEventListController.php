@@ -17,8 +17,8 @@ class ReportEventListController extends Controller
 
     public function loadReportEventLists(Request $req){
         return Event::with(['academic_year', 'user', 'event_type'])
-            ->whereDate('event_datetime', '>=', $req->from)
-            ->whereDate('event_datetime', '<=', $req->to)
+            ->whereDate('event_date', '>=', $req->from)
+            ->whereDate('event_date', '<=', $req->to)
             ->where('approval_status', 1)
             ->get();
     }

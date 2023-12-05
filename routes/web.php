@@ -74,6 +74,9 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::resource('/event-venues', App\Http\Controllers\Administrator\EventVenueController::class);
     Route::get('/get-event-venues', [App\Http\Controllers\Administrator\EventVenueController::class, 'getData']);
 
+    Route::resource('/event-types', App\Http\Controllers\Administrator\EventTypeController::class);
+    Route::get('/get-event-types', [App\Http\Controllers\Administrator\EventTypeController::class, 'getData']);
+    
 
     Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
     Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);

@@ -28,7 +28,8 @@ class Event extends Model
         'img_path',
 
         'approval_status',
-        'is_need_approval'
+        'is_need_approval',
+        'is_archive'
     ];
 
 

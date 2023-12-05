@@ -11,6 +11,11 @@ class AcademicYearController extends Controller
     //
 
 
+    public function sample(){
+        $data = Item::all();
+        return $data;
+    }
+
     public function index(){
         return view('administrator.academic_year.academic-year');
     }
