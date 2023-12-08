@@ -29,6 +29,8 @@ class Event extends Model
 
         'approval_status',
         'is_need_approval',
+        'approve_by',
+
         'is_archive'
     ];
 

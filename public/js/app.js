@@ -8924,7 +8924,7 @@ __webpack_require__.r(__webpack_exports__);
           _this5.$buefy.dialog.alert({
             title: 'Approved',
             type: 'is-info',
-            message: 'Event approved and notification was sent to the creator of the event.'
+            message: 'Event approved and notification was sent to the creator of the event and the participants.'
           });
         }
       })["catch"](function (err) {
@@ -12614,11 +12614,11 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Need Approval")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve By")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
-        }, [_vm._v("NO")]) : _vm._e()])])];
+        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.approve_by ? _c("span", [_vm._v(_vm._s(props.row.approve_by))]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {

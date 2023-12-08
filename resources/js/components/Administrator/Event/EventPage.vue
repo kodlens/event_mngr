@@ -176,11 +176,16 @@
                             <template #detail="props">
                                 <tr>
                                     <th>Need Approval</th>
+                                    <th>Approve By</th>
+
                                 </tr>
                                 <tr>
                                     <td>
                                         <span v-if="props.row.is_need_approval === 1" class="yes">YES</span>
                                         <span v-else-if="props.row.is_need_approval === 0" class="pending">NO</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="props.row.approve_by">{{ props.row.approve_by }}</span>
                                     </td>
                                 </tr>
                             </template>
@@ -340,7 +345,7 @@ export default{
                     this.$buefy.dialog.alert({
                         title: 'Approved',
                         type: 'is-info',
-                        message: 'Event approved and notification was sent to the creator of the event.'
+                        message: 'Event approved and notification was sent to the creator of the event and the participants.'
                     });
                 }
             }).catch(err => {

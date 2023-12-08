@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AcademicYear;
 use App\Models\Event;
 use App\Models\EventVenue;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Auth;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ApproveEmail;
 use App\Mail\DeclineEmail;
 use App\Mail\UpdateEventMail;
+use App\Mail\ParticipantsMailApprove;
+
+
 
 class EventController extends Controller
 {
@@ -166,10 +170,14 @@ class EventController extends Controller
 
     public function eventApprove($id){
 
+        $user = Auth::user();
+
+
         $data = Event::with(['user'])
             ->find($id);
         $data->approval_status = 1;
         $userId = $data->user_id;
+        $data->approve_by = $user->fname[0] . $user->lname;
         $data->save();
 
         //return $data->user->email;
@@ -178,6 +186,16 @@ class EventController extends Controller
             // $when = now()->addSeconds(10);
         Mail::to($data->user->email)
             ->send(new ApproveEmail($data->event));
+        
+        $users = User::where('role', 'STUDENT')
+            ->get();
+
+
+        foreach($users as $u){
+            Mail::to($u->email)
+                ->send(new ParticipantsMailApprove($data->event));
+            sleep(2);
+        }
 
         return response()->json([
             'status' => 'approved'
