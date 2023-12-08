@@ -12730,7 +12730,7 @@ var render = function render() {
         }, [_vm._v("CLOSE")])];
       }
     }])
-  }), _vm._v(" "), _c("b-table-column", {
+  }), _vm._v(" "), _vm.propUser.role != "ADMINISTRATOR" ? _c("b-table-column", {
     attrs: {
       label: "Action"
     },
@@ -12767,7 +12767,7 @@ var render = function render() {
               return _vm.gotoListAttendee(props.row.event_id);
             }
           }
-        }, [_vm._v("\n                                        List of Attendee\n                                        "), _c("b-icon", {
+        }, [_vm._v("\n                                        No. of Attendee\n                                        "), _c("b-icon", {
           attrs: {
             icon: "account",
             size: "is-small"
@@ -12855,8 +12855,8 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }])
-  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
+    }], null, false, 1940654534)
+  }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
     staticClass: "is-primary is-outlined",

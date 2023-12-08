@@ -108,7 +108,7 @@
                                 <span v-else class="no">CLOSE</span>
                             </b-table-column>
 
-                            <b-table-column label="Action" v-slot="props">
+                            <b-table-column label="Action" v-slot="props" v-if="propUser.role != 'ADMINISTRATOR'">
                                 <div class="is-flex">
 
                                     <b-dropdown aria-role="list">
@@ -124,7 +124,8 @@
                                         <b-dropdown-item aria-role="listitem"
                                             v-if="['ORGANIZER'].includes(propUser.role)"
                                             @click="gotoListAttendee(props.row.event_id)">
-                                            List of Attendee
+                                            <!-- List of Attendee -->
+                                            No. of Attendee
                                             <b-icon icon="account" size="is-small"></b-icon>
                                         </b-dropdown-item>
 

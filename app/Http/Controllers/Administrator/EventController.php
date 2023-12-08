@@ -178,6 +178,8 @@ class EventController extends Controller
         $data->approval_status = 1;
         $userId = $data->user_id;
         $data->approve_by = $user->fname[0] . $user->lname;
+        $data->approve_by_id = $user->user_id;
+
         $data->save();
 
         //return $data->user->email;
@@ -191,11 +193,11 @@ class EventController extends Controller
             ->get();
 
 
-        foreach($users as $u){
-            Mail::to($u->email)
-                ->send(new ParticipantsMailApprove($data->event));
-            sleep(2);
-        }
+        // foreach($users as $u){
+        //     Mail::to($u->email)
+        //         ->send(new ParticipantsMailApprove($data->event));
+        //     sleep(2);
+        // }
 
         return response()->json([
             'status' => 'approved'
