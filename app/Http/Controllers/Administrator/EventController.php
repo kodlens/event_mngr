@@ -36,6 +36,7 @@ class EventController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $event = Event::with(['academic_year', 'event_type'])
+            ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1]);
@@ -44,7 +45,27 @@ class EventController extends Controller
             $event->where('user_id', 'like', $user->user_id);
         }
 
-        return $event->paginate($req->perpage);;
+        return $event->paginate($req->perpage);
+    }
+
+    public function getArchiveEvents(Request $req){
+        $acadYear = AcademicYear::where('active', 1)->first();
+        $user = Auth::user();
+        $role = $user->role;
+
+        $sort = explode('.', $req->sort_by);
+
+        $event = Event::with(['academic_year', 'event_type'])
+            ->where('event', 'like', $req->event . '%')
+            ->where('is_archive', 1)
+            ->where('academic_year_id', $acadYear->academic_year_id)
+            ->orderBy($sort[0], $sort[1]);
+        
+        if(in_array($role, ['ORGANIZER', 'STUDENT', 'ATTENDEE'])){
+            $event->where('user_id', 'like', $user->user_id);
+        }
+
+        return $event->paginate($req->perpage);
     }
 
     public function create(){
@@ -244,6 +265,41 @@ class EventController extends Controller
 
         return response()->json([
             'status' => 'deleted'
+        ], 200);
+    }
+
+
+
+    public function archiveEvents(Request $req){
+
+  
+        foreach($req->data as $item){
+            $id = $item['event_id'];
+
+            $data = Event::find($id);
+            $data->is_archive = 1;
+            $data->archive_date = date('Y-m-d');
+            $data->save();
+        }
+
+        return response()->json([
+            'status' => 'archived'
+        ], 200);
+    }
+
+    public function undoArchive(Request $req){
+
+        foreach($req->data as $item){
+            $id = $item['event_id'];
+
+            $data = Event::find($id);
+            $data->is_archive = 0;
+            $data->archive_date = null;
+            $data->save();
+        }
+
+        return response()->json([
+            'status' => 'undo'
         ], 200);
     }
 

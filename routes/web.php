@@ -110,6 +110,12 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
+    Route::get('/get-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'getArchiveEvents']);
+    Route::post('/archive-events', [App\Http\Controllers\Administrator\EventController::class, 'archiveEvents']);
+    Route::post('/undo-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'undoArchive']);
+
+
+
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
     Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
     Route::post('/events-open-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventOpenEvaluation']);

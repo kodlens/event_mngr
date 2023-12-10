@@ -35,6 +35,7 @@ class EventsController extends Controller
 
         $data = Event::where('academic_year_id', $ay->academic_year_id)
             ->where('approval_status', 1)
+            ->where('is_archive', 0)
             ->orderBy('event_id', 'desc')
             ->get();
 
@@ -53,8 +54,6 @@ class EventsController extends Controller
     public function submitScanned(Request $req){
 
         //return $req;
-
-
         //first check if this user is registered on the event
         $exist = EventAttendee::where('user_id', $req->user_id)
             ->where('event_id', $req->event_id)
