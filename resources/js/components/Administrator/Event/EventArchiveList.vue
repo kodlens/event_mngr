@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="is-flex is-justify-content-center mb-2"
-            style="font-size: 20px; font-weight: bold;">LIST OF EVENTS</div>
+            style="font-size: 20px; font-weight: bold;">LIST OF ARCHIVE EVENTS</div>
             <hr>
             <div class="level">
                 <div class="level-left">

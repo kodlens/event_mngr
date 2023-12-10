@@ -12782,7 +12782,7 @@ var render = function render() {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF EVENTS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+  }, [_vm._v("LIST OF ARCHIVE EVENTS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "level"
   }, [_c("div", {
     staticClass: "level-left"
