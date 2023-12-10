@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                             style="font-size: 20px; font-weight: bold;">LIST OF EVENT VENUE</div>
+                             style="font-size: 20px; font-weight: bold;">LIST OF FACILITIES/EQUIPMENT</div>
                         <hr>
 
                         <div class="level">
@@ -63,7 +63,7 @@
                                 {{ props.row.event_venue_id }}
                             </b-table-column>
 
-                            <b-table-column field="event_venue" label="Venue" v-slot="props">
+                            <b-table-column field="event_venue" label="Facilities/Equipment" v-slot="props">
                                 {{ props.row.event_venue }}
                             </b-table-column>
 
@@ -108,7 +108,7 @@
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">EVENT VENUE INFORMATION</p>
+                        <p class="modal-card-title">FACILITIES/EQUIPMENT INFORMATION</p>
                         <button
                             type="button"
                             class="delete"
@@ -119,11 +119,11 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Event Venue" label-position="on-border"
+                                    <b-field label="Facilities/Equipment" label-position="on-border"
                                              :type="this.errors.event_venue ? 'is-danger':''"
                                              :message="this.errors.event_venue ? this.errors.event_venue[0] : ''">
                                         <b-input v-model="fields.event_venue"
-                                                 placeholder="Event Venue" required>
+                                                 placeholder="Facilities/Equipment" required>
                                         </b-input>
                                     </b-field>
                                 </div>
@@ -132,8 +132,8 @@
                                 <div class="column">
                                     <b-field label="Active">
                                         <b-checkbox v-model="fields.active"
-                                                    :true-value="1"
-                                                    :false-value="0">
+                                            :true-value="1"
+                                            :false-value="0">
                                         </b-checkbox>
                                     </b-field>
                                 </div>

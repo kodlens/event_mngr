@@ -59,7 +59,7 @@
                         Event Types
                     </b-navbar-item>
                     <b-navbar-item href="/event-venues">
-                        Event Venues
+                        Facilities/Equipments
                     </b-navbar-item>
                 </b-navbar-dropdown>
             
