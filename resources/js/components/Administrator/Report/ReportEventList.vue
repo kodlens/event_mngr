@@ -24,6 +24,11 @@
 
         <div class="print-page">
             <div class="has-text-weight-bold has-text-centered is-size-5">LIST OF EVENTS</div>
+            <div class="has-text-weight-bold has-text-centered">
+                FROM: <i>{{ new Date(search.from).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}) }}</i> <br>
+                TO: <i>{{ new Date(search.to).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}) }}</i>
+
+            </div>
             <table class="table is-fullwidth">
                 <tr>
                     <th>No.</th>
@@ -36,7 +41,7 @@
                     <td>{{ index+=1 }}</td>
                     <td>{{ item.event_type.event_type }}</td>
                     <td>{{ item.event }}</td>
-                    <td>{{ new Date(item.event_datetime).toLocaleString() }}</td>
+                    <td>{{ new Date(item.event_date).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}) }}</td>
                 </tr>
             </table>
         </div>

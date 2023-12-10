@@ -7,7 +7,7 @@
 
                     <div class="box">
 
-                        <div class="table-box-title">POST EVENTS</div>
+                        <div class="table-box-title">EVENT DETAILS</div>
                         <hr>
 
                         <div class="columns">
@@ -75,14 +75,14 @@
                             </div>
 
                             <div class="column">
-                                <b-field label="Event Venue" expanded
+                                <b-field label="Facility/Equipment" expanded
                                     :type="this.errors.event_venue_id ? 'is-danger':''"
                                     :message="this.errors.event_venue_id ? this.errors.event_venue_id[0] : ''">
                                     <b-select
                                         expanded
                                         required
                                         v-model="fields.event_venue_id"
-                                        placeholder="Event Venue">
+                                        placeholder="Facility/Equipment">
                                         <option v-for="(item, ix) in venues" 
                                             :value="item.event_venue_id"
                                             :key="`evtype${ix}`">{{item.event_venue}}</option>

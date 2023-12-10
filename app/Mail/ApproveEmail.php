@@ -20,6 +20,7 @@ class ApproveEmail extends Mailable
     public function __construct($event)
     {
         //
+        $this->subject('Event Approval');
         $this->event = $event;
     }
 

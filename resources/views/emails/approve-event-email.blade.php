@@ -7,7 +7,7 @@ Labuyo, Tangub City, Misamis Occidental<br>
 
 # APPROVED
 <br>
-{{ $event }} was successfully approved.
+Your {{ $event }} was approved.
 <br><br>
 
 
