@@ -28,7 +28,9 @@ class Event extends Model
         'img_path',
 
         'approval_status',
+        'is_open',
         'is_need_approval',
+       
         'approve_by',
         'approve_by_id',
 
