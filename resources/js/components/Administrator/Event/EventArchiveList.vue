@@ -130,12 +130,16 @@
 
                 <template #detail="props">
                     <tr>
+                        <th>Venue</th>
                         <th>Need Approval</th>
                         <th>Approve By</th>
                         <th>Date Archived</th>
 
                     </tr>
                     <tr>
+                        <td>
+                            <span v-if="props.row.venue">{{ props.row.venue.event_venue }}</span>
+                        </td>
                         <td>
                             <span v-if="props.row.is_need_approval === 1" class="yes">YES</span>
                             <span v-else-if="props.row.is_need_approval === 0" class="pending">NO</span>

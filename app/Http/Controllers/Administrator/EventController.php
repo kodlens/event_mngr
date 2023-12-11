@@ -35,7 +35,7 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type'])
+        $event = Event::with(['academic_year', 'event_type', 'venue'])
             ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
@@ -55,7 +55,7 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type'])
+        $event = Event::with(['academic_year', 'event_type', 'venue'])
             ->where('event', 'like', $req->event . '%')
             ->where('is_archive', 1)
             ->where('academic_year_id', $acadYear->academic_year_id)
