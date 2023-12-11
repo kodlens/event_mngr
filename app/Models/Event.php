@@ -32,7 +32,8 @@ class Event extends Model
         'approve_by',
         'approve_by_id',
 
-        'is_archive'
+        'is_archive',
+        'archive_date'
     ];
 
 

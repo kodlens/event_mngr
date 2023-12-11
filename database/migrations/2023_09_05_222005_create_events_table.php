@@ -34,7 +34,10 @@ class CreateEventsTable extends Migration
             $table->tinyInteger('approval_status')->default(0);
             $table->tinyInteger('is_open')->default(0);
             $table->tinyInteger('is_need_approval')->default(0);
-            
+
+            $table->tinyInteger('is_archive')->default(0);
+            $table->date('archive_date')->nullable();
+
             $table->timestamps();
         });
     }

@@ -126,71 +126,7 @@
                     <span v-else class="no">CLOSE</span>
                 </b-table-column>
 
-                <b-table-column label="Action" v-slot="props" v-if="propUser.role != 'ADMINISTRATOR'">
-                    <div class="is-flex">
-
-                        <b-dropdown aria-role="list">
-                            <template #trigger="{ active }">
-                                <b-button
-                                    label=""
-                                    class="is-small"
-                                    type="is-info"
-                                    icon-left="menu"
-                                    :icon-right="active ? 'menu-up' : 'menu-down'" />
-                            </template>
-
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['ORGANIZER'].includes(propUser.role)"
-                                @click="gotoListAttendee(props.row.event_id)">
-                                <!-- List of Attendee -->
-                                No. of Attendee
-                                <b-icon icon="account" size="is-small"></b-icon>
-                            </b-dropdown-item>
-
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                @click="confirmApprove(props.row.event_id)">
-                                Approve
-                                <b-icon icon="thumb-up-outline" size="is-small"></b-icon>
-                            </b-dropdown-item>
-
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                @click="confirmCancel(props.row.event_id)">
-                                Decline
-                                <b-icon icon="cancel" size="is-small"></b-icon>
-                            </b-dropdown-item>
-
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                tag="a"
-                                :href="`/events/${props.row.event_id}/edit`">
-                                Edit
-                                <b-icon icon="pencil" size="is-small"></b-icon>
-                            </b-dropdown-item>
-
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                @click="confirmEval(props.row.event_id)">
-                                Open Evaluation
-                                <b-icon icon="open-in-app" size="is-small"></b-icon>
-                            </b-dropdown-item>
-                            <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                @click="confirmCloseEval(props.row.event_id)">
-                                Close Evaluation
-                                <b-icon icon="close" size="is-small"></b-icon>
-                            </b-dropdown-item>
-
-                            <b-dropdown-item aria-role="listitem"
-                            v-if="['EVENT OFFICER'].includes(propUser.role)"
-                                @click="confirmDelete(props.row.event_id)">
-                                Delete
-                                <b-icon icon="delete" size="is-small"></b-icon>
-                            </b-dropdown-item>
-                        </b-dropdown>
-                    </div>
-                </b-table-column>
+                
 
                 <template #detail="props">
                     <tr>

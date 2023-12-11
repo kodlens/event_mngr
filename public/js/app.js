@@ -13050,133 +13050,7 @@ var render = function render() {
         }, [_vm._v("CLOSE")])];
       }
     }])
-  }), _vm._v(" "), _vm.propUser.role != "ADMINISTRATOR" ? _c("b-table-column", {
-    attrs: {
-      label: "Action"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_c("div", {
-          staticClass: "is-flex"
-        }, [_c("b-dropdown", {
-          attrs: {
-            "aria-role": "list"
-          },
-          scopedSlots: _vm._u([{
-            key: "trigger",
-            fn: function fn(_ref) {
-              var active = _ref.active;
-              return [_c("b-button", {
-                staticClass: "is-small",
-                attrs: {
-                  label: "",
-                  type: "is-info",
-                  "icon-left": "menu",
-                  "icon-right": active ? "menu-up" : "menu-down"
-                }
-              })];
-            }
-          }], null, true)
-        }, [_vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.gotoListAttendee(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            No. of Attendee\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "account",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmApprove(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            Approve\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "thumb-up-outline",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmCancel(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            Decline\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "cancel",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem",
-            tag: "a",
-            href: "/events/".concat(props.row.event_id, "/edit")
-          }
-        }, [_vm._v("\n                            Edit\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "pencil",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmEval(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            Open Evaluation\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "open-in-app",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmCloseEval(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            Close Evaluation\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "close",
-            size: "is-small"
-          }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
-          attrs: {
-            "aria-role": "listitem"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmDelete(props.row.event_id);
-            }
-          }
-        }, [_vm._v("\n                            Delete\n                            "), _c("b-icon", {
-          attrs: {
-            icon: "delete",
-            size: "is-small"
-          }
-        })], 1) : _vm._e()], 1)], 1)];
-      }
-    }], null, false, 2549606086)
-  }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
+  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
@@ -13547,7 +13421,7 @@ var render = function render() {
               return _vm.confirmCancel(props.row.event_id);
             }
           }
-        }, [_vm._v("\n                            Decline\n                            "), _c("b-icon", {
+        }, [_vm._v("\n                            Disapprove\n                            "), _c("b-icon", {
           attrs: {
             icon: "cancel",
             size: "is-small"
@@ -13607,7 +13481,7 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 2549606086)
+    }], null, false, 2401632347)
   }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {

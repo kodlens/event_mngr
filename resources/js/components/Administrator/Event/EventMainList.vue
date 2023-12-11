@@ -156,7 +156,7 @@
                             <b-dropdown-item aria-role="listitem"
                                 v-if="['EVENT OFFICER'].includes(propUser.role)"
                                 @click="confirmCancel(props.row.event_id)">
-                                Decline
+                                Disapprove
                                 <b-icon icon="cancel" size="is-small"></b-icon>
                             </b-dropdown-item>
 
