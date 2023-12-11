@@ -17,7 +17,7 @@ use App\Mail\DeclineEmail;
 use App\Mail\UpdateEventMail;
 use App\Mail\ParticipantsMailApprove;
 
-
+use App\Rules\DetectConflictRule;
 
 class EventController extends Controller
 {
@@ -83,7 +83,7 @@ class EventController extends Controller
 
 
     public function store(Request $req){
-
+ 
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -97,7 +97,8 @@ class EventController extends Controller
             'event_date' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
-            'event_type_id' => ['required']
+            'event_type_id' => ['required'],
+            'event_venue_id' => ['required', new DetectConflictRule($event_date, $eventFrom, $eventTo, 0)]
         ]);
 
  
@@ -144,6 +145,8 @@ class EventController extends Controller
             'event_type_id' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
+            'event_venue_id' => ['required', new DetectConflict($event_date, $eventFrom, $eventTo, $id)]
+
         ]);
       
         $data = Event::with(['user', 'venue'])->find($id);

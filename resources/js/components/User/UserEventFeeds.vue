@@ -13,7 +13,12 @@
                             {{ event.event }}
                         </div>
                         <div class="event-date">
-                            EVENT DATE: {{ event.event_datetime | formatDateTime }}
+                            EVENT DATE: {{ new Date(event.event_date).toLocaleString('default', {month:'long', day:'numeric', year:'numeric'}) }}
+                        </div>
+                        <div class="event-date">
+                            FROM: {{ new Date('2023-01-01 ' + event.event_time_from).toLocaleTimeString() }}
+                            -
+                            {{ new Date('2023-01-01 ' + event.event_time_to).toLocaleTimeString() }}
                         </div>
                         <div class="posted-date">
                             POSTED: {{ event.created_at | formatDateTime }}

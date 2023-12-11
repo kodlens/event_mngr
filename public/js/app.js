@@ -16055,7 +16055,13 @@ var render = function render() {
       staticClass: "event-title"
     }, [_vm._v("\n                        " + _vm._s(event.event) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "event-date"
-    }, [_vm._v("\n                        EVENT DATE: " + _vm._s(_vm._f("formatDateTime")(event.event_datetime)) + "\n                    ")]), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                        EVENT DATE: " + _vm._s(new Date(event.event_date).toLocaleString("default", {
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    })) + "\n                    ")]), _vm._v(" "), _c("div", {
+      staticClass: "event-date"
+    }, [_vm._v("\n                        FROM: " + _vm._s(new Date("2023-01-01 " + event.event_time_from).toLocaleTimeString()) + "\n                        -\n                        " + _vm._s(new Date("2023-01-01 " + event.event_time_to).toLocaleTimeString()) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "posted-date"
     }, [_vm._v("\n                        POSTED: " + _vm._s(_vm._f("formatDateTime")(event.created_at)) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "event-content"
