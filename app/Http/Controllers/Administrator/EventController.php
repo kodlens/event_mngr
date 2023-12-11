@@ -214,11 +214,11 @@ class EventController extends Controller
             ->get();
 
 
-        // foreach($users as $u){
-        //     Mail::to($u->email)
-        //         ->send(new ParticipantsMailApprove($data->event));
-        //     sleep(2);
-        // }
+        foreach($users as $u){
+            Mail::to($u->email)
+                ->send(new ParticipantsMailApprove($data->event));
+            sleep(2);
+        }
 
         return response()->json([
             'status' => 'approved'
