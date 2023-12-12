@@ -89,6 +89,7 @@
                                 {{ props.row.sex }}
                             </b-table-column>
 
+                        
 
                             <b-table-column field="role" label="User Type" v-slot="props">
                                 <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
@@ -147,11 +148,17 @@
                             <template  #detail="props">
                                 <tr>
                                     <th>Email</th>
+                                    <th>Contact No.</th>
                                     <th>Department</th>
                                 </tr>
                                 <tr>
                                     <td>
                                         {{ props.row.email }}
+                                    </td>
+                                    <td>
+                                        <span v-if="props.row.contact_no">
+                                            {{ props.row.contact_no }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span v-if="props.row.department">
