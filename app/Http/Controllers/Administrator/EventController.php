@@ -19,6 +19,7 @@ use App\Mail\ParticipantsMailApprove;
 
 use App\Rules\DetectConflictRule;
 
+
 class EventController extends Controller
 {
     //
@@ -145,7 +146,7 @@ class EventController extends Controller
             'event_type_id' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
-            'event_venue_id' => ['required', new DetectConflict($event_date, $eventFrom, $eventTo, $id)]
+            'event_venue_id' => ['required', new DetectConflictRule($event_date, $eventFrom, $eventTo, $id)]
 
         ]);
       
@@ -163,7 +164,6 @@ class EventController extends Controller
         }
 
         //get data from database
-       
         $data->academic_year_id = $ay->academic_year_id;
         $data->event = strtoupper($req->event);
         $data->event_type_id = $req->event_type_id;
@@ -186,9 +186,9 @@ class EventController extends Controller
             ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date, $eventFrom, $eventTo));
 
 
-        // return response()->json([
-        //     'status' => 'updated'
-        // ], 200);
+        return response()->json([
+            'status' => 'updated'
+        ], 200);
     }
 
 

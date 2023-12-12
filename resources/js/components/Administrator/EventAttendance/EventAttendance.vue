@@ -8,9 +8,11 @@
                         <div class="is-flex is-justify-content-center mb-2"
                             style="font-size: 20px; font-weight: bold;">LIST OF PARTICIPANT ATTENDANCES</div>
                         <hr>
-                        <div class="level">
-                            <div class="level-left">
-                                <b-field label="Page">
+                        
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Page" label-position="on-border">
                                     <b-select v-model="perPage" @input="setPerPage">
                                         <option value="10">10 per page</option>
                                         <option value="20">20 per page</option>
@@ -23,29 +25,37 @@
 
                                     </b-select>
                                 </b-field>
+                            </div> <!--col--> 
+                        </div> <!--cols-->
+
+                        <div class="columns">
+                            <div class="column is-3">
+                                <b-field label="Event" label-position="on-border">
+                                    <b-input type="text"
+                                        v-model="search.event" placeholder="Search Event"
+                                        @keyup.native.enter="loadAsyncData"/>
+                                </b-field>
                             </div>
 
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <b-field label="Search">
-                                        <b-input type="text"
-                                            v-model="search.lname" placeholder="Search Lastname"
-                                            @keyup.native.enter="loadAsyncData"/>
-                                        <p class="control">
-                                            <b-tooltip label="Search" type="is-success">
-                                                <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
-                                            </b-tooltip>
-                                        </p>
-                                    </b-field>
-                                </div>
+                            <div class="column">
+                                <b-field label="Search Last Name" label-position="on-border">
+                                    <b-input type="text"
+                                        v-model="search.lname" placeholder="Search Lastname"
+                                        @keyup.native.enter="loadAsyncData"/>
+                                    <p class="control">
+                                        <b-tooltip label="last Name" type="is-success">
+                                            <b-button type="is-primary" icon-right="magnify" @click="loadAsyncData"/>
+                                        </b-tooltip>
+                                    </p>
+                                </b-field>
                             </div>
                         </div>
 
                         <hr>
-                        <div class="buttons">
+                        <!-- <div class="buttons">
                             <b-button class="is-outlined is-primary" icon-left="printer"
                                 @click="printPreviewAttendances"></b-button>
-                        </div>
+                        </div> -->
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -79,7 +89,7 @@
                                 {{ new Date(props.row.event.event_datetime).toLocaleString() }}
                             </b-table-column>
                     
-
+<!-- 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
@@ -92,7 +102,7 @@
                                             @click="confirmDelete(props.row.event_id)"></b-button>
                                     </b-tooltip>
                                 </div>
-                            </b-table-column>
+                            </b-table-column> -->
 
                             <template #detail="props">
                                 <tr>
@@ -163,6 +173,7 @@ export default{
 
             search: {
                 event: '',
+                lname: ''
             },
 
 
@@ -184,6 +195,7 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `event=${this.search.event}`,
+                `lname=${this.search.lname}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')

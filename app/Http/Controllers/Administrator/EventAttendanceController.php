@@ -20,6 +20,12 @@ class EventAttendanceController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $event = EventAttendance::with(['event', 'user'])
+            ->whereHas('event', function($q) use ($req){
+                $q->where('event', 'like', $req->event . '%');
+            })
+            ->whereHas('user', function($q) use ($req){
+                $q->where('lname', 'like', $req->lname . '%');
+            })
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

@@ -8137,7 +8137,8 @@ __webpack_require__.r(__webpack_exports__);
       perPage: 20,
       defaultSortDirection: 'asc',
       search: {
-        event: ''
+        event: '',
+        lname: ''
       },
       btnClass: {
         'is-success': true,
@@ -8152,7 +8153,7 @@ __webpack_require__.r(__webpack_exports__);
     */
     loadAsyncData: function loadAsyncData() {
       var _this = this;
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "event=".concat(this.search.event), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "event=".concat(this.search.event), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/get-event-attendances?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -11540,12 +11541,13 @@ var render = function render() {
       "font-weight": "bold"
     }
   }, [_vm._v("LIST OF PARTICIPANT ATTENDANCES")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
-    staticClass: "level"
+    staticClass: "columns"
   }, [_c("div", {
-    staticClass: "level-left"
+    staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Page"
+      label: "Page",
+      "label-position": "on-border"
     }
   }, [_c("b-select", {
     on: {
@@ -11593,13 +11595,39 @@ var render = function render() {
     attrs: {
       value: "desc"
     }
-  }, [_vm._v("DESC")])])], 1)], 1), _vm._v(" "), _c("div", {
-    staticClass: "level-right"
+  }, [_vm._v("DESC")])])], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "columns"
   }, [_c("div", {
-    staticClass: "level-item"
+    staticClass: "column is-3"
   }, [_c("b-field", {
     attrs: {
-      label: "Search"
+      label: "Event",
+      "label-position": "on-border"
+    }
+  }, [_c("b-input", {
+    attrs: {
+      type: "text",
+      placeholder: "Search Event"
+    },
+    nativeOn: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.loadAsyncData.apply(null, arguments);
+      }
+    },
+    model: {
+      value: _vm.search.event,
+      callback: function callback($$v) {
+        _vm.$set(_vm.search, "event", $$v);
+      },
+      expression: "search.event"
+    }
+  })], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Search Last Name",
+      "label-position": "on-border"
     }
   }, [_c("b-input", {
     attrs: {
@@ -11623,7 +11651,7 @@ var render = function render() {
     staticClass: "control"
   }, [_c("b-tooltip", {
     attrs: {
-      label: "Search",
+      label: "last Name",
       type: "is-success"
     }
   }, [_c("b-button", {
@@ -11634,17 +11662,7 @@ var render = function render() {
     on: {
       click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
-    staticClass: "buttons"
-  }, [_c("b-button", {
-    staticClass: "is-outlined is-primary",
-    attrs: {
-      "icon-left": "printer"
-    },
-    on: {
-      click: _vm.printPreviewAttendances
-    }
-  })], 1), _vm._v(" "), _c("b-table", {
+  })], 1)], 1)], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
     attrs: {
       data: _vm.data,
       loading: _vm.loading,
@@ -11667,7 +11685,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("IN AM")]), _vm._v(" "), _c("th", [_vm._v("OUT AM")]), _vm._v(" "), _c("th", [_vm._v("IN PM")]), _vm._v(" "), _c("th", [_vm._v("OUT PM")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.in_am ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.in_am).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_am ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.out_am).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.in_pm ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.in_pm).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_pm ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.out_pm).toLocaleString()) + "\n                                    ")]) : _vm._e()])])];
+        return [_c("tr", [_c("th", [_vm._v("IN AM")]), _vm._v(" "), _c("th", [_vm._v("OUT AM")]), _vm._v(" "), _c("th", [_vm._v("IN PM")]), _vm._v(" "), _c("th", [_vm._v("OUT PM")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.in_am ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.in_am).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_am ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.out_am).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.in_pm ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.in_pm).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_pm ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.out_pm).toLocaleString()) + "\n                                        ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -11678,7 +11696,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(props.row.event_attendance_id) + "\n                        ")];
+        return [_vm._v("\n                                " + _vm._s(props.row.event_attendance_id) + "\n                            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11689,7 +11707,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(props.row.event.event) + "\n                        ")];
+        return [_vm._v("\n                                " + _vm._s(props.row.event.event) + "\n                            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11700,7 +11718,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(props.row.user.lname) + ", " + _vm._s(props.row.user.fname) + " " + _vm._s(props.row.user.mname) + "\n                        ")];
+        return [_vm._v("\n                                " + _vm._s(props.row.user.lname) + ", " + _vm._s(props.row.user.fname) + " " + _vm._s(props.row.user.mname) + "\n                            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11711,46 +11729,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(new Date(props.row.event.event_datetime).toLocaleString()) + "\n                        ")];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
-      label: "Action"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_c("div", {
-          staticClass: "is-flex"
-        }, [_c("b-tooltip", {
-          attrs: {
-            label: "Edit",
-            type: "is-warning"
-          }
-        }, [_c("b-button", {
-          staticClass: "button is-small mr-1",
-          attrs: {
-            tag: "a",
-            "icon-right": "pencil",
-            href: "/events/".concat(props.row.event_id, "/edit")
-          }
-        })], 1), _vm._v(" "), _c("b-tooltip", {
-          attrs: {
-            label: "Delete",
-            type: "is-danger"
-          }
-        }, [_c("b-button", {
-          staticClass: "button is-small mr-1",
-          attrs: {
-            "icon-right": "delete"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.confirmDelete(props.row.event_id);
-            }
-          }
-        })], 1)], 1)];
+        return [_vm._v("\n                                " + _vm._s(new Date(props.row.event.event_datetime).toLocaleString()) + "\n                            ")];
       }
     }])
   })], 1), _vm._v(" "), _c("hr")], 1)])])])]);
