@@ -227,6 +227,7 @@ class EventController extends Controller
             'status' => 'approved'
         ], 200);
     }
+    
     public function eventCancel($id){
         $data = Event::with(['user'])
             ->find($id);
