@@ -55,9 +55,10 @@ class UserController extends Controller
             'mname' => strtoupper($req->mname),
             'suffix' => strtoupper($req->suffix),
             'sex' => $req->sex,
+            'contact_no' => $req->contact_no,
             'email' => $req->email,
             'role' => $req->role,
-            'departmetn_id' => $req->departmetn_id,
+            'department_id' => $req->department_id,
             //'active' => $req->active
         ]);
 
@@ -67,6 +68,7 @@ class UserController extends Controller
     }
 
     public function update(Request $req, $id){
+
         $validate = $req->validate([
             'username' => ['required', 'max:50', 'unique:users,username,'.$id.',user_id'],
             'lname' => ['required', 'string', 'max:100'],
@@ -82,6 +84,7 @@ class UserController extends Controller
         $data->fname = strtoupper($req->fname);
         $data->mname = strtoupper($req->mname);
         $data->suffix = strtoupper($req->suffix);
+        $data->contact_no = $req->contact_no;
         $data->sex = strtoupper($req->sex);
         $data->email = $req->email;
         $data->role = $req->role;

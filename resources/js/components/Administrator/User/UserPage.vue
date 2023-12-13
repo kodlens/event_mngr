@@ -256,6 +256,20 @@
                                 </div>
                             </div>
 
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Contact No." label-position="on-border"
+                                             :type="this.errors.contact_no ? 'is-danger':''"
+                                             :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
+                                        <b-input v-model="fields.contact_no"
+                                                 placeholder="Contact No.">
+                                        </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            
+
                             <div class="columns" v-if="global_id < 1">
                                 <div class="column">
                                     <b-field label="Password" label-position="on-border"
@@ -289,8 +303,8 @@
                                 </div>
                                 <div class="column">
                                     <b-field label="Department" label-position="on-border" expanded
-                                            :type="this.errors.department_id ? 'is-danger':''"
-                                            :message="this.errors.department_id ? this.errors.department_id[0] : ''">
+                                            :type="this.errors.deparment_id ? 'is-danger':''"
+                                            :message="this.errors.deparment_id ? this.errors.deparment_id[0] : ''">
                                         <b-select v-model="fields.department_id" expanded>
                                             <option v-for="(item, index) in departments" 
                                                 :key="index"
@@ -522,8 +536,7 @@ export default{
 
 
         submit: function(){
-            this.fields.department_id = this.fields.role === 'ADMINISTRATOR' ? 0 : this.fields.department_id;
-
+            //this.fields.department_id = this.fields.role === 'ADMINISTRATOR' ? 0 : this.fields.depid;
 
             if(this.global_id > 0){
                 //update
