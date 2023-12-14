@@ -22,10 +22,6 @@
                 </div><!--col -->
             </div><!-- cols -->
         </div><!--section div-->
-
-
-
-
     </div>
 </template>
 

@@ -30,13 +30,14 @@ class EventController extends Controller
     }
 
     public function getEvents(Request $req){
+
         $acadYear = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
         $role = $user->role;
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type', 'venue'])
+        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department'])
             ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
@@ -45,6 +46,13 @@ class EventController extends Controller
         if(in_array($role, ['ORGANIZER', 'STUDENT', 'ATTENDEE'])){
             $event->where('user_id', 'like', $user->user_id);
         }
+
+        if(in_array($role, ['EVENT OFFICER'])){
+            $event->whereHas('user', function($q)use($user){
+                $q->where('department_id', $user->department_id);
+            });
+        }
+
 
         return $event->paginate($req->perpage);
     }

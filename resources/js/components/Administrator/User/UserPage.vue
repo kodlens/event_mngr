@@ -89,10 +89,9 @@
                                 {{ props.row.sex }}
                             </b-table-column>
 
-                        
-
                             <b-table-column field="role" label="User Type" v-slot="props">
                                 <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
+                                <span v-if="props.row.role === 'ADMINSTAFF'">ADMINSTAFF</span>
                                 <span v-if="props.row.role === 'EVENT OFFICER'">APPROVING OFFICER</span>
                                 <span v-if="props.row.role === 'ORGANIZER'">REQUESTING PARTY</span>
                                 <span v-if="props.row.role === 'STUDENT'">PARTICIPANTS</span>
@@ -332,6 +331,7 @@
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                                            <option value="ADMINSTAFF">ADMINSTAFF</option>
                                             <option value="EVENT OFFICER">APPROVING OFFICER</option>
                                             <option value="ORGANIZER">REQUESTING PARTY</option>
                                             <option value="STUDENT">PARTICIPANTS</option>

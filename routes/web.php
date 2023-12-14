@@ -69,7 +69,25 @@ Route::get('/load-event-venues', [App\Http\Controllers\OpenController::class, 'l
 /*     ADMINSITRATOR          */
 Route::middleware(['verified', 'admin'])->group(function() {
 
+    Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
+    Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
+    Route::post('/user-activate/{id}', [App\Http\Controllers\Administrator\UserController::class, 'userActivate']);
+    Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
+    Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
+    Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
+
+    Route::resource('/departments', App\Http\Controllers\Administrator\DepartmentController::class);
+    Route::get('/get-departments', [App\Http\Controllers\Administrator\DepartmentController::class, 'getData']);
+    //Route::get('/get-browse-events', [App\Http\Controllers\Administrator\QuestionController::class, 'getBrowseEvents']);
+
+
+
+});
+/*     ADMINSITRATOR          */
+
+
+Route::middleware(['verified', 'adminstaff'])->group(function() {
   
     Route::resource('/event-venues', App\Http\Controllers\Administrator\EventVenueController::class);
     Route::get('/get-event-venues', [App\Http\Controllers\Administrator\EventVenueController::class, 'getData']);
@@ -78,23 +96,10 @@ Route::middleware(['verified', 'admin'])->group(function() {
     Route::get('/get-event-types', [App\Http\Controllers\Administrator\EventTypeController::class, 'getData']);
     
 
-    Route::resource('/questions', App\Http\Controllers\Administrator\QuestionController::class);
-    Route::get('/get-questions', [App\Http\Controllers\Administrator\QuestionController::class, 'getQuestions']);
 
-
-    Route::resource('/departments', App\Http\Controllers\Administrator\DepartmentController::class);
-    Route::get('/get-departments', [App\Http\Controllers\Administrator\DepartmentController::class, 'getData']);
-    //Route::get('/get-browse-events', [App\Http\Controllers\Administrator\QuestionController::class, 'getBrowseEvents']);
-
-
-    Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
-    Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
-    Route::post('/user-activate/{id}', [App\Http\Controllers\Administrator\UserController::class, 'userActivate']);
-    Route::post('/reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
 });
-/*     ADMINSITRATOR          */
 
 /*     organizer          */
 Route::middleware(['verified', 'event_officer'])->group(function() {

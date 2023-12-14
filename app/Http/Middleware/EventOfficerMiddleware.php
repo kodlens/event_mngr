@@ -18,7 +18,7 @@ class EventOfficerMiddleware
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if($role === 'EVENT OFFICER' || $role === 'ORGANIZER' || $role === 'ADMINISTRATOR'){
+        if(in_array($role, ['EVENT OFFICER', 'ORGANIZER', 'ADMINISTRATOR', 'ADMINSTAFF'])){
 
             $response = $next($request);
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
