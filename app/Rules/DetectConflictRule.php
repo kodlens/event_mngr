@@ -7,8 +7,8 @@ use App\Models\Event;
 
 class DetectConflictRule implements Rule
 {
-    
-    private  $eventDate, $startTime, $endTime, $data;
+
+    private  $eventDate, $eventDateTo, $startTime, $endTime, $data;
 
     /**
      * Create a new rule instance.
@@ -17,13 +17,15 @@ class DetectConflictRule implements Rule
      */
     public function __construct(
         $eventDate,
-        $startTime, 
+        $eventDateTo,
+        $startTime,
         $endTime,
         $id
     )
     {
         //
         $this->eventDate = $eventDate;
+        $this->eventDateTo = $eventDateTo;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
         $this->id = $id;
@@ -42,14 +44,19 @@ class DetectConflictRule implements Rule
         $sTime = $this->startTime;
         $eTime = $this->endTime;
         $eventDate = $this->eventDate;
-        
+        $eventDateTo = $this->eventDateTo;
+
         //separate logic for edit and create
         if($this->id > 0){
-            $data = Event::where(function($query) use ($sTime, $eTime){
+            $data = Event::where(function($query) use ($sTime, $eTime, $eventDate, $eventDateTo){
                 $query->whereBetween('event_time_from', [$sTime, $eTime])
                     ->orWhereBetween('event_time_to', [$sTime, $eTime]);
             })
-            ->where('event_date', $eventDate)
+            ->where(function($query) use ($sTime, $eTime){
+                $query->whereBetween('event_date', [$eventDate, $eventDateTo])
+                    ->orWhereBetween('event_time_to', [$eventDate, $eventDateTo]);
+            })
+            //->where('event_date', $eventDate)
             ->where('event_id','!=', $this->id)
             ->where('event_venue_id', $value);
         }else{
@@ -60,8 +67,8 @@ class DetectConflictRule implements Rule
             ->where('event_date', $eventDate)
             ->where('event_venue_id', $value);
         }
-        
-        
+
+
         $exist = $data->exists();
         $this->data = $data->first();
 

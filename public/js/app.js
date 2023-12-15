@@ -9357,11 +9357,11 @@ __webpack_require__.r(__webpack_exports__);
           }], ['clean']]
         }
       },
-      content: null,
+      event_content: null,
       fields: {
         event: null,
         event_description: null,
-        content: null,
+        event_content: null,
         dateAndTime: null,
         event_img: null,
         event_type_id: 0,
@@ -9390,8 +9390,9 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('event', this.fields.event ? this.fields.event : '');
       formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-      formData.append('content', this.fields.content ? this.fields.content : '');
+      formData.append('event_content', this.fields.event_content ? this.fields.event_content : '');
       formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
+      formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
       formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
@@ -9442,9 +9443,11 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_img = null;
     },
     getData: function getData() {
+      console.log(this.propData.event_content);
       this.fields.event = this.propData.event;
-      this.content = this.propData.content;
+      this.event_content = this.propData.event_content;
       this.fields.event_date = new Date(this.propData.event_date);
+      this.fields.event_date_to = new Date(this.propData.event_date_to);
       this.fields.image_path = this.propData.img_path;
       this.fields.event_type_id = this.propData.event_type_id;
       this.fields.event_time_from = new Date('2022-01-01 ' + this.propData.event_time_from);
@@ -9466,7 +9469,7 @@ __webpack_require__.r(__webpack_exports__);
         html = _ref.html,
         text = _ref.text;
       console.log('editor change!', quill, html, text);
-      this.fields.content = html;
+      this.fields.event_content = html;
     },
     loadEventTypes: function loadEventTypes() {
       var _this2 = this;
@@ -9950,7 +9953,8 @@ __webpack_require__.r(__webpack_exports__);
         sex: null,
         role: null,
         contact_no: null,
-        department_id: null
+        department_id: null,
+        ao_user_id: null
       },
       errors: {},
       departments: [],
@@ -9958,7 +9962,8 @@ __webpack_require__.r(__webpack_exports__);
         'is-success': true,
         'button': true,
         'is-loading': false
-      }
+      },
+      approvingOfficers: []
     };
   },
   methods: {
@@ -10094,6 +10099,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.password = null;
       this.fields.password_confirmation = null;
       this.fields.role = null;
+      this.fields.ao_user_id = null;
       this.fields.contact_no = null;
       this.fields.department_id = null;
     },
@@ -10165,6 +10171,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (err) {
         _this9.errors = err.response.data.errors;
+      });
+    },
+    loadApprovingOfficers: function loadApprovingOfficers() {
+      var _this10 = this;
+      axios.get('/load-approving-officers/').then(function (res) {
+        _this10.approvingOfficers = res.data;
       });
     }
   },
@@ -13220,7 +13232,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve By")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve By")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
@@ -13262,24 +13274,13 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      field: "content",
-      label: "Description"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm._f("truncate")(props.row.content, 50)) + "\n            ")];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
       field: "event_date",
       label: "Date"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(new Date(props.row.event_date).toLocaleDateString()) + "\n            ")];
+        return [_vm._v("\n                " + _vm._s(new Date(props.row.event_date).toLocaleDateString()) + "\n                -\n                " + _vm._s(new Date(props.row.event_date_to).toLocaleDateString()) + "\n            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -13290,7 +13291,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_from)) + " - \n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_to)) + "\n            ")];
+        return [_vm._v("\n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_from)) + " -\n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_to)) + "\n            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -13301,7 +13302,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm.durationHours(new Date(props.row.event_date + " " + props.row.event_time_from), new Date(props.row.event_date + " " + props.row.event_time_to))) + "\n                \n            ")];
+        return [_vm._v("\n                " + _vm._s(_vm.durationHours(new Date(props.row.event_date + " " + props.row.event_time_from), new Date(props.row.event_date_to + " " + props.row.event_time_to))) + "\n            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -13417,6 +13418,17 @@ var render = function render() {
             icon: "pencil",
             size: "is-small"
           }
+        })], 1) : _vm._e(), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) && props.row.approval_status === 0 ? _c("b-dropdown-item", {
+          attrs: {
+            "aria-role": "listitem",
+            tag: "a",
+            href: "/events/".concat(props.row.event_id, "/edit")
+          }
+        }, [_vm._v("\n                            Edit\n                            "), _c("b-icon", {
+          attrs: {
+            icon: "pencil",
+            size: "is-small"
+          }
         })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
@@ -13461,7 +13473,7 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 2401632347)
+    }], null, false, 2375947977)
   }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
@@ -13565,7 +13577,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Event Date",
+      label: "Date From",
       expanded: "",
       type: this.errors.event_date ? "is-danger" : "",
       message: this.errors.event_date ? this.errors.event_date[0] : ""
@@ -13574,7 +13586,8 @@ var render = function render() {
     attrs: {
       icon: "calendar-today",
       required: "",
-      placeholder: "Select date and time",
+      editable: "",
+      placeholder: "Select date",
       "horizontal-time-picker": ""
     },
     model: {
@@ -13583,6 +13596,30 @@ var render = function render() {
         _vm.$set(_vm.fields, "event_date", $$v);
       },
       expression: "fields.event_date"
+    }
+  })], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Date To",
+      expanded: "",
+      type: this.errors.event_date_to ? "is-danger" : "",
+      message: this.errors.event_date_to ? this.errors.event_date_to[0] : ""
+    }
+  }, [_c("b-datepicker", {
+    attrs: {
+      icon: "calendar-today",
+      required: "",
+      editable: "",
+      placeholder: "Select date",
+      "horizontal-time-picker": ""
+    },
+    model: {
+      value: _vm.fields.event_date_to,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "event_date_to", $$v);
+      },
+      expression: "fields.event_date_to"
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
@@ -13725,7 +13762,7 @@ var render = function render() {
     }
   }, [_c("quill-editor", {
     attrs: {
-      content: _vm.content,
+      content: _vm.event_content,
       options: _vm.editorOption
     },
     on: {
@@ -14676,7 +14713,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Contact No.")]), _vm._v(" "), _c("th", [_vm._v("Department")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.contact_no ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.contact_no) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()])])];
+        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Contact No.")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Approving Officer")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.contact_no ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.contact_no) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.ao ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.ao.lname) + ", " + _vm._s(props.row.ao.fname) + " " + _vm._s(props.row.ao.mname) + "\n                                        ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -14731,7 +14768,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                                " + _vm._s(props.row.fname) + "\n                            ")];
+        return [_vm._v("\n                                " + _vm._s(props.row.mname) + "\n                            ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -14753,7 +14790,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [props.row.role === "ADMINISTRATOR" ? _c("span", [_vm._v("ADMINISTRATOR")]) : _vm._e(), _vm._v(" "), props.row.role === "ADMINSTAFF" ? _c("span", [_vm._v("ADMINSTAFF")]) : _vm._e(), _vm._v(" "), props.row.role === "EVENT OFFICER" ? _c("span", [_vm._v("APPROVING OFFICER")]) : _vm._e(), _vm._v(" "), props.row.role === "ORGANIZER" ? _c("span", [_vm._v("REQUESTING PARTY")]) : _vm._e(), _vm._v(" "), props.row.role === "STUDENT" ? _c("span", [_vm._v("PARTICIPANTS")]) : _vm._e()];
+        return [props.row.role === "ADMINISTRATOR" ? _c("span", [_vm._v("ADMINISTRATOR")]) : _vm._e(), _vm._v(" "), props.row.role === "EVENT OFFICER" ? _c("span", [_vm._v("APPROVING OFFICER")]) : _vm._e(), _vm._v(" "), props.row.role === "ORGANIZER" ? _c("span", [_vm._v("REQUESTING PARTY")]) : _vm._e(), _vm._v(" "), props.row.role === "STUDENT" ? _c("span", [_vm._v("PARTICIPANTS")]) : _vm._e()];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -15118,8 +15155,8 @@ var render = function render() {
       label: "Department",
       "label-position": "on-border",
       expanded: "",
-      type: this.errors.deparment_id ? "is-danger" : "",
-      message: this.errors.deparment_id ? this.errors.deparment_id[0] : ""
+      type: this.errors.department_id ? "is-danger" : "",
+      message: this.errors.department_id ? this.errors.department_id[0] : ""
     }
   }, [_c("b-select", {
     attrs: {
@@ -15184,6 +15221,9 @@ var render = function render() {
     attrs: {
       expanded: ""
     },
+    on: {
+      input: _vm.loadApprovingOfficers
+    },
     model: {
       value: _vm.fields.role,
       callback: function callback($$v) {
@@ -15197,10 +15237,6 @@ var render = function render() {
     }
   }, [_vm._v("ADMINISTRATOR")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "ADMINSTAFF"
-    }
-  }, [_vm._v("ADMINSTAFF")]), _vm._v(" "), _c("option", {
-    attrs: {
       value: "EVENT OFFICER"
     }
   }, [_vm._v("APPROVING OFFICER")]), _vm._v(" "), _c("option", {
@@ -15211,7 +15247,37 @@ var render = function render() {
     attrs: {
       value: "STUDENT"
     }
-  }, [_vm._v("PARTICIPANTS")])])], 1)], 1)])])]), _vm._v(" "), _c("footer", {
+  }, [_vm._v("PARTICIPANTS")])])], 1)], 1)]), _vm._v(" "), _vm.fields.role === "ORGANIZER" ? _c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Select Approving Officer",
+      expanded: "",
+      "label-position": "on-border",
+      type: this.errors.ao_user_id ? "is-danger" : "",
+      message: this.errors.ao_user_id ? this.errors.ao_user_id[0] : ""
+    }
+  }, [_c("b-select", {
+    attrs: {
+      expanded: ""
+    },
+    model: {
+      value: _vm.fields.ao_user_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "ao_user_id", $$v);
+      },
+      expression: "fields.ao_user_id"
+    }
+  }, _vm._l(_vm.approvingOfficers, function (item, index) {
+    return _c("option", {
+      key: "ao".concat(index),
+      domProps: {
+        value: item.user_id
+      }
+    }, [_vm._v("\n                                                " + _vm._s(item.lname) + ", " + _vm._s(item.fname) + " " + _vm._s(item.mname) + "\n                                            ")]);
+  }), 0)], 1)], 1)]) : _vm._e()])]), _vm._v(" "), _c("footer", {
     staticClass: "modal-card-foot"
   }, [_c("button", {
     "class": _vm.btnClass,

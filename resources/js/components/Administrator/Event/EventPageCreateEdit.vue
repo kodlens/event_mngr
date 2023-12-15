@@ -12,14 +12,30 @@
 
                         <div class="columns">
                             <div class="column">
-                                <b-field label="Event Date" expanded
+                                <b-field label="Date From" expanded
                                     :type="this.errors.event_date ? 'is-danger':''"
                                     :message="this.errors.event_date ? this.errors.event_date[0] : ''">
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
+                                        editable
                                         v-model="fields.event_date"
-                                        placeholder="Select date and time"
+                                        placeholder="Select date"
+                                        horizontal-time-picker>
+                                    </b-datepicker>
+                                </b-field>
+                            </div>
+
+                            <div class="column">
+                                <b-field label="Date To" expanded
+                                         :type="this.errors.event_date_to ? 'is-danger':''"
+                                         :message="this.errors.event_date_to ? this.errors.event_date_to[0] : ''">
+                                    <b-datepicker
+                                        icon="calendar-today"
+                                        required
+                                        editable
+                                        v-model="fields.event_date_to"
+                                        placeholder="Select date"
                                         horizontal-time-picker>
                                     </b-datepicker>
                                 </b-field>
@@ -67,7 +83,7 @@
                                         required
                                         v-model="fields.event_type_id"
                                         placeholder="Event Type">
-                                        <option v-for="(item, ix) in eventTypes" 
+                                        <option v-for="(item, ix) in eventTypes"
                                             :value="item.event_type_id"
                                             :key="`evtype${ix}`">{{item.event_type}}</option>
                                     </b-select>
@@ -83,7 +99,7 @@
                                         required
                                         v-model="fields.event_venue_id"
                                         placeholder="Facility/Equipment">
-                                        <option v-for="(item, ix) in venues" 
+                                        <option v-for="(item, ix) in venues"
                                             :value="item.event_venue_id"
                                             :key="`evtype${ix}`">{{item.event_venue}}</option>
                                     </b-select>
@@ -109,11 +125,11 @@
                                     :message="this.errors.event_description ? this.errors.event_description[0] : ''">
                                     <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
                                     <quill-editor
-                                        :content="content"
+                                        :content="event_content"
                                         :options="editorOption"
                                         @change="onEditorChange($event)"
                                     />
-                                
+
                                 </b-field>
                             </div>
                             </div>
@@ -173,7 +189,7 @@
                             </div>
                             <hr>
                             <div class="buttons is-right">
-                            <b-button :class="btnClass" 
+                            <b-button :class="btnClass"
                                 icon-left="content-save-all-outline"
                                 @click="submit">
                                 <b>SAVE</b>
@@ -219,14 +235,14 @@ export default {
                     ],
                 },
             },
-            content: null,
+            event_content: null,
 
-          
-            
+
+
             fields: {
                 event: null,
                 event_description: null,
-                content: null,
+                event_content: null,
                 dateAndTime: null,
                 event_img: null,
                 event_type_id: 0,
@@ -248,15 +264,15 @@ export default {
 
     methods:{
 
-        submit(){  
+        submit(){
             this.btnClass['is-loading'] = true
             const timeFrom = new Date(this.fields.event_time_from);
             const timeTo = new Date(this.fields.event_time_to);
 
 
-            const from = timeFrom.getHours().toString().padStart(2, "0") + ':' 
+            const from = timeFrom.getHours().toString().padStart(2, "0") + ':'
                 + (timeFrom.getMinutes() ).toString().padStart(2, "0") + ':00'
-            const to = timeTo.getHours().toString().padStart(2, "0") + ':' 
+            const to = timeTo.getHours().toString().padStart(2, "0") + ':'
                 + (timeTo.getMinutes() ).toString().padStart(2, "0") + ':00'
 
 
@@ -266,8 +282,10 @@ export default {
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
-            formData.append('content', this.fields.content ? this.fields.content : '');
+            formData.append('event_content', this.fields.event_content ? this.fields.event_content : '');
             formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
+            formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
+
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
             formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
             formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
@@ -280,9 +298,9 @@ export default {
                 //update
                 axios.post('/events-update/' + this.propId, formData).then(res=>{
                     this.btnClass['is-loading'] = false
-       
+
                     if (res.data.status === 'updated'){
-                       
+
                         this.$buefy.dialog.alert({
                             title: 'Saved.',
                             message: 'Successfully updated.',
@@ -323,9 +341,9 @@ export default {
                 })
             }
 
-           
 
-          
+
+
         },
 
         deleteDropFile(index) {
@@ -333,9 +351,13 @@ export default {
         },
 
         getData(){
+            console.log(this.propData.event_content);
+
             this.fields.event =  this.propData.event
-            this.content =  this.propData.content
+            this.event_content =  this.propData.event_content
             this.fields.event_date =  new Date(this.propData.event_date)
+            this.fields.event_date_to =  new Date(this.propData.event_date_to)
+
             this.fields.image_path = this.propData.img_path
             this.fields.event_type_id = this.propData.event_type_id
             this.fields.event_time_from =  new Date('2022-01-01 ' + this.propData.event_time_from)
@@ -357,7 +379,7 @@ export default {
         },
         onEditorChange({ quill, html, text }) {
             console.log('editor change!', quill, html, text)
-            this.fields.content = html
+            this.fields.event_content = html
         },
 
 

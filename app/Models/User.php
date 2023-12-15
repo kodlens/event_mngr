@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-   
+
     use HasApiTokens, HasFactory, Notifiable;
 
 
@@ -23,9 +23,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $primaryKey = 'user_id';
     protected $fillable = [
         'qr_code',
-        'username', 
-        'lname', 
-        'fname', 
+        'username',
+        'lname',
+        'fname',
         'mname', 'suffix', 'sex',
         'email',
         'contact_no',
@@ -33,7 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'active',
         'department_id',
-        'email_verified_at'
+        'email_verified_at',
+        'ao_user_id'
     ];
 
     /**
@@ -58,6 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function department(){
         return $this->hasOne(Department::class, 'department_id', 'department_id');
+    }
+
+    public function ao(){
+        return $this->hasOne(User::class, 'user_id', 'ao_user_id');
     }
 
 

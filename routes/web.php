@@ -31,7 +31,7 @@ Auth::routes([
 
 
 // Route::get('/date', function(){
-   
+
 //     return new DateTime();
 // });
 
@@ -88,13 +88,13 @@ Route::middleware(['verified', 'admin'])->group(function() {
 
 
 Route::middleware(['verified', 'adminstaff'])->group(function() {
-  
+
     Route::resource('/event-venues', App\Http\Controllers\Administrator\EventVenueController::class);
     Route::get('/get-event-venues', [App\Http\Controllers\Administrator\EventVenueController::class, 'getData']);
 
     Route::resource('/event-types', App\Http\Controllers\Administrator\EventTypeController::class);
     Route::get('/get-event-types', [App\Http\Controllers\Administrator\EventTypeController::class, 'getData']);
-    
+
 
 
 
@@ -105,13 +105,13 @@ Route::middleware(['verified', 'adminstaff'])->group(function() {
 Route::middleware(['verified', 'event_officer'])->group(function() {
 
     Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
-    
+
     Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
     Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
     Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
 
 
-    
+
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
     Route::get('/get-events', [App\Http\Controllers\Administrator\EventController::class, 'getEvents']);
@@ -131,17 +131,17 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::post('/event-attendees-approve/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'approveAttendee']);
     Route::post('/event-attendees-decline/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'declineAttendee']);
 
-    
-    
+
+
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
     Route::get('/get-participant-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
-    
+
     Route::get('/report-event-list', [App\Http\Controllers\Report\ReportEventListController::class, 'index']);
     Route::get('/load-report-event-lists', [App\Http\Controllers\Report\ReportEventListController::class, 'loadReportEventLists']);
-    
+
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
 
@@ -161,14 +161,9 @@ Route::middleware(['verified', 'student'])->group(function() {
 
 
 
+//other
+Route::middleware(['verified', 'auth'])->group(function() {
+    Route::get('/load-approving-officers', [App\Http\Controllers\Administrator\UserController::class, 'loadApprovingOfficers']);
 
-Route::get('/session', function(){
-    return Session::all();
 });
 
-
-Route::get('/applogout', function(Request $req){
-    \Auth::logout();
-    $req->session()->invalidate();
-    $req->session()->regenerateToken();
-});

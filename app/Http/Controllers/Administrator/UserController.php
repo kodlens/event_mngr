@@ -19,7 +19,7 @@ class UserController extends Controller
     public function getUsers(Request $req){
         $sort = explode('.', $req->sort_by);
 
-        $users = User::with(['department'])->where('lname', 'like', $req->lname . '%')
+        $users = User::with(['department', 'ao'])->where('lname', 'like', $req->lname . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 
@@ -41,8 +41,13 @@ class UserController extends Controller
             'sex' => ['required', 'string', 'max:20'],
             'email' => ['required','unique:users'],
             'password' => ['required', 'string', 'confirmed'],
+            'department_id' => ['required'],
             'role' => ['required', 'string'],
-
+            'ao_user_id' => ['required_if:role,"ORGANIZER"']
+        ],
+        [
+            'ao_user_id.required_if' => 'Please select approving officer for your account.',
+            'department_id.required' => 'Please select department.'
         ]);
 
         User::create([
@@ -58,6 +63,7 @@ class UserController extends Controller
             'email' => $req->email,
             'role' => $req->role,
             'department_id' => $req->department_id,
+            'ao_user_id' => $req->ao_user_id,
             //'active' => $req->active
         ]);
 
@@ -75,6 +81,9 @@ class UserController extends Controller
             'sex' => ['required', 'string', 'max:20'],
             'email' => ['required','unique:users,email,' . $id . ',user_id'],
             'role' => ['required', 'string'],
+            'department_id' => ['required'],
+            'ao_user_id' => ['required_if:role,"ORGANIZER"']
+
         ]);
 
         $data = User::find($id);
@@ -88,6 +97,8 @@ class UserController extends Controller
         $data->email = $req->email;
         $data->role = $req->role;
         $data->department_id = $req->department_id;
+        $data->ao_user_id = $req->ao_user_id;
+
         //$data->active = $req->active;
         $data->save();
 
@@ -129,6 +140,12 @@ class UserController extends Controller
         return response()->json([
             'status' => 'changed'
         ],200);
+    }
+
+
+    public function loadApprovingOfficers(Request $req){
+        return User::where('role', 'EVENT OFFICER')
+                ->get();
     }
 
 }

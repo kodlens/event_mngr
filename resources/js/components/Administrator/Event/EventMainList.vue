@@ -46,7 +46,7 @@
                     size="is-small"
                     class="field"
                     @click="checkedRows = []" />
-                
+
                 <b-button
                     label="Archive Checked"
                     type="is-info"
@@ -92,25 +92,22 @@
                     {{ props.row.event_type.event_type }}
                 </b-table-column>
 
-                <b-table-column field="content" label="Description" v-slot="props">
-                    {{ props.row.content | truncate(50) }}
-                </b-table-column>
-
                 <b-table-column field="event_date" label="Date" v-slot="props">
                     {{ new Date(props.row.event_date).toLocaleDateString() }}
+                    -
+                    {{ new Date(props.row.event_date_to).toLocaleDateString() }}
                 </b-table-column>
 
                 <b-table-column field="time" label="Time" v-slot="props">
-                    {{ props.row.event_time_from | formatTime }} - 
+                    {{ props.row.event_time_from | formatTime }} -
                     {{ props.row.event_time_to | formatTime }}
                 </b-table-column>
 
                 <b-table-column field="duration" label="Duration" v-slot="props">
                     {{ durationHours(
                         new Date(props.row.event_date + ' ' + props.row.event_time_from),
-                        new Date(props.row.event_date + ' ' + props.row.event_time_to)
+                        new Date(props.row.event_date_to + ' ' + props.row.event_time_to)
                     ) }}
-                    
                 </b-table-column>
 
                 <b-table-column field="approval_status" label="Status" v-slot="props">
@@ -160,6 +157,7 @@
                                 <b-icon icon="cancel" size="is-small"></b-icon>
                             </b-dropdown-item>
 
+                            <!-- 2 edit separaate logic -->
                             <b-dropdown-item aria-role="listitem"
                                 v-if="['EVENT OFFICER'].includes(propUser.role)"
                                 tag="a"
@@ -167,6 +165,15 @@
                                 Edit
                                 <b-icon icon="pencil" size="is-small"></b-icon>
                             </b-dropdown-item>
+                            <b-dropdown-item aria-role="listitem"
+                                 v-if="['ORGANIZER'].includes(propUser.role) && props.row.approval_status === 0"
+                                 tag="a"
+                                 :href="`/events/${props.row.event_id}/edit`">
+                                Edit
+                                <b-icon icon="pencil" size="is-small"></b-icon>
+                            </b-dropdown-item>
+                            <!-- 2 edit separaate logic -->
+
 
                             <b-dropdown-item aria-role="listitem"
                                 v-if="['EVENT OFFICER'].includes(propUser.role)"
@@ -191,6 +198,7 @@
                     </div>
                 </b-table-column>
 
+
                 <template #detail="props">
                     <tr>
                         <th>Venue</th>
@@ -198,6 +206,12 @@
                         <th>Approve By</th>
                     </tr>
                     <tr>
+                        <td>
+                             <span v-if="props.row.event_content">
+                                {{ props.row.event_content | truncate(50) }}
+                            </span>
+
+                        </td>
                         <td>
                             <span v-if="props.row.venue">{{ props.row.venue.event_venue }}</span>
                         </td>
@@ -233,7 +247,7 @@ export default{
             default: {}
         },
     },
-   
+
 
     data() {
         return{
@@ -257,7 +271,6 @@ export default{
                 'button': true,
                 'is-loading':false,
             },
-
 
             checkedRows: [],
 
@@ -354,7 +367,7 @@ export default{
         submitApprove(dataId){
             this.loading = true
             axios.post('/events-approve/' + dataId).then(res => {
-                
+
                 if(res.data.status === 'approved'){
                     this.loadAsyncData();
                     this.loading = false
@@ -469,7 +482,7 @@ export default{
                     this.loadAsyncData()
                 }
             }).catch(err=>{
-            
+
             })
         }
 

@@ -18,11 +18,12 @@ class Event extends Model
         'event_type_id',
         'event_venue_id',
         'event',
-        'content',
+        'event_content',
         'if_others',
         'event_datetime',
-        
+
         'event_date',
+        'event_date_to',
         'event_time_from',
         'event_time_to',
         'img_path',
@@ -30,7 +31,7 @@ class Event extends Model
         'approval_status',
         'is_open',
         'is_need_approval',
-       
+
         'approve_by',
         'approve_by_id',
 
@@ -55,6 +56,6 @@ class Event extends Model
     public function venue(){
         return $this->hasOne(EventVenue::class, 'event_venue_id', 'event_venue_id');
     }
-    
+
 
 }

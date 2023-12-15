@@ -5,7 +5,7 @@
                 <div class="column is-11-tablet is-11-desktop is-10-widescreen">
                     <div class="box">
 
-                        <div class="is-flex is-justify-content-center mb-2" 
+                        <div class="is-flex is-justify-content-center mb-2"
                             style="font-size: 20px; font-weight: bold;">LIST OF USER</div>
 
                         <hr>
@@ -60,7 +60,7 @@
                             backend-sorting
                             :default-sort-direction="defaultSortDirection"
                             @sort="onSort">
-<!-- 
+<!--
                             <b-table-column field="user_id" label="ID" v-slot="props">
                                 {{ props.row.user_id }}
                             </b-table-column> -->
@@ -82,7 +82,7 @@
                             </b-table-column>
 
                             <b-table-column field="mname" label="Middle Name" v-slot="props">
-                                {{ props.row.fname }}
+                                {{ props.row.mname }}
                             </b-table-column>
 
                             <b-table-column field="sex" label="Sex" v-slot="props">
@@ -91,19 +91,19 @@
 
                             <b-table-column field="role" label="User Type" v-slot="props">
                                 <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
-                                <span v-if="props.row.role === 'ADMINSTAFF'">ADMINSTAFF</span>
+<!--                                <span v-if="props.row.role === 'ADMINSTAFF'">ADMINSTAFF</span>-->
                                 <span v-if="props.row.role === 'EVENT OFFICER'">APPROVING OFFICER</span>
                                 <span v-if="props.row.role === 'ORGANIZER'">REQUESTING PARTY</span>
                                 <span v-if="props.row.role === 'STUDENT'">PARTICIPANTS</span>
                             </b-table-column>
 
-                     
+
 
                             <b-table-column field="active" label="Activated" v-slot="props">
                                 <span v-if="props.row.email_verified_at" class="yes">YES</span>
                                 <span v-else class="no">NO</span>
                             </b-table-column>
-                            
+
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-dropdown aria-role="list">
@@ -115,7 +115,6 @@
                                                 icon-left="menu"
                                                 :icon-right="active ? 'menu-up' : 'menu-down'" />
                                         </template>
-
 
                                         <b-dropdown-item aria-role="listitem"
                                             @click="confirmActivate(props.row.user_id)">
@@ -149,6 +148,7 @@
                                     <th>Email</th>
                                     <th>Contact No.</th>
                                     <th>Department</th>
+                                    <th>Approving Officer</th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -164,13 +164,18 @@
                                             {{ props.row.department.code }}
                                         </span>
                                     </td>
+                                    <td>
+                                        <span v-if="props.row.ao">
+                                            {{ props.row.ao.lname }}, {{ props.row.ao.fname}} {{ props.row.ao.mname }}
+                                        </span>
+                                    </td>
                                 </tr>
                             </template>
                         </b-table>
 
                         <hr>
                         <div class="buttons mt-3">
-                            <b-button @click="openModal" 
+                            <b-button @click="openModal"
                                 icon-right="account-arrow-up-outline"
                                 class="is-primary is-outlined">NEW</b-button>
                         </div>
@@ -267,7 +272,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="columns" v-if="global_id < 1">
                                 <div class="column">
@@ -302,10 +307,10 @@
                                 </div>
                                 <div class="column">
                                     <b-field label="Department" label-position="on-border" expanded
-                                            :type="this.errors.deparment_id ? 'is-danger':''"
-                                            :message="this.errors.deparment_id ? this.errors.deparment_id[0] : ''">
+                                            :type="this.errors.department_id ? 'is-danger':''"
+                                            :message="this.errors.department_id ? this.errors.department_id[0] : ''">
                                         <b-select v-model="fields.department_id" expanded>
-                                            <option v-for="(item, index) in departments" 
+                                            <option v-for="(item, index) in departments"
                                                 :key="index"
                                                 :value="item.department_id">{{ item.code }}</option>
                                         </b-select>
@@ -329,9 +334,10 @@
                                     <b-field label="User Type" label-position="on-border" expanded
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
-                                        <b-select v-model="fields.role" expanded>
+                                        <b-select v-model="fields.role" expanded
+                                            @input="loadApprovingOfficers">
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            <option value="ADMINSTAFF">ADMINSTAFF</option>
+<!--                                            <option value="ADMINSTAFF">ADMINSTAFF</option>-->
                                             <option value="EVENT OFFICER">APPROVING OFFICER</option>
                                             <option value="ORGANIZER">REQUESTING PARTY</option>
                                             <option value="STUDENT">PARTICIPANTS</option>
@@ -339,18 +345,23 @@
                                     </b-field>
                                 </div>
                             </div>
-                            <!-- <div class="columns">
+                            <div class="columns" v-if="fields.role === 'ORGANIZER'">
                                 <div class="column">
-                                    <b-field>
-                                        <b-checkbox v-model="fields.active"
-                                            :true-value="1"
-                                            :false-value="0">
-                                            Active
-                                        </b-checkbox>
+                                    <b-field label="Select Approving Officer"
+                                             expanded
+                                             label-position="on-border"
+                                             :type="this.errors.ao_user_id ? 'is-danger':''"
+                                             :message="this.errors.ao_user_id ? this.errors.ao_user_id[0] : ''">
+                                        <b-select v-model="fields.ao_user_id"
+                                                  expanded>
+                                            <option v-for="(item, index) in approvingOfficers" :key="`ao${index}`"
+                                                :value="item.user_id">
+                                                {{ item.lname }}, {{ item.fname }} {{ item.mname }}
+                                            </option>
+                                        </b-select>
                                     </b-field>
                                 </div>
-                            </div> -->
-
+                            </div>
                         </div>
                     </section>
                     <footer class="modal-card-foot">
@@ -458,7 +469,8 @@ export default{
                 username: null,
                 lname: null, fname: null, mname: null, suffix: null,
                 password: null, password_confirmation : null,
-                sex : null, role: null, contact_no : null, department_id: null
+                sex : null, role: null, contact_no : null, department_id: null,
+                ao_user_id: null
             },
 
             errors: {},
@@ -469,6 +481,8 @@ export default{
                 'button': true,
                 'is-loading':false,
             },
+
+            approvingOfficers: [],
 
         }
 
@@ -618,6 +632,7 @@ export default{
             this.fields.password = null;
             this.fields.password_confirmation = null;
             this.fields.role = null;
+            this.fields.ao_user_id = null;
             this.fields.contact_no = null;
             this.fields.department_id = null
         },
@@ -694,6 +709,13 @@ export default{
                 this.errors = err.response.data.errors;
             })
         },
+
+        loadApprovingOfficers(){
+            axios.get('/load-approving-officers/').then(res=> {
+                this.approvingOfficers = res.data
+            });
+        }
+
     },
 
     mounted() {
