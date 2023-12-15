@@ -16139,7 +16139,7 @@ var render = function render() {
       staticClass: "event-content"
     }, [_c("div", {
       domProps: {
-        innerHTML: _vm._s(event.content)
+        innerHTML: _vm._s(event.event_content)
       }
     })]), _vm._v(" "), _c("div", {
       staticClass: "img-container"

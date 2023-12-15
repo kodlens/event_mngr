@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="event-content">
-                            <div v-html="event.content"></div>
+                            <div v-html="event.event_content"></div>
                         </div>
 
                         <div class="img-container">
@@ -81,7 +81,7 @@ export default {
 
 .event-title{
     font-weight: bold;
-    margin-bottom: 5px;                                                                                                                                                                               
+    margin-bottom: 5px;
 }
 .event-date{
     font-size: 12px;
