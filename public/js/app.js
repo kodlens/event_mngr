@@ -9375,7 +9375,8 @@ __webpack_require__.r(__webpack_exports__);
         'is-outlined': true,
         'is-primary': true,
         'is-loading': false
-      }
+      },
+      minDate: new Date(new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000 * 1))
     };
   },
   methods: {
@@ -9489,6 +9490,11 @@ __webpack_require__.r(__webpack_exports__);
     this.loadEventVenues();
     if (this.propId > 0) {
       this.getData();
+    }
+  },
+  computed: {
+    fromStartDate: function fromStartDate() {
+      return this.fields.event_date;
     }
   }
 });
@@ -13586,6 +13592,7 @@ var render = function render() {
     attrs: {
       icon: "calendar-today",
       required: "",
+      "min-date": _vm.minDate,
       editable: "",
       placeholder: "Select date",
       "horizontal-time-picker": ""
@@ -13610,6 +13617,7 @@ var render = function render() {
     attrs: {
       icon: "calendar-today",
       required: "",
+      "min-date": _vm.fromStartDate,
       editable: "",
       placeholder: "Select date",
       "horizontal-time-picker": ""
@@ -13625,7 +13633,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Time From",
+      label: "From",
       expanded: "",
       type: this.errors.event_time_from ? "is-danger" : "",
       message: this.errors.event_time_from ? this.errors.event_time_from[0] : ""
@@ -13648,7 +13656,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Time To",
+      label: "Until",
       expanded: "",
       type: this.errors.event_time_to ? "is-danger" : "",
       message: this.errors.event_time_to ? this.errors.event_time_to[0] : ""

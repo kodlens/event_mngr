@@ -18,6 +18,7 @@
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
+                                        :min-date="minDate"
                                         editable
                                         v-model="fields.event_date"
                                         placeholder="Select date"
@@ -33,6 +34,7 @@
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
+                                        :min-date="fromStartDate"
                                         editable
                                         v-model="fields.event_date_to"
                                         placeholder="Select date"
@@ -42,7 +44,7 @@
                             </div>
 
                             <div class="column">
-                                <b-field label="Time From" expanded
+                                <b-field label="From" expanded
                                     :type="this.errors.event_time_from ? 'is-danger':''"
                                     :message="this.errors.event_time_from ? this.errors.event_time_from[0] : ''">
                                     <b-timepicker
@@ -56,7 +58,7 @@
                             </div>
 
                             <div class="column">
-                                <b-field label="Time To" expanded
+                                <b-field label="Until" expanded
                                     :type="this.errors.event_time_to ? 'is-danger':''"
                                     :message="this.errors.event_time_to ? this.errors.event_time_to[0] : ''">
                                     <b-timepicker
@@ -258,7 +260,11 @@ export default {
                 'is-outlined' : true,
                 'is-primary': true,
                 'is-loading': false
-            }
+            },
+
+            minDate: new Date(new Date().setTime(new Date().getTime() - ((24*60*60*1000) * 1))),
+
+            
         }
     },
 
@@ -404,6 +410,12 @@ export default {
 
         if(this.propId > 0){
             this.getData()
+        }
+    },
+
+    computed: {
+        fromStartDate(){
+            return this.fields.event_date
         }
     }
 
