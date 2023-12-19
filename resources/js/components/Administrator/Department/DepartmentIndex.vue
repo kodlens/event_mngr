@@ -73,7 +73,7 @@
                                 {{ props.row.code }}
                             </b-table-column>
 
-                            <b-table-column field="department" label="Question" v-slot="props">
+                            <b-table-column field="department" label="Department" v-slot="props">
                                 {{ props.row.department | truncate(50) }}
                             </b-table-column>
 

@@ -154,13 +154,13 @@
                 </template>
             </b-table>
 
-            <hr>
+            <!-- <hr>
 
             <div class="buttons mt-3" v-if="['ORGANIZER'].includes(propUser.role)">
                 <b-button tag="a"
                     href="/events/create"
                     icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
-            </div>
+            </div> -->
 
     </div>
 </template>
@@ -260,134 +260,8 @@ export default{
             this.loadAsyncData()
         },
 
-        //alert box ask for deletion
-        confirmDelete(delete_id) {
-            this.$buefy.dialog.confirm({
-                title: 'DELETE!',
-                type: 'is-danger',
-                message: 'Are you sure you want to delete this data?',
-                cancelText: 'Cancel',
-                confirmText: 'Delete',
-                onConfirm: () => this.deleteSubmit(delete_id)
-            });
-        },
-        //execute delete after confirming
-        deleteSubmit(delete_id) {
-            axios.delete('/events/' + delete_id).then(res => {
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
 
-        //approve
-        confirmApprove(dataId){
-            this.$buefy.dialog.confirm({
-                title: 'APPROVE?',
-                type: 'is-info',
-                message: 'Approve this event?',
-                cancelText: 'Cancel',
-                confirmText: 'Approve',
-                onConfirm: () => this.submitApprove(dataId)
-            });
-        },
-        submitApprove(dataId){
-            this.loading = true
-            axios.post('/events-approve/' + dataId).then(res => {
-                
-                if(res.data.status === 'approved'){
-                    this.loadAsyncData();
-                    this.loading = false
-
-                    this.$buefy.dialog.alert({
-                        title: 'Approved',
-                        type: 'is-info',
-                        message: 'Event approved and notification was sent to the creator of the event and the participants.'
-                    });
-                }
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
-
-        confirmCancel(dataId){
-            this.$buefy.dialog.confirm({
-                title: 'Decline?',
-                type: 'is-info',
-                message: 'Decline this event?',
-                confirmText: 'Yes',
-                onConfirm: () => this.submitCancel(dataId)
-            });
-        },
-        submitCancel(dataId){
-            this.loading = true
-            axios.post('/events-cancel/' + dataId).then(res => {
-                if(res.data.status === 'declined'){
-                    this.loadAsyncData();
-                    this.loading = false
-
-                    this.$buefy.dialog.alert({
-                        title: 'Declined',
-                        type: 'is-info',
-                        message: 'Event declined and notification was sent to the creator of the event.'
-                    });
-                }
-
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
-
-        confirmEval(dataId) {
-            this.$buefy.dialog.confirm({
-                title: 'Open?',
-                type: 'is-info',
-                message: 'Are you sure you want to open the evaluation?',
-                cancelText: 'Cancel',
-                confirmText: 'Open',
-                onConfirm: () => this.submitOpenEval(dataId)
-            });
-        },
-        submitOpenEval(dataId){
-            axios.post('/events-open-evaluation/' + dataId).then(res => {
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-        confirmCloseEval(dataId) {
-            this.$buefy.dialog.confirm({
-                title: 'Close?',
-                type: 'is-info',
-                message: 'Are you sure you want to close the evaluation?',
-                cancelText: 'Cancel',
-                confirmText: 'Open',
-                onConfirm: () => this.submitCloseEval(dataId)
-            });
-        },
-        submitCloseEval(dataId){
-            axios.post('/events-close-evaluation/' + dataId).then(res => {
-                this.loadAsyncData();
-            }).catch(err => {
-                if (err.response.status === 422) {
-                    this.errors = err.response.data.errors;
-                }
-            });
-        },
-
-        gotoListAttendee(dataId){
-            window.location = '/event-attendees/' + dataId
-        },
+        
 
         durationHours(stime, etime){
             let timeDifference =  etime - stime;

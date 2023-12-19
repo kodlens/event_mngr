@@ -42,13 +42,13 @@
                                         <b-input type="email" v-model="fields.email" icon="email"></b-input>
                                     </b-field>
                                 </div>
-                                <div class="column">
+                                <!-- <div class="column">
                                     <b-field label="Contact No."
                                              :type="this.errors.contact_no ? 'is-danger':''"
                                              :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
                                         <b-input type="text" v-model="fields.contact_no" icon=""></b-input>
                                     </b-field>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="columns">

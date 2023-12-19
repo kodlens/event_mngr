@@ -146,7 +146,7 @@
                             <template  #detail="props">
                                 <tr>
                                     <th>Email</th>
-                                    <th>Contact No.</th>
+                                    <!-- <th>Contact No.</th> -->
                                     <th>Department</th>
                                     <th>Approving Officer</th>
                                 </tr>
@@ -154,11 +154,11 @@
                                     <td>
                                         {{ props.row.email }}
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <span v-if="props.row.contact_no">
                                             {{ props.row.contact_no }}
                                         </span>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <span v-if="props.row.department">
                                             {{ props.row.department.code }}
@@ -260,7 +260,7 @@
                                 </div>
                             </div>
 
-                            <div class="columns">
+                            <!-- <div class="columns">
                                 <div class="column">
                                     <b-field label="Contact No." label-position="on-border"
                                              :type="this.errors.contact_no ? 'is-danger':''"
@@ -270,7 +270,7 @@
                                         </b-input>
                                     </b-field>
                                 </div>
-                            </div>
+                            </div> -->
 
 
 

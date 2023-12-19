@@ -137,57 +137,74 @@
                             </div>
 
                             <div class="columns">
-                            <div class="column">
-                                <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: red;">To update the image, just attach new image and the system will automatically remove the old save image.</p>
-                                <b-field label="Event Image (Landscape is recommended for better view)">
-                                    <b-upload v-model="fields.event_img"
-                                            drag-drop>
-                                        <section class="section">
-                                            <div class="content has-text-centered">
-                                                <p>
-                                                    <b-icon
-                                                        icon="upload"
-                                                        size="is-large">
-                                                    </b-icon>
-                                                </p>
-                                                <p>Drop your files here or click to upload</p>
-                                            </div>
-                                        </section>
-                                    </b-upload>
-                                </b-field>
+                                <div class="column">
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">To update the image, just attach new image and the system will automatically remove the old save image.</p>
+                                    <b-field label="Event Image (Landscape is recommended for better view)">
+                                        <b-upload v-model="fields.event_img"
+                                                drag-drop>
+                                            <section class="section">
+                                                <div class="content has-text-centered">
+                                                    <p>
+                                                        <b-icon
+                                                            icon="upload"
+                                                            size="is-large">
+                                                        </b-icon>
+                                                    </p>
+                                                    <p>Drop your files here or click to upload</p>
+                                                </div>
+                                            </section>
+                                        </b-upload>
+                                    </b-field>
 
-                                <div v-if="fields.event_img" class="tags">
-                                    <span class="tag is-primary">
-                                        {{ fields.event_img.name }}
-                                        <button class="delete is-small"
-                                            type="button"
-                                            @click="deleteDropFile(0)">
-                                        </button>
-                                    </span>
+                                    <div v-if="fields.event_img" class="tags">
+                                        <span class="tag is-primary">
+                                            {{ fields.event_img.name }}
+                                            <button class="delete is-small"
+                                                type="button"
+                                                @click="deleteDropFile(0)">
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="File Attachment"></b-field>
+                                    <b-field class="file is-primary" :class="{'has-name': !!fields.file}">
+                                        <b-upload v-model="fields.file" class="file-label">
+                                            <span class="file-cta">
+                                                <b-icon class="file-icon" icon="upload"></b-icon>
+                                                <span class="file-label">Click to attachment</span>
+                                            </span>
+                                            <span class="file-name" v-if="fields.file">
+                                                {{ fields.file.name }}
+                                            </span>
+                                        </b-upload>
+                                    </b-field>
+                                </div>
                             </div>
 
 
                             <div class="columns">
-                            <div class="column">
-                                <b-field label="Need Approval for Attendee?">
-                                    <b-radio-button v-model="fields.is_need_approval"
-                                        :native-value="0"
-                                        type="is-danger is-light is-outlined">
-                                        <b-icon icon="close"></b-icon>
-                                        <span>NO</span>
-                                    </b-radio-button>
+                                <div class="column">
+                                    <b-field label="Need Approval for Attendee?">
+                                        <b-radio-button v-model="fields.is_need_approval"
+                                            :native-value="0"
+                                            type="is-danger is-light is-outlined">
+                                            <b-icon icon="close"></b-icon>
+                                            <span>NO</span>
+                                        </b-radio-button>
 
-                                    <b-radio-button v-model="fields.is_need_approval"
-                                        :native-value="1"
-                                        type="is-success is-light is-outlined">
-                                        <b-icon icon="check"></b-icon>
-                                        <span>YES</span>
-                                    </b-radio-button>
+                                        <b-radio-button v-model="fields.is_need_approval"
+                                            :native-value="1"
+                                            type="is-success is-light is-outlined">
+                                            <b-icon icon="check"></b-icon>
+                                            <span>YES</span>
+                                        </b-radio-button>
 
-                                </b-field>
-                            </div>
+                                    </b-field>
+                                </div>
                             </div>
                             <hr>
                             <div class="buttons is-right">
@@ -247,6 +264,7 @@ export default {
                 event_content: null,
                 dateAndTime: null,
                 event_img: null,
+                file: null,
                 event_type_id: 0,
                 is_need_approval: 0
             },
@@ -293,6 +311,8 @@ export default {
             formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
 
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+            formData.append('file', this.fields.file ? this.fields.file : '');
+
             formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
             formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
             formData.append('event_time_from', from ? from : '');

@@ -139,7 +139,8 @@
                                 v-if="['ORGANIZER'].includes(propUser.role)"
                                 @click="gotoListAttendee(props.row.event_id)">
                                 <!-- List of Attendee -->
-                                No. of Attendee
+                                <!-- No. of Attendee -->
+                                View
                                 <b-icon icon="account" size="is-small"></b-icon>
                             </b-dropdown-item>
 

@@ -8877,144 +8877,6 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    //alert box ask for deletion
-    confirmDelete: function confirmDelete(delete_id) {
-      var _this2 = this;
-      this.$buefy.dialog.confirm({
-        title: 'DELETE!',
-        type: 'is-danger',
-        message: 'Are you sure you want to delete this data?',
-        cancelText: 'Cancel',
-        confirmText: 'Delete',
-        onConfirm: function onConfirm() {
-          return _this2.deleteSubmit(delete_id);
-        }
-      });
-    },
-    //execute delete after confirming
-    deleteSubmit: function deleteSubmit(delete_id) {
-      var _this3 = this;
-      axios["delete"]('/events/' + delete_id).then(function (res) {
-        _this3.loadAsyncData();
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this3.errors = err.response.data.errors;
-        }
-      });
-    },
-    //approve
-    confirmApprove: function confirmApprove(dataId) {
-      var _this4 = this;
-      this.$buefy.dialog.confirm({
-        title: 'APPROVE?',
-        type: 'is-info',
-        message: 'Approve this event?',
-        cancelText: 'Cancel',
-        confirmText: 'Approve',
-        onConfirm: function onConfirm() {
-          return _this4.submitApprove(dataId);
-        }
-      });
-    },
-    submitApprove: function submitApprove(dataId) {
-      var _this5 = this;
-      this.loading = true;
-      axios.post('/events-approve/' + dataId).then(function (res) {
-        if (res.data.status === 'approved') {
-          _this5.loadAsyncData();
-          _this5.loading = false;
-          _this5.$buefy.dialog.alert({
-            title: 'Approved',
-            type: 'is-info',
-            message: 'Event approved and notification was sent to the creator of the event and the participants.'
-          });
-        }
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this5.errors = err.response.data.errors;
-        }
-      });
-    },
-    confirmCancel: function confirmCancel(dataId) {
-      var _this6 = this;
-      this.$buefy.dialog.confirm({
-        title: 'Decline?',
-        type: 'is-info',
-        message: 'Decline this event?',
-        confirmText: 'Yes',
-        onConfirm: function onConfirm() {
-          return _this6.submitCancel(dataId);
-        }
-      });
-    },
-    submitCancel: function submitCancel(dataId) {
-      var _this7 = this;
-      this.loading = true;
-      axios.post('/events-cancel/' + dataId).then(function (res) {
-        if (res.data.status === 'declined') {
-          _this7.loadAsyncData();
-          _this7.loading = false;
-          _this7.$buefy.dialog.alert({
-            title: 'Declined',
-            type: 'is-info',
-            message: 'Event declined and notification was sent to the creator of the event.'
-          });
-        }
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this7.errors = err.response.data.errors;
-        }
-      });
-    },
-    confirmEval: function confirmEval(dataId) {
-      var _this8 = this;
-      this.$buefy.dialog.confirm({
-        title: 'Open?',
-        type: 'is-info',
-        message: 'Are you sure you want to open the evaluation?',
-        cancelText: 'Cancel',
-        confirmText: 'Open',
-        onConfirm: function onConfirm() {
-          return _this8.submitOpenEval(dataId);
-        }
-      });
-    },
-    submitOpenEval: function submitOpenEval(dataId) {
-      var _this9 = this;
-      axios.post('/events-open-evaluation/' + dataId).then(function (res) {
-        _this9.loadAsyncData();
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this9.errors = err.response.data.errors;
-        }
-      });
-    },
-    confirmCloseEval: function confirmCloseEval(dataId) {
-      var _this10 = this;
-      this.$buefy.dialog.confirm({
-        title: 'Close?',
-        type: 'is-info',
-        message: 'Are you sure you want to close the evaluation?',
-        cancelText: 'Cancel',
-        confirmText: 'Open',
-        onConfirm: function onConfirm() {
-          return _this10.submitCloseEval(dataId);
-        }
-      });
-    },
-    submitCloseEval: function submitCloseEval(dataId) {
-      var _this11 = this;
-      axios.post('/events-close-evaluation/' + dataId).then(function (res) {
-        _this11.loadAsyncData();
-      })["catch"](function (err) {
-        if (err.response.status === 422) {
-          _this11.errors = err.response.data.errors;
-        }
-      });
-    },
-    gotoListAttendee: function gotoListAttendee(dataId) {
-      window.location = '/event-attendees/' + dataId;
-    },
     durationHours: function durationHours(stime, etime) {
       var timeDifference = etime - stime;
       // Convert milliseconds to hours
@@ -9023,16 +8885,16 @@ __webpack_require__.r(__webpack_exports__);
       return result + 'hour(s)';
     },
     undoArchive: function undoArchive() {
-      var _this12 = this;
+      var _this2 = this;
       axios.post('/undo-archive-events', {
         data: this.checkedRows
       }).then(function (res) {
         if (res.data.status === 'undo') {
-          _this12.$buefy.toast.open({
+          _this2.$buefy.toast.open({
             message: 'Events archive successfully',
             type: 'is-success'
           });
-          _this12.loadAsyncData();
+          _this2.loadAsyncData();
         }
       })["catch"](function (err) {});
     }
@@ -9364,6 +9226,7 @@ __webpack_require__.r(__webpack_exports__);
         event_content: null,
         dateAndTime: null,
         event_img: null,
+        file: null,
         event_type_id: 0,
         is_need_approval: 0
       },
@@ -9395,6 +9258,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
       formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
       formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
+      formData.append('file', this.fields.file ? this.fields.file : '');
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
       formData.append('event_time_from', from ? from : '');
@@ -11119,7 +10983,7 @@ var render = function render() {
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "department",
-      label: "Question"
+      label: "Department"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -13048,16 +12912,7 @@ var render = function render() {
         }, [_vm._v("CLOSE")])];
       }
     }])
-  })], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
-    staticClass: "buttons mt-3"
-  }, [_c("b-button", {
-    staticClass: "is-primary is-outlined",
-    attrs: {
-      tag: "a",
-      href: "/events/create",
-      "icon-right": "calendar"
-    }
-  }, [_vm._v("NEW")])], 1) : _vm._e()], 1);
+  })], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -13380,7 +13235,7 @@ var render = function render() {
               return _vm.gotoListAttendee(props.row.event_id);
             }
           }
-        }, [_vm._v("\n                            No. of Attendee\n                            "), _c("b-icon", {
+        }, [_vm._v("\n                            View\n                            "), _c("b-icon", {
           attrs: {
             icon: "account",
             size: "is-small"
@@ -13479,7 +13334,7 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 2375947977)
+    }], null, false, 1714376716)
   }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
@@ -13786,7 +13641,7 @@ var render = function render() {
     staticStyle: {
       "font-size": "10px",
       "font-weight": "bold",
-      color: "red"
+      color: "rgb(44, 44, 44)"
     }
   }, [_vm._v("To update the image, just attach new image and the system will automatically remove the old save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
@@ -13816,7 +13671,7 @@ var render = function render() {
     staticClass: "tags"
   }, [_c("span", {
     staticClass: "tag is-primary"
-  }, [_vm._v("\n                                    " + _vm._s(_vm.fields.event_img.name) + "\n                                    "), _c("button", {
+  }, [_vm._v("\n                                        " + _vm._s(_vm.fields.event_img.name) + "\n                                        "), _c("button", {
     staticClass: "delete is-small",
     attrs: {
       type: "button"
@@ -13827,6 +13682,39 @@ var render = function render() {
       }
     }
   })])]) : _vm._e()], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "File Attachment"
+    }
+  }), _vm._v(" "), _c("b-field", {
+    staticClass: "file is-primary",
+    "class": {
+      "has-name": !!_vm.fields.file
+    }
+  }, [_c("b-upload", {
+    staticClass: "file-label",
+    model: {
+      value: _vm.fields.file,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "file", $$v);
+      },
+      expression: "fields.file"
+    }
+  }, [_c("span", {
+    staticClass: "file-cta"
+  }, [_c("b-icon", {
+    staticClass: "file-icon",
+    attrs: {
+      icon: "upload"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "file-label"
+  }, [_vm._v("Click to attachment")])], 1), _vm._v(" "), _vm.fields.file ? _c("span", {
+    staticClass: "file-name"
+  }, [_vm._v("\n                                            " + _vm._s(_vm.fields.file.name) + "\n                                        ")]) : _vm._e()])], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -14721,7 +14609,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Contact No.")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Approving Officer")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.contact_no ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.contact_no) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.ao ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.ao.lname) + ", " + _vm._s(props.row.ao.fname) + " " + _vm._s(props.row.ao.mname) + "\n                                        ")]) : _vm._e()])])];
+        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Approving Officer")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.ao ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.ao.lname) + ", " + _vm._s(props.row.ao.fname) + " " + _vm._s(props.row.ao.mname) + "\n                                        ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -15062,28 +14950,6 @@ var render = function render() {
         _vm.$set(_vm.fields, "suffix", $$v);
       },
       expression: "fields.suffix"
-    }
-  })], 1)], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "columns"
-  }, [_c("div", {
-    staticClass: "column"
-  }, [_c("b-field", {
-    attrs: {
-      label: "Contact No.",
-      "label-position": "on-border",
-      type: this.errors.contact_no ? "is-danger" : "",
-      message: this.errors.contact_no ? this.errors.contact_no[0] : ""
-    }
-  }, [_c("b-input", {
-    attrs: {
-      placeholder: "Contact No."
-    },
-    model: {
-      value: _vm.fields.contact_no,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "contact_no", $$v);
-      },
-      expression: "fields.contact_no"
     }
   })], 1)], 1)]), _vm._v(" "), _vm.global_id < 1 ? _c("div", {
     staticClass: "columns"
@@ -15925,26 +15791,6 @@ var render = function render() {
         _vm.$set(_vm.fields, "email", $$v);
       },
       expression: "fields.email"
-    }
-  })], 1)], 1), _vm._v(" "), _c("div", {
-    staticClass: "column"
-  }, [_c("b-field", {
-    attrs: {
-      label: "Contact No.",
-      type: this.errors.contact_no ? "is-danger" : "",
-      message: this.errors.contact_no ? this.errors.contact_no[0] : ""
-    }
-  }, [_c("b-input", {
-    attrs: {
-      type: "text",
-      icon: ""
-    },
-    model: {
-      value: _vm.fields.contact_no,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "contact_no", $$v);
-      },
-      expression: "fields.contact_no"
     }
   })], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
