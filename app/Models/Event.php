@@ -20,12 +20,13 @@ class Event extends Model
         'event',
         'event_content',
         'if_others',
-        'event_datetime',
-
-        'event_date',
+  
+        'event_date_from',
         'event_date_to',
+
         'event_time_from',
         'event_time_to',
+
         'img_path',
         'file_path',
 
@@ -59,5 +60,10 @@ class Event extends Model
         return $this->hasOne(EventVenue::class, 'event_venue_id', 'event_venue_id');
     }
 
+    public function approving_officer(){
+        return $this->hasOne(User::class, 'user_id', 'ao_user_id');
+    }
+
+    
 
 }

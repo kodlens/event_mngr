@@ -77,7 +77,7 @@ Vue.component(VueQrcode.name, VueQrcode);
 
 Vue.filter('formatTime', function(value) {
     var timeString = value;
-    var H = +timeString.substr(0, 2);
+    var H = + timeString.substr(0, 2);
     var h = (H % 12) || 12;
     var ampm = H < 12 ? " AM" : " PM";
     timeString = h + timeString.substr(2, 3) + ampm;

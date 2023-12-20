@@ -54,7 +54,7 @@ class UserController extends Controller
             'qr_code' => strtoupper($qr_code),
             'username' => $req->username,
             'password' => Hash::make($req->password),
-            'lname' => strtoupper($req->lname),
+        'lname' => strtoupper($req->lname),
             'fname' => strtoupper($req->fname),
             'mname' => strtoupper($req->mname),
             'suffix' => strtoupper($req->suffix),
@@ -63,7 +63,6 @@ class UserController extends Controller
             'email' => $req->email,
             'role' => $req->role,
             'department_id' => $req->department_id,
-            'ao_user_id' => $req->ao_user_id,
             //'active' => $req->active
         ]);
 
@@ -97,7 +96,6 @@ class UserController extends Controller
         $data->email = $req->email;
         $data->role = $req->role;
         $data->department_id = $req->department_id;
-        $data->ao_user_id = $req->ao_user_id;
 
         //$data->active = $req->active;
         $data->save();

@@ -13,7 +13,7 @@
                             {{ event.event }}
                         </div>
                         <div class="event-date">
-                            EVENT DATE: {{ new Date(event.event_date).toLocaleString('default', {month:'long', day:'numeric', year:'numeric'}) }}
+                            EVENT DATE: {{ new Date(event.event_date_from).toLocaleString('default', {month:'long', day:'numeric', year:'numeric'}) }}
                         </div>
                         <div class="event-date">
                             FROM: {{ new Date('2023-01-01 ' + event.event_time_from).toLocaleTimeString() }}

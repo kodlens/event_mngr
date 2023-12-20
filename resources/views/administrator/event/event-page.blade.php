@@ -2,6 +2,6 @@
 
 @section('content')
     @auth()
-        <event-page :prop-user='{{ Auth::user() }}'></event-page>
+        <event-page :prop-user='@json(Auth::user())'></event-page>
     @endauth
 @endsection

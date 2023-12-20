@@ -345,7 +345,7 @@
                                     </b-field>
                                 </div>
                             </div>
-                            <div class="columns" v-if="fields.role === 'ORGANIZER'">
+                            <!-- <div class="columns" v-if="fields.role === 'ORGANIZER'">
                                 <div class="column">
                                     <b-field label="Select Approving Officer"
                                              expanded
@@ -361,7 +361,7 @@
                                         </b-select>
                                     </b-field>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </section>
                     <footer class="modal-card-foot">

@@ -280,6 +280,8 @@ export default {
                 event_description: null,
                 event_content: null,
                 dateAndTime: null,
+                event_date_from: new Date(),
+                event_date_to: new Date(),
                 event_img: null,
                 file: null,
                 event_type_id: 0,

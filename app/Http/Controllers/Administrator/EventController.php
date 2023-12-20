@@ -39,20 +39,18 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department'])
+        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department', 'approving_officer'])
             ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1]);
 
-        if(in_array($role, ['ORGANIZER', 'STUDENT', 'ATTENDEE'])){
-            $event->where('user_id', 'like', $user->user_id);
+        if(in_array($role, ['REQUESTING PARTY'])){
+            $event->where('user_id', $user->user_id);
         }
 
-        if(in_array($role, ['EVENT OFFICER'])){
-            $event->whereHas('user', function($q)use($user){
-                $q->where('ao_user_id', $user->user_id);
-            });
+        if(in_array($role, ['APPROVING OFFICER'])){
+            $event->where('ao_user_id', $user->user_id);
         }
 
 
@@ -62,6 +60,7 @@ class EventController extends Controller
     public function getArchiveEvents(Request $req){
         $acadYear = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
+
         $role = $user->role;
 
         $sort = explode('.', $req->sort_by);
@@ -72,9 +71,13 @@ class EventController extends Controller
             ->where('academic_year_id', $acadYear->academic_year_id)
             ->orderBy($sort[0], $sort[1]);
 
-        if(in_array($role, ['ORGANIZER', 'STUDENT', 'ATTENDEE'])){
-            $event->where('user_id', 'like', $user->user_id);
-        }
+        // if(in_array($role, ['REQUESTING PARTY'])){
+        //     $event->where('user_id', $user->user_id);
+        // }
+
+        // if(in_array($role, ['APPROVING OFFICER'])){
+        //     $event->where('ao_user_id', $user->user_id);
+        // }
 
         return $event->paginate($req->perpage);
     }
@@ -98,19 +101,20 @@ class EventController extends Controller
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
-        $event_date = date('Y-m-d', strtotime($req->event_date));
+        $event_date_from = date('Y-m-d', strtotime($req->event_date_from));
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
         $eventFrom = date('H:i:s', strtotime($req->event_time_from));
         $eventTo = date('H:i:s', strtotime($req->event_time_to));
 
+
         $req->validate([
             'event' => ['required'],
             'event_content' => ['required'],
-            'event_date' => ['required'],
+            'event_date_from' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
             'event_type_id' => ['required'],
-            'event_venue_id' => ['required', new DetectConflictRule($event_date, $event_date_to, $eventFrom, $eventTo, 0)]
+            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, 0)]
         ]);
 
         $n = [];
@@ -129,7 +133,7 @@ class EventController extends Controller
             $nFile = explode('/', $pathFile); //split into array using /
         }
 
-        Event::create([
+        $data = Event::create([
             'academic_year_id' => $ay->academic_year_id,
             'user_id' => $user->user_id,
             'event_type_id' => $req->event_type_id,
@@ -139,17 +143,15 @@ class EventController extends Controller
             'if_others' => strtoupper($req->if_others),
             'event_date_from' => $event_date_from,
             'event_date_to' => $event_date_to,
-
             'event_time_from' => $eventFrom,
             'event_time_to' => $eventTo,
             'img_path' => $req->hasFile('event_img') ? $n[2] : '',
             'file_path' => $req->hasFile('file') ? $nFile[2] : '',
 
             'is_need_approval' => $req->is_need_approval,
+            'ao_user_id' => $req->ao_user_id,
         ]);
         
-
-        return $req;
 
         return response()->json([
             'status' => 'saved'
@@ -162,7 +164,7 @@ class EventController extends Controller
         $ay = AcademicYear::where('active', 1)->first();
 
         //format the date
-        $event_date = date('Y-m-d', strtotime($req->event_date));
+        $event_date_from = date('Y-m-d', strtotime($req->event_date_from));
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
         $eventFrom = date('H:i:s', strtotime($req->event_time_from));
         $eventTo = date('H:i:s', strtotime($req->event_time_to));
@@ -170,11 +172,11 @@ class EventController extends Controller
         $req->validate([
             'event' => ['required'],
             'event_content' => ['required'],
-            'event_date' => ['required'],
+            'event_date_from' => ['required'],
             'event_type_id' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
-            'event_venue_id' => ['required', new DetectConflictRule($event_date, $event_date_to, $eventFrom, $eventTo, $id)]
+            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, $id)]
 
         ]);
 
@@ -197,7 +199,7 @@ class EventController extends Controller
         $data->event_type_id = $req->event_type_id;
         $data->event_venue_id = $req->event_venue_id;
         $data->event_content = $req->event_content;
-        $data->event_date = $event_date;
+        $data->event_date_from = $event_date_from;
         $data->event_date_to = $event_date_to;
         $data->event_time_from = $eventFrom;
         $data->event_time_to = $eventTo;
@@ -213,7 +215,7 @@ class EventController extends Controller
 
         if(Env::get('MAIL_OPEN') == 1){
             Mail::to($data->user->email)
-                ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date, $eventFrom, $eventTo));
+                ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date_from, $eventFrom, $eventTo));
         }
 
         return response()->json([

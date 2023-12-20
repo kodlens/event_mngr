@@ -4,7 +4,6 @@
             <div class="columns is-centered">
                 <div class="column is-12">
                     <div class="box">
-
                         
                         <b-tabs v-model="activeTab">
                             <b-tab-item label="Events">
@@ -12,12 +11,12 @@
                             </b-tab-item>
 
                             <b-tab-item label="Archive Events" v-if="['ADMINISTRATOR'].includes(propUser.role)">
-                                <event-archive-list :prop-user="propUser"></event-archive-list>
+                                <event-archive-list :prop-user="propUser" ></event-archive-list>
                             </b-tab-item>
 
+                            <!--  :prop-user="propUser" -->
                         </b-tabs>
 
-                        
                     </div>
                 </div><!--col -->
             </div><!-- cols -->
@@ -33,7 +32,11 @@ export default{
     props: {
         propUser:{
             type: Object,
-            default: {}
+            default: function () {
+                return {
+                    // default properties for the object
+                };
+            }
         },
     },
 
@@ -41,6 +44,7 @@ export default{
     data() {
         return{
             activeTab: 0,
+
         }
 
     },
@@ -50,7 +54,6 @@ export default{
     },
 
     mounted() {
-        
     }
 
 

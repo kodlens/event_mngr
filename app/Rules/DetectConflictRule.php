@@ -8,7 +8,7 @@ use App\Models\Event;
 class DetectConflictRule implements Rule
 {
 
-    private  $eventDate, $eventDateTo, $startTime, $endTime, $data;
+    private  $eventDateFrom, $eventDateTo, $startTime, $endTime, $data;
 
     /**
      * Create a new rule instance.
@@ -16,7 +16,7 @@ class DetectConflictRule implements Rule
      * @return void
      */
     public function __construct(
-        $eventDate,
+        $eventDateFrom,
         $eventDateTo,
         $startTime,
         $endTime,
@@ -24,7 +24,7 @@ class DetectConflictRule implements Rule
     )
     {
         //
-        $this->eventDate = $eventDate;
+        $this->eventDateFrom = $eventDateFrom;
         $this->eventDateTo = $eventDateTo;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
@@ -43,18 +43,18 @@ class DetectConflictRule implements Rule
         //
         $sTime = $this->startTime;
         $eTime = $this->endTime;
-        $eventDate = $this->eventDate;
+        $eventDateFrom = $this->eventDateFrom;
         $eventDateTo = $this->eventDateTo;
 
         //separate logic for edit and create
         if($this->id > 0){
-            $data = Event::where(function($query) use ($sTime, $eTime, $eventDate, $eventDateTo){
+            $data = Event::where(function($query) use ($sTime, $eTime, $eventDateFrom, $eventDateTo){
                 $query->whereBetween('event_time_from', [$sTime, $eTime])
                     ->orWhereBetween('event_time_to', [$sTime, $eTime]);
             })
-            ->where(function($query) use ($sTime, $eTime){
-                $query->whereBetween('event_date', [$eventDate, $eventDateTo])
-                    ->orWhereBetween('event_time_to', [$eventDate, $eventDateTo]);
+            ->where(function($query) use ($eventDateFrom, $eventDateTo){
+                $query->whereBetween('event_date_from', [$eventDateFrom, $eventDateTo])
+                    ->orWhereBetween('event_time_to', [$eventDateFrom, $eventDateTo]);
             })
             //->where('event_date', $eventDate)
             ->where('event_id','!=', $this->id)
@@ -64,7 +64,10 @@ class DetectConflictRule implements Rule
                 $query->whereBetween('event_time_from', [$sTime, $eTime])
                     ->orWhereBetween('event_time_to', [$sTime, $eTime]);
             })
-            ->where('event_date', $eventDate)
+            ->where(function($query) use ($eventDateFrom, $eventDateTo){
+                $query->whereBetween('event_date_from', [$eventDateFrom, $eventDateTo])
+                    ->orWhereBetween('event_time_to', [$eventDateFrom, $eventDateTo]);
+            })
             ->where('event_venue_id', $value);
         }
 

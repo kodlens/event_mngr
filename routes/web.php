@@ -162,7 +162,7 @@ Route::middleware(['verified', 'attendee'])->group(function() {
 
 //other
 Route::middleware(['verified'])->group(function() {
-    Route::get('/load-approving-officers', [App\Http\Controllers\Administrator\UserController::class, 'loadApprovingOfficers']);
+    Route::get('/load-approving-officers', [App\Http\Controllers\Administrator\AdminOpenController::class, 'loadApprovingOfficers']);
 
 });
 
