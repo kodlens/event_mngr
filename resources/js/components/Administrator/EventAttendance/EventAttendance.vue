@@ -6,7 +6,7 @@
                     <div class="box">
 
                         <div class="is-flex is-justify-content-center mb-2"
-                            style="font-size: 20px; font-weight: bold;">LIST OF PARTICIPANT ATTENDANCES</div>
+                            style="font-size: 20px; font-weight: bold;">LIST OF ATTENDEES</div>
                         <hr>
                         
 

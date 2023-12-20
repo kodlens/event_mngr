@@ -31,6 +31,7 @@ class CreateEventsTable extends Migration
             $table->time('event_time_from')->nullable();
             $table->time('event_time_to')->nullable();
             $table->string('img_path')->default('');
+            $table->string('file_path')->default('');
             $table->tinyInteger('approval_status')->default(0);
             $table->tinyInteger('is_open')->default(0);
             $table->tinyInteger('is_need_approval')->default(0);
@@ -41,7 +42,11 @@ class CreateEventsTable extends Migration
 
 
             $table->tinyInteger('is_archive')->default(0);
-            $table->date('archive_date')->nullable();
+                    $table->date('archive_date')->nullable();
+
+            $table->unsignedBigInteger('ao_user_id')->nullable()
+                ->default(0);
+
 
             $table->timestamps();
         });

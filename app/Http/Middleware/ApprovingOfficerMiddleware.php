@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class OrganizerMiddleware
+class ApprovingOfficerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,8 @@ class OrganizerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
         $role = Auth::user()->role;
-        if($role === 'ORGANIZER' || $role === 'ADMINISTRATOR'){
+        if(in_array($role, ['APPROVING OFFICER', 'REQUESTING PARTY', 'ADMINISTRATOR', 'ADMINSTAFF'])){
 
             $response = $next($request);
             $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -30,7 +29,5 @@ class OrganizerMiddleware
         }
 
         abort(403);
-
-
     }
 }

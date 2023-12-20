@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'MALE',
                 'email' => 'markanthony.prieto@nmsc.edu.ph',
-                'role' => 'ORGANIZER',
+                'role' => 'REQUESTING PARTY',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'sheen.delosa@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'ATTENDEE',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'cherryl.gallego@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'ATTENDEE',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'MALE',
                 'email' => 'juan@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'ATTENDEE',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -101,7 +101,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'jane@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'ATTENDEE',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -115,7 +115,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'jenny@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'ATTENDEE',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
@@ -129,13 +129,13 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'rhea@nmsc.edu.ph',
-                'role' => 'STUDENT',
+                'role' => 'APPROVING OFFICER',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1
             ],
 
-
+           
 
         ];
 

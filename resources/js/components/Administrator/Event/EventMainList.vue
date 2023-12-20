@@ -116,11 +116,11 @@
                     <span v-else-if="props.row.approval_status === 2" class="no">DECLINED</span>
                 </b-table-column>
 
-
-                <b-table-column field="approval_status" label="Evaluation" v-slot="props">
+                <!-- 
+                <b-table-column field="is_open" label="Evaluation" v-slot="props">
                     <span v-if="props.row.is_open === 1" class="yes">OPEN</span>
                     <span v-else class="no">CLOSE</span>
-                </b-table-column>
+                </b-table-column> -->
 
                 <b-table-column label="Action" v-slot="props" v-if="propUser.role != 'ADMINISTRATOR'">
                     <div class="is-flex">

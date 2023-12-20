@@ -101,16 +101,18 @@ Route::middleware(['verified', 'adminstaff'])->group(function() {
 
 });
 
-/*     organizer          */
-Route::middleware(['verified', 'event_officer'])->group(function() {
 
-    Route::resource('/dashboard', App\Http\Controllers\Administrator\DashboardController::class);
+Route::get('/dashboard', [App\Http\Controllers\Administrator\DashboardController::class,'index']);
+
+
+
+/*     organizer          */
+Route::middleware(['verified', 'ao'])->group(function() {
+
 
     Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
     Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
     Route::post('/academic-year-set-active/{id}', [App\Http\Controllers\Administrator\AcademicYearController::class, 'setActive']);
-
-
 
     Route::resource('/events', App\Http\Controllers\Administrator\EventController::class);
     Route::post('/events-update/{id}', [App\Http\Controllers\Administrator\EventController::class, 'updateEvent']);
@@ -118,7 +120,6 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::get('/get-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'getArchiveEvents']);
     Route::post('/archive-events', [App\Http\Controllers\Administrator\EventController::class, 'archiveEvents']);
     Route::post('/undo-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'undoArchive']);
-
 
 
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
@@ -130,7 +131,6 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::get('/get-event-attendees', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'getEventAttendees']);
     Route::post('/event-attendees-approve/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'approveAttendee']);
     Route::post('/event-attendees-decline/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'declineAttendee']);
-
 
 
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
@@ -145,13 +145,12 @@ Route::middleware(['verified', 'event_officer'])->group(function() {
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
 
-
 });
 /*     organizer          */
 
 
 
-Route::middleware(['verified', 'student'])->group(function() {
+Route::middleware(['verified', 'attendee'])->group(function() {
     Route::resource('/event-feeds', App\Http\Controllers\User\UserEventFeedController::class);
     Route::get('/load-event-feeds', [App\Http\Controllers\User\UserEventFeedController::class, 'loadEventFeeds']);
 

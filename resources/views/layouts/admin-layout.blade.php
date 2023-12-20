@@ -46,9 +46,10 @@
                     Home
                 </b-navbar-item>
                 <b-navbar-dropdown label="Setting">
-                    <b-navbar-item href="academic-years">
+                    <b-navbar-item href="/academic-years">
                         Academic Years
                     </b-navbar-item>
+
                     <b-navbar-item href="/questions">
                         Questions
                     </b-navbar-item>
@@ -103,7 +104,7 @@
                 </b-navbar-item>
 
                 <b-navbar-dropdown label="Setting">
-                    <b-navbar-item href="academic-years">
+                    <b-navbar-item href="/academic-years">
                         Academic Years
                     </b-navbar-item>
                    

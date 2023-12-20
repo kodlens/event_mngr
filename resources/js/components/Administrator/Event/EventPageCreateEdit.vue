@@ -256,7 +256,7 @@ export default {
             },
             event_content: null,
 
-
+            approvingOfficers: [],
 
             fields: {
                 event: null,
@@ -419,6 +419,11 @@ export default {
             axios.get('/load-event-venues').then(res=>{
                 this.venues = res.data
             })
+        },
+        loadApprovingOfficers(){
+            axios.get('/load-approving-officers/').then(res=> {
+                this.approvingOfficers = res.data
+            });
         }
 
 
@@ -427,6 +432,7 @@ export default {
     mounted(){
         this.loadEventTypes()
         this.loadEventVenues()
+        this.loadApprovingOfficers()
 
         if(this.propId > 0){
             this.getData()

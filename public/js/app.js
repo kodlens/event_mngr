@@ -9220,6 +9220,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       event_content: null,
+      approvingOfficers: [],
       fields: {
         event: null,
         event_description: null,
@@ -9347,11 +9348,18 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-event-venues').then(function (res) {
         _this3.venues = res.data;
       });
+    },
+    loadApprovingOfficers: function loadApprovingOfficers() {
+      var _this4 = this;
+      axios.get('/load-approving-officers/').then(function (res) {
+        _this4.approvingOfficers = res.data;
+      });
     }
   },
   mounted: function mounted() {
     this.loadEventTypes();
     this.loadEventVenues();
+    this.loadApprovingOfficers();
     if (this.propId > 0) {
       this.getData();
     }
@@ -10041,12 +10049,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (err) {
         _this9.errors = err.response.data.errors;
-      });
-    },
-    loadApprovingOfficers: function loadApprovingOfficers() {
-      var _this10 = this;
-      axios.get('/load-approving-officers/').then(function (res) {
-        _this10.approvingOfficers = res.data;
       });
     }
   },
@@ -11423,7 +11425,7 @@ var render = function render() {
       "font-size": "20px",
       "font-weight": "bold"
     }
-  }, [_vm._v("LIST OF PARTICIPANT ATTENDANCES")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+  }, [_vm._v("LIST OF ATTENDEES")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13183,21 +13185,6 @@ var render = function render() {
         }, [_vm._v("DECLINED")]) : _vm._e()];
       }
     }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
-      field: "approval_status",
-      label: "Evaluation"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [props.row.is_open === 1 ? _c("span", {
-          staticClass: "yes"
-        }, [_vm._v("OPEN")]) : _c("span", {
-          staticClass: "no"
-        }, [_vm._v("CLOSE")])];
-      }
-    }])
   }), _vm._v(" "), _vm.propUser.role != "ADMINISTRATOR" ? _c("b-table-column", {
     attrs: {
       label: "Action"
@@ -14686,7 +14673,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [props.row.role === "ADMINISTRATOR" ? _c("span", [_vm._v("ADMINISTRATOR")]) : _vm._e(), _vm._v(" "), props.row.role === "EVENT OFFICER" ? _c("span", [_vm._v("APPROVING OFFICER")]) : _vm._e(), _vm._v(" "), props.row.role === "ORGANIZER" ? _c("span", [_vm._v("REQUESTING PARTY")]) : _vm._e(), _vm._v(" "), props.row.role === "STUDENT" ? _c("span", [_vm._v("PARTICIPANTS")]) : _vm._e()];
+        return [props.row.role === "ADMINISTRATOR" ? _c("span", [_vm._v("ADMINISTRATOR")]) : _vm._e(), _vm._v(" "), props.row.role === "APPROVING OFFICER" ? _c("span", [_vm._v("APPROVING OFFICER")]) : _vm._e(), _vm._v(" "), props.row.role === "REQUESTING PARTY" ? _c("span", [_vm._v("REQUESTING PARTY")]) : _vm._e(), _vm._v(" "), props.row.role === "ATTENDEE" ? _c("span", [_vm._v("ATTENDEE")]) : _vm._e()];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -15111,17 +15098,17 @@ var render = function render() {
     }
   }, [_vm._v("ADMINISTRATOR")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "EVENT OFFICER"
+      value: "APPROVING OFFICER"
     }
   }, [_vm._v("APPROVING OFFICER")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "ORGANIZER"
+      value: "REQUESTING PARTY"
     }
   }, [_vm._v("REQUESTING PARTY")]), _vm._v(" "), _c("option", {
     attrs: {
-      value: "STUDENT"
+      value: "ATTENDEE"
     }
-  }, [_vm._v("PARTICIPANTS")])])], 1)], 1)]), _vm._v(" "), _vm.fields.role === "ORGANIZER" ? _c("div", {
+  }, [_vm._v("ATTENDEE")])])], 1)], 1)]), _vm._v(" "), _vm.fields.role === "ORGANIZER" ? _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"

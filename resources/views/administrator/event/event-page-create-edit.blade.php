@@ -4,10 +4,10 @@
 
     @if($id > 0)
         <event-page-create-edit :prop-id="{{ $id }}"
-                                :prop-data='@json($data)'></event-page-create-edit>
+            :prop-data='@json($data)'></event-page-create-edit>
     @else
         <event-page-create-edit :prop-id="0"
-                                :prop-data='{}'></event-page-create-edit>
+            :prop-data='{}'></event-page-create-edit>
     @endif
 
 

@@ -94,6 +94,7 @@ class EventController extends Controller
 
 
     public function store(Request $req){
+        return $req;
 
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
@@ -119,6 +120,12 @@ class EventController extends Controller
             $n = explode('/', $pathFile); //split into array using /
         }
 
+        $nFile = [];
+        if($req->hasFile('file')) {
+            $pathFile = $req->file->store('public/files'); //get path of the file
+            $nFile = explode('/', $pathFile); //split into array using /
+        }
+
         Event::create([
             'academic_year_id' => $ay->academic_year_id,
             'user_id' => $user->user_id,
@@ -133,6 +140,8 @@ class EventController extends Controller
             'event_time_from' => $eventFrom,
             'event_time_to' => $eventTo,
             'img_path' => $req->hasFile('event_img') ? $n[2] : '',
+            'file_path' => $req->hasFile('file') ? $nFile[2] : '',
+
             'is_need_approval' => $req->is_need_approval,
         ]);
 

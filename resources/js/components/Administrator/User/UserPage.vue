@@ -92,9 +92,9 @@
                             <b-table-column field="role" label="User Type" v-slot="props">
                                 <span v-if="props.row.role === 'ADMINISTRATOR'">ADMINISTRATOR</span>
 <!--                                <span v-if="props.row.role === 'ADMINSTAFF'">ADMINSTAFF</span>-->
-                                <span v-if="props.row.role === 'EVENT OFFICER'">APPROVING OFFICER</span>
-                                <span v-if="props.row.role === 'ORGANIZER'">REQUESTING PARTY</span>
-                                <span v-if="props.row.role === 'STUDENT'">PARTICIPANTS</span>
+                                <span v-if="props.row.role === 'APPROVING OFFICER'">APPROVING OFFICER</span>
+                                <span v-if="props.row.role === 'REQUESTING PARTY'">REQUESTING PARTY</span>
+                                <span v-if="props.row.role === 'ATTENDEE'">ATTENDEE</span>
                             </b-table-column>
 
 
@@ -338,9 +338,9 @@
                                             @input="loadApprovingOfficers">
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
 <!--                                            <option value="ADMINSTAFF">ADMINSTAFF</option>-->
-                                            <option value="EVENT OFFICER">APPROVING OFFICER</option>
-                                            <option value="ORGANIZER">REQUESTING PARTY</option>
-                                            <option value="STUDENT">PARTICIPANTS</option>
+                                            <option value="APPROVING OFFICER">APPROVING OFFICER</option>
+                                            <option value="REQUESTING PARTY">REQUESTING PARTY</option>
+                                            <option value="ATTENDEE">ATTENDEE</option>
                                         </b-select>
                                     </b-field>
                                 </div>
@@ -710,11 +710,6 @@ export default{
             })
         },
 
-        loadApprovingOfficers(){
-            axios.get('/load-approving-officers/').then(res=> {
-                this.approvingOfficers = res.data
-            });
-        }
 
     },
 

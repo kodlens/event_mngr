@@ -26,15 +26,12 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 $role = Auth::user()->role;
 
-                if($role === 'ADMINISTRATOR' || $role === 'ADMINSTAFF'){
+                if(in_array($role, ['ADMINISTRATOR', 'ADMINSTAFF', 'REQUESTING PARTY', 'APPROVING OFFICER'])){
                     return redirect('/dashboard');
                 }
+               
 
-                if($role === 'ORGANIZER' || $role === 'EVENT OFFICER'){
-                    return redirect('/dashboard');
-                }
-
-                if($role === 'STUDENT'){
+                if($role === 'ATTENDEE'){
                     return redirect('/event-feeds');
                 }
 
