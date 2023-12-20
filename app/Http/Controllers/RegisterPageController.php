@@ -42,7 +42,7 @@ class RegisterPageController extends Controller
             'suffix' => strtoupper($req->suffix),
             'sex' => $req->sex,
             'contact_no' => $req->contact_no,
-            'role' => 'STUDENT',
+            'role' => 'ATTENDEE',
             'department_id' => $req->department_id,
             'active' => 0
             // 'province' => $req->province,
