@@ -136,7 +136,7 @@
                             </template>
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['ORGANIZER'].includes(propUser.role)"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
                                 @click="gotoListAttendee(props.row.event_id)">
                                 <!-- List of Attendee -->
                                 <!-- No. of Attendee -->
@@ -145,14 +145,14 @@
                             </b-dropdown-item>
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmApprove(props.row.event_id)">
                                 Approve
                                 <b-icon icon="thumb-up-outline" size="is-small"></b-icon>
                             </b-dropdown-item>
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmCancel(props.row.event_id)">
                                 Disapprove
                                 <b-icon icon="cancel" size="is-small"></b-icon>
@@ -160,14 +160,14 @@
 
                             <!-- 2 edit separaate logic -->
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 tag="a"
                                 :href="`/events/${props.row.event_id}/edit`">
                                 Edit
                                 <b-icon icon="pencil" size="is-small"></b-icon>
                             </b-dropdown-item>
                             <b-dropdown-item aria-role="listitem"
-                                 v-if="['ORGANIZER'].includes(propUser.role) && props.row.approval_status === 0"
+                                 v-if="['REQUESTING PARTY'].includes(propUser.role) && props.row.approval_status === 0"
                                  tag="a"
                                  :href="`/events/${props.row.event_id}/edit`">
                                 Edit
@@ -177,20 +177,20 @@
 
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmEval(props.row.event_id)">
                                 Open Evaluation
                                 <b-icon icon="open-in-app" size="is-small"></b-icon>
                             </b-dropdown-item>
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['EVENT OFFICER'].includes(propUser.role)"
+                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmCloseEval(props.row.event_id)">
                                 Close Evaluation
                                 <b-icon icon="close" size="is-small"></b-icon>
                             </b-dropdown-item>
 
                             <b-dropdown-item aria-role="listitem"
-                            v-if="['EVENT OFFICER'].includes(propUser.role)"
+                            v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmDelete(props.row.event_id)">
                                 Delete
                                 <b-icon icon="delete" size="is-small"></b-icon>
@@ -229,7 +229,7 @@
 
             <hr>
 
-            <div class="buttons mt-3" v-if="['ORGANIZER'].includes(propUser.role)">
+            <div class="buttons mt-3" v-if="['REQUESTING PARTY'].includes(propUser.role)">
                 <b-button tag="a"
                     href="/events/create"
                     icon-right="calendar" class="is-primary is-outlined">NEW</b-button>

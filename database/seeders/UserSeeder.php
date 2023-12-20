@@ -115,7 +115,7 @@ class UserSeeder extends Seeder
                 'suffix' => '',
                 'sex' => 'FEMALE',
                 'email' => 'jenny@nmsc.edu.ph',
-                'role' => 'ATTENDEE',
+                'role' => 'APPROVING OFFICER',
                 'password' => Hash::make('a'),
                 'email_verified_at' => '2023-11-20 14:49:07',
                 'active' => 1

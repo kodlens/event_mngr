@@ -13,14 +13,14 @@
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Date From" expanded
-                                    :type="this.errors.event_date ? 'is-danger':''"
-                                    :message="this.errors.event_date ? this.errors.event_date[0] : ''">
+                                    :type="this.errors.event_date_from ? 'is-danger':''"
+                                    :message="this.errors.event_date_from ? this.errors.event_date_from[0] : ''">
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
                                         :min-date="minDate"
                                         editable
-                                        v-model="fields.event_date"
+                                        v-model="fields.event_date_from"
                                         placeholder="Select date"
                                         horizontal-time-picker>
                                     </b-datepicker>
@@ -76,64 +76,81 @@
 
 
                             <div class="columns">
-                            <div class="column">
-                                <b-field label="Event Type" expanded
-                                    :type="this.errors.event_type_id ? 'is-danger':''"
-                                    :message="this.errors.event_type_id ? this.errors.event_type_id[0] : ''">
-                                    <b-select
-                                        expanded
-                                        required
-                                        v-model="fields.event_type_id"
-                                        placeholder="Event Type">
-                                        <option v-for="(item, ix) in eventTypes"
-                                            :value="item.event_type_id"
-                                            :key="`evtype${ix}`">{{item.event_type}}</option>
-                                    </b-select>
-                                </b-field>
+                                <div class="column">
+                                    <b-field label="Event Type" expanded
+                                        :type="this.errors.event_type_id ? 'is-danger':''"
+                                        :message="this.errors.event_type_id ? this.errors.event_type_id[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_type_id"
+                                            placeholder="Event Type">
+                                            <option v-for="(item, ix) in eventTypes"
+                                                :value="item.event_type_id"
+                                                :key="`evtype${ix}`">{{item.event_type}}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+
+                                <div class="column">
+                                    <b-field label="Facility/Equipment" expanded
+                                        :type="this.errors.event_venue_id ? 'is-danger':''"
+                                        :message="this.errors.event_venue_id ? this.errors.event_venue_id[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_venue_id"
+                                            placeholder="Facility/Equipment">
+                                            <option v-for="(item, ix) in venues"
+                                                :value="item.event_venue_id"
+                                                :key="`evtype${ix}`">{{item.event_venue}}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
-                            <div class="column">
-                                <b-field label="Facility/Equipment" expanded
-                                    :type="this.errors.event_venue_id ? 'is-danger':''"
-                                    :message="this.errors.event_venue_id ? this.errors.event_venue_id[0] : ''">
-                                    <b-select
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Select Approving Officer"
                                         expanded
-                                        required
-                                        v-model="fields.event_venue_id"
-                                        placeholder="Facility/Equipment">
-                                        <option v-for="(item, ix) in venues"
-                                            :value="item.event_venue_id"
-                                            :key="`evtype${ix}`">{{item.event_venue}}</option>
-                                    </b-select>
-                                </b-field>
-                            </div>
+                                        :type="this.errors.ao_user_id ? 'is-danger':''"
+                                        :message="this.errors.ao_user_id ? this.errors.ao_user_id[0] : ''">
+                                        <b-select v-model="fields.ao_user_id"
+                                            expanded>
+                                            <option v-for="(item, index) in approvingOfficers" :key="`ao${index}`"
+                                                :value="item.user_id">
+                                                {{ item.lname }}, {{ item.fname }} {{ item.mname }}
+                                            </option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
 
                             <div class="columns">
-                            <div class="column">
-                                <b-field label="Event Title"
-                                    :type="this.errors.event ? 'is-danger':''"
-                                    :message="this.errors.event ? this.errors.event[0] : ''">
-                                    <b-input type="text" v-model="fields.event" placeholder="Event" required></b-input>
-                                </b-field>
-                            </div>
+                                <div class="column">
+                                    <b-field label="Event Title"
+                                        :type="this.errors.event ? 'is-danger':''"
+                                        :message="this.errors.event ? this.errors.event[0] : ''">
+                                        <b-input type="text" v-model="fields.event" placeholder="Event" required></b-input>
+                                    </b-field>
+                                </div>
                             </div>
 
                             <div class="columns">
-                            <div class="column">
-                                <b-field label="Description"
-                                    :type="this.errors.event_description ? 'is-danger':''"
-                                    :message="this.errors.event_description ? this.errors.event_description[0] : ''">
-                                    <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
-                                    <quill-editor
-                                        :content="event_content"
-                                        :options="editorOption"
-                                        @change="onEditorChange($event)"
-                                    />
+                                <div class="column">
+                                    <b-field label="Description"
+                                        :type="this.errors.event_description ? 'is-danger':''"
+                                        :message="this.errors.event_description ? this.errors.event_description[0] : ''">
+                                        <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
+                                        <quill-editor
+                                            :content="event_content"
+                                            :options="editorOption"
+                                            @change="onEditorChange($event)"
+                                        />
 
-                                </b-field>
-                            </div>
+                                    </b-field>
+                                </div>
                             </div>
 
                             <div class="columns">
@@ -307,7 +324,7 @@ export default {
             formData.append('event', this.fields.event ? this.fields.event : '');
             formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
             formData.append('event_content', this.fields.event_content ? this.fields.event_content : '');
-            formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
+            formData.append('event_date_from', this.fields.event_date_from ? this.$formatDate(this.fields.event_date_from) : '');
             formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
 
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
@@ -318,7 +335,7 @@ export default {
             formData.append('event_time_from', from ? from : '');
             formData.append('event_time_to', to ? to : '');
             formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
-
+            formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '0');
 
             if(this.propId > 0){
                 //update
@@ -421,6 +438,7 @@ export default {
             })
         },
         loadApprovingOfficers(){
+            console.log('call approving');
             axios.get('/load-approving-officers/').then(res=> {
                 this.approvingOfficers = res.data
             });

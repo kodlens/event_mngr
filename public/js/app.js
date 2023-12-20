@@ -9256,7 +9256,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event', this.fields.event ? this.fields.event : '');
       formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
       formData.append('event_content', this.fields.event_content ? this.fields.event_content : '');
-      formData.append('event_date', this.fields.event_date ? this.$formatDate(this.fields.event_date) : '');
+      formData.append('event_date_from', this.fields.event_date_from ? this.$formatDate(this.fields.event_date_from) : '');
       formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
       formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
       formData.append('file', this.fields.file ? this.fields.file : '');
@@ -9265,6 +9265,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event_time_from', from ? from : '');
       formData.append('event_time_to', to ? to : '');
       formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
+      formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '0');
       if (this.propId > 0) {
         //update
         axios.post('/events-update/' + this.propId, formData).then(function (res) {
@@ -9351,6 +9352,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     loadApprovingOfficers: function loadApprovingOfficers() {
       var _this4 = this;
+      console.log('call approving');
       axios.get('/load-approving-officers/').then(function (res) {
         _this4.approvingOfficers = res.data;
       });
@@ -13213,7 +13215,7 @@ var render = function render() {
               })];
             }
           }], null, true)
-        }, [_vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        }, [_vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13227,7 +13229,7 @@ var render = function render() {
             icon: "account",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13241,7 +13243,7 @@ var render = function render() {
             icon: "thumb-up-outline",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13255,7 +13257,7 @@ var render = function render() {
             icon: "cancel",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem",
             tag: "a",
@@ -13266,7 +13268,7 @@ var render = function render() {
             icon: "pencil",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) && props.row.approval_status === 0 ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) && props.row.approval_status === 0 ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem",
             tag: "a",
@@ -13277,7 +13279,7 @@ var render = function render() {
             icon: "pencil",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13291,7 +13293,7 @@ var render = function render() {
             icon: "open-in-app",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13305,7 +13307,7 @@ var render = function render() {
             icon: "close",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13321,8 +13323,8 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 1714376716)
-  }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("div", {
+    }], null, false, 3825521228)
+  }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
@@ -13427,8 +13429,8 @@ var render = function render() {
     attrs: {
       label: "Date From",
       expanded: "",
-      type: this.errors.event_date ? "is-danger" : "",
-      message: this.errors.event_date ? this.errors.event_date[0] : ""
+      type: this.errors.event_date_from ? "is-danger" : "",
+      message: this.errors.event_date_from ? this.errors.event_date_from[0] : ""
     }
   }, [_c("b-datepicker", {
     attrs: {
@@ -13440,11 +13442,11 @@ var render = function render() {
       "horizontal-time-picker": ""
     },
     model: {
-      value: _vm.fields.event_date,
+      value: _vm.fields.event_date_from,
       callback: function callback($$v) {
-        _vm.$set(_vm.fields, "event_date", $$v);
+        _vm.$set(_vm.fields, "event_date_from", $$v);
       },
-      expression: "fields.event_date"
+      expression: "fields.event_date_from"
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
@@ -13577,6 +13579,35 @@ var render = function render() {
         value: item.event_venue_id
       }
     }, [_vm._v(_vm._s(item.event_venue))]);
+  }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Select Approving Officer",
+      expanded: "",
+      type: this.errors.ao_user_id ? "is-danger" : "",
+      message: this.errors.ao_user_id ? this.errors.ao_user_id[0] : ""
+    }
+  }, [_c("b-select", {
+    attrs: {
+      expanded: ""
+    },
+    model: {
+      value: _vm.fields.ao_user_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "ao_user_id", $$v);
+      },
+      expression: "fields.ao_user_id"
+    }
+  }, _vm._l(_vm.approvingOfficers, function (item, index) {
+    return _c("option", {
+      key: "ao".concat(index),
+      domProps: {
+        value: item.user_id
+      }
+    }, [_vm._v("\n                                            " + _vm._s(item.lname) + ", " + _vm._s(item.fname) + " " + _vm._s(item.mname) + "\n                                        ")]);
   }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {

@@ -25,9 +25,9 @@ class CreateEventsTable extends Migration
             $table->string('if_others', 100)->nullable();
             $table->string('event')->nullable();
             $table->text('event_description')->default('');
-            $table->text('content')->default('');
-            $table->dateTime('event_datetime')->nullable();
-            $table->date('event_date')->nullable();
+            $table->text('event_content')->default('');
+            $table->date('event_date_from')->nullable();
+            $table->date('event_date_to')->nullable();
             $table->time('event_time_from')->nullable();
             $table->time('event_time_to')->nullable();
             $table->string('img_path')->default('');

@@ -27,6 +27,7 @@ class Event extends Model
         'event_time_from',
         'event_time_to',
         'img_path',
+        'file_path',
 
         'approval_status',
         'is_open',
@@ -36,7 +37,8 @@ class Event extends Model
         'approve_by_id',
 
         'is_archive',
-        'archive_date'
+        'archive_date',
+        'ao_user_id'
     ];
 
 

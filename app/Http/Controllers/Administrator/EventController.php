@@ -94,8 +94,7 @@ class EventController extends Controller
 
 
     public function store(Request $req){
-        return $req;
-
+  
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -116,13 +115,17 @@ class EventController extends Controller
 
         $n = [];
         if($req->hasFile('event_img')) {
+           
+
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
         }
 
         $nFile = [];
         if($req->hasFile('file')) {
-            $pathFile = $req->file->store('public/files'); //get path of the file
+       
+
+            $pathFile = $req->file->store('public/attach_files'); //get path of the file
             $nFile = explode('/', $pathFile); //split into array using /
         }
 
@@ -134,7 +137,7 @@ class EventController extends Controller
             'event' => $req->event,
             'event_content' => $req->event_content,
             'if_others' => strtoupper($req->if_others),
-            'event_date' => $event_date,
+            'event_date_from' => $event_date_from,
             'event_date_to' => $event_date_to,
 
             'event_time_from' => $eventFrom,
@@ -144,6 +147,9 @@ class EventController extends Controller
 
             'is_need_approval' => $req->is_need_approval,
         ]);
+        
+
+        return $req;
 
         return response()->json([
             'status' => 'saved'
