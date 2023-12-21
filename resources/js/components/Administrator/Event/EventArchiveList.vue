@@ -106,13 +106,13 @@
                     {{ props.row.event_time_to | formatTime }}
                 </b-table-column>
 
-                <b-table-column field="duration" label="Duration" v-slot="props">
+                <!-- <b-table-column field="duration" label="Duration" v-slot="props">
                     {{ durationHours(
                         new Date(props.row.event_date + ' ' + props.row.event_time_from),
                         new Date(props.row.event_date + ' ' + props.row.event_time_to)
                     ) }}
                     
-                </b-table-column>
+                </b-table-column> -->
 
                 <b-table-column field="approval_status" label="Status" v-slot="props">
                     <span v-if="props.row.approval_status === 1" class="yes">APPROVED</span>

@@ -156,7 +156,9 @@
                             <div class="columns">
                                 <div class="column">
                                     <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">To update the image, just attach new image and the system will automatically remove the old save image.</p>
-                                    <b-field label="Event Image (Landscape is recommended for better view)">
+                                    <b-field label="Event Image (Landscape is recommended for better view)"
+                                        :type="this.errors.event_img ? 'is-danger':''"
+                                        :message="this.errors.event_img ? this.errors.event_img[0] : ''">
                                         <b-upload v-model="fields.event_img"
                                                 drag-drop>
                                             <section class="section">
@@ -187,7 +189,11 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="File Attachment"></b-field>
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">
+                                        To update the file, just attach new file and the system will automatically remove the old file.</p>
+                                    <b-field label="File Attachment" 
+                                        :type="this.errors.file ? 'is-danger':''"
+                                        :message="this.errors.file ? this.errors.file[0] : ''"></b-field>
                                     <b-field class="file is-primary" :class="{'has-name': !!fields.file}">
                                         <b-upload v-model="fields.file" class="file-label">
                                             <span class="file-cta">

@@ -12891,17 +12891,6 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      field: "duration",
-      label: "Duration"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm.durationHours(new Date(props.row.event_date + " " + props.row.event_time_from), new Date(props.row.event_date + " " + props.row.event_time_to))) + "\n                \n            ")];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
       field: "approval_status",
       label: "Status"
     },
@@ -13113,11 +13102,11 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve Officer")]), _vm._v(" "), _c("th", [_vm._v("View")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e(), _vm._v(" "), _c("th", [_vm._v("View")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
-        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.file_path ? _c("span", [_c("a", {
+        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("td", [props.row.file_path ? _c("span", [_c("a", {
           attrs: {
             target: "_blank",
             href: "/storage/attach_files/".concat(props.row.file_path)
@@ -13752,7 +13741,9 @@ var render = function render() {
     }
   }, [_vm._v("To update the image, just attach new image and the system will automatically remove the old save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
-      label: "Event Image (Landscape is recommended for better view)"
+      label: "Event Image (Landscape is recommended for better view)",
+      type: this.errors.event_img ? "is-danger" : "",
+      message: this.errors.event_img ? this.errors.event_img[0] : ""
     }
   }, [_c("b-upload", {
     attrs: {
@@ -13792,9 +13783,17 @@ var render = function render() {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
-  }, [_c("b-field", {
+  }, [_vm.propId > 0 ? _c("p", {
+    staticStyle: {
+      "font-size": "10px",
+      "font-weight": "bold",
+      color: "rgb(44, 44, 44)"
+    }
+  }, [_vm._v("\n                                    To update the file, just attach new file and the system will automatically remove the old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
-      label: "File Attachment"
+      label: "File Attachment",
+      type: this.errors.file ? "is-danger" : "",
+      message: this.errors.file ? this.errors.file[0] : ""
     }
   }), _vm._v(" "), _c("b-field", {
     staticClass: "file is-primary",

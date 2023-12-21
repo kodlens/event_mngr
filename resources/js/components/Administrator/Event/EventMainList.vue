@@ -205,7 +205,7 @@
                         <th>Description</th>
                         <th>Venue</th>
                         <th>Need Approval</th>
-                        <th>Approve Officer</th>
+                        <th v-if="!['ATTENDEE'].includes(propUser.role)">Approve Officer</th>
                         <th>View</th>
                     </tr>
                     <tr>
@@ -222,7 +222,7 @@
                             <span v-if="props.row.is_need_approval === 1" class="yes">YES</span>
                             <span v-else-if="props.row.is_need_approval === 0" class="pending">NO</span>
                         </td>
-                        <td>
+                        <td v-if="!['ATTENDEE'].includes(propUser.role)">
                             <span v-if="props.row.approving_officer">
                                 {{ props.row.approving_officer.lname }}, {{ props.row.approving_officer.fname }} {{ props.row.approving_officer.mname }}
                             </span>

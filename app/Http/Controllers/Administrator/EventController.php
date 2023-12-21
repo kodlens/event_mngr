@@ -97,7 +97,8 @@ class EventController extends Controller
 
 
     public function store(Request $req){
-  
+   
+
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -114,21 +115,27 @@ class EventController extends Controller
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
             'event_type_id' => ['required'],
+
+            'event_img' => ['required', 'mimes:jpg,bmp,png'],
+            'file' => ['required', 'mimes:pdf'],
             'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, 0)]
+        ],[
+            'event_img.required' => 'Please upload and image.',
+            'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
+            'file.required' => 'Please upload file attachment.',
+            'file.mimes' => 'Only PDF are accepted.',
+
         ]);
+
 
         $n = [];
         if($req->hasFile('event_img')) {
-           
-
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
         }
 
         $nFile = [];
         if($req->hasFile('file')) {
-       
-
             $pathFile = $req->file->store('public/attach_files'); //get path of the file
             $nFile = explode('/', $pathFile); //split into array using /
         }
@@ -181,8 +188,8 @@ class EventController extends Controller
         ]);
 
         $data = Event::with(['user', 'venue'])->find($id);
-        $n = [];
 
+        $n = [];
         if($req->hasFile('event_img')) {
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
@@ -190,6 +197,15 @@ class EventController extends Controller
             //if an image has already in database, it will delete from events folder to avoid redundancy
             if(Storage::exists('public/events/' .$data->img_path)) {
                 Storage::delete('public/events/' . $data->img_path);
+            }
+        }
+
+        $nFile = [];
+        if($req->hasFile('file')) {
+            $pathFile = $req->file->store('public/attach_files'); //get path of the file
+            $nFile = explode('/', $pathFile); //split into array using /
+            if(Storage::exists('public/attach_files/' .$data->file_path)) {
+                Storage::delete('public/attach_files/' . $data->file_path);
             }
         }
 
@@ -204,9 +220,13 @@ class EventController extends Controller
         $data->event_time_from = $eventFrom;
         $data->event_time_to = $eventTo;
         $data->is_need_approval = $req->is_need_approval;
-
+  
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
+        }
+
+        if($req->hasFile('file')){
+            $data->file_path = $nFile[2];
         }
 
         $data->save();
@@ -246,7 +266,7 @@ class EventController extends Controller
             Mail::to($data->user->email)
                 ->send(new ApproveEmail($data->event));
 
-            $users = User::where('role', 'STUDENT')
+            $users = User::where('role', 'ATTENDEE')
                 ->get();
 
             foreach($users as $u){
