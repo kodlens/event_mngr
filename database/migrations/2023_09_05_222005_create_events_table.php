@@ -46,6 +46,8 @@ class CreateEventsTable extends Migration
 
             $table->unsignedBigInteger('ao_user_id')->nullable()
                 ->default(0);
+                
+            $table->string('remarks_decline')->nullable();
 
 
             $table->timestamps();

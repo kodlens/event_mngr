@@ -8939,12 +8939,15 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         event: ''
       },
+      fields: {},
+      errors: {},
       btnClass: {
         'is-success': true,
         'button': true,
         'is-loading': false
       },
-      checkedRows: []
+      checkedRows: [],
+      modalDisapprove: false
     };
   },
   methods: {
@@ -9049,38 +9052,43 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     confirmCancel: function confirmCancel(dataId) {
-      var _this6 = this;
-      this.$buefy.dialog.confirm({
-        title: 'Decline?',
-        type: 'is-info',
-        message: 'Decline this event?',
-        confirmText: 'Yes',
-        onConfirm: function onConfirm() {
-          return _this6.submitCancel(dataId);
-        }
-      });
+      this.modalDisapprove = true;
+      this.fields.event_id = dataId;
+      // this.$buefy.dialog.confirm({
+      //     title: 'Decline?',
+      //     type: 'is-info',
+      //     message: 'Decline this event?',
+      //     confirmText: 'Yes',
+      //     onConfirm: () => this.submitCancel(dataId)
+      // });
     },
-    submitCancel: function submitCancel(dataId) {
-      var _this7 = this;
+    submitCancel: function submitCancel() {
+      var _this6 = this;
       this.loading = true;
-      axios.post('/events-cancel/' + dataId).then(function (res) {
+      this.btnClass['is-loading'] = true;
+      axios.post('/events-cancel/' + this.fields.event_id, this.fields).then(function (res) {
         if (res.data.status === 'declined') {
-          _this7.loadAsyncData();
-          _this7.loading = false;
-          _this7.$buefy.dialog.alert({
+          _this6.loadAsyncData();
+          _this6.loading = false;
+          _this6.btnClass['is-loading'] = false;
+          _this6.$buefy.dialog.alert({
             title: 'Declined',
             type: 'is-info',
             message: 'Event declined and notification was sent to the creator of the event.'
           });
+          _this6.modalDisapprove = false;
+          _this6.fields = {};
         }
       })["catch"](function (err) {
+        _this6.modalDisapprove = false;
+        _this6.btnClass['is-loading'] = false;
         if (err.response.status === 422) {
-          _this7.errors = err.response.data.errors;
+          _this6.errors = err.response.data.errors;
         }
       });
     },
     confirmEval: function confirmEval(dataId) {
-      var _this8 = this;
+      var _this7 = this;
       this.$buefy.dialog.confirm({
         title: 'Open?',
         type: 'is-info',
@@ -9088,22 +9096,22 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Open',
         onConfirm: function onConfirm() {
-          return _this8.submitOpenEval(dataId);
+          return _this7.submitOpenEval(dataId);
         }
       });
     },
     submitOpenEval: function submitOpenEval(dataId) {
-      var _this9 = this;
+      var _this8 = this;
       axios.post('/events-open-evaluation/' + dataId).then(function (res) {
-        _this9.loadAsyncData();
+        _this8.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this9.errors = err.response.data.errors;
+          _this8.errors = err.response.data.errors;
         }
       });
     },
     confirmCloseEval: function confirmCloseEval(dataId) {
-      var _this10 = this;
+      var _this9 = this;
       this.$buefy.dialog.confirm({
         title: 'Close?',
         type: 'is-info',
@@ -9111,17 +9119,17 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Open',
         onConfirm: function onConfirm() {
-          return _this10.submitCloseEval(dataId);
+          return _this9.submitCloseEval(dataId);
         }
       });
     },
     submitCloseEval: function submitCloseEval(dataId) {
-      var _this11 = this;
+      var _this10 = this;
       axios.post('/events-close-evaluation/' + dataId).then(function (res) {
-        _this11.loadAsyncData();
+        _this10.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this11.errors = err.response.data.errors;
+          _this10.errors = err.response.data.errors;
         }
       });
     },
@@ -9136,17 +9144,17 @@ __webpack_require__.r(__webpack_exports__);
       return result + 'hour(s)';
     },
     archiveCheckRows: function archiveCheckRows() {
-      var _this12 = this;
+      var _this11 = this;
       console.log(this.checkedRows);
       axios.post('/archive-events', {
         data: this.checkedRows
       }).then(function (res) {
         if (res.data.status === 'archived') {
-          _this12.$buefy.toast.open({
+          _this11.$buefy.toast.open({
             message: 'Events archive successfully',
             type: 'is-success'
           });
-          _this12.loadAsyncData();
+          _this11.loadAsyncData();
         }
       })["catch"](function (err) {});
     }
@@ -10595,7 +10603,7 @@ var render = function render() {
         }, [_vm._v("NO")])];
       }
     }])
-  }), _vm._v(" "), _c("b-table-column", {
+  }), _vm._v(" "), ["ADMINISTRATOR", "APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-table-column", {
     attrs: {
       label: "Action"
     },
@@ -10604,7 +10612,7 @@ var render = function render() {
       fn: function fn(props) {
         return [_c("div", {
           staticClass: "is-flex"
-        }, [["ORGANIZER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
+        }, [["ADMINISTRATOR", "APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
           attrs: {
             label: "Set Active",
             type: "is-info"
@@ -10620,7 +10628,7 @@ var render = function render() {
               return _vm.setActive(props.row.academic_year_id);
             }
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
+        })], 1) : _vm._e(), _vm._v(" "), ["ADMINISTRATOR", "APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
           attrs: {
             label: "Edit",
             type: "is-warning"
@@ -10636,7 +10644,7 @@ var render = function render() {
               return _vm.getData(props.row.academic_year_id);
             }
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["ORGANIZER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
+        })], 1) : _vm._e(), _vm._v(" "), ["ADMINISTRATOR", "APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-tooltip", {
           attrs: {
             label: "Delete",
             type: "is-danger"
@@ -10653,8 +10661,8 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)];
       }
-    }])
-  })], 1), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("div", {
+    }], null, false, 2009397030)
+  }) : _vm._e()], 1), _vm._v(" "), ["EVENT OFFICER"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
     staticClass: "is-primary is-outlined",
@@ -13346,7 +13354,75 @@ var render = function render() {
       href: "/events/create",
       "icon-right": "calendar"
     }
-  }, [_vm._v("NEW")])], 1) : _vm._e()], 1);
+  }, [_vm._v("NEW")])], 1) : _vm._e(), _vm._v(" "), _c("b-modal", {
+    attrs: {
+      "has-modal-card": "",
+      "trap-focus": "",
+      width: 640,
+      "aria-role": "dialog",
+      "aria-label": "Modal",
+      "aria-modal": ""
+    },
+    model: {
+      value: _vm.modalDisapprove,
+      callback: function callback($$v) {
+        _vm.modalDisapprove = $$v;
+      },
+      expression: "modalDisapprove"
+    }
+  }, [_c("div", {
+    staticClass: "modal-card"
+  }, [_c("header", {
+    staticClass: "modal-card-head"
+  }, [_c("p", {
+    staticClass: "modal-card-title"
+  }, [_vm._v("Disapprove")]), _vm._v(" "), _c("button", {
+    staticClass: "delete",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        _vm.modalDissapprove = false;
+      }
+    }
+  })]), _vm._v(" "), _c("section", {
+    staticClass: "modal-card-body"
+  }, [_c("div", {}, [_c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Remarks Decline",
+      "label-position": "on-border",
+      type: this.errors.remarks_decline ? "is-danger" : "",
+      message: this.errors.remarks_decline ? this.errors.remarks_decline[0] : ""
+    }
+  }, [_c("b-input", {
+    attrs: {
+      placeholder: "Remarks Decline",
+      required: ""
+    },
+    model: {
+      value: _vm.fields.remarks_decline,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "remarks_decline", $$v);
+      },
+      expression: "fields.remarks_decline"
+    }
+  })], 1)], 1)])])]), _vm._v(" "), _c("footer", {
+    staticClass: "modal-card-foot"
+  }, [_c("button", {
+    "class": _vm.btnClass,
+    attrs: {
+      label: "Save",
+      type: "is-success"
+    },
+    on: {
+      click: _vm.submitCancel
+    }
+  }, [_vm._v("SAVE")])])])])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -14640,7 +14716,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Department")]), _vm._v(" "), _c("th", [_vm._v("Approving Officer")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.ao ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.ao.lname) + ", " + _vm._s(props.row.ao.fname) + " " + _vm._s(props.row.ao.mname) + "\n                                        ")]) : _vm._e()])])];
+        return [_c("tr", [_c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v("Department")])]), _vm._v(" "), _c("tr", [_c("td", [_vm._v("\n                                        " + _vm._s(props.row.email) + "\n                                    ")]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                                            " + _vm._s(props.row.department.code) + "\n                                        ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -15990,8 +16066,8 @@ var render = function render() {
       staticClass: "event-date"
     }, [_vm._v("\n                        FROM: " + _vm._s(new Date("2023-01-01 " + event.event_time_from).toLocaleTimeString()) + "\n                        -\n                        " + _vm._s(new Date("2023-01-01 " + event.event_time_to).toLocaleTimeString()) + "\n                    ")]), _vm._v(" "), _c("div", {
       staticClass: "posted-date"
-    }, [_vm._v("\n                        POSTED: " + _vm._s(_vm._f("formatDateTime")(event.created_at)) + "\n                    ")]), _vm._v(" "), _c("div", {
-      staticClass: "event-content"
+    }, [_vm._v("\n                        POSTED: " + _vm._s(_vm._f("formatDateTime")(event.created_at)) + "\n                    ")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+      staticClass: "event-content ml-5"
     }, [_c("div", {
       domProps: {
         innerHTML: _vm._s(event.event_content)

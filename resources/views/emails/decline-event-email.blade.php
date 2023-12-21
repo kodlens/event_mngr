@@ -8,7 +8,10 @@ Labuyo, Tangub City, Misamis Occidental<br>
 # DECLINED
 <br>
 We regret to inform you that {{ $event }} event was declined this time for some reasons.
-<br><br>
+<br>
+REMARKS: {{ $remarks}}
+<br>
+<br>
 
 
 <br><br>

@@ -261,15 +261,21 @@ class EventController extends Controller
         ], 200);
     }
 
-    public function eventCancel($id){
+    public function eventCancel(Request $req, $id){
+        $req->validate([
+            'event_id' => ['required'],
+            'remarks_decline' => ['required'],
+
+        ]);
         $data = Event::with(['user'])
             ->find($id);
         $data->approval_status = 2;
-        //$data->save();
+        $data->remarks_decline = $req->remarks_decline;
+        $data->save();
 
         if(Env::get('MAIL_OPEN') == 1){
             Mail::to($data->user->email)
-                ->send(new DeclineEmail($data->event));
+                ->send(new DeclineEmail($data->event, $req->remarks_decline));
         }
 
 

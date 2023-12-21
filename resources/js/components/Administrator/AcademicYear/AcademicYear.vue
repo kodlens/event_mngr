@@ -76,18 +76,18 @@
                                 <span v-else class="no">NO</span>
                             </b-table-column>
 
-                            <b-table-column label="Action" v-slot="props">
+                            <b-table-column label="Action" v-slot="props" v-if="['ADMINISTRATOR', 'APPROVING OFFICER'].includes(propUser.role)">
                                 <div class="is-flex">
                                     <b-tooltip label="Set Active" type="is-info"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
+                                        v-if="['ADMINISTRATOR', 'APPROVING OFFICER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" tag="a" icon-right="thumb-up" @click="setActive(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Edit" type="is-warning"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
+                                        v-if="['ADMINISTRATOR', 'APPROVING OFFICER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" tag="a" icon-right="pencil" @click="getData(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                     <b-tooltip label="Delete" type="is-danger"
-                                        v-if="['ORGANIZER'].includes(propUser.role)">
+                                        v-if="['ADMINISTRATOR', 'APPROVING OFFICER'].includes(propUser.role)">
                                         <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.academic_year_id)"></b-button>
                                     </b-tooltip>
                                 </div>

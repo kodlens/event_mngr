@@ -23,9 +23,10 @@
                         <div class="posted-date">
                             POSTED: {{ event.created_at | formatDateTime }}
                         </div>
-
-                        <div class="event-content">
+                        <hr>
+                        <div class="event-content ml-5">
                             <div v-html="event.event_content"></div>
+
                         </div>
 
                         <div class="img-container">

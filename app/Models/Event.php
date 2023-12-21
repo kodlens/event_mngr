@@ -39,7 +39,8 @@ class Event extends Model
 
         'is_archive',
         'archive_date',
-        'ao_user_id'
+        'ao_user_id',
+        'remarks_decline'
     ];
 
 

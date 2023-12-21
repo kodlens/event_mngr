@@ -148,7 +148,7 @@
                                     <th>Email</th>
                                     <!-- <th>Contact No.</th> -->
                                     <th>Department</th>
-                                    <th>Approving Officer</th>
+                                   
                                 </tr>
                                 <tr>
                                     <td>
@@ -164,11 +164,7 @@
                                             {{ props.row.department.code }}
                                         </span>
                                     </td>
-                                    <td>
-                                        <span v-if="props.row.ao">
-                                            {{ props.row.ao.lname }}, {{ props.row.ao.fname}} {{ props.row.ao.mname }}
-                                        </span>
-                                    </td>
+                                   
                                 </tr>
                             </template>
                         </b-table>

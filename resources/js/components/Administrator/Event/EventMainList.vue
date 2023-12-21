@@ -245,6 +245,59 @@
                     icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
             </div>
 
+
+
+
+
+
+
+
+            
+        <!--modal create-->
+        <b-modal v-model="modalDisapprove" has-modal-card
+            trap-focus
+            :width="640"
+            aria-role="dialog"
+            aria-label="Modal"
+            aria-modal>
+
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Disapprove</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalDissapprove = false"/>
+                </header>
+
+                <section class="modal-card-body">
+                    <div class="">
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Remarks Decline" label-position="on-border"
+                                            :type="this.errors.remarks_decline ? 'is-danger':''"
+                                            :message="this.errors.remarks_decline ? this.errors.remarks_decline[0] : ''">
+                                    <b-input v-model="fields.remarks_decline"
+                                                placeholder="Remarks Decline" required>
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button
+                        @click="submitCancel"
+                        :class="btnClass"
+                        label="Save"
+                        type="is-success">SAVE</button>
+                </footer>
+            </div>
+        </b-modal>
+        <!--close modal-->
+
+
+
     </div>
 </template>
 
@@ -280,6 +333,8 @@ export default{
                 event: '',
             },
 
+            fields: {},
+            errors: {},
 
             btnClass: {
                 'is-success': true,
@@ -288,7 +343,7 @@ export default{
             },
 
             checkedRows: [],
-
+            modalDisapprove: false
         }
 
     },
@@ -402,29 +457,40 @@ export default{
 
 
         confirmCancel(dataId){
-            this.$buefy.dialog.confirm({
-                title: 'Decline?',
-                type: 'is-info',
-                message: 'Decline this event?',
-                confirmText: 'Yes',
-                onConfirm: () => this.submitCancel(dataId)
-            });
+            
+            this.modalDisapprove = true
+            this.fields.event_id = dataId
+            // this.$buefy.dialog.confirm({
+            //     title: 'Decline?',
+            //     type: 'is-info',
+            //     message: 'Decline this event?',
+            //     confirmText: 'Yes',
+            //     onConfirm: () => this.submitCancel(dataId)
+            // });
         },
-        submitCancel(dataId){
+        submitCancel(){
             this.loading = true
-            axios.post('/events-cancel/' + dataId).then(res => {
+            this.btnClass['is-loading'] = true
+            axios.post('/events-cancel/' + this.fields.event_id, this.fields).then(res => {
                 if(res.data.status === 'declined'){
                     this.loadAsyncData();
                     this.loading = false
+                    this.btnClass['is-loading'] = false
 
                     this.$buefy.dialog.alert({
                         title: 'Declined',
                         type: 'is-info',
                         message: 'Event declined and notification was sent to the creator of the event.'
                     });
+
+                    this.modalDisapprove = false
+                    this.fields = {}
                 }
 
             }).catch(err => {
+                this.modalDisapprove = false
+                this.btnClass['is-loading'] = false
+
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;
                 }

@@ -16,12 +16,13 @@ class DeclineEmail extends Mailable
      *
      * @return void
      */
-    private $event;
+    private $event, $remarks;
 
-    public function __construct($event)
+    public function __construct($event, $remarks)
     {
         //
         $this->event = $event;
+        $this->remarks = $remarks;
     }
 
     /**
@@ -32,6 +33,7 @@ class DeclineEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.decline-event-email')
-            ->with('event', $this->event);
+            ->with('event', $this->event)
+            ->with('remarks', $this->remarks);
     }
 }
