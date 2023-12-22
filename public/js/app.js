@@ -9344,6 +9344,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_time_from = new Date('2022-01-01 ' + this.propData.event_time_from);
       this.fields.event_time_to = new Date('2022-01-01 ' + this.propData.event_time_to);
       this.fields.event_venue_id = this.propData.event_venue_id;
+      this.fields.file_attachments = this.propData.file_attachments;
     },
     // quill editor
     onEditorBlur: function onEditorBlur(quill) {
@@ -13091,16 +13092,20 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e(), _vm._v(" "), _c("th", [_vm._v("View")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e()]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
-        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("td", [props.row.file_path ? _c("span", [_c("a", {
-          attrs: {
-            target: "_blank",
-            href: "/storage/attach_files/".concat(props.row.file_path)
-          }
-        }, [_vm._v("View File")])]) : _vm._e()])])];
+        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                        ")]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("table", [_c("tr", [_c("th", [_vm._v("File Description")]), _vm._v(" "), _c("th", [_vm._v("View")])]), _vm._v(" "), _vm._l(props.row.event_files, function (file, index) {
+          return _c("tr", {
+            key: "file".concat(index)
+          }, [_c("td", [_vm._v(_vm._s(file.event_filename))]), _vm._v(" "), _c("td", [file.event_file_path ? _c("span", [_c("a", {
+            attrs: {
+              target: "_blank",
+              href: "/storage/attach_files/".concat(file.event_file_path)
+            }
+          }, [_vm._v("View File")])]) : _vm._e()])]);
+        })], 2)];
       }
     }])
   }, [_c("b-table-column", {

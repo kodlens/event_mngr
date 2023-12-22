@@ -11,10 +11,11 @@ class EventFile extends Model
     use HasFactory;
 
     
-    protected $primaryKey = 'event_files';
-    protected $table = 'event_file_id';
+    protected $primaryKey = 'event_file_id';
+    protected $table = 'event_files';
 
     protected $fillable = [
+        'event_id',
         'event_filename',
         'event_file_path',
        

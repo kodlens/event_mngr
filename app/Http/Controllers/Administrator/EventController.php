@@ -8,6 +8,7 @@ use App\Models\AcademicYear;
 use App\Models\Event;
 use App\Models\EventVenue;
 use App\Models\User;
+use App\Models\EventFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +40,7 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department', 'approving_officer'])
+        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department', 'approving_officer', 'event_files'])
             ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
@@ -98,8 +99,6 @@ class EventController extends Controller
 
     public function store(Request $req){
    
-        return $req;
-        
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -118,13 +117,13 @@ class EventController extends Controller
             'event_type_id' => ['required'],
 
             'event_img' => ['required', 'mimes:jpg,bmp,png'],
-            'file' => ['required', 'mimes:pdf'],
+            'file_attachments.*.event_file_path' => ['required', 'mimes:pdf'],
             'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, 0)]
         ],[
             'event_img.required' => 'Please upload and image.',
             'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
-            'file.required' => 'Please upload file attachment.',
-            'file.mimes' => 'Only PDF are accepted.',
+            'file_attachments.required' => 'Please upload file attachment.',
+            'file_attachments.*.event_file_path.mimes' => 'Only PDF are accepted.',
 
         ]);
 
@@ -134,13 +133,6 @@ class EventController extends Controller
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
         }
-
-        $nFile = [];
-        if($req->hasFile('file')) {
-            $pathFile = $req->file->store('public/attach_files'); //get path of the file
-            $nFile = explode('/', $pathFile); //split into array using /
-        }
-
         $data = Event::create([
             'academic_year_id' => $ay->academic_year_id,
             'user_id' => $user->user_id,
@@ -154,12 +146,30 @@ class EventController extends Controller
             'event_time_from' => $eventFrom,
             'event_time_to' => $eventTo,
             'img_path' => $req->hasFile('event_img') ? $n[2] : '',
-            'file_path' => $req->hasFile('file') ? $nFile[2] : '',
 
             'is_need_approval' => $req->is_need_approval,
             'ao_user_id' => $req->ao_user_id,
         ]);
+
+
+        if($req->has('file_attachments')){
+            foreach ($req->file_attachments as $item) {
+                $nPath = [];
+                if($item['event_file_path']){
+                    $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
+                    $nPath = explode('/', $pathFile); //split into array using /
+                }
+
+                //insert into database after upload 1 image
+                EventFile::create([
+                    'event_id' => $data->event_id,
+                    'event_filename' => $item['event_filename'],
+                    'event_file_path' => $nPath[2]
+                ]);
+            }
+        }
         
+        return $req;
 
         return response()->json([
             'status' => 'saved'
@@ -201,15 +211,6 @@ class EventController extends Controller
             }
         }
 
-        $nFile = [];
-        if($req->hasFile('file')) {
-            $pathFile = $req->file->store('public/attach_files'); //get path of the file
-            $nFile = explode('/', $pathFile); //split into array using /
-            if(Storage::exists('public/attach_files/' .$data->file_path)) {
-                Storage::delete('public/attach_files/' . $data->file_path);
-            }
-        }
-
         //get data from database
         $data->academic_year_id = $ay->academic_year_id;
         $data->event = strtoupper($req->event);
@@ -221,16 +222,32 @@ class EventController extends Controller
         $data->event_time_from = $eventFrom;
         $data->event_time_to = $eventTo;
         $data->is_need_approval = $req->is_need_approval;
+        
   
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
         }
 
-        if($req->hasFile('file')){
-            $data->file_path = $nFile[2];
+        $data->save();
+
+        $nPath=[];
+        if($req->has('file_attachments')){
+            foreach ($req->file_attachments as $item) {
+                $nPath = [];
+                if($item['event_file_path']){
+                    $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
+                    $nPath = explode('/', $pathFile); //split into array using /
+                }
+
+                //insert into database after upload 1 image
+                EventFile::create([
+                    'event_id' => $data->event_id,
+                    'event_filename' => $item['event_filename'],
+                    'event_file_path' => $nPath[2]
+                ]);
+            }
         }
 
-        $data->save();
 
         $newEventVenue = EventVenue::find($req->event_venue_id);
 

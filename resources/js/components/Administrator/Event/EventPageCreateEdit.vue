@@ -360,7 +360,7 @@ export default {
                     formData.append(`file_attachments[${index}][event_filename]`, doc.event_filename);
                 });
             }
-            
+
             formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
             formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
             formData.append('event_time_from', from ? from : '');
@@ -437,6 +437,8 @@ export default {
             this.fields.event_time_from =  new Date('2022-01-01 ' + this.propData.event_time_from)
             this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
             this.fields.event_venue_id =  this.propData.event_venue_id
+
+            this.fields.file_attachments = this.propData.file_attachments
         },
 
 

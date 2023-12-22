@@ -206,7 +206,7 @@
                         <th>Venue</th>
                         <th>Need Approval</th>
                         <th v-if="!['ATTENDEE'].includes(propUser.role)">Approve Officer</th>
-                        <th>View</th>
+                        <!-- <th>View</th> -->
                     </tr>
                     <tr>
                         <td>
@@ -227,13 +227,32 @@
                                 {{ props.row.approving_officer.lname }}, {{ props.row.approving_officer.fname }} {{ props.row.approving_officer.mname }}
                             </span>
                         </td>
-                        <td>
+                        <!-- <td>
                             <span v-if="props.row.file_path">
                                 <a target="_blank" :href="`/storage/attach_files/${props.row.file_path}`">View File</a>
                             </span>
                            
-                        </td>
+                        </td> -->
                     </tr>
+
+
+                    <hr>
+
+                    <table>
+                        <tr>
+                            <th>File Description</th>
+                            <th>View</th>
+                        </tr>
+
+                        <tr v-for="(file, index) in props.row.event_files" :key="`file${index}`">
+                            <td>{{ file.event_filename }}</td>
+                            <td>
+                                <span v-if="file.event_file_path">
+                                <a target="_blank" :href="`/storage/attach_files/${file.event_file_path}`">View File</a>
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
                 </template>
             </b-table>
 
@@ -244,11 +263,6 @@
                     href="/events/create"
                     icon-right="calendar" class="is-primary is-outlined">NEW</b-button>
             </div>
-
-
-
-
-
 
 
 
