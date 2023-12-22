@@ -98,7 +98,8 @@ class EventController extends Controller
 
     public function store(Request $req){
    
-
+        return $req;
+        
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 

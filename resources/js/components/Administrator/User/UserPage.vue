@@ -330,8 +330,7 @@
                                     <b-field label="User Type" label-position="on-border" expanded
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
-                                        <b-select v-model="fields.role" expanded
-                                            @input="loadApprovingOfficers">
+                                        <b-select v-model="fields.role" expanded>
                                             <option value="ADMINISTRATOR">ADMINISTRATOR</option>
 <!--                                            <option value="ADMINSTAFF">ADMINSTAFF</option>-->
                                             <option value="APPROVING OFFICER">APPROVING OFFICER</option>

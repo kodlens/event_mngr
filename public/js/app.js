@@ -9243,7 +9243,7 @@ __webpack_require__.r(__webpack_exports__);
         event_date_from: new Date(),
         event_date_to: new Date(),
         event_img: null,
-        file: null,
+        file_attachments: [],
         event_type_id: 0,
         is_need_approval: 0
       },
@@ -9275,7 +9275,15 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event_date_from', this.fields.event_date_from ? this.$formatDate(this.fields.event_date_from) : '');
       formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
       formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
-      formData.append('file', this.fields.file ? this.fields.file : '');
+      //formData.append('file', this.fields.file ? this.fields.file : '');
+      //doc attachment
+      if (this.fields.file_attachments) {
+        this.fields.file_attachments.forEach(function (doc, index) {
+          formData.append("file_attachments[".concat(index, "][event_id]"), doc.event_id);
+          formData.append("file_attachments[".concat(index, "][event_file_path]"), doc.event_file_path);
+          formData.append("file_attachments[".concat(index, "][event_filename]"), doc.event_filename);
+        });
+      }
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
       formData.append('event_time_from', from ? from : '');
@@ -9371,6 +9379,13 @@ __webpack_require__.r(__webpack_exports__);
       console.log('call approving');
       axios.get('/load-approving-officers/').then(function (res) {
         _this4.approvingOfficers = res.data;
+      });
+    },
+    addFile: function addFile() {
+      this.fields.file_attachments.push({
+        event_id: 0,
+        event_filename: '',
+        event_file_path: {}
       });
     }
   },
@@ -12816,11 +12831,11 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve Officer")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), _c("th", [_vm._v("Approve Officer")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                                " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                            ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
-        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                        ")]) : _vm._e()])])];
+        }, [_vm._v("NO")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.approving_officer ? _c("span", [_vm._v("\n                                " + _vm._s(props.row.approving_officer.lname) + ", " + _vm._s(props.row.approving_officer.fname) + " " + _vm._s(props.row.approving_officer.mname) + "\n                            ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -12831,7 +12846,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(props.row.academic_year.academic_year_code) + "\n            ")];
+        return [_vm._v("\n                    " + _vm._s(props.row.academic_year.academic_year_code) + "\n                ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -12842,7 +12857,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(props.row.event) + "\n            ")];
+        return [_vm._v("\n                    " + _vm._s(props.row.event) + "\n                ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -12853,29 +12868,18 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(props.row.event_type.event_type) + "\n            ")];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
-      field: "content",
-      label: "Description"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm._f("truncate")(props.row.content, 50)) + "\n            ")];
+        return [_vm._v("\n                    " + _vm._s(props.row.event_type.event_type) + "\n                ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
       field: "event_date",
-      label: "Date"
+      label: "Event Date"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(new Date(props.row.event_date).toLocaleDateString()) + "\n            ")];
+        return [_vm._v("\n                    " + _vm._s(new Date(props.row.event_date_from).toLocaleDateString()) + "\n                    -\n                    " + _vm._s(new Date(props.row.event_date_to).toLocaleDateString()) + "\n      \n                ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -12886,7 +12890,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_from)) + " - \n                " + _vm._s(_vm._f("formatTime")(props.row.event_time_to)) + "\n            ")];
+        return [_vm._v("\n                    " + _vm._s(_vm._f("formatTime")(props.row.event_time_from)) + " - \n                    " + _vm._s(_vm._f("formatTime")(props.row.event_time_to)) + "\n                ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -12904,21 +12908,6 @@ var render = function render() {
         }, [_vm._v("PENDING")]) : props.row.approval_status === 2 ? _c("span", {
           staticClass: "no"
         }, [_vm._v("DECLINED")]) : _vm._e()];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
-      field: "approval_status",
-      label: "Evaluation"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [props.row.is_open === 1 ? _c("span", {
-          staticClass: "yes"
-        }, [_vm._v("OPEN")]) : _c("span", {
-          staticClass: "no"
-        }, [_vm._v("CLOSE")])];
       }
     }])
   })], 1)], 1);
@@ -13779,7 +13768,7 @@ var render = function render() {
         return _vm.deleteDropFile(0);
       }
     }
-  })])]) : _vm._e()], 1)]), _vm._v(" "), _c("div", {
+  })])]) : _vm._e()], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13792,35 +13781,68 @@ var render = function render() {
   }, [_vm._v("\n                                    To update the file, just attach new file and the system will automatically remove the old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
       label: "File Attachment",
-      type: this.errors.file ? "is-danger" : "",
-      message: this.errors.file ? this.errors.file[0] : ""
+      type: this.errors.file_attachments ? "is-danger" : "",
+      message: this.errors.file_attachments ? this.errors.file_attachments[0] : ""
     }
-  }), _vm._v(" "), _c("b-field", {
-    staticClass: "file is-primary",
-    "class": {
-      "has-name": !!_vm.fields.file
-    }
-  }, [_c("b-upload", {
-    staticClass: "file-label",
-    model: {
-      value: _vm.fields.file,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "file", $$v);
+  }), _vm._v(" "), _vm._l(_vm.fields.file_attachments, function (file, index) {
+    return _c("div", {
+      key: "file".concat(index),
+      staticClass: "mb-2"
+    }, [_c("div", {
+      staticClass: "columns"
+    }, [_c("div", {
+      staticClass: "column"
+    }, [_c("b-field", {
+      staticClass: "file is-primary",
+      "class": {
+        "has-name": !!file.event_file_path
+      }
+    }, [_c("b-upload", {
+      staticClass: "file-label",
+      model: {
+        value: file.event_file_path,
+        callback: function callback($$v) {
+          _vm.$set(file, "event_file_path", $$v);
+        },
+        expression: "file.event_file_path"
+      }
+    }, [_c("span", {
+      staticClass: "file-cta"
+    }, [_c("b-icon", {
+      staticClass: "file-icon",
+      attrs: {
+        icon: "upload"
+      }
+    }), _vm._v(" "), _c("span", {
+      staticClass: "file-label"
+    }, [_vm._v("Click to upload")])], 1), _vm._v(" "), file.event_file_path ? _c("span", {
+      staticClass: "file-name"
+    }, [_vm._v("\n                                                        " + _vm._s(file.event_file_path.name) + "\n                                                    ")]) : _vm._e()])], 1)], 1), _vm._v(" "), _c("div", {
+      staticClass: "column"
+    }, [_c("b-input", {
+      attrs: {
+        type: "input",
+        placeholder: "File Name"
       },
-      expression: "fields.file"
-    }
-  }, [_c("span", {
-    staticClass: "file-cta"
-  }, [_c("b-icon", {
-    staticClass: "file-icon",
+      model: {
+        value: file.event_filename,
+        callback: function callback($$v) {
+          _vm.$set(file, "event_filename", $$v);
+        },
+        expression: "file.event_filename"
+      }
+    })], 1)])]);
+  }), _vm._v(" "), _c("div", {
+    staticClass: "buttons mt-2"
+  }, [_c("b-button", {
     attrs: {
-      icon: "upload"
+      size: "is-small",
+      label: "New File"
+    },
+    on: {
+      click: _vm.addFile
     }
-  }), _vm._v(" "), _c("span", {
-    staticClass: "file-label"
-  }, [_vm._v("Click to attachment")])], 1), _vm._v(" "), _vm.fields.file ? _c("span", {
-    staticClass: "file-name"
-  }, [_vm._v("\n                                            " + _vm._s(_vm.fields.file.name) + "\n                                        ")]) : _vm._e()])], 1)], 1)]), _vm._v(" "), _c("div", {
+  })], 1)], 2)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -15200,9 +15222,6 @@ var render = function render() {
   }, [_c("b-select", {
     attrs: {
       expanded: ""
-    },
-    on: {
-      input: _vm.loadApprovingOfficers
     },
     model: {
       value: _vm.fields.role,

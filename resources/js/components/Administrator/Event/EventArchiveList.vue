@@ -93,12 +93,12 @@
                     {{ props.row.event_type.event_type }}
                 </b-table-column>
 
-                <b-table-column field="content" label="Description" v-slot="props">
-                    {{ props.row.content | truncate(50) }}
-                </b-table-column>
-
-                <b-table-column field="event_date" label="Date" v-slot="props">
-                    {{ new Date(props.row.event_date).toLocaleDateString() }}
+              
+                <b-table-column field="event_date" label="Event Date" v-slot="props">
+                    {{ new Date(props.row.event_date_from).toLocaleDateString() }}
+                    -
+                    {{ new Date(props.row.event_date_to).toLocaleDateString() }}
+      
                 </b-table-column>
 
                 <b-table-column field="time" label="Time" v-slot="props">
@@ -120,11 +120,11 @@
                     <span v-else-if="props.row.approval_status === 2" class="no">DECLINED</span>
                 </b-table-column>
 
-
-                <b-table-column field="approval_status" label="Evaluation" v-slot="props">
+<!-- 
+                <b-table-column field="is_open" label="Evaluation" v-slot="props">
                     <span v-if="props.row.is_open === 1" class="yes">OPEN</span>
                     <span v-else class="no">CLOSE</span>
-                </b-table-column>
+                </b-table-column> -->
 
                 
 

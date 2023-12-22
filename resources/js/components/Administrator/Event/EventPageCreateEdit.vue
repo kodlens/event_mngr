@@ -186,25 +186,39 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <hr>
                             <div class="columns">
                                 <div class="column">
                                     <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">
                                         To update the file, just attach new file and the system will automatically remove the old file.</p>
                                     <b-field label="File Attachment" 
-                                        :type="this.errors.file ? 'is-danger':''"
-                                        :message="this.errors.file ? this.errors.file[0] : ''"></b-field>
-                                    <b-field class="file is-primary" :class="{'has-name': !!fields.file}">
-                                        <b-upload v-model="fields.file" class="file-label">
-                                            <span class="file-cta">
-                                                <b-icon class="file-icon" icon="upload"></b-icon>
-                                                <span class="file-label">Click to attachment</span>
-                                            </span>
-                                            <span class="file-name" v-if="fields.file">
-                                                {{ fields.file.name }}
-                                            </span>
-                                        </b-upload>
-                                    </b-field>
+                                        :type="this.errors.file_attachments ? 'is-danger':''"
+                                        :message="this.errors.file_attachments ? this.errors.file_attachments[0] : ''"></b-field>
+
+                                    <div class="mb-2" v-for="(file, index) in fields.file_attachments" :key="`file${index}`">
+                                        <div class="columns">
+                                            <div class="column">
+                                                <b-field class="file is-primary" :class="{'has-name': !!file.event_file_path}">
+                                                    <b-upload v-model="file.event_file_path" class="file-label">
+                                                        <span class="file-cta">
+                                                            <b-icon class="file-icon" icon="upload"></b-icon>
+                                                            <span class="file-label">Click to upload</span>
+                                                        </span>
+                                                        <span class="file-name" v-if="file.event_file_path">
+                                                            {{ file.event_file_path.name }}
+                                                        </span>
+                                                    </b-upload>
+                                                </b-field>
+                                            </div>
+                                            <div class="column">
+                                                <b-input type="input" v-model="file.event_filename" placeholder="File Name"></b-input>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="buttons mt-2">
+                                        <b-button size="is-small" @click="addFile" label="New File"></b-button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -289,9 +303,10 @@ export default {
                 event_date_from: new Date(),
                 event_date_to: new Date(),
                 event_img: null,
-                file: null,
+                file_attachments: [],
                 event_type_id: 0,
-                is_need_approval: 0
+                is_need_approval: 0,
+
             },
             errors: {},
 
@@ -336,8 +351,16 @@ export default {
             formData.append('event_date_to', this.fields.event_date_to ? this.$formatDate(this.fields.event_date_to) : '');
 
             formData.append('event_img', this.fields.event_img ? this.fields.event_img : '');
-            formData.append('file', this.fields.file ? this.fields.file : '');
-
+            //formData.append('file', this.fields.file ? this.fields.file : '');
+            //doc attachment
+            if(this.fields.file_attachments){
+                this.fields.file_attachments.forEach((doc, index) =>{
+                    formData.append(`file_attachments[${index}][event_id]`, doc.event_id);
+                    formData.append(`file_attachments[${index}][event_file_path]`, doc.event_file_path);
+                    formData.append(`file_attachments[${index}][event_filename]`, doc.event_filename);
+                });
+            }
+            
             formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
             formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
             formData.append('event_time_from', from ? from : '');
@@ -450,6 +473,16 @@ export default {
             axios.get('/load-approving-officers/').then(res=> {
                 this.approvingOfficers = res.data
             });
+        },
+
+
+
+        addFile(){
+            this.fields.file_attachments.push({
+                event_id: 0,
+                event_filename: '',
+                event_file_path: {}
+            })
         }
 
 

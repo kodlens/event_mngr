@@ -61,6 +61,12 @@ class Event extends Model
         return $this->hasOne(EventVenue::class, 'event_venue_id', 'event_venue_id');
     }
 
+
+    public function event_files(){
+        return $this->hasMany(EventFile::class, 'event_id', 'event_id');
+    }
+
+
     public function approving_officer(){
         return $this->hasOne(User::class, 'user_id', 'ao_user_id');
     }
