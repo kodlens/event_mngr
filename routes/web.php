@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Event;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -168,7 +168,17 @@ Route::middleware(['verified'])->group(function() {
 
 });
 
+use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
+
 Route::get('/test', function(){
-    return Session::all();
+    $data = Order::with('orders.product')
+        ->get();
+    return $data;
+
+    //return $data[0]->event_type->event_type;
+    
 });
 
