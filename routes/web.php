@@ -120,6 +120,8 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::get('/get-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'getArchiveEvents']);
     Route::post('/archive-events', [App\Http\Controllers\Administrator\EventController::class, 'archiveEvents']);
     Route::post('/undo-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'undoArchive']);
+    Route::post('/event-file-attachment-delete/{id}', [App\Http\Controllers\Administrator\EventController::class, 'removeEventFileAttachment']);
+
 
 
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);

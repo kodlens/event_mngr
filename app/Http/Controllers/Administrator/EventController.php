@@ -90,7 +90,7 @@ class EventController extends Controller
     }
 
     public function edit($id){
-        $event = Event::find($id);
+        $event = Event::with(['event_files'])->find($id);
         return view('administrator.event.event-page-create-edit')
             ->with('id', $event->event_id)
             ->with('data', $event);
@@ -229,6 +229,7 @@ class EventController extends Controller
         }
 
         $data->save();
+        return $req;
 
         $nPath=[];
         if($req->has('file_attachments')){
@@ -240,7 +241,9 @@ class EventController extends Controller
                 }
 
                 //insert into database after upload 1 image
-                EventFile::create([
+                EventFile::updateOrCreate([
+                    'event_file_id' => $item['event_file_id']
+                ],[
                     'event_id' => $data->event_id,
                     'event_filename' => $item['event_filename'],
                     'event_file_path' => $nPath[2]
@@ -248,13 +251,14 @@ class EventController extends Controller
             }
         }
 
-
         $newEventVenue = EventVenue::find($req->event_venue_id);
 
         if(Env::get('MAIL_OPEN') == 1){
             Mail::to($data->user->email)
                 ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date_from, $eventFrom, $eventTo));
         }
+
+        return $req;
 
         return response()->json([
             'status' => 'updated'
@@ -385,6 +389,25 @@ class EventController extends Controller
         return response()->json([
             'status' => 'undo'
         ], 200);
+    }
+
+
+
+
+    public function removeEventFileAttachment($id){
+        
+        $data = EventFile::find($id);
+
+          //if an image has already in database, it will delete from events folder to avoid redundancy
+        if(Storage::exists('public/events/' .$data->attach_files)) {
+            Storage::delete('public/events/' . $data->attach_files);
+        }
+        $data = EventFile::destroy($id);
+
+        return response()->json([
+            'status' => 'deleted'
+        ], 200);
+        
     }
 
 

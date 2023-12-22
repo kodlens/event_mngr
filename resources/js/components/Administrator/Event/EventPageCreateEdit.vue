@@ -197,22 +197,29 @@
 
                                     <div class="mb-2" v-for="(file, index) in fields.file_attachments" :key="`file${index}`">
                                         <div class="columns">
-                                            <div class="column">
-                                                <b-field class="file is-primary" :class="{'has-name': !!file.event_file_path}">
-                                                    <b-upload v-model="file.event_file_path" class="file-label">
+                                            <div class="column" v-if="propId === 0">
+                                                <b-field class="file is-primary" :class="{'has-name': !!file.file}">
+                                                    <b-upload v-model="file.file" class="file-label">
                                                         <span class="file-cta">
                                                             <b-icon class="file-icon" icon="upload"></b-icon>
                                                             <span class="file-label">Click to upload</span>
                                                         </span>
-                                                        <span class="file-name" v-if="file.event_file_path">
-                                                            {{ file.event_file_path.name }}
+                                                        <span class="file-name" v-if="file.file">
+                                                            {{ file.file.name }}
                                                         </span>
                                                     </b-upload>
                                                 </b-field>
                                             </div>
                                             <div class="column">
-                                                <b-input type="input" v-model="file.event_filename" placeholder="File Name"></b-input>
+                                                <b-input type="input" v-model="file.file" placeholder="File Name"></b-input>
                                             </div>
+                                            <div class="column is-1">
+                                                <b-button size="is-small" 
+                                                    icon-right="delete"
+                                                    type="is-danger"
+                                                    @click="removeFile(index)"></b-button>
+                                            </div>
+
                                         </div>
                                         
                                     </div>
@@ -355,8 +362,9 @@ export default {
             //doc attachment
             if(this.fields.file_attachments){
                 this.fields.file_attachments.forEach((doc, index) =>{
+                    formData.append(`file_attachments[${index}][event_file_id]`, doc.event_file_id);
                     formData.append(`file_attachments[${index}][event_id]`, doc.event_id);
-                    formData.append(`file_attachments[${index}][event_file_path]`, doc.event_file_path);
+                    formData.append(`file_attachments[${index}][event_file_path]`, doc.file);
                     formData.append(`file_attachments[${index}][event_filename]`, doc.event_filename);
                 });
             }
@@ -425,6 +433,7 @@ export default {
         },
 
         getData(){
+
             console.log(this.propData.event_content);
 
             this.fields.event =  this.propData.event
@@ -438,7 +447,15 @@ export default {
             this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
             this.fields.event_venue_id =  this.propData.event_venue_id
 
-            this.fields.file_attachments = this.propData.file_attachments
+      
+            this.propData.event_files.forEach(item => {
+                this.fields.file_attachments.push({
+                event_file_id: item.event_file_id,
+                event_id: item.event_id,
+                event_filename: item.event_filename,
+                event_file_path: null
+            })
+            })
         },
 
 
@@ -481,11 +498,36 @@ export default {
 
         addFile(){
             this.fields.file_attachments.push({
+                event_file_id: 0,
                 event_id: 0,
                 event_filename: '',
                 event_file_path: {}
             })
-        }
+        },
+        removeFile(ix){
+            this.$buefy.dialog.confirm({
+                title: 'Remove?',
+                message: 'Are you sure you want to remove this attachment? This cannot be undone.',
+
+                onConfirm: ()=>{
+                    let nId = this.fields.file_attachments[ix].event_file_id;
+
+                    if(nId > 0){
+                        axios.post('/event-file-attachment-delete/' + nId).then(res=>{
+                            if(res.data.status === 'deleted'){
+                                this.$buefy.toast.open({
+                                    message: `Attachment deleted successfully.`,
+                                    type: 'is-primary'
+                                })
+                            }
+                        });
+                    }
+                    this.fields.file_attachments.splice(ix, 1)
+
+                }
+            });
+
+        },
 
 
     },

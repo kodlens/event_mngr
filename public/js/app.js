@@ -9279,8 +9279,9 @@ __webpack_require__.r(__webpack_exports__);
       //doc attachment
       if (this.fields.file_attachments) {
         this.fields.file_attachments.forEach(function (doc, index) {
+          formData.append("file_attachments[".concat(index, "][event_file_id]"), doc.event_file_id);
           formData.append("file_attachments[".concat(index, "][event_id]"), doc.event_id);
-          formData.append("file_attachments[".concat(index, "][event_file_path]"), doc.event_file_path);
+          formData.append("file_attachments[".concat(index, "][event_file_path]"), doc.file);
           formData.append("file_attachments[".concat(index, "][event_filename]"), doc.event_filename);
         });
       }
@@ -9334,6 +9335,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_img = null;
     },
     getData: function getData() {
+      var _this2 = this;
       console.log(this.propData.event_content);
       this.fields.event = this.propData.event;
       this.event_content = this.propData.event_content;
@@ -9344,7 +9346,14 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_time_from = new Date('2022-01-01 ' + this.propData.event_time_from);
       this.fields.event_time_to = new Date('2022-01-01 ' + this.propData.event_time_to);
       this.fields.event_venue_id = this.propData.event_venue_id;
-      this.fields.file_attachments = this.propData.file_attachments;
+      this.propData.event_files.forEach(function (item) {
+        _this2.fields.file_attachments.push({
+          event_file_id: item.event_file_id,
+          event_id: item.event_id,
+          event_filename: item.event_filename,
+          event_file_path: null
+        });
+      });
     },
     // quill editor
     onEditorBlur: function onEditorBlur(quill) {
@@ -9364,29 +9373,51 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_content = html;
     },
     loadEventTypes: function loadEventTypes() {
-      var _this2 = this;
+      var _this3 = this;
       axios.get('/load-event-types').then(function (res) {
-        _this2.eventTypes = res.data;
+        _this3.eventTypes = res.data;
       });
     },
     loadEventVenues: function loadEventVenues() {
-      var _this3 = this;
+      var _this4 = this;
       axios.get('/load-event-venues').then(function (res) {
-        _this3.venues = res.data;
+        _this4.venues = res.data;
       });
     },
     loadApprovingOfficers: function loadApprovingOfficers() {
-      var _this4 = this;
+      var _this5 = this;
       console.log('call approving');
       axios.get('/load-approving-officers/').then(function (res) {
-        _this4.approvingOfficers = res.data;
+        _this5.approvingOfficers = res.data;
       });
     },
     addFile: function addFile() {
       this.fields.file_attachments.push({
+        event_file_id: 0,
         event_id: 0,
         event_filename: '',
         event_file_path: {}
+      });
+    },
+    removeFile: function removeFile(ix) {
+      var _this6 = this;
+      this.$buefy.dialog.confirm({
+        title: 'Remove?',
+        message: 'Are you sure you want to remove this attachment? This cannot be undone.',
+        onConfirm: function onConfirm() {
+          var nId = _this6.fields.file_attachments[ix].event_file_id;
+          if (nId > 0) {
+            axios.post('/event-file-attachment-delete/' + nId).then(function (res) {
+              if (res.data.status === 'deleted') {
+                _this6.$buefy.toast.open({
+                  message: "Attachment deleted successfully.",
+                  type: 'is-primary'
+                });
+              }
+            });
+          }
+          _this6.fields.file_attachments.splice(ix, 1);
+        }
       });
     }
   },
@@ -13795,21 +13826,21 @@ var render = function render() {
       staticClass: "mb-2"
     }, [_c("div", {
       staticClass: "columns"
-    }, [_c("div", {
+    }, [_vm.propId === 0 ? _c("div", {
       staticClass: "column"
     }, [_c("b-field", {
       staticClass: "file is-primary",
       "class": {
-        "has-name": !!file.event_file_path
+        "has-name": !!file.file
       }
     }, [_c("b-upload", {
       staticClass: "file-label",
       model: {
-        value: file.event_file_path,
+        value: file.file,
         callback: function callback($$v) {
-          _vm.$set(file, "event_file_path", $$v);
+          _vm.$set(file, "file", $$v);
         },
-        expression: "file.event_file_path"
+        expression: "file.file"
       }
     }, [_c("span", {
       staticClass: "file-cta"
@@ -13820,9 +13851,9 @@ var render = function render() {
       }
     }), _vm._v(" "), _c("span", {
       staticClass: "file-label"
-    }, [_vm._v("Click to upload")])], 1), _vm._v(" "), file.event_file_path ? _c("span", {
+    }, [_vm._v("Click to upload")])], 1), _vm._v(" "), file.file ? _c("span", {
       staticClass: "file-name"
-    }, [_vm._v("\n                                                        " + _vm._s(file.event_file_path.name) + "\n                                                    ")]) : _vm._e()])], 1)], 1), _vm._v(" "), _c("div", {
+    }, [_vm._v("\n                                                        " + _vm._s(file.file.name) + "\n                                                    ")]) : _vm._e()])], 1)], 1) : _vm._e(), _vm._v(" "), _c("div", {
       staticClass: "column"
     }, [_c("b-input", {
       attrs: {
@@ -13830,11 +13861,24 @@ var render = function render() {
         placeholder: "File Name"
       },
       model: {
-        value: file.event_filename,
+        value: file.file,
         callback: function callback($$v) {
-          _vm.$set(file, "event_filename", $$v);
+          _vm.$set(file, "file", $$v);
         },
-        expression: "file.event_filename"
+        expression: "file.file"
+      }
+    })], 1), _vm._v(" "), _c("div", {
+      staticClass: "column is-1"
+    }, [_c("b-button", {
+      attrs: {
+        size: "is-small",
+        "icon-right": "delete",
+        type: "is-danger"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeFile(index);
+        }
       }
     })], 1)])]);
   }), _vm._v(" "), _c("div", {
