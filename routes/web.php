@@ -168,3 +168,7 @@ Route::middleware(['verified'])->group(function() {
 
 });
 
+Route::get('/test', function(){
+    return Session::all();
+});
+

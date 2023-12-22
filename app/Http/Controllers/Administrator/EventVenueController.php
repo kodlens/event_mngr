@@ -9,7 +9,9 @@ use App\Models\EventVenue;
 class EventVenueController extends Controller
 {
     //
+    //wla nai constructor
 
+    
     public function index(){
         return view('administrator.event_venue.event-venue-index');
     }

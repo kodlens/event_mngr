@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class RedirectIfAuthenticated
 {
@@ -25,6 +26,7 @@ class RedirectIfAuthenticated
             
             if (Auth::guard($guard)->check()) {
                 $role = Auth::user()->role;
+
 
                 if(in_array($role, ['ADMINISTRATOR', 'ADMINSTAFF', 'REQUESTING PARTY', 'APPROVING OFFICER'])){
                     return redirect('/dashboard');
