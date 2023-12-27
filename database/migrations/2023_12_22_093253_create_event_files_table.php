@@ -21,7 +21,7 @@ class CreateEventFilesTable extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
 
 
-            $table->string('event_filename'. 100)->nullable();
+            $table->string('event_filename', 100)->nullable();
             $table->string('event_file_path')->nullable();
 
             $table->timestamps();

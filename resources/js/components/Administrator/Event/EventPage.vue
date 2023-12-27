@@ -13,7 +13,6 @@
                             <b-tab-item label="Archive Events" v-if="['ADMINISTRATOR'].includes(propUser.role)">
                                 <event-archive-list :prop-user="propUser" ></event-archive-list>
                             </b-tab-item>
-
                             <!--  :prop-user="propUser" -->
                         </b-tabs>
 

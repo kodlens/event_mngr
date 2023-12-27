@@ -191,13 +191,13 @@
                                 <div class="column">
                                     <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">
                                         To update the file, just attach new file and the system will automatically remove the old file.</p>
-                                    <b-field label="File Attachment" 
+                                    <b-field label="File Attachment (Only PDF format is allowed)" 
                                         :type="this.errors.file_attachments ? 'is-danger':''"
                                         :message="this.errors.file_attachments ? this.errors.file_attachments[0] : ''"></b-field>
 
                                     <div class="mb-2" v-for="(file, index) in fields.file_attachments" :key="`file${index}`">
                                         <div class="columns">
-                                            <div class="column" v-if="propId === 0">
+                                            <div class="column" v-if="file.event_file_id === 0">
                                                 <b-field class="file is-primary" :class="{'has-name': !!file.file}">
                                                     <b-upload v-model="file.file" class="file-label">
                                                         <span class="file-cta">
@@ -211,7 +211,7 @@
                                                 </b-field>
                                             </div>
                                             <div class="column">
-                                                <b-input type="input" v-model="file.file" placeholder="File Name"></b-input>
+                                                <b-input type="input" v-model="file.filename" placeholder="File Name"></b-input>
                                             </div>
                                             <div class="column is-1">
                                                 <b-button size="is-small" 
@@ -365,7 +365,7 @@ export default {
                     formData.append(`file_attachments[${index}][event_file_id]`, doc.event_file_id);
                     formData.append(`file_attachments[${index}][event_id]`, doc.event_id);
                     formData.append(`file_attachments[${index}][event_file_path]`, doc.file);
-                    formData.append(`file_attachments[${index}][event_filename]`, doc.event_filename);
+                    formData.append(`file_attachments[${index}][event_filename]`, doc.filename);
                 });
             }
 
@@ -390,7 +390,6 @@ export default {
                                 window.location = '/events';
                             }
                         })
-
                     }
                 }).catch(err=>{
                     this.btnClass['is-loading'] = false
@@ -446,15 +445,15 @@ export default {
             this.fields.event_time_from =  new Date('2022-01-01 ' + this.propData.event_time_from)
             this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
             this.fields.event_venue_id =  this.propData.event_venue_id
-
+            this.fields.ao_user_id =  this.propData.ao_user_id
       
             this.propData.event_files.forEach(item => {
                 this.fields.file_attachments.push({
-                event_file_id: item.event_file_id,
-                event_id: item.event_id,
-                event_filename: item.event_filename,
-                event_file_path: null
-            })
+                    event_file_id: item.event_file_id,
+                    event_id: item.event_id,
+                    filename: item.event_filename,
+                    event_file_path: ''
+                })
             })
         },
 
@@ -488,7 +487,7 @@ export default {
             })
         },
         loadApprovingOfficers(){
-            console.log('call approving');
+            //console.log('call approving');
             axios.get('/load-approving-officers/').then(res=> {
                 this.approvingOfficers = res.data
             });
@@ -500,8 +499,8 @@ export default {
             this.fields.file_attachments.push({
                 event_file_id: 0,
                 event_id: 0,
-                event_filename: '',
-                event_file_path: {}
+                event_filename: null,
+                event_file_path: null
             })
         },
         removeFile(ix){

@@ -124,7 +124,6 @@ class EventController extends Controller
             'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
             'file_attachments.required' => 'Please upload file attachment.',
             'file_attachments.*.event_file_path.mimes' => 'Only PDF are accepted.',
-
         ]);
 
 
@@ -169,7 +168,7 @@ class EventController extends Controller
             }
         }
         
-        return $req;
+        //return $req;
 
         return response()->json([
             'status' => 'saved'
@@ -178,6 +177,13 @@ class EventController extends Controller
 
     public function updateEvent(Request $req, $id){
 
+        foreach ($req->file_attachments as $item) {
+            if (isset($item['event_file_path']) && $item['event_file_path'] instanceof UploadedFile) {
+                return 'is a file';
+            }
+        }
+
+        return $req;
         //get the current active semester
         $ay = AcademicYear::where('active', 1)->first();
 
@@ -223,17 +229,18 @@ class EventController extends Controller
         $data->event_time_to = $eventTo;
         $data->is_need_approval = $req->is_need_approval;
         
-  
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
         }
 
         $data->save();
-        return $req;
+        //return $req;
 
         $nPath=[];
         if($req->has('file_attachments')){
             foreach ($req->file_attachments as $item) {
+               
+
                 $nPath = [];
                 if($item['event_file_path']){
                     $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
@@ -258,7 +265,7 @@ class EventController extends Controller
                 ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date_from, $eventFrom, $eventTo));
         }
 
-        return $req;
+        //return $req;
 
         return response()->json([
             'status' => 'updated'

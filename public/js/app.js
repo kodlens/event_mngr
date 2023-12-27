@@ -9282,7 +9282,7 @@ __webpack_require__.r(__webpack_exports__);
           formData.append("file_attachments[".concat(index, "][event_file_id]"), doc.event_file_id);
           formData.append("file_attachments[".concat(index, "][event_id]"), doc.event_id);
           formData.append("file_attachments[".concat(index, "][event_file_path]"), doc.file);
-          formData.append("file_attachments[".concat(index, "][event_filename]"), doc.event_filename);
+          formData.append("file_attachments[".concat(index, "][event_filename]"), doc.filename);
         });
       }
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
@@ -9346,12 +9346,13 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_time_from = new Date('2022-01-01 ' + this.propData.event_time_from);
       this.fields.event_time_to = new Date('2022-01-01 ' + this.propData.event_time_to);
       this.fields.event_venue_id = this.propData.event_venue_id;
+      this.fields.ao_user_id = this.propData.ao_user_id;
       this.propData.event_files.forEach(function (item) {
         _this2.fields.file_attachments.push({
           event_file_id: item.event_file_id,
           event_id: item.event_id,
-          event_filename: item.event_filename,
-          event_file_path: null
+          filename: item.event_filename,
+          event_file_path: ''
         });
       });
     },
@@ -9386,7 +9387,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     loadApprovingOfficers: function loadApprovingOfficers() {
       var _this5 = this;
-      console.log('call approving');
+      //console.log('call approving');
       axios.get('/load-approving-officers/').then(function (res) {
         _this5.approvingOfficers = res.data;
       });
@@ -9395,8 +9396,8 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.file_attachments.push({
         event_file_id: 0,
         event_id: 0,
-        event_filename: '',
-        event_file_path: {}
+        event_filename: null,
+        event_file_path: null
       });
     },
     removeFile: function removeFile(ix) {
@@ -13816,7 +13817,7 @@ var render = function render() {
     }
   }, [_vm._v("\n                                    To update the file, just attach new file and the system will automatically remove the old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
-      label: "File Attachment",
+      label: "File Attachment (Only PDF format is allowed)",
       type: this.errors.file_attachments ? "is-danger" : "",
       message: this.errors.file_attachments ? this.errors.file_attachments[0] : ""
     }
@@ -13826,7 +13827,7 @@ var render = function render() {
       staticClass: "mb-2"
     }, [_c("div", {
       staticClass: "columns"
-    }, [_vm.propId === 0 ? _c("div", {
+    }, [file.event_file_id === 0 ? _c("div", {
       staticClass: "column"
     }, [_c("b-field", {
       staticClass: "file is-primary",
@@ -13861,11 +13862,11 @@ var render = function render() {
         placeholder: "File Name"
       },
       model: {
-        value: file.file,
+        value: file.filename,
         callback: function callback($$v) {
-          _vm.$set(file, "file", $$v);
+          _vm.$set(file, "filename", $$v);
         },
-        expression: "file.file"
+        expression: "file.filename"
       }
     })], 1), _vm._v(" "), _c("div", {
       staticClass: "column is-1"
