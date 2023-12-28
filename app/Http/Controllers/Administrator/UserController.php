@@ -47,7 +47,7 @@ class UserController extends Controller
         ],
         [
             'ao_user_id.required_if' => 'Please select approving officer for your account.',
-            'department_id.required' => 'Please select department.'
+            'department_id.required' => 'Please select school.'
         ]);
 
         User::create([
@@ -83,6 +83,8 @@ class UserController extends Controller
             'department_id' => ['required'],
             'ao_user_id' => ['required_if:role,"ORGANIZER"']
 
+        ],[
+            'department_id.required' => 'Please select school.'
         ]);
 
         $data = User::find($id);

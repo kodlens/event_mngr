@@ -40,7 +40,14 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 'event_type', 'venue', 'user.department', 'approving_officer', 'event_files'])
+        $event = Event::with(['academic_year', 
+            'event_type', 
+            'venue', 
+            'user.department', 
+            'approving_officer', 
+            'event_files',
+            'department'
+            ])
             ->where('is_archive', 0)
             ->where('event', 'like', $req->event . '%')
             ->where('academic_year_id', $acadYear->academic_year_id)
@@ -98,7 +105,8 @@ class EventController extends Controller
 
 
     public function store(Request $req){
-   
+     
+
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -115,6 +123,8 @@ class EventController extends Controller
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
             'event_type_id' => ['required'],
+            'department_id' => ['required'],
+            'ao_user_id' => ['required'],
 
             'event_img' => ['required', 'mimes:jpg,bmp,png'],
             'file_attachments.*.event_file_path' => ['required', 'mimes:pdf'],
@@ -124,9 +134,11 @@ class EventController extends Controller
             'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
             'file_attachments.required' => 'Please upload file attachment.',
             'file_attachments.*.event_file_path.mimes' => 'Only PDF are accepted.',
+            'department_id.required' => 'Please select school.',
+            'ao_user_id.required' => 'Please select approving officer.',
         ]);
 
-
+        //return $req;
         $n = [];
         if($req->hasFile('event_img')) {
             $pathFile = $req->event_img->store('public/events'); //get path of the file
@@ -148,6 +160,7 @@ class EventController extends Controller
 
             'is_need_approval' => $req->is_need_approval,
             'ao_user_id' => $req->ao_user_id,
+            'department_id' => $req->department_id,
         ]);
 
 
@@ -177,21 +190,22 @@ class EventController extends Controller
 
     public function updateEvent(Request $req, $id){
 
-        foreach ($req->file_attachments as $item) {
-            if (isset($item['event_file_path']) && $item['event_file_path'] instanceof UploadedFile) {
-                return 'is a file';
-            }
-        }
+        // foreach ($req->file_attachments as $item) {
+        //     if (isset($item['event_file_path']) && $item['event_file_path'] instanceof UploadedFile) {
+        //         return 'is a file';
+        //     }
+        // }
 
-        return $req;
+       
         //get the current active semester
         $ay = AcademicYear::where('active', 1)->first();
 
         //format the date
         $event_date_from = date('Y-m-d', strtotime($req->event_date_from));
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
-        $eventFrom = date('H:i:s', strtotime($req->event_time_from));
-        $eventTo = date('H:i:s', strtotime($req->event_time_to));
+        $eventTimeFrom = date('H:i:s', strtotime($req->event_time_from));
+        $eventTimeTo = date('H:i:s', strtotime($req->event_time_to));
+      
 
         $req->validate([
             'event' => ['required'],
@@ -200,9 +214,14 @@ class EventController extends Controller
             'event_type_id' => ['required'],
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
+            'department_id' => ['required'],
             'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, $id)]
 
+        ],[
+            'department_id.required' => 'Please select school.',
         ]);
+
+
 
         $data = Event::with(['user', 'venue'])->find($id);
 
@@ -228,41 +247,57 @@ class EventController extends Controller
         $data->event_time_from = $eventFrom;
         $data->event_time_to = $eventTo;
         $data->is_need_approval = $req->is_need_approval;
+        $data->department_id = $req->department_id;
         
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
-        }
+        }  
 
         $data->save();
-        //return $req;
+        
 
-        $nPath=[];
-        if($req->has('file_attachments')){
-            foreach ($req->file_attachments as $item) {
-               
+        // $nPath=[];
+        // if($req->has('file_attachments')){
+        //     foreach ($req->file_attachments as $item) {
 
-                $nPath = [];
-                if($item['event_file_path']){
-                    $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
-                    $nPath = explode('/', $pathFile); //split into array using /
-                }
+        //         $nPath = [];
 
-                //insert into database after upload 1 image
-                EventFile::updateOrCreate([
-                    'event_file_id' => $item['event_file_id']
-                ],[
-                    'event_id' => $data->event_id,
-                    'event_filename' => $item['event_filename'],
-                    'event_file_path' => $nPath[2]
-                ]);
-            }
-        }
+        //         if($item['event_file_path']){
+        //             $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
+        //             $nPath = explode('/', $pathFile); //split into array using /
+        //         }
+
+        //         //insert into database after upload 1 image
+        //         EventFile::updateOrCreate([
+        //             'event_file_id' => $item['event_file_id']
+        //         ],[
+        //             'event_id' => $data->event_id,
+        //             'event_filename' => $item['event_filename'],
+        //             'event_file_path' => ''
+        //         ]);
+        //     }
+        // }
 
         $newEventVenue = EventVenue::find($req->event_venue_id);
 
+        $when = now()->addSeconds(10);
+
         if(Env::get('MAIL_OPEN') == 1){
+            // Mail::to($data->user->email)
+            //     ->later($when, new ApproveEmail($data->event));
+
             Mail::to($data->user->email)
-                ->send(new UpdateEventMail($data, $req, $newEventVenue, $event_date_from, $eventFrom, $eventTo));
+                ->later(
+                    $when, 
+                    new UpdateEventMail(
+                        $data, 
+                        $req->event, 
+                        $newEventVenue, 
+                        $event_date_from, 
+                        $event_date_to, 
+                        $eventTimeFrom, 
+                        $eventTimeTo
+                    ));
         }
 
         //return $req;
@@ -290,17 +325,18 @@ class EventController extends Controller
         //return $data->user->email;
 
          //GINOO NLAANG JUD NAKABLO GE UNSA NI NAKO
-            // $when = now()->addSeconds(10);
+         $when = now()->addSeconds(10);
         if(Env::get('MAIL_OPEN') == 1){
             Mail::to($data->user->email)
-                ->send(new ApproveEmail($data->event));
+                ->later($when, new ApproveEmail($data->event));
 
             $users = User::where('role', 'ATTENDEE')
+                ->where('department_id', $data->department_id)
                 ->get();
 
             foreach($users as $u){
                 Mail::to($u->email)
-                    ->send(new ParticipantsMailApprove($data->event));
+                    ->later($when, new ParticipantsMailApprove($data->event));
                 sleep(2);
             }
         }
@@ -321,10 +357,13 @@ class EventController extends Controller
         $data->approval_status = 2;
         $data->remarks_decline = $req->remarks_decline;
         $data->save();
+        
+        $when = now()->addSeconds(10);
 
         if(Env::get('MAIL_OPEN') == 1){
             Mail::to($data->user->email)
-                ->send(new DeclineEmail($data->event, $req->remarks_decline));
+                //->send(new DeclineEmail($data->event, $req->remarks_decline));
+                ->later($when, new DeclineEmail($data->event, $req->remarks_decline));
         }
 
 

@@ -40,7 +40,9 @@ class Event extends Model
         'is_archive',
         'archive_date',
         'ao_user_id',
-        'remarks_decline'
+        'remarks_decline',
+
+        'department_id'
     ];
 
 
@@ -71,6 +73,12 @@ class Event extends Model
         return $this->hasOne(User::class, 'user_id', 'ao_user_id');
     }
 
+    public function department(){
+        return $this->hasOne(Department::class, 'department_id', 'department_id');
+    }
+
+
+    
     
 
 }

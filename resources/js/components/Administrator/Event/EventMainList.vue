@@ -247,6 +247,12 @@
                         <tr v-for="(file, index) in props.row.event_files" :key="`file${index}`">
                             <td>{{ file.event_filename }}</td>
                             <td>
+                                <span v-if="file.department">
+                                    {{ file.department.department_code }}
+                                </span>
+                                
+                            </td>
+                            <td>
                                 <span v-if="file.event_file_path">
                                 <a target="_blank" :href="`/storage/attach_files/${file.event_file_path}`">View File</a>
                             </span>

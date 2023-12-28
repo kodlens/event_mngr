@@ -302,7 +302,7 @@
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Department" label-position="on-border" expanded
+                                    <b-field label="School" label-position="on-border" expanded
                                             :type="this.errors.department_id ? 'is-danger':''"
                                             :message="this.errors.department_id ? this.errors.department_id[0] : ''">
                                         <b-select v-model="fields.department_id" expanded>
