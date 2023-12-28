@@ -21,6 +21,7 @@ class ParticipantsMailApprove extends Mailable
     public function __construct($event)
     {
         //
+        $this->subject('Event Notification');
         $this->event = $event;
 
     }

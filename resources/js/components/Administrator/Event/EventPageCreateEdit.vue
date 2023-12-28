@@ -13,8 +13,8 @@
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Date From" expanded
-                                    :type="this.errors.event_date_from ? 'is-danger':''"
-                                    :message="this.errors.event_date_from ? this.errors.event_date_from[0] : ''">
+                                    :type="errors.event_date_from ? 'is-danger':''"
+                                    :message="errors.event_date_from ? errors.event_date_from[0] : ''">
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
@@ -29,8 +29,8 @@
 
                             <div class="column">
                                 <b-field label="Date To" expanded
-                                         :type="this.errors.event_date_to ? 'is-danger':''"
-                                         :message="this.errors.event_date_to ? this.errors.event_date_to[0] : ''">
+                                         :type="errors.event_date_to ? 'is-danger':''"
+                                         :message="errors.event_date_to ? errors.event_date_to[0] : ''">
                                     <b-datepicker
                                         icon="calendar-today"
                                         required
@@ -45,8 +45,8 @@
 
                             <div class="column">
                                 <b-field label="From" expanded
-                                    :type="this.errors.event_time_from ? 'is-danger':''"
-                                    :message="this.errors.event_time_from ? this.errors.event_time_from[0] : ''">
+                                    :type="errors.event_time_from ? 'is-danger':''"
+                                    :message="errors.event_time_from ? errors.event_time_from[0] : ''">
                                     <b-timepicker
                                         icon="clock"
                                         required
@@ -59,8 +59,8 @@
 
                             <div class="column">
                                 <b-field label="Until" expanded
-                                    :type="this.errors.event_time_to ? 'is-danger':''"
-                                    :message="this.errors.event_time_to ? this.errors.event_time_to[0] : ''">
+                                    :type="errors.event_time_to ? 'is-danger':''"
+                                    :message="errors.event_time_to ? errors.event_time_to[0] : ''">
                                     <b-timepicker
                                         icon="clock"
                                         required
@@ -78,8 +78,8 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Event Type" expanded
-                                        :type="this.errors.event_type_id ? 'is-danger':''"
-                                        :message="this.errors.event_type_id ? this.errors.event_type_id[0] : ''">
+                                        :type="errors.event_type_id ? 'is-danger':''"
+                                        :message="errors.event_type_id ? errors.event_type_id[0] : ''">
                                         <b-select
                                             expanded
                                             required
@@ -94,8 +94,8 @@
 
                                 <div class="column">
                                     <b-field label="Facility/Equipment" expanded
-                                        :type="this.errors.event_venue_id ? 'is-danger':''"
-                                        :message="this.errors.event_venue_id ? this.errors.event_venue_id[0] : ''">
+                                        :type="errors.event_venue_id ? 'is-danger':''"
+                                        :message="errors.event_venue_id ? errors.event_venue_id[0] : ''">
                                         <b-select
                                             expanded
                                             required
@@ -113,8 +113,8 @@
                                 <div class="column">
                                     <b-field label="Select Approving Officer"
                                         expanded
-                                        :type="this.errors.ao_user_id ? 'is-danger':''"
-                                        :message="this.errors.ao_user_id ? this.errors.ao_user_id[0] : ''">
+                                        :type="errors.ao_user_id ? 'is-danger':''"
+                                        :message="errors.ao_user_id ? errors.ao_user_id[0] : ''">
                                         <b-select v-model="fields.ao_user_id"
                                             expanded>
                                             <option v-for="(item, index) in approvingOfficers" :key="`ao${index}`"
@@ -124,14 +124,26 @@
                                         </b-select>
                                     </b-field>
                                 </div>
+
+                                <div class="column">
+                                    <b-field label="School" expanded
+                                            :type="errors.department_id ? 'is-danger':''"
+                                            :message="errors.department_id ? errors.department_id[0] : ''">
+                                        <b-select v-model="fields.department_id" expanded>
+                                            <option v-for="(item, index) in departments"
+                                                :key="index"
+                                                :value="item.department_id">{{ item.code }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
                             </div>
 
 
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Event Title"
-                                        :type="this.errors.event ? 'is-danger':''"
-                                        :message="this.errors.event ? this.errors.event[0] : ''">
+                                        :type="errors.event ? 'is-danger':''"
+                                        :message="errors.event ? errors.event[0] : ''">
                                         <b-input type="text" v-model="fields.event" placeholder="Event" required></b-input>
                                     </b-field>
                                 </div>
@@ -140,8 +152,8 @@
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Description"
-                                        :type="this.errors.event_description ? 'is-danger':''"
-                                        :message="this.errors.event_description ? this.errors.event_description[0] : ''">
+                                        :type="errors.event_description ? 'is-danger':''"
+                                        :message="errors.event_description ? errors.event_description[0] : ''">
                                         <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
                                         <quill-editor
                                             :content="event_content"
@@ -155,10 +167,10 @@
 
                             <div class="columns">
                                 <div class="column">
-                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">To update the image, just attach new image and the system will automatically remove the old save image.</p>
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: #2c2c2c;">To update the image, just attach new image and the system will automatically remove the old save image.</p>
                                     <b-field label="Event Image (Landscape is recommended for better view)"
-                                        :type="this.errors.event_img ? 'is-danger':''"
-                                        :message="this.errors.event_img ? this.errors.event_img[0] : ''">
+                                        :type="errors.event_img ? 'is-danger':''"
+                                        :message="errors.event_img ? errors.event_img[0] : ''">
                                         <b-upload v-model="fields.event_img"
                                                 drag-drop>
                                             <section class="section">
@@ -192,8 +204,8 @@
                                     <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">
                                         To update the file, just attach new file and the system will automatically remove the old file.</p>
                                     <b-field label="File Attachment (Only PDF format is allowed)" 
-                                        :type="this.errors.file_attachments ? 'is-danger':''"
-                                        :message="this.errors.file_attachments ? this.errors.file_attachments[0] : ''"></b-field>
+                                        :type="errors.file_attachments ? 'is-danger':''"
+                                        :message="errors.file_attachments ? errors.file_attachments[0] : ''"></b-field>
 
                                     <div class="mb-2" v-for="(file, index) in fields.file_attachments" :key="`file${index}`">
                                         <div class="columns">
@@ -319,6 +331,7 @@ export default {
 
             eventTypes: [],
             venues: [],
+            departments: [],
 
             btnClass: {
                 'button': true,
@@ -374,7 +387,8 @@ export default {
             formData.append('event_time_from', from ? from : '');
             formData.append('event_time_to', to ? to : '');
             formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
-            formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '0');
+            formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '');
+            formData.append('department_id', this.fields.department_id ? this.fields.department_id : '');
 
             if(this.propId > 0){
                 //update
@@ -446,6 +460,7 @@ export default {
             this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
             this.fields.event_venue_id =  this.propData.event_venue_id
             this.fields.ao_user_id =  this.propData.ao_user_id
+            this.fields.department_id =  this.propData.department_id
       
             this.propData.event_files.forEach(item => {
                 this.fields.file_attachments.push({
@@ -527,6 +542,12 @@ export default {
             });
 
         },
+        //load shool/deparment
+        loadDepartments(){
+            axios.get('/load-departments').then(res=>{
+                this.departments = res.data
+            })
+        },
 
 
     },
@@ -535,6 +556,7 @@ export default {
         this.loadEventTypes()
         this.loadEventVenues()
         this.loadApprovingOfficers()
+        this.loadDepartments()
 
         if(this.propId > 0){
             this.getData()

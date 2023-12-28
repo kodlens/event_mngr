@@ -9250,6 +9250,7 @@ __webpack_require__.r(__webpack_exports__);
       errors: {},
       eventTypes: [],
       venues: [],
+      departments: [],
       btnClass: {
         'button': true,
         'is-outlined': true,
@@ -9290,7 +9291,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('event_time_from', from ? from : '');
       formData.append('event_time_to', to ? to : '');
       formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
-      formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '0');
+      formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '');
+      formData.append('department_id', this.fields.department_id ? this.fields.department_id : '');
       if (this.propId > 0) {
         //update
         axios.post('/events-update/' + this.propId, formData).then(function (res) {
@@ -9347,6 +9349,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.event_time_to = new Date('2022-01-01 ' + this.propData.event_time_to);
       this.fields.event_venue_id = this.propData.event_venue_id;
       this.fields.ao_user_id = this.propData.ao_user_id;
+      this.fields.department_id = this.propData.department_id;
       this.propData.event_files.forEach(function (item) {
         _this2.fields.file_attachments.push({
           event_file_id: item.event_file_id,
@@ -9420,12 +9423,20 @@ __webpack_require__.r(__webpack_exports__);
           _this6.fields.file_attachments.splice(ix, 1);
         }
       });
+    },
+    //load shool/deparment
+    loadDepartments: function loadDepartments() {
+      var _this7 = this;
+      axios.get('/load-departments').then(function (res) {
+        _this7.departments = res.data;
+      });
     }
   },
   mounted: function mounted() {
     this.loadEventTypes();
     this.loadEventVenues();
     this.loadApprovingOfficers();
+    this.loadDepartments();
     if (this.propId > 0) {
       this.getData();
     }
@@ -13124,7 +13135,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e()]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("School")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e()]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.department.code) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"
@@ -13533,8 +13544,8 @@ var render = function render() {
     attrs: {
       label: "Date From",
       expanded: "",
-      type: this.errors.event_date_from ? "is-danger" : "",
-      message: this.errors.event_date_from ? this.errors.event_date_from[0] : ""
+      type: _vm.errors.event_date_from ? "is-danger" : "",
+      message: _vm.errors.event_date_from ? _vm.errors.event_date_from[0] : ""
     }
   }, [_c("b-datepicker", {
     attrs: {
@@ -13558,8 +13569,8 @@ var render = function render() {
     attrs: {
       label: "Date To",
       expanded: "",
-      type: this.errors.event_date_to ? "is-danger" : "",
-      message: this.errors.event_date_to ? this.errors.event_date_to[0] : ""
+      type: _vm.errors.event_date_to ? "is-danger" : "",
+      message: _vm.errors.event_date_to ? _vm.errors.event_date_to[0] : ""
     }
   }, [_c("b-datepicker", {
     attrs: {
@@ -13583,8 +13594,8 @@ var render = function render() {
     attrs: {
       label: "From",
       expanded: "",
-      type: this.errors.event_time_from ? "is-danger" : "",
-      message: this.errors.event_time_from ? this.errors.event_time_from[0] : ""
+      type: _vm.errors.event_time_from ? "is-danger" : "",
+      message: _vm.errors.event_time_from ? _vm.errors.event_time_from[0] : ""
     }
   }, [_c("b-timepicker", {
     attrs: {
@@ -13606,8 +13617,8 @@ var render = function render() {
     attrs: {
       label: "Until",
       expanded: "",
-      type: this.errors.event_time_to ? "is-danger" : "",
-      message: this.errors.event_time_to ? this.errors.event_time_to[0] : ""
+      type: _vm.errors.event_time_to ? "is-danger" : "",
+      message: _vm.errors.event_time_to ? _vm.errors.event_time_to[0] : ""
     }
   }, [_c("b-timepicker", {
     attrs: {
@@ -13631,8 +13642,8 @@ var render = function render() {
     attrs: {
       label: "Event Type",
       expanded: "",
-      type: this.errors.event_type_id ? "is-danger" : "",
-      message: this.errors.event_type_id ? this.errors.event_type_id[0] : ""
+      type: _vm.errors.event_type_id ? "is-danger" : "",
+      message: _vm.errors.event_type_id ? _vm.errors.event_type_id[0] : ""
     }
   }, [_c("b-select", {
     attrs: {
@@ -13660,8 +13671,8 @@ var render = function render() {
     attrs: {
       label: "Facility/Equipment",
       expanded: "",
-      type: this.errors.event_venue_id ? "is-danger" : "",
-      message: this.errors.event_venue_id ? this.errors.event_venue_id[0] : ""
+      type: _vm.errors.event_venue_id ? "is-danger" : "",
+      message: _vm.errors.event_venue_id ? _vm.errors.event_venue_id[0] : ""
     }
   }, [_c("b-select", {
     attrs: {
@@ -13691,8 +13702,8 @@ var render = function render() {
     attrs: {
       label: "Select Approving Officer",
       expanded: "",
-      type: this.errors.ao_user_id ? "is-danger" : "",
-      message: this.errors.ao_user_id ? this.errors.ao_user_id[0] : ""
+      type: _vm.errors.ao_user_id ? "is-danger" : "",
+      message: _vm.errors.ao_user_id ? _vm.errors.ao_user_id[0] : ""
     }
   }, [_c("b-select", {
     attrs: {
@@ -13712,6 +13723,33 @@ var render = function render() {
         value: item.user_id
       }
     }, [_vm._v("\n                                            " + _vm._s(item.lname) + ", " + _vm._s(item.fname) + " " + _vm._s(item.mname) + "\n                                        ")]);
+  }), 0)], 1)], 1), _vm._v(" "), _c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "School",
+      expanded: "",
+      type: _vm.errors.department_id ? "is-danger" : "",
+      message: _vm.errors.department_id ? _vm.errors.department_id[0] : ""
+    }
+  }, [_c("b-select", {
+    attrs: {
+      expanded: ""
+    },
+    model: {
+      value: _vm.fields.department_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "department_id", $$v);
+      },
+      expression: "fields.department_id"
+    }
+  }, _vm._l(_vm.departments, function (item, index) {
+    return _c("option", {
+      key: index,
+      domProps: {
+        value: item.department_id
+      }
+    }, [_vm._v(_vm._s(item.code))]);
   }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
@@ -13719,8 +13757,8 @@ var render = function render() {
   }, [_c("b-field", {
     attrs: {
       label: "Event Title",
-      type: this.errors.event ? "is-danger" : "",
-      message: this.errors.event ? this.errors.event[0] : ""
+      type: _vm.errors.event ? "is-danger" : "",
+      message: _vm.errors.event ? _vm.errors.event[0] : ""
     }
   }, [_c("b-input", {
     attrs: {
@@ -13742,8 +13780,8 @@ var render = function render() {
   }, [_c("b-field", {
     attrs: {
       label: "Description",
-      type: this.errors.event_description ? "is-danger" : "",
-      message: this.errors.event_description ? this.errors.event_description[0] : ""
+      type: _vm.errors.event_description ? "is-danger" : "",
+      message: _vm.errors.event_description ? _vm.errors.event_description[0] : ""
     }
   }, [_c("quill-editor", {
     attrs: {
@@ -13763,13 +13801,13 @@ var render = function render() {
     staticStyle: {
       "font-size": "10px",
       "font-weight": "bold",
-      color: "rgb(44, 44, 44)"
+      color: "#2c2c2c"
     }
   }, [_vm._v("To update the image, just attach new image and the system will automatically remove the old save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
       label: "Event Image (Landscape is recommended for better view)",
-      type: this.errors.event_img ? "is-danger" : "",
-      message: this.errors.event_img ? this.errors.event_img[0] : ""
+      type: _vm.errors.event_img ? "is-danger" : "",
+      message: _vm.errors.event_img ? _vm.errors.event_img[0] : ""
     }
   }, [_c("b-upload", {
     attrs: {
@@ -13818,8 +13856,8 @@ var render = function render() {
   }, [_vm._v("\n                                    To update the file, just attach new file and the system will automatically remove the old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
       label: "File Attachment (Only PDF format is allowed)",
-      type: this.errors.file_attachments ? "is-danger" : "",
-      message: this.errors.file_attachments ? this.errors.file_attachments[0] : ""
+      type: _vm.errors.file_attachments ? "is-danger" : "",
+      message: _vm.errors.file_attachments ? _vm.errors.file_attachments[0] : ""
     }
   }), _vm._v(" "), _vm._l(_vm.fields.file_attachments, function (file, index) {
     return _c("div", {
@@ -15204,7 +15242,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Department",
+      label: "School",
       "label-position": "on-border",
       expanded: "",
       type: this.errors.department_id ? "is-danger" : "",

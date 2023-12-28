@@ -13,10 +13,13 @@ An update of the event was made. Please check below the update.
 <ul>
     <li>{{ $oldEvent->event }}</li>
     <li>{{ $oldEvent->venue->event_venue }}</li>
-    <li>{{ date('Y-M-d', strtotime($oldEvent->event_date)) }}</li>
-    <li>{{ date('H:i A', strtotime($oldEvent->event_time_from)) }}
+    <li>{{ date('Y-M-d', strtotime($oldEvent->event_date_from)) }} 
         -
-        {{ date('H:i A', strtotime($oldEvent->event_time_to)) }}
+        {{ date('Y-M-d', strtotime($oldEvent->event_date_to)) }}
+    </li>
+    <li>{{ date('h:i A', strtotime($oldEvent->event_time_from)) }}
+        -
+        {{ date('h:i A', strtotime($oldEvent->event_time_to)) }}
     </li>
 
 </ul>
@@ -24,13 +27,16 @@ An update of the event was made. Please check below the update.
 <br>
 <strong>NEW UPDATED INFORMATION</strong>
 <ul>
-    <li>{{ $updatedEvent->event }}</li>
+    <li>{{ $updatedEvent }}</li>
     <li>{{ $newEventVenue->event_venue }}</li>
-    <li>{{ date('Y-M-d', strtotime($newEventDate)) }}</li>
+    <li>{{ date('Y-M-d', strtotime($newEventDateFrom)) }}
+        -
+        {{ date('Y-M-d', strtotime($newEventDateTo)) }}
+    </li>
     <li>
-        {{ date('H:i A', strtotime($newEventFrom)) }} 
+        {{ date('h:i A', strtotime($newEventTimeFrom)) }} 
         - 
-        {{ date('H:i A', strtotime($newEventTo)) }}
+        {{ date('h:i A', strtotime($newEventTimeTo)) }}
     </li>
    
 </ul>

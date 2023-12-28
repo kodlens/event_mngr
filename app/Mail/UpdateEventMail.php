@@ -20,21 +20,28 @@ class UpdateEventMail extends Mailable
      private $oldEvent;
      private $updatedEvent;
      private $newEventVenue;
-     private $newEventDate;
-     private $newEventFrom;
-     private $newEventTo;
+     private $newEventDateFrom;
+     private $newEventDateTo;
+     private $newEventTimeFrom;
+     private $newEventTimeTo;
 
-    public function __construct($oldEvent, $updatedEvent, $newEventVenue,
-            $newEventDate, $newEventFrom, $newEventTo
+    public function __construct($oldEvent, 
+        $updatedEvent, 
+        $newEventVenue,
+        $newEventDateFrom, 
+        $newEventDateTo, 
+        $newEventTimeFrom, 
+        $newEventTimeTo
         )
     {
         //
         $this->oldEvent = $oldEvent;
         $this->updatedEvent = $updatedEvent;
         $this->newEventVenue = $newEventVenue;
-        $this->newEventDate = $newEventDate;
-        $this->newEventFrom = $newEventFrom;
-        $this->newEventTo = $newEventTo;
+        $this->newEventDateFrom = $newEventDateFrom;
+        $this->newEventDateTo = $newEventDateTo;
+        $this->newEventTimeFrom = $newEventTimeFrom;
+        $this->newEventTimeTo = $newEventTimeTo;
     }
 
     /**
@@ -48,8 +55,9 @@ class UpdateEventMail extends Mailable
             ->with('oldEvent', $this->oldEvent)
             ->with('updatedEvent', $this->updatedEvent)
             ->with('newEventVenue', $this->newEventVenue)
-            ->with('newEventDate', $this->newEventDate)
-            ->with('newEventFrom', $this->newEventFrom)
-            ->with('newEventTo', $this->newEventTo);
+            ->with('newEventDateFrom', $this->newEventDateFrom)
+            ->with('newEventDateTo', $this->newEventDateTo)
+            ->with('newEventTimeFrom', $this->newEventTimeFrom)
+            ->with('newEventTimeTo', $this->newEventTimeTo);
     }
 }

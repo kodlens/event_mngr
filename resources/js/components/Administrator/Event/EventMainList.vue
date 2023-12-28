@@ -203,6 +203,7 @@
                 <template #detail="props">
                     <tr>
                         <th>Description</th>
+                        <th>School</th>
                         <th>Venue</th>
                         <th>Need Approval</th>
                         <th v-if="!['ATTENDEE'].includes(propUser.role)">Approve Officer</th>
@@ -214,6 +215,11 @@
                                 {{ props.row.event_content | truncate(50) }}
                             </span>
 
+                        </td>
+                        <td>
+                             <span v-if="props.row.department">
+                                {{ props.row.department.code }}
+                            </span>
                         </td>
                         <td>
                             <span v-if="props.row.venue">{{ props.row.venue.event_venue }}</span>
