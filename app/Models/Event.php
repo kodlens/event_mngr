@@ -74,4 +74,8 @@ class Event extends Model
         return $this->hasOne(Department::class, 'department_id', 'department_id');
     }
 
+    public function attendees(){
+        return $this->hasMany(EventAttendee::class, 'event_id', 'event_id');
+    }
+
 }

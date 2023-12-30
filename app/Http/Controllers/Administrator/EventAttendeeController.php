@@ -19,6 +19,7 @@ class EventAttendeeController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $event = EventAttendee::with(['event', 'user'])
+            ->where('event_id', $req->eventid)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

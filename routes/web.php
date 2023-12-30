@@ -126,6 +126,8 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::post('/event-attendees-approve/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'approveAttendee']);
     Route::post('/event-attendees-decline/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'declineAttendee']);
 
+    Route::get('/event-attendees-print-preview/{attendeeId}', [App\Http\Controllers\Administrator\EventAttedeePrintPreview::class, 'eventAttendeePrintPreview']);
+
 
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
