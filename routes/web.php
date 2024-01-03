@@ -56,8 +56,6 @@ Route::resource('/register-page', App\Http\Controllers\RegisterPageController::c
 //Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
 
 
-
-
 Route::get('/load-browse-events', [App\Http\Controllers\OpenController::class, 'loadBrowseEvents']);
 
 Route::get('/load-academic-years', [App\Http\Controllers\OpenAcademicYearController::class, 'loadAcademicYears']);
@@ -66,7 +64,7 @@ Route::get('/load-event-types', [App\Http\Controllers\OpenController::class, 'lo
 Route::get('/load-event-venues', [App\Http\Controllers\OpenController::class, 'loadEventVenues']);
 
 
-/*     ADMINSITRATOR          */
+/*     ADMINSITRATOR      */
 Route::middleware(['verified', 'admin'])->group(function() {
 
     Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
@@ -82,7 +80,6 @@ Route::middleware(['verified', 'admin'])->group(function() {
     //Route::get('/get-browse-events', [App\Http\Controllers\Administrator\QuestionController::class, 'getBrowseEvents']);
 
 
-
 });
 /*     ADMINSITRATOR          */
 
@@ -96,9 +93,6 @@ Route::middleware(['verified', 'adminstaff'])->group(function() {
     Route::get('/get-event-types', [App\Http\Controllers\Administrator\EventTypeController::class, 'getData']);
 
 
-
-
-
 });
 
 
@@ -108,7 +102,6 @@ Route::get('/dashboard', [App\Http\Controllers\Administrator\DashboardController
 
 /*     organizer          */
 Route::middleware(['verified', 'ao'])->group(function() {
-
 
     Route::resource('/academic-years', App\Http\Controllers\Administrator\AcademicYearController::class);
     Route::get('/get-academic-years', [App\Http\Controllers\Administrator\AcademicYearController::class, 'getData']);
@@ -123,7 +116,6 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::post('/event-file-attachment-delete/{id}', [App\Http\Controllers\Administrator\EventController::class, 'removeEventFileAttachment']);
 
 
-
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
     Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
     Route::post('/events-open-evaluation/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventOpenEvaluation']);
@@ -133,6 +125,8 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::get('/get-event-attendees', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'getEventAttendees']);
     Route::post('/event-attendees-approve/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'approveAttendee']);
     Route::post('/event-attendees-decline/{attendeeId}', [App\Http\Controllers\Administrator\EventAttendeeController::class, 'declineAttendee']);
+
+    Route::get('/event-attendees-print-preview/{attendeeId}', [App\Http\Controllers\Administrator\EventAttedeePrintPreview::class, 'eventAttendeePrintPreview']);
 
 
     Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
@@ -168,17 +162,5 @@ Route::middleware(['verified'])->group(function() {
 
 });
 
-use App\Models\User;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\Product;
 
-Route::get('/test', function(){
-    $data = Order::with('orders.product')
-        ->get();
-    return $data;
-
-    //return $data[0]->event_type->event_type;
-    
-});
 

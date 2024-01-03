@@ -75,6 +75,7 @@
                         </div>
 
 
+<<<<<<< HEAD
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Event Type" expanded
@@ -90,6 +91,69 @@
                                             :key="`evtype${ix}`">{{item.event_type}}</option>
                                     </b-select>
                                 </b-field>
+=======
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Event Type" expanded
+                                        :type="errors.event_type_id ? 'is-danger':''"
+                                        :message="errors.event_type_id ? errors.event_type_id[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_type_id"
+                                            placeholder="Event Type">
+                                            <option v-for="(item, ix) in eventTypes"
+                                                :value="item.event_type_id"
+                                                :key="`evtype${ix}`">{{item.event_type}}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+
+                                <div class="column">
+                                    <b-field label="Facility/Equipment" expanded
+                                        :type="errors.event_venue_id ? 'is-danger':''"
+                                        :message="errors.event_venue_id ? errors.event_venue_id[0] : ''">
+                                        <b-select
+                                            expanded
+                                            required
+                                            v-model="fields.event_venue_id"
+                                            placeholder="Facility/Equipment">
+                                            <option v-for="(item, ix) in venues"
+                                                :value="item.event_venue_id"
+                                                :key="`evtype${ix}`">{{item.event_venue}}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Select Approving Officer"
+                                        expanded
+                                        :type="errors.ao_user_id ? 'is-danger':''"
+                                        :message="errors.ao_user_id ? errors.ao_user_id[0] : ''">
+                                        <b-select v-model="fields.ao_user_id"
+                                            expanded>
+                                            <option v-for="(item, index) in approvingOfficers" :key="`ao${index}`"
+                                                :value="item.user_id">
+                                                {{ item.lname }}, {{ item.fname }} {{ item.mname }}
+                                            </option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+
+                                <div class="column">
+                                    <b-field label="School" expanded
+                                            :type="errors.department_id ? 'is-danger':''"
+                                            :message="errors.department_id ? errors.department_id[0] : ''">
+                                        <b-select v-model="fields.department_id" expanded>
+                                            <option v-for="(item, index) in departments"
+                                                :key="index"
+                                                :value="item.department_id">{{ item.code }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+>>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
                             </div>
 
                             <div class="column">
@@ -109,6 +173,7 @@
                             </div>
                         </div>
 
+<<<<<<< HEAD
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Select Approving Officer"
@@ -135,9 +200,59 @@
                                             :value="item.department_id">{{ item.code }}</option>
                                     </b-select>
                                 </b-field>
+=======
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Event Title"
+                                        :type="errors.event ? 'is-danger':''"
+                                        :message="errors.event ? errors.event[0] : ''">
+                                        <b-input type="text" v-model="fields.event" placeholder="Event" required></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Description"
+                                        :type="errors.event_description ? 'is-danger':''"
+                                        :message="errors.event_description ? errors.event_description[0] : ''">
+                                        <!-- <b-input type="textarea" v-model="fields.event_description" placeholder="Descirption" required></b-input> -->
+                                        <quill-editor
+                                            :content="event_content"
+                                            :options="editorOption"
+                                            @change="onEditorChange($event)"
+                                        />
+
+                                    </b-field>
+                                </div>
+>>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
                             </div>
                         </div>
 
+<<<<<<< HEAD
+=======
+                            <div class="columns">
+                                <div class="column">
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: #2c2c2c;">To update the image, just attach new image and the system will automatically remove the old save image.</p>
+                                    <b-field label="Event Image (Landscape is recommended for better view)"
+                                        :type="errors.event_img ? 'is-danger':''"
+                                        :message="errors.event_img ? errors.event_img[0] : ''">
+                                        <b-upload v-model="fields.event_img"
+                                                drag-drop>
+                                            <section class="section">
+                                                <div class="content has-text-centered">
+                                                    <p>
+                                                        <b-icon
+                                                            icon="upload"
+                                                            size="is-large">
+                                                        </b-icon>
+                                                    </p>
+                                                    <p>Drop your files here or click to upload</p>
+                                                </div>
+                                            </section>
+                                        </b-upload>
+                                    </b-field>
+>>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
 
                         <div class="columns">
                             <div class="column">
@@ -147,7 +262,18 @@
                                     <b-input type="text" v-model="fields.event" placeholder="Event" required></b-input>
                                 </b-field>
                             </div>
+<<<<<<< HEAD
                         </div>
+=======
+                            <hr>
+                            <div class="columns">
+                                <div class="column">
+                                    <p v-if="propId > 0" style="font-size: 10px; font-weight: bold; color: rgb(44, 44, 44);">
+                                        To update the file, just attach new file and the system will automatically remove the old file.</p>
+                                    <b-field label="File Attachment (Only PDF format is allowed)" 
+                                        :type="errors.file_attachments ? 'is-danger':''"
+                                        :message="errors.file_attachments ? errors.file_attachments[0] : ''"></b-field>
+>>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
 
                         <div class="columns">
                             <div class="column">
@@ -459,6 +585,7 @@ export default {
             this.fields.event_time_to =  new Date('2022-01-01 ' +this.propData.event_time_to)
             this.fields.event_venue_id =  this.propData.event_venue_id
             this.fields.ao_user_id =  this.propData.ao_user_id
+            this.fields.department_id =  this.propData.department_id
       
             this.propData.event_files.forEach(item => {
                 this.fields.file_attachments.push({
@@ -542,6 +669,12 @@ export default {
                 }
             });
 
+        },
+        //load shool/deparment
+        loadDepartments(){
+            axios.get('/load-departments').then(res=>{
+                this.departments = res.data
+            })
         },
 
 

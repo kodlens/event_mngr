@@ -86,7 +86,6 @@ class EventController extends Controller
         // if(in_array($role, ['APPROVING OFFICER'])){
         //     $event->where('ao_user_id', $user->user_id);
         // }
-
         return $event->paginate($req->perpage);
     }
 
@@ -105,15 +104,13 @@ class EventController extends Controller
 
 
     public function store(Request $req){
-     
-
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
         $event_date_from = date('Y-m-d', strtotime($req->event_date_from));
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
-        $eventFrom = date('H:i:s', strtotime($req->event_time_from));
-        $eventTo = date('H:i:s', strtotime($req->event_time_to));
+        $eventTimeFrom = date('H:i:s', strtotime($req->event_time_from));
+        $eventTimeTo = date('H:i:s', strtotime($req->event_time_to));
 
 
         $req->validate([
@@ -125,14 +122,14 @@ class EventController extends Controller
             'event_type_id' => ['required'],
             'department_id' => ['required'],
             'ao_user_id' => ['required'],
-
             'event_img' => ['required', 'mimes:jpg,bmp,png'],
             'file_attachments.*.event_file_path' => ['required', 'mimes:pdf'],
-            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, 0)]
+            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventTimeFrom, $eventTimeTo, 0)]
         ],[
             'event_img.required' => 'Please upload and image.',
             'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
             'file_attachments.required' => 'Please upload file attachment.',
+            'department_id.required' => 'Please select school.',
             'file_attachments.*.event_file_path.mimes' => 'Only PDF are accepted.',
             'department_id.required' => 'Please select school.',
             'ao_user_id.required' => 'Please select approving officer.',
@@ -144,6 +141,7 @@ class EventController extends Controller
             $pathFile = $req->event_img->store('public/events'); //get path of the file
             $n = explode('/', $pathFile); //split into array using /
         }
+
         $data = Event::create([
             'academic_year_id' => $ay->academic_year_id,
             'user_id' => $user->user_id,
@@ -154,8 +152,8 @@ class EventController extends Controller
             'if_others' => strtoupper($req->if_others),
             'event_date_from' => $event_date_from,
             'event_date_to' => $event_date_to,
-            'event_time_from' => $eventFrom,
-            'event_time_to' => $eventTo,
+            'event_time_from' => $eventTimeFrom,
+            'event_time_to' => $eventTimeTo,
             'img_path' => $req->hasFile('event_img') ? $n[2] : '',
 
             'is_need_approval' => $req->is_need_approval,
@@ -188,6 +186,9 @@ class EventController extends Controller
         ], 200);
     }
 
+
+
+
     public function updateEvent(Request $req, $id){
 
         // foreach ($req->file_attachments as $item) {
@@ -196,7 +197,6 @@ class EventController extends Controller
         //     }
         // }
 
-       
         //get the current active semester
         $ay = AcademicYear::where('active', 1)->first();
 
@@ -205,7 +205,6 @@ class EventController extends Controller
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
         $eventTimeFrom = date('H:i:s', strtotime($req->event_time_from));
         $eventTimeTo = date('H:i:s', strtotime($req->event_time_to));
-      
 
         $req->validate([
             'event' => ['required'],
@@ -215,10 +214,11 @@ class EventController extends Controller
             'event_time_from' => ['required'],
             'event_time_to' => ['required'],
             'department_id' => ['required'],
-            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventFrom, $eventTo, $id)]
 
+            'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventTimeFrom, $eventTimeTo, $id)]
         ],[
-            'department_id.required' => 'Please select school.',
+            'department_id.required' => 'Please select school.'
+
         ]);
 
 
@@ -244,8 +244,8 @@ class EventController extends Controller
         $data->event_content = $req->event_content;
         $data->event_date_from = $event_date_from;
         $data->event_date_to = $event_date_to;
-        $data->event_time_from = $eventFrom;
-        $data->event_time_to = $eventTo;
+        $data->event_time_from = $eventTimeFrom;
+        $data->event_time_to = $eventTimeTo;
         $data->is_need_approval = $req->is_need_approval;
         $data->department_id = $req->department_id;
         
@@ -259,9 +259,7 @@ class EventController extends Controller
         // $nPath=[];
         // if($req->has('file_attachments')){
         //     foreach ($req->file_attachments as $item) {
-
         //         $nPath = [];
-
         //         if($item['event_file_path']){
         //             $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
         //             $nPath = explode('/', $pathFile); //split into array using /
@@ -273,7 +271,8 @@ class EventController extends Controller
         //         ],[
         //             'event_id' => $data->event_id,
         //             'event_filename' => $item['event_filename'],
-        //             'event_file_path' => ''
+
+        //             'event_file_path' => $nPath[2]
         //         ]);
         //     }
         // }
@@ -298,6 +297,16 @@ class EventController extends Controller
                         $eventTimeFrom, 
                         $eventTimeTo
                     ));
+
+            $when = now()->addSeconds(10);
+            Mail::to($data->user->email)
+                ->later($when, new UpdateEventMail($data, 
+                    $req->event, 
+                    $newEventVenue, 
+                    $event_date_from,
+                    $event_date_to, 
+                    $eventTimeFrom, 
+                    $eventTimeTo));
         }
 
         //return $req;
@@ -312,7 +321,6 @@ class EventController extends Controller
 
         $user = Auth::user();
 
-
         $data = Event::with(['user'])
             ->find($id);
         $data->approval_status = 1;
@@ -323,10 +331,11 @@ class EventController extends Controller
         $data->save();
 
         //return $data->user->email;
-
          //GINOO NLAANG JUD NAKABLO GE UNSA NI NAKO
          $when = now()->addSeconds(10);
+
         if(Env::get('MAIL_OPEN') == 1){
+            $when = now()->addSeconds(10);
             Mail::to($data->user->email)
                 ->later($when, new ApproveEmail($data->event));
 
@@ -337,6 +346,7 @@ class EventController extends Controller
             foreach($users as $u){
                 Mail::to($u->email)
                     ->later($when, new ParticipantsMailApprove($data->event));
+
                 sleep(2);
             }
         }
@@ -361,11 +371,10 @@ class EventController extends Controller
         $when = now()->addSeconds(10);
 
         if(Env::get('MAIL_OPEN') == 1){
+            $when = now()->addSeconds(10);
             Mail::to($data->user->email)
-                //->send(new DeclineEmail($data->event, $req->remarks_decline));
                 ->later($when, new DeclineEmail($data->event, $req->remarks_decline));
         }
-
 
         return response()->json([
             'status' => 'declined'

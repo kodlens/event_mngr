@@ -29,9 +29,9 @@ class EventSeeder extends Seeder
                 'img_path' => 'gbeDdXVEl7nljb93hFvE4vVc2pA8jhzqH9ChDqHe.jpg',
                 'approval_status' => 1,
                 'is_open' => 0,
-                'ao_user_id' => 8
+                'ao_user_id' => 8,
+                'department_id' => 5
             ],
-
             [
                 'event' => 'Monthly Mass',
                 'academic_year_id' => 1,
@@ -45,7 +45,8 @@ class EventSeeder extends Seeder
                 'img_path' => 'T6qZYwDpIdOmhDkLvkFUTPV306j7DsoL18ieCxTG.jpg',
                 'approval_status' => 1,
                 'is_open' => 1,
-                'ao_user_id' => 8
+                'ao_user_id' => 8,
+                'department_id' => 5
             ],
 
 

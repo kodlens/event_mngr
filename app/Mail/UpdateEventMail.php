@@ -25,8 +25,13 @@ class UpdateEventMail extends Mailable
      private $newEventTimeFrom;
      private $newEventTimeTo;
 
-    public function __construct($oldEvent, $updatedEvent, $newEventVenue,
-            $newEventDateFrom, $newEventDateTo, $newEventTimeFrom, $newEventTimeTo
+    public function __construct($oldEvent, 
+        $updatedEvent, 
+        $newEventVenue,
+        $newEventDateFrom, 
+        $newEventDateTo, 
+        $newEventTimeFrom, 
+        $newEventTimeTo
         )
     {
         //

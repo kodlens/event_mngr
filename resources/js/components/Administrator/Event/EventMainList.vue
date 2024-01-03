@@ -177,13 +177,13 @@
 
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
                                 @click="confirmEval(props.row.event_id)">
                                 Open Evaluation
                                 <b-icon icon="open-in-app" size="is-small"></b-icon>
                             </b-dropdown-item>
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
                                 @click="confirmCloseEval(props.row.event_id)">
                                 Close Evaluation
                                 <b-icon icon="close" size="is-small"></b-icon>
@@ -203,6 +203,7 @@
                 <template #detail="props">
                     <tr>
                         <th>Description</th>
+                        <th>School</th>
                         <th>Venue</th>
                         <th>Need Approval</th>
                         <th v-if="!['ATTENDEE'].includes(propUser.role)">Approve Officer</th>
@@ -214,6 +215,11 @@
                                 {{ props.row.event_content | truncate(50) }}
                             </span>
 
+                        </td>
+                        <td>
+                             <span v-if="props.row.department">
+                                {{ props.row.department.code }}
+                            </span>
                         </td>
                         <td>
                             <span v-if="props.row.venue">{{ props.row.venue.event_venue }}</span>
