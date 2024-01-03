@@ -177,13 +177,13 @@
 
 
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
                                 @click="confirmEval(props.row.event_id)">
                                 Open Evaluation
                                 <b-icon icon="open-in-app" size="is-small"></b-icon>
                             </b-dropdown-item>
                             <b-dropdown-item aria-role="listitem"
-                                v-if="['APPROVING OFFICER'].includes(propUser.role)"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
                                 @click="confirmCloseEval(props.row.event_id)">
                                 Close Evaluation
                                 <b-icon icon="close" size="is-small"></b-icon>

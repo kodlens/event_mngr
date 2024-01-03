@@ -13351,7 +13351,7 @@ var render = function render() {
             icon: "pencil",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13365,7 +13365,7 @@ var render = function render() {
             icon: "open-in-app",
             size: "is-small"
           }
-        })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+        })], 1) : _vm._e(), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
           },
@@ -13395,7 +13395,7 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 3825521228)
+    }], null, false, 299945964)
   }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
