@@ -9238,6 +9238,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propId: {
@@ -9288,7 +9292,7 @@ __webpack_require__.r(__webpack_exports__);
       minDate: new Date(new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000 * 1))
     };
   },
-  methods: {
+  methods: _defineProperty({
     submit: function submit() {
       var _this = this;
       this.btnClass['is-loading'] = true;
@@ -9453,18 +9457,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-<<<<<<< HEAD
-    //load dept
-=======
     //load shool/deparment
->>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
     loadDepartments: function loadDepartments() {
       var _this7 = this;
       axios.get('/load-departments').then(function (res) {
         _this7.departments = res.data;
       });
     }
-  },
+  }, "loadDepartments", function loadDepartments() {
+    var _this8 = this;
+    axios.get('/load-departments').then(function (res) {
+      _this8.departments = res.data;
+    });
+  }),
   mounted: function mounted() {
     this.loadEventTypes();
     this.loadEventVenues();
@@ -13752,11 +13757,7 @@ var render = function render() {
       domProps: {
         value: item.user_id
       }
-<<<<<<< HEAD
     }, [_vm._v("\n                                        " + _vm._s(item.lname) + ", " + _vm._s(item.fname) + " " + _vm._s(item.mname) + "\n                                    ")]);
-=======
-    }, [_vm._v("\n                                            " + _vm._s(item.lname) + ", " + _vm._s(item.fname) + " " + _vm._s(item.mname) + "\n                                        ")]);
->>>>>>> aa8420682891c9c5e8ac90b320bb06d4a4ec19db
   }), 0)], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
   }, [_c("b-field", {
@@ -13784,6 +13785,37 @@ var render = function render() {
         value: item.department_id
       }
     }, [_vm._v(_vm._s(item.code))]);
+  }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Facility/Equipment",
+      expanded: "",
+      type: _vm.errors.event_venue_id ? "is-danger" : "",
+      message: _vm.errors.event_venue_id ? _vm.errors.event_venue_id[0] : ""
+    }
+  }, [_c("b-select", {
+    attrs: {
+      expanded: "",
+      required: "",
+      placeholder: "Facility/Equipment"
+    },
+    model: {
+      value: _vm.fields.event_venue_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.fields, "event_venue_id", $$v);
+      },
+      expression: "fields.event_venue_id"
+    }
+  }, _vm._l(_vm.venues, function (item, ix) {
+    return _c("option", {
+      key: "evtype".concat(ix),
+      domProps: {
+        value: item.event_venue_id
+      }
+    }, [_vm._v(_vm._s(item.event_venue))]);
   }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
@@ -13827,7 +13859,7 @@ var render = function render() {
         return _vm.onEditorChange($event);
       }
     }
-  })], 1)], 1)]), _vm._v(" "), _c("div", {
+  })], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13835,7 +13867,7 @@ var render = function render() {
     staticStyle: {
       "font-size": "10px",
       "font-weight": "bold",
-      color: "#2c2c2c"
+      color: "rgb(44, 44, 44)"
     }
   }, [_vm._v("To update the image, just attach new image and the system will automatically remove the old save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
