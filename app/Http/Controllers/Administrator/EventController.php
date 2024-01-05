@@ -40,11 +40,11 @@ class EventController extends Controller
 
         $sort = explode('.', $req->sort_by);
 
-        $event = Event::with(['academic_year', 
-            'event_type', 
-            'venue', 
-            'user.department', 
-            'approving_officer', 
+        $event = Event::with(['academic_year',
+            'event_type',
+            'venue',
+            'user.department',
+            'approving_officer',
             'event_files',
             'department'
             ])
@@ -104,6 +104,9 @@ class EventController extends Controller
 
 
     public function store(Request $req){
+
+        return $req;
+
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
 
@@ -111,7 +114,6 @@ class EventController extends Controller
         $event_date_to = date('Y-m-d', strtotime($req->event_date_to));
         $eventTimeFrom = date('H:i:s', strtotime($req->event_time_from));
         $eventTimeTo = date('H:i:s', strtotime($req->event_time_to));
-
 
         $req->validate([
             'event' => ['required'],
@@ -131,7 +133,6 @@ class EventController extends Controller
             'file_attachments.required' => 'Please upload file attachment.',
             'department_id.required' => 'Please select school.',
             'file_attachments.*.event_file_path.mimes' => 'Only PDF are accepted.',
-            'department_id.required' => 'Please select school.',
             'ao_user_id.required' => 'Please select approving officer.',
         ]);
 
@@ -178,7 +179,7 @@ class EventController extends Controller
                 ]);
             }
         }
-        
+
         //return $req;
 
         return response()->json([
@@ -221,8 +222,6 @@ class EventController extends Controller
 
         ]);
 
-
-
         $data = Event::with(['user', 'venue'])->find($id);
 
         $n = [];
@@ -248,17 +247,18 @@ class EventController extends Controller
         $data->event_time_to = $eventTimeTo;
         $data->is_need_approval = $req->is_need_approval;
         $data->department_id = $req->department_id;
-        
+
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
-        }  
+        }
 
         $data->save();
-        
+
 
         // $nPath=[];
         // if($req->has('file_attachments')){
         //     foreach ($req->file_attachments as $item) {
+
         //         $nPath = [];
         //         if($item['event_file_path']){
         //             $pathFile = $item['event_file_path']->store('public/attach_files'); //get path of the file
@@ -285,27 +285,14 @@ class EventController extends Controller
             // Mail::to($data->user->email)
             //     ->later($when, new ApproveEmail($data->event));
 
-            Mail::to($data->user->email)
-                ->later(
-                    $when, 
-                    new UpdateEventMail(
-                        $data, 
-                        $req->event, 
-                        $newEventVenue, 
-                        $event_date_from, 
-                        $event_date_to, 
-                        $eventTimeFrom, 
-                        $eventTimeTo
-                    ));
-
             $when = now()->addSeconds(10);
             Mail::to($data->user->email)
-                ->later($when, new UpdateEventMail($data, 
-                    $req->event, 
-                    $newEventVenue, 
+                ->later($when, new UpdateEventMail($data,
+                    $req->event,
+                    $newEventVenue,
                     $event_date_from,
-                    $event_date_to, 
-                    $eventTimeFrom, 
+                    $event_date_to,
+                    $eventTimeFrom,
                     $eventTimeTo));
         }
 
@@ -331,17 +318,21 @@ class EventController extends Controller
         $data->save();
 
         //return $data->user->email;
-         //GINOO NLAANG JUD NAKABLO GE UNSA NI NAKO
-         $when = now()->addSeconds(10);
-
+        //GINOO NLAANG JUD NAKABLO GE UNSA NI NAKO
         if(Env::get('MAIL_OPEN') == 1){
             $when = now()->addSeconds(10);
             Mail::to($data->user->email)
                 ->later($when, new ApproveEmail($data->event));
 
-            $users = User::where('role', 'ATTENDEE')
-                ->where('department_id', $data->department_id)
-                ->get();
+            if($data->department_id > 0){
+                $users = User::where('role', 'ATTENDEE')
+                    ->where('department_id', $data->department_id)
+                    ->get();
+            }else{
+                $users = User::where('role', 'ATTENDEE')
+                    ->get();
+            }
+
 
             foreach($users as $u){
                 Mail::to($u->email)
@@ -367,7 +358,7 @@ class EventController extends Controller
         $data->approval_status = 2;
         $data->remarks_decline = $req->remarks_decline;
         $data->save();
-        
+
         $when = now()->addSeconds(10);
 
         if(Env::get('MAIL_OPEN') == 1){
@@ -450,7 +441,7 @@ class EventController extends Controller
 
 
     public function removeEventFileAttachment($id){
-        
+
         $data = EventFile::find($id);
 
           //if an image has already in database, it will delete from events folder to avoid redundancy
@@ -462,7 +453,7 @@ class EventController extends Controller
         return response()->json([
             'status' => 'deleted'
         ], 200);
-        
+
     }
 
 

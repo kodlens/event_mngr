@@ -5,9 +5,9 @@ Labuyo, Tangub City, Misamis Occidental<br>
 <br>
 
 
-# APPROVED
+# INVITATION
 <br>
-The <strong>"{{ $event }}"</strong> was approved.
+You are invited to the event <strong>"{{ $event }}"</strong>. We hope we see you there. Thank you.
 <br><br>
 
 

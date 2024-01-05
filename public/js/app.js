@@ -9268,6 +9268,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       event_content: null,
       approvingOfficers: [],
       fields: {
+        event_time_from: null,
+        event_time_to: null,
         event: null,
         event_description: null,
         event_content: null,
@@ -9279,6 +9281,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         event_type_id: 0,
         is_need_approval: 0
       },
+      customRecipients: [],
       errors: {},
       eventTypes: [],
       venues: [],
@@ -9293,6 +9296,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     };
   },
   methods: _defineProperty({
+    debug: function debug() {
+      this.fields.event_time_from = new Date('2024-01-05 13:00:00');
+      this.fields.event_time_to = new Date('2024-01-05 17:00:00');
+      this.fields.event_type_id = 1;
+      this.fields.event_venue_id = 1;
+      this.fields.event = 'SAMPLE TITLE';
+      this.fields.event_content = 'This is a sample content for event.';
+      this.fields.event_description = 'This is a sample content for event.';
+    },
     submit: function submit() {
       var _this = this;
       this.btnClass['is-loading'] = true;
@@ -9318,6 +9330,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           formData.append("file_attachments[".concat(index, "][event_filename]"), doc.filename ? doc.filename : '');
         });
       }
+      this.customRecipients.forEach(function (recipient, index) {
+        formData.append("customRecipients[".concat(index, "][email]"), recipient);
+      });
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
       formData.append('event_time_from', from ? from : '');
@@ -11685,7 +11700,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("IN AM")]), _vm._v(" "), _c("th", [_vm._v("OUT AM")]), _vm._v(" "), _c("th", [_vm._v("IN PM")]), _vm._v(" "), _c("th", [_vm._v("OUT PM")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.in_am ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.in_am).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_am ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.out_am).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.in_pm ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.in_pm).toLocaleString()) + "\n                                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_pm ? _c("span", [_vm._v("\n                                            " + _vm._s(new Date(props.row.out_pm).toLocaleString()) + "\n                                        ")]) : _vm._e()])])];
+        return [_c("tr", [_c("th", [_vm._v("IN AM")]), _vm._v(" "), _c("th", [_vm._v("OUT AM")]), _vm._v(" "), _c("th", [_vm._v("IN PM")]), _vm._v(" "), _c("th", [_vm._v("OUT PM")])]), _vm._v(" "), _c("tr", [_c("td", [props.row.in_am ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.in_am).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_am ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.out_am).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.in_pm ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.in_pm).toLocaleString()) + "\n                                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.out_pm ? _c("span", [_vm._v("\n                                        " + _vm._s(new Date(props.row.out_pm).toLocaleString()) + "\n                                    ")]) : _vm._e()])])];
       }
     }])
   }, [_c("b-table-column", {
@@ -11696,7 +11711,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                                " + _vm._s(props.row.event_attendance_id) + "\n                            ")];
+        return [_vm._v("\n                            " + _vm._s(props.row.event_attendance_id) + "\n                        ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11707,7 +11722,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                                " + _vm._s(props.row.event.event) + "\n                            ")];
+        return [_vm._v("\n                            " + _vm._s(props.row.event.event) + "\n                        ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11718,7 +11733,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                                " + _vm._s(props.row.user.lname) + ", " + _vm._s(props.row.user.fname) + " " + _vm._s(props.row.user.mname) + "\n                            ")];
+        return [_vm._v("\n                            " + _vm._s(props.row.user.lname) + ", " + _vm._s(props.row.user.fname) + " " + _vm._s(props.row.user.mname) + "\n                        ")];
       }
     }])
   }), _vm._v(" "), _c("b-table-column", {
@@ -11729,7 +11744,7 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                                " + _vm._s(new Date(props.row.event.event_datetime).toLocaleString()) + "\n                            ")];
+        return [_vm._v("\n                            " + _vm._s(new Date(props.row.event.event_datetime).toLocaleString()) + "\n                        ")];
       }
     }])
   })], 1), _vm._v(" "), _c("hr")], 1)])])])]);
@@ -12022,6 +12037,50 @@ var render = function render() {
         }, [_vm._v("DECLINED")]) : _c("span", {
           staticClass: "pending"
         }, [_vm._v("PENDING")])];
+      }
+    }])
+  }), _vm._v(" "), _c("b-table-column", {
+    attrs: {
+      label: "Action"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(props) {
+        return [props.row.status < 1 ? _c("div", {
+          staticClass: "is-flex"
+        }, [_c("b-tooltip", {
+          attrs: {
+            label: "Approved",
+            type: "is-warning"
+          }
+        }, [_c("b-button", {
+          staticClass: "button is-small mr-1",
+          attrs: {
+            "icon-right": "check",
+            label: "Approved"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.confirmApprove(props.row.event_attendee_id);
+            }
+          }
+        })], 1), _vm._v(" "), _c("b-tooltip", {
+          attrs: {
+            label: "Decline",
+            type: "is-danger"
+          }
+        }, [_c("b-button", {
+          staticClass: "button is-small mr-1",
+          attrs: {
+            "icon-right": "close",
+            label: "Decline"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.confirmDecline(props.row.event_attendee_id);
+            }
+          }
+        })], 1)], 1) : _vm._e()];
       }
     }])
   })], 1), _vm._v(" "), _c("hr")], 1)])])])]);
@@ -13572,6 +13631,16 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "table-box-title"
   }, [_vm._v("EVENT DETAILS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "buttons"
+  }, [_c("b-button", {
+    attrs: {
+      type: "is-primary",
+      label: "DEBUG"
+    },
+    on: {
+      click: _vm.debug
+    }
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13677,8 +13746,7 @@ var render = function render() {
     attrs: {
       label: "Event Type",
       expanded: "",
-      type: _vm.errors.event_type_id ? "is-danger" : "",
-      message: _vm.errors.event_type_id ? _vm.errors.event_type_id[0] : ""
+      type: _vm.errors.event_type_id ? "is-danger" : ""
     }
   }, [_c("b-select", {
     attrs: {
@@ -13762,7 +13830,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "School",
+      label: "Select Notification Recipient",
       expanded: "",
       type: _vm.errors.department_id ? "is-danger" : "",
       message: _vm.errors.department_id ? _vm.errors.department_id[0] : ""
@@ -13778,45 +13846,18 @@ var render = function render() {
       },
       expression: "fields.department_id"
     }
-  }, _vm._l(_vm.departments, function (item, index) {
+  }, [_c("option", {
+    attrs: {
+      value: "0"
+    }
+  }, [_vm._v("ALL")]), _vm._v(" "), _vm._l(_vm.departments, function (item, index) {
     return _c("option", {
       key: index,
       domProps: {
         value: item.department_id
       }
     }, [_vm._v(_vm._s(item.code))]);
-  }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "columns"
-  }, [_c("div", {
-    staticClass: "column"
-  }, [_c("b-field", {
-    attrs: {
-      label: "Facility/Equipment",
-      expanded: "",
-      type: _vm.errors.event_venue_id ? "is-danger" : "",
-      message: _vm.errors.event_venue_id ? _vm.errors.event_venue_id[0] : ""
-    }
-  }, [_c("b-select", {
-    attrs: {
-      expanded: "",
-      required: "",
-      placeholder: "Facility/Equipment"
-    },
-    model: {
-      value: _vm.fields.event_venue_id,
-      callback: function callback($$v) {
-        _vm.$set(_vm.fields, "event_venue_id", $$v);
-      },
-      expression: "fields.event_venue_id"
-    }
-  }, _vm._l(_vm.venues, function (item, ix) {
-    return _c("option", {
-      key: "evtype".concat(ix),
-      domProps: {
-        value: item.event_venue_id
-      }
-    }, [_vm._v(_vm._s(item.event_venue))]);
-  }), 0)], 1)], 1)]), _vm._v(" "), _c("div", {
+  })], 2)], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13869,7 +13910,7 @@ var render = function render() {
       "font-weight": "bold",
       color: "rgb(44, 44, 44)"
     }
-  }, [_vm._v("To update the image, just attach new image and the system will automatically remove the old save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
+  }, [_vm._v("To\n                                update the image, just attach new image and the system will automatically remove the old\n                                save image.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
       label: "Event Image (Landscape is recommended for better view)",
       type: _vm.errors.event_img ? "is-danger" : "",
@@ -13919,9 +13960,9 @@ var render = function render() {
       "font-weight": "bold",
       color: "rgb(44, 44, 44)"
     }
-  }, [_vm._v("\n                                To update the file, just attach new file and the system will automatically remove the old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
+  }, [_vm._v("\n                                To update the file, just attach new file and the system will automatically remove the\n                                old file.")]) : _vm._e(), _vm._v(" "), _c("b-field", {
     attrs: {
-      label: "File Attachment (Only PDF format is allowed)",
+      label: "File Attachment (Only PDF format is allowed).",
       type: _vm.errors.file_attachments ? "is-danger" : "",
       message: _vm.errors.file_attachments ? _vm.errors.file_attachments[0] : ""
     }
@@ -13986,7 +14027,7 @@ var render = function render() {
         }
       }
     })], 1)])]);
-  }), _vm._v(" "), _c("div", {
+  })], 2)]), _vm._v(" "), _c("div", {
     staticClass: "buttons mt-2"
   }, [_c("b-button", {
     attrs: {
@@ -13996,7 +14037,7 @@ var render = function render() {
     on: {
       click: _vm.addFile
     }
-  })], 1)], 2)]), _vm._v(" "), _c("div", {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"

@@ -82,7 +82,7 @@
                             </b-table-column>
                     
 
-                            <!-- <b-table-column label="Action" v-slot="props">
+                            <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex" v-if="props.row.status < 1">
                                     <b-tooltip label="Approved" type="is-warning">
                                         <b-button class="button is-small mr-1" 
@@ -98,7 +98,7 @@
                                             @click="confirmDecline(props.row.event_attendee_id)"></b-button>
                                     </b-tooltip>
                                 </div>
-                            </b-table-column> -->
+                            </b-table-column>
                         </b-table>
 
                         <hr>

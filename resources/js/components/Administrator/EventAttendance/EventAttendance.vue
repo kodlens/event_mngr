@@ -89,8 +89,8 @@
                                 {{ new Date(props.row.event.event_datetime).toLocaleString() }}
                             </b-table-column>
                     
-<!-- 
-                            <b-table-column label="Action" v-slot="props">
+
+                            <!-- <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
                                         <b-button class="button is-small mr-1" tag="a"
