@@ -16,5 +16,5 @@ REMARKS: {{ $remarks}}
 
 <br><br>
 Thanks,<br>
-Northwesthern Mindanao State College
+Northwestern Mindanao State College
 @endcomponent

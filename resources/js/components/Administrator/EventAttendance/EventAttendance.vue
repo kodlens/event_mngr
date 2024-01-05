@@ -29,13 +29,6 @@
                         </div> <!--cols-->
 
                         <div class="columns">
-                            <div class="column is-3">
-                                <b-field label="Event" label-position="on-border">
-                                    <b-input type="text"
-                                        v-model="search.event" placeholder="Search Event"
-                                        @keyup.native.enter="loadAsyncData"/>
-                                </b-field>
-                            </div>
 
                             <div class="column">
                                 <b-field label="Search Last Name" label-position="on-border">
@@ -51,11 +44,16 @@
                             </div>
                         </div>
 
+                        <div class="has-text-weight-bold is-size-4">{{ propData.event }}</div>
+                        <div class="has-text-weight-bold is-size-5">{{ new Date(propData.event_date_from).toLocaleString('en-US', { month:'short', day: 'numeric', year: 'numeric' }) }}</div>
+
                         <hr>
                         <!-- <div class="buttons">
                             <b-button class="is-outlined is-primary" icon-left="printer"
                                 @click="printPreviewAttendances"></b-button>
                         </div> -->
+
+                       
                         <b-table
                             :data="data"
                             :loading="loading"
@@ -77,16 +75,16 @@
                                 {{ props.row.event_attendance_id }}
                             </b-table-column>
 
-                            <b-table-column field="event_title" label="Title" v-slot="props">
+                            <!-- <b-table-column field="event_title" label="Title" v-slot="props">
                                 {{ props.row.event.event }}
-                            </b-table-column>
+                            </b-table-column> -->
 
                             <b-table-column field="user" label="Participant's Name" v-slot="props">
                                 {{ props.row.user.lname }}, {{ props.row.user.fname }} {{ props.row.user.mname }}
                             </b-table-column>
 
-                            <b-table-column field="event_datetime" label="Date & Time" v-slot="props">
-                                {{ new Date(props.row.event.event_datetime).toLocaleString() }}
+                            <b-table-column field="event_date_from" label="Date & Time" v-slot="props">
+                                {{ new Date(props.row.event.event_date_from).toLocaleString() }}
                             </b-table-column>
                     
 
@@ -159,6 +157,18 @@
 <script>
 
 export default{
+
+    props: {
+        propEventId: {
+            type: Number,
+            default: 0
+        },
+        propData: {
+            type: Object,
+            default: {}
+        }
+    },
+    
     data() {
         return{
             data: [],
@@ -172,19 +182,15 @@ export default{
 
 
             search: {
-                event: '',
                 lname: ''
             },
-
 
             btnClass: {
                 'is-success': true,
                 'button': true,
                 'is-loading':false,
             },
-
         }
-
     },
 
     methods: {
@@ -194,7 +200,7 @@ export default{
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `event=${this.search.event}`,
+                `event=${this.propEventId}`,
                 `lname=${this.search.lname}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`

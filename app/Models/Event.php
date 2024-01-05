@@ -79,5 +79,9 @@ class Event extends Model
         return $this->hasMany(EventAttendee::class, 'event_id', 'event_id');
     }
 
+    public function custom_recipients(){
+        return $this->hasMany(CustomRecipient::class, 'event_id', 'event_id');
+    }
+    
 
 }

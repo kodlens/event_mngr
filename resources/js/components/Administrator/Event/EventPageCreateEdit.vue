@@ -10,9 +10,9 @@
                         <div class="table-box-title">EVENT DETAILS</div>
                         <hr>
 
-                        <div class="buttons">
+                        <!-- <div class="buttons">
                             <b-button type="is-primary" label="DEBUG" @click="debug"></b-button>
-                        </div>
+                        </div> -->
 
                         <div class="columns">
                             <div class="column">
@@ -52,8 +52,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Event Type" expanded :type="errors.event_type_id ? 'is-danger' : ''">
@@ -91,17 +89,39 @@
                             </div>
 
                             <div class="column">
-                                <b-field label="Select Notification Recipient" expanded
+                                <b-field label="(School) Select Notification Recipient" expanded
                                     :type="errors.department_id ? 'is-danger' : ''"
                                     :message="errors.department_id ? errors.department_id[0] : ''">
                                     <b-select v-model="fields.department_id" expanded>
-                                        <option value="0">ALL</option>
+                                        <option :value="-1">CUSTOM</option>
+                                        <option :value="0">ALL</option>
                                         <option v-for="(item, index) in departments" :key="index"
                                             :value="item.department_id">{{ item.code }}</option>
                                     </b-select>
                                 </b-field>
                             </div>
                         </div>
+
+                        <hr>
+                        
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Add some recipient (Custom recipient for notification)">
+                                    <b-taginput
+                                        v-model="customRecipients"
+                                        ellipsis
+                                        field="email"
+                                        icon="label"
+                                        @remove="removeRecipient"
+                                        placeholder="Add a Recipient"
+                                        aria-close-label="Delete this tag">
+                                    </b-taginput>
+                                </b-field>
+                            </div> <!--col--> 
+                        </div> <!--cols-->
+
+                        
+                        <hr>
 
 
 
@@ -322,6 +342,7 @@ export default {
         },
 
         submit() {
+            console.log(this.customRecipients)
             this.btnClass['is-loading'] = true
             const timeFrom = new Date(this.fields.event_time_from);
             const timeTo = new Date(this.fields.event_time_to);
@@ -331,10 +352,6 @@ export default {
                 + (timeFrom.getMinutes()).toString().padStart(2, "0") + ':00'
             const to = timeTo.getHours().toString().padStart(2, "0") + ':'
                 + (timeTo.getMinutes()).toString().padStart(2, "0") + ':00'
-
-
-            console.log(from);
-
 
             let formData = new FormData();
             formData.append('event', this.fields.event ? this.fields.event : '');
@@ -355,8 +372,10 @@ export default {
                 });
             }
 
+        
             this.customRecipients.forEach((recipient, index) => {
-                formData.append(`customRecipients[${index}][email]`, recipient);
+                formData.append(`customRecipients[${index}][custom_recipient_id]`, recipient.hasOwnProperty('custom_recipient_id') ? recipient.custom_recipient_id : 0);
+                formData.append(`customRecipients[${index}][email]`, recipient.hasOwnProperty('email') ? recipient.email : recipient);
             });
 
             formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
@@ -365,7 +384,7 @@ export default {
             formData.append('event_time_to', to ? to : '');
             formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
             formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '');
-            formData.append('department_id', this.fields.department_id ? this.fields.department_id : '');
+            formData.append('department_id', this.fields.department_id != null || this.fields.department_id != '' ? this.fields.department_id : '');
 
             if (this.propId > 0) {
                 //update
@@ -408,6 +427,13 @@ export default {
 
                     if (err.response.status === 422) {
                         this.errors = err.response.data.errors
+                        if(this.errors.event_venue_id){
+                            this.$buefy.dialog.alert({
+                                title: 'Error!',
+                                type: 'is-danger',
+                                message: this.errors.event_venue_id[0],
+                            })
+                        }
                     }
                 })
             }
@@ -423,7 +449,7 @@ export default {
 
         getData() {
 
-            console.log(this.propData.event_content);
+            console.log(this.propData);
 
             this.fields.event = this.propData.event
             this.event_content = this.propData.event_content
@@ -444,6 +470,14 @@ export default {
                     event_id: item.event_id,
                     filename: item.event_filename,
                     event_file_path: item.event_file_path ? item.event_file_path : null
+                })
+            })
+
+            this.propData.custom_recipients.forEach(item => {
+                this.customRecipients.push({
+                    custom_recipient_id: item.custom_recipient_id,
+                    event_id: item.event_id,
+                    email: item.email,
                 })
             })
 
@@ -536,6 +570,14 @@ export default {
             })
         },
 
+
+        //for custom recipient
+        removeRecipient(row){
+            console.log(row);
+            axios.post('/custom-recipient-delete/'+ row.custom_recipient_id).then(res=>{
+            
+            })
+        }
 
     },
 

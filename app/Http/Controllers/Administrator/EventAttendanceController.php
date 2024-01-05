@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EventAttendance;
-
+use App\Models\Event;
 
 class EventAttendanceController extends Controller
 {
     //
 
-    public function index(){
-        return view('administrator.event_attendance.event-attendance');
+    public function index($id){
+        $data = Event::find($id);
+        return view('administrator.event_attendance.event-attendance')
+            ->with('id', $id)
+            ->with('data', $data);
     }
 
 
@@ -20,12 +23,10 @@ class EventAttendanceController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $event = EventAttendance::with(['event', 'user'])
-            ->whereHas('event', function($q) use ($req){
-                $q->where('event', 'like', $req->event . '%');
-            })
             ->whereHas('user', function($q) use ($req){
                 $q->where('lname', 'like', $req->lname . '%');
             })
+            ->where('event_id', $req->event)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

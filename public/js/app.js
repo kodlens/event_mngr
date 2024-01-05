@@ -8126,6 +8126,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    propEventId: {
+      type: Number,
+      "default": 0
+    },
+    propData: {
+      type: Object,
+      "default": {}
+    }
+  },
   data: function data() {
     return {
       data: [],
@@ -8137,7 +8147,6 @@ __webpack_require__.r(__webpack_exports__);
       perPage: 20,
       defaultSortDirection: 'asc',
       search: {
-        event: '',
         lname: ''
       },
       btnClass: {
@@ -8153,7 +8162,7 @@ __webpack_require__.r(__webpack_exports__);
     */
     loadAsyncData: function loadAsyncData() {
       var _this = this;
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "event=".concat(this.search.event), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "event=".concat(this.propEventId), "lname=".concat(this.search.lname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/get-event-attendances?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -9164,6 +9173,9 @@ __webpack_require__.r(__webpack_exports__);
     gotoListAttendee: function gotoListAttendee(dataId) {
       window.location = '/event-attendees/' + dataId;
     },
+    gotoEventAttendances: function gotoEventAttendances(dataId) {
+      window.location = '/event-attendances/' + dataId;
+    },
     durationHours: function durationHours(stime, etime) {
       var timeDifference = etime - stime;
       // Convert milliseconds to hours
@@ -9238,6 +9250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var _methods;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
@@ -9295,7 +9308,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       minDate: new Date(new Date().setTime(new Date().getTime() - 24 * 60 * 60 * 1000 * 1))
     };
   },
-  methods: _defineProperty({
+  methods: (_methods = {
     debug: function debug() {
       this.fields.event_time_from = new Date('2024-01-05 13:00:00');
       this.fields.event_time_to = new Date('2024-01-05 17:00:00');
@@ -9307,12 +9320,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     submit: function submit() {
       var _this = this;
+      console.log(this.customRecipients);
       this.btnClass['is-loading'] = true;
       var timeFrom = new Date(this.fields.event_time_from);
       var timeTo = new Date(this.fields.event_time_to);
       var from = timeFrom.getHours().toString().padStart(2, "0") + ':' + timeFrom.getMinutes().toString().padStart(2, "0") + ':00';
       var to = timeTo.getHours().toString().padStart(2, "0") + ':' + timeTo.getMinutes().toString().padStart(2, "0") + ':00';
-      console.log(from);
       var formData = new FormData();
       formData.append('event', this.fields.event ? this.fields.event : '');
       formData.append('event_description', this.fields.event_description ? this.fields.event_description : '');
@@ -9331,7 +9344,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         });
       }
       this.customRecipients.forEach(function (recipient, index) {
-        formData.append("customRecipients[".concat(index, "][email]"), recipient);
+        formData.append("customRecipients[".concat(index, "][custom_recipient_id]"), recipient.hasOwnProperty('custom_recipient_id') ? recipient.custom_recipient_id : 0);
+        formData.append("customRecipients[".concat(index, "][email]"), recipient.hasOwnProperty('email') ? recipient.email : recipient);
       });
       formData.append('event_type_id', this.fields.event_type_id ? this.fields.event_type_id : '');
       formData.append('event_venue_id', this.fields.event_venue_id ? this.fields.event_venue_id : '');
@@ -9339,7 +9353,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       formData.append('event_time_to', to ? to : '');
       formData.append('is_need_approval', this.fields.is_need_approval ? this.fields.is_need_approval : '0');
       formData.append('ao_user_id', this.fields.ao_user_id ? this.fields.ao_user_id : '');
-      formData.append('department_id', this.fields.department_id ? this.fields.department_id : '');
+      formData.append('department_id', this.fields.department_id != null || this.fields.department_id != '' ? this.fields.department_id : '');
       if (this.propId > 0) {
         //update
         axios.post('/events-update/' + this.propId, formData).then(function (res) {
@@ -9376,6 +9390,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           _this.btnClass['is-loading'] = false;
           if (err.response.status === 422) {
             _this.errors = err.response.data.errors;
+            if (_this.errors.event_venue_id) {
+              _this.$buefy.dialog.alert({
+                title: 'Error!',
+                type: 'is-danger',
+                message: _this.errors.event_venue_id[0]
+              });
+            }
           }
         });
       }
@@ -9385,7 +9406,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     getData: function getData() {
       var _this2 = this;
-      console.log(this.propData.event_content);
+      console.log(this.propData);
       this.fields.event = this.propData.event;
       this.event_content = this.propData.event_content;
       this.fields.event_date = new Date(this.propData.event_date);
@@ -9403,6 +9424,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           event_id: item.event_id,
           filename: item.event_filename,
           event_file_path: item.event_file_path ? item.event_file_path : null
+        });
+      });
+      this.propData.custom_recipients.forEach(function (item) {
+        _this2.customRecipients.push({
+          custom_recipient_id: item.custom_recipient_id,
+          event_id: item.event_id,
+          email: item.email
         });
       });
       this.fields.department_id = this.propData.department_id;
@@ -9479,12 +9507,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         _this7.departments = res.data;
       });
     }
-  }, "loadDepartments", function loadDepartments() {
+  }, _defineProperty(_methods, "loadDepartments", function loadDepartments() {
     var _this8 = this;
     axios.get('/load-departments').then(function (res) {
       _this8.departments = res.data;
     });
-  }),
+  }), _defineProperty(_methods, "removeRecipient", function removeRecipient(row) {
+    console.log(row);
+    axios.post('/custom-recipient-delete/' + row.custom_recipient_id).then(function (res) {});
+  }), _methods),
   mounted: function mounted() {
     this.loadEventTypes();
     this.loadEventVenues();
@@ -11613,31 +11644,6 @@ var render = function render() {
   }, [_vm._v("DESC")])])], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
-    staticClass: "column is-3"
-  }, [_c("b-field", {
-    attrs: {
-      label: "Event",
-      "label-position": "on-border"
-    }
-  }, [_c("b-input", {
-    attrs: {
-      type: "text",
-      placeholder: "Search Event"
-    },
-    nativeOn: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.loadAsyncData.apply(null, arguments);
-      }
-    },
-    model: {
-      value: _vm.search.event,
-      callback: function callback($$v) {
-        _vm.$set(_vm.search, "event", $$v);
-      },
-      expression: "search.event"
-    }
-  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
@@ -11677,7 +11683,15 @@ var render = function render() {
     on: {
       click: _vm.loadAsyncData
     }
-  })], 1)], 1)], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
+  })], 1)], 1)], 1)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "has-text-weight-bold is-size-4"
+  }, [_vm._v(_vm._s(_vm.propData.event))]), _vm._v(" "), _c("div", {
+    staticClass: "has-text-weight-bold is-size-5"
+  }, [_vm._v(_vm._s(new Date(_vm.propData.event_date_from).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  })))]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("b-table", {
     attrs: {
       data: _vm.data,
       loading: _vm.loading,
@@ -11716,17 +11730,6 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      field: "event_title",
-      label: "Title"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(props.row.event.event) + "\n                        ")];
-      }
-    }])
-  }), _vm._v(" "), _c("b-table-column", {
-    attrs: {
       field: "user",
       label: "Participant's Name"
     },
@@ -11738,13 +11741,13 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("b-table-column", {
     attrs: {
-      field: "event_datetime",
+      field: "event_date_from",
       label: "Date & Time"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(props) {
-        return [_vm._v("\n                            " + _vm._s(new Date(props.row.event.event_datetime).toLocaleString()) + "\n                        ")];
+        return [_vm._v("\n                            " + _vm._s(new Date(props.row.event.event_date_from).toLocaleString()) + "\n                        ")];
       }
     }])
   })], 1), _vm._v(" "), _c("hr")], 1)])])])]);
@@ -13370,6 +13373,20 @@ var render = function render() {
             icon: "account",
             size: "is-small"
           }
+        })], 1) : _vm._e(), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
+          attrs: {
+            "aria-role": "listitem"
+          },
+          on: {
+            click: function click($event) {
+              return _vm.gotoEventAttendances(props.row.event_id);
+            }
+          }
+        }, [_vm._v("\n                            Event Attendances\n                            "), _c("b-icon", {
+          attrs: {
+            icon: "calendar",
+            size: "is-small"
+          }
         })], 1) : _vm._e(), _vm._v(" "), ["APPROVING OFFICER"].includes(_vm.propUser.role) ? _c("b-dropdown-item", {
           attrs: {
             "aria-role": "listitem"
@@ -13464,7 +13481,7 @@ var render = function render() {
           }
         })], 1) : _vm._e()], 1)], 1)];
       }
-    }], null, false, 299945964)
+    }], null, false, 453434738)
   }) : _vm._e()], 1), _vm._v(" "), _c("hr"), _vm._v(" "), ["REQUESTING PARTY"].includes(_vm.propUser.role) ? _c("div", {
     staticClass: "buttons mt-3"
   }, [_c("b-button", {
@@ -13631,16 +13648,6 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "table-box-title"
   }, [_vm._v("EVENT DETAILS")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
-    staticClass: "buttons"
-  }, [_c("b-button", {
-    attrs: {
-      type: "is-primary",
-      label: "DEBUG"
-    },
-    on: {
-      click: _vm.debug
-    }
-  })], 1), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"
@@ -13830,7 +13837,7 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Select Notification Recipient",
+      label: "(School) Select Notification Recipient",
       expanded: "",
       type: _vm.errors.department_id ? "is-danger" : "",
       message: _vm.errors.department_id ? _vm.errors.department_id[0] : ""
@@ -13847,8 +13854,12 @@ var render = function render() {
       expression: "fields.department_id"
     }
   }, [_c("option", {
-    attrs: {
-      value: "0"
+    domProps: {
+      value: -1
+    }
+  }, [_vm._v("CUSTOM")]), _vm._v(" "), _c("option", {
+    domProps: {
+      value: 0
     }
   }, [_vm._v("ALL")]), _vm._v(" "), _vm._l(_vm.departments, function (item, index) {
     return _c("option", {
@@ -13857,7 +13868,33 @@ var render = function render() {
         value: item.department_id
       }
     }, [_vm._v(_vm._s(item.code))]);
-  })], 2)], 1)], 1)]), _vm._v(" "), _c("div", {
+  })], 2)], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "columns"
+  }, [_c("div", {
+    staticClass: "column"
+  }, [_c("b-field", {
+    attrs: {
+      label: "Add some recipient (Custom recipient for notification)"
+    }
+  }, [_c("b-taginput", {
+    attrs: {
+      ellipsis: "",
+      field: "email",
+      icon: "label",
+      placeholder: "Add a Recipient",
+      "aria-close-label": "Delete this tag"
+    },
+    on: {
+      remove: _vm.removeRecipient
+    },
+    model: {
+      value: _vm.customRecipients,
+      callback: function callback($$v) {
+        _vm.customRecipients = $$v;
+      },
+      expression: "customRecipients"
+    }
+  })], 1)], 1)]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
     staticClass: "columns"
   }, [_c("div", {
     staticClass: "column"

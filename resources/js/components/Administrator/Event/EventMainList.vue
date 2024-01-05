@@ -145,6 +145,15 @@
                             </b-dropdown-item>
 
                             <b-dropdown-item aria-role="listitem"
+                                v-if="['REQUESTING PARTY'].includes(propUser.role)"
+                                @click="gotoEventAttendances(props.row.event_id)">
+                                <!-- List of Attendee -->
+                                <!-- No. of Attendee -->
+                                Event Attendances
+                                <b-icon icon="calendar" size="is-small"></b-icon>
+                            </b-dropdown-item>
+
+                            <b-dropdown-item aria-role="listitem"
                                 v-if="['APPROVING OFFICER'].includes(propUser.role)"
                                 @click="confirmApprove(props.row.event_id)">
                                 Approve
@@ -565,6 +574,9 @@ export default{
 
         gotoListAttendee(dataId){
             window.location = '/event-attendees/' + dataId
+        },
+        gotoEventAttendances(dataId){
+            window.location = '/event-attendances/' + dataId
         },
 
         durationHours(stime, etime){

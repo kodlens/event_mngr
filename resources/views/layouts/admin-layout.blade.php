@@ -39,9 +39,11 @@
             </b-navbar-item>
         </template>
         <template #start>
-            
+            @php
+                $role = auth()->user()->role;
+            @endphp
 
-            @if(auth()->user()->role === 'ADMINISTRATOR')
+            @if($role === 'ADMINISTRATOR')
                 <b-navbar-item href="/dashboard">
                     Home
                 </b-navbar-item>
@@ -65,14 +67,14 @@
                 </b-navbar-dropdown>
             
             
-                <b-navbar-dropdown label="Events">
+                <!-- <b-navbar-dropdown label="Events">
                     <b-navbar-item href="/events">
                         Events
                     </b-navbar-item>
-                    <b-navbar-item href="/event-attendances">
-                        Event Attendances
-                    </b-navbar-item>
-                </b-navbar-dropdown>
+                </b-navbar-dropdown> -->
+                <b-navbar-item href="/events">
+                    Events
+                </b-navbar-item>
 
                 
                 <b-navbar-dropdown label="Evaluation">
@@ -110,14 +112,15 @@
                    
                 </b-navbar-dropdown>
 
-                <b-navbar-dropdown label="Events">
+                <b-navbar-item href="/events">
+                    Events
+                </b-navbar-item>
+
+                <!-- <b-navbar-dropdown label="Events">
                     <b-navbar-item href="/events">
                         Events
                     </b-navbar-item>
-                    <b-navbar-item href="/event-attendances">
-                        Event Attendances
-                    </b-navbar-item>
-                </b-navbar-dropdown>
+                </b-navbar-dropdown> -->
 
                 
                 <b-navbar-dropdown label="Evaluation">

@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\EventVenue;
 use App\Models\User;
 use App\Models\EventFile;
+use App\Models\CustomRecipient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Storage;
@@ -96,7 +97,7 @@ class EventController extends Controller
     }
 
     public function edit($id){
-        $event = Event::with(['event_files'])->find($id);
+        $event = Event::with(['event_files', 'custom_recipients'])->find($id);
         return view('administrator.event.event-page-create-edit')
             ->with('id', $event->event_id)
             ->with('data', $event);
@@ -105,7 +106,6 @@ class EventController extends Controller
 
     public function store(Request $req){
 
-        return $req;
 
         $ay = AcademicYear::where('active', 1)->first();
         $user = Auth::user();
@@ -179,6 +179,17 @@ class EventController extends Controller
                 ]);
             }
         }
+        
+        if($req->has('customRecipients')){
+            foreach ($req->customRecipients as $mail) {
+                //insert recipient in database
+                CustomRecipient::create([
+                    'event_id' => $data->event_id,
+                    'email' => $mail['email'], 
+                ]);
+            }
+        }
+
 
         //return $req;
 
@@ -191,6 +202,7 @@ class EventController extends Controller
 
 
     public function updateEvent(Request $req, $id){
+        //return $req;
 
         // foreach ($req->file_attachments as $item) {
         //     if (isset($item['event_file_path']) && $item['event_file_path'] instanceof UploadedFile) {
@@ -247,12 +259,26 @@ class EventController extends Controller
         $data->event_time_to = $eventTimeTo;
         $data->is_need_approval = $req->is_need_approval;
         $data->department_id = $req->department_id;
-
+        $data->ao_user_id = $req->ao_user_id;
+        
         if($req->hasFile('event_img')){
             $data->img_path = $n[2];
         }
 
         $data->save();
+
+        if($req->has('customRecipients')){
+            foreach ($req->customRecipients as $mail) {
+                //insert recipient in database
+                CustomRecipient::updateOrCreate([
+                    'custom_recipient_id'=> $mail['custom_recipient_id']
+                ],
+                [
+                    'event_id' => $data->event_id,
+                    'email' => $mail['email'], 
+                ]);
+            }
+        }
 
 
         // $nPath=[];
@@ -278,9 +304,7 @@ class EventController extends Controller
         // }
 
         $newEventVenue = EventVenue::find($req->event_venue_id);
-
         $when = now()->addSeconds(10);
-
         if(Env::get('MAIL_OPEN') == 1){
             // Mail::to($data->user->email)
             //     ->later($when, new ApproveEmail($data->event));
@@ -295,6 +319,7 @@ class EventController extends Controller
                     $eventTimeFrom,
                     $eventTimeTo));
         }
+
 
         //return $req;
 
@@ -324,22 +349,33 @@ class EventController extends Controller
             Mail::to($data->user->email)
                 ->later($when, new ApproveEmail($data->event));
 
-            if($data->department_id > 0){
-                $users = User::where('role', 'ATTENDEE')
-                    ->where('department_id', $data->department_id)
-                    ->get();
+            if($data->department_id > -1){
+
+                if($data->department_id === 0){
+                    $users = User::where('role', 'ATTENDEE')
+                        ->get();
+                }else{
+                    $users = User::where('role', 'ATTENDEE')
+                        ->where('department_id', $data->department_id)
+                        ->get();
+                }
+                foreach($users as $u){
+                    Mail::to($u->email)
+                        ->later($when, new ParticipantsMailApprove($data->event));
+    
+                    sleep(2);
+                }
             }else{
-                $users = User::where('role', 'ATTENDEE')
+                $recipients = CustomRecipient::where('event_id', $id)
                     ->get();
+
+                foreach($recipients as $r){
+                    Mail::to($r['email'])
+                        ->later($when, new ParticipantsMailApprove($data->event));
+                    sleep(2);
+                }
             }
-
-
-            foreach($users as $u){
-                Mail::to($u->email)
-                    ->later($when, new ParticipantsMailApprove($data->event));
-
-                sleep(2);
-            }
+          
         }
 
         return response()->json([
@@ -454,6 +490,10 @@ class EventController extends Controller
             'status' => 'deleted'
         ], 200);
 
+    }
+
+    public function removeCustomRecipient($id){
+        CustomRecipient::destroy($id);
     }
 
 

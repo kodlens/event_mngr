@@ -15,7 +15,7 @@ class AddColumnToEventsTable extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('department_id')->nullable()
+            $table->integer('department_id')->nullable()
                 ->default(0);
         });
     }

@@ -114,7 +114,7 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::post('/archive-events', [App\Http\Controllers\Administrator\EventController::class, 'archiveEvents']);
     Route::post('/undo-archive-events', [App\Http\Controllers\Administrator\EventController::class, 'undoArchive']);
     Route::post('/event-file-attachment-delete/{id}', [App\Http\Controllers\Administrator\EventController::class, 'removeEventFileAttachment']);
-
+    Route::post('/ custom-recipient-delete/{id}', [App\Http\Controllers\Administrator\EventController::class, 'removeCustomRecipient']);
 
     Route::post('/events-approve/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventApprove']);
     Route::post('/events-cancel/{id}', [App\Http\Controllers\Administrator\EventController::class, 'eventCancel']);
@@ -129,7 +129,8 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::get('/event-attendees-print-preview/{attendeeId}', [App\Http\Controllers\Administrator\EventAttedeePrintPreview::class, 'eventAttendeePrintPreview']);
 
 
-    Route::resource('/event-attendances', App\Http\Controllers\Administrator\EventAttendanceController::class);
+
+    Route::get('/event-attendances/{eventId}', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'index']);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
