@@ -1,13 +1,12 @@
 <template>
     <div>
-
         <div class="filter-control">
-
             <div class="columns">
                 <div class="column">
                     <b-field label="Date Range">
-                        <b-datepicker v-model="search.from"></b-datepicker>
-                        <b-datepicker v-model="search.to"></b-datepicker>
+                       
+                        <b-datepicker editable v-model="search.from"></b-datepicker>
+                        <b-datepicker  v-model="search.to"></b-datepicker>
                         <p class="controls">
                             <b-button 
                                 @click="loadData"
@@ -19,7 +18,6 @@
                     </b-field>
                 </div>
             </div>
-            
         </div>
 
         <div class="print-page">
@@ -41,7 +39,7 @@
                     <td>{{ index+=1 }}</td>
                     <td>{{ item.event_type.event_type }}</td>
                     <td>{{ item.event }}</td>
-                    <td>{{ new Date(item.event_date).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}) }}</td>
+                    <td>{{ new Date(item.event_date_from).toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'}) }}</td>
                 </tr>
             </table>
         </div>
@@ -79,6 +77,7 @@ export default{
 
             axios.get(`/load-report-event-lists?${params}`).then(res=>{
                 this.data = res.data
+                console.log(this.data)
                
             })
         },

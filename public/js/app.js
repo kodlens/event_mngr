@@ -9941,6 +9941,7 @@ __webpack_require__.r(__webpack_exports__);
       var params = ["from=".concat(from), "to=".concat(to)].join('&');
       axios.get("/load-report-event-lists?".concat(params)).then(function (res) {
         _this.data = res.data;
+        console.log(_this.data);
       });
     },
     printMe: function printMe() {
@@ -14752,6 +14753,9 @@ var render = function render() {
       label: "Date Range"
     }
   }, [_c("b-datepicker", {
+    attrs: {
+      editable: ""
+    },
     model: {
       value: _vm.search.from,
       callback: function callback($$v) {
@@ -14804,7 +14808,7 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.data, function (item, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index += 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event_type.event_type))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(new Date(item.event_date).toLocaleString("default", {
+    }, [_c("td", [_vm._v(_vm._s(index += 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event_type.event_type))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(new Date(item.event_date_from).toLocaleString("default", {
       month: "long",
       day: "numeric",
       year: "numeric"
