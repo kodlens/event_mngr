@@ -47,6 +47,7 @@
                 <b-navbar-item href="/dashboard">
                     Home
                 </b-navbar-item>
+
                 <b-navbar-dropdown label="Setting">
                     <b-navbar-item href="/academic-years">
                         Academic Years
@@ -91,14 +92,15 @@
                     <b-navbar-item href="/report-event-list">
                         Report Event List
                     </b-navbar-item>
+                    <b-navbar-item href="/report-event-attendances">
+                        Report Attendance
+                    </b-navbar-item>
                 </b-navbar-dropdown>
 
 
                 <b-navbar-item href="/users">
                     User
                 </b-navbar-item>
-
-
 
             @else
                 <b-navbar-item href="/dashboard">
@@ -134,6 +136,9 @@
                 <b-navbar-dropdown label="Report">
                     <b-navbar-item href="/report-event-list">
                         Report Event List
+                    </b-navbar-item>
+                    <b-navbar-item href="/report-event-attendances">
+                        Report Attendance
                     </b-navbar-item>
                 </b-navbar-dropdown>
              

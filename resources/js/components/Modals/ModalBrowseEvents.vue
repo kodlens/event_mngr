@@ -40,12 +40,12 @@
                                     </option>
                             </b-select>
                         </b-field>
-                        <b-field label="Search" label-position="on-border" >
+                        <b-field label="Search" label-position="on-border" class="mt-2">
                             <b-input type="text" v-model="search.event"
-                                 placeholder="Search Item Name..."
+                                 placeholder="Search Event..."
                                  @keyup.native.enter="loadAsyncData" expanded auto-focus></b-input>
                             <p class="control">
-                                <b-button class="is-primary" icon-pack="fa" icon-left="search" @click="loadAsyncData"></b-button>
+                                <b-button class="is-primary" icon-pack="fa" icon-left="magnify" @click="loadAsyncData"></b-button>
                             </p>
                         </b-field>
 

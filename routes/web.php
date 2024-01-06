@@ -129,12 +129,13 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::get('/event-attendees-print-preview/{attendeeId}', [App\Http\Controllers\Administrator\EventAttedeePrintPreview::class, 'eventAttendeePrintPreview']);
 
 
-
     Route::get('/event-attendances/{eventId}', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'index']);
     Route::get('/get-event-attendances', [App\Http\Controllers\Administrator\EventAttendanceController::class, 'getData']);
 
     Route::get('/student-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'index']);
     Route::get('/get-participant-evaluated', [App\Http\Controllers\Administrator\StudentEvaluatedController::class, 'getStudentsEvaluated']);
+
+    Route::get('/report-event-attendances', [App\Http\Controllers\Report\ReportEventAttendanceController::class, 'index']);
 
     Route::get('/report-event-list', [App\Http\Controllers\Report\ReportEventListController::class, 'index']);
     Route::get('/load-report-event-lists', [App\Http\Controllers\Report\ReportEventListController::class, 'loadReportEventLists']);
@@ -142,6 +143,10 @@ Route::middleware(['verified', 'ao'])->group(function() {
     Route::resource('/evaluations', App\Http\Controllers\Administrator\EvaluationController::class);
     Route::get('/get-report-event-evaluations', [App\Http\Controllers\Administrator\EvaluationController::class, 'getReportEvaluations']);
 
+    Route::get('/load-report-event-attendances', [App\Http\Controllers\Report\ReportEventAttendanceController::class, 'loadReportEventAttendances']);
+
+
+    
 });
 /*     organizer          */
 

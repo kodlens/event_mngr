@@ -5,17 +5,13 @@
 
             <div class="columns">
                 <div class="column">
-                    <b-field label="Date Range">
-                        <b-datepicker v-model="search.from"></b-datepicker>
-                        <b-datepicker v-model="search.to"></b-datepicker>
-                        <p class="controls">
-                            <b-button 
-                                @click="loadData"
-                                class="is-primary" icon-left="magnify"></b-button>
-                            <b-button 
-                                @click="printMe"
-                                class="is-info" icon-left="printer"></b-button>
-                        </p>
+                    <b-field label="Select Event">
+                        <modal-browse-events @browseEvents="emitBrowseEvent"
+                            :prop-name="event.event"></modal-browse-events>
+ 
+                        <b-button 
+                            @click="printMe"
+                            class="is-info" icon-left="printer"></b-button>
                     </b-field>
                 </div>
             </div>
@@ -23,20 +19,40 @@
         </div>
 
         <div class="print-page">
-            <div class="has-text-weight-bold has-text-centered is-size-5">LIST OF EVENTS</div>
-            <table class="table is-fullwidth">
+            <div class="has-text-weight-bold has-text-centered is-size-5">ATTENDANCES</div>
+            <div class="has-text-weight-bold has-text-centered is-size-5">{{ event.event}}</div>
+
+            <table class="table is-fullwidth is-narrow">
                 <tr>
                     <th>No.</th>
-                    <th>Event Type</th>
-                    <th>Event</th>
-                    <th>Event Date</th>
+                    <th>Name</th>
+                    <th>Sex</th>
+                    <th>IN/OUT AM</th>
+                    <th>IN/OUT PM</th>
                 </tr>
 
-                <tr v-for="(item, index) in data" :key="index">
+                <tr v-for="(item, index) in data.event_attendances" :key="index">
                     <td>{{ index+=1 }}</td>
-                    <td>{{ item.event_type.event_type }}</td>
-                    <td>{{ item.event }}</td>
-                    <td>{{ new Date(item.event_datetime).toLocaleString() }}</td>
+                    <td>{{ item.user.lname }}, {{ item.user.fname }} {{ item.user.mname }}</td>
+                    <td>{{ item.user.sex }}</td>
+                    <td>
+                        <b>IN: </b> <span v-if="item.in_am">
+                            {{ new Date(item.in_am).toLocaleString() }}
+                        </span>
+                        <br>
+                        <b>OUT: </b><span v-if="item.out_am">
+                            {{ new Date(item.out_am).toLocaleString() }}
+                        </span>
+                    </td>
+                    <td>
+                        <b>IN: </b><span v-if="item.in_pm">
+                            {{ new Date(item.in_pm).toLocaleString() }}
+                        </span>
+                        <br>
+                        <b>OUT: </b><span v-if="item.out_pm">
+                            {{ new Date(item.out_pm).toLocaleString() }}
+                        </span>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -53,29 +69,41 @@ export default{
             search: {
                 from: new Date(),
                 to: new Date()
+            },
+
+            event: {
+                event: '',
+                event_id: null
             }
         }
     },
 
     methods: {
         loadData(){
-            const from = this.search.from.getFullYear() + '-' 
-                + (this.search.from.getMonth() + 1).toString().padStart(2, "0") + '-' 
-                + (this.search.from.getDate()).toString().padStart(2,'0')
+            // const from = this.search.from.getFullYear() + '-' 
+            //     + (this.search.from.getMonth() + 1).toString().padStart(2, "0") + '-' 
+            //     + (this.search.from.getDate()).toString().padStart(2,'0')
 
-            const to = this.search.to.getFullYear() + '-' 
-                + (this.search.to.getMonth() + 1).toString().padStart(2, "0") + '-' 
-                + (this.search.to.getDate()).toString().padStart(2,'0')
+            // const to = this.search.to.getFullYear() + '-' 
+            //     + (this.search.to.getMonth() + 1).toString().padStart(2, "0") + '-' 
+            //     + (this.search.to.getDate()).toString().padStart(2,'0')
 
             const params = [
-                `from=${from}`,
-                `to=${to}`,
+                `event=${this.event.event_id}`,
+              
             ].join('&')
 
-            axios.get(`/load-report-event-lists?${params}`).then(res=>{
+            axios.get(`/load-report-event-attendances?${params}`).then(res=>{
                 this.data = res.data
                
             })
+        },
+
+
+        emitBrowseEvent(row){
+            this.event.event = row.event
+            this.event.event_id = row.event_id
+            this.loadData()
         },
 
         printMe(){

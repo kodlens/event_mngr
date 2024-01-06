@@ -8253,18 +8253,33 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         from: new Date(),
         to: new Date()
+      },
+      event: {
+        event: '',
+        event_id: null
       }
     };
   },
   methods: {
     loadData: function loadData() {
       var _this = this;
-      var from = this.search.from.getFullYear() + '-' + (this.search.from.getMonth() + 1).toString().padStart(2, "0") + '-' + this.search.from.getDate().toString().padStart(2, '0');
-      var to = this.search.to.getFullYear() + '-' + (this.search.to.getMonth() + 1).toString().padStart(2, "0") + '-' + this.search.to.getDate().toString().padStart(2, '0');
-      var params = ["from=".concat(from), "to=".concat(to)].join('&');
-      axios.get("/load-report-event-lists?".concat(params)).then(function (res) {
+      // const from = this.search.from.getFullYear() + '-' 
+      //     + (this.search.from.getMonth() + 1).toString().padStart(2, "0") + '-' 
+      //     + (this.search.from.getDate()).toString().padStart(2,'0')
+
+      // const to = this.search.to.getFullYear() + '-' 
+      //     + (this.search.to.getMonth() + 1).toString().padStart(2, "0") + '-' 
+      //     + (this.search.to.getDate()).toString().padStart(2,'0')
+
+      var params = ["event=".concat(this.event.event_id)].join('&');
+      axios.get("/load-report-event-attendances?".concat(params)).then(function (res) {
         _this.data = res.data;
       });
+    },
+    emitBrowseEvent: function emitBrowseEvent(row) {
+      this.event.event = row.event;
+      this.event.event_id = row.event_id;
+      this.loadData();
     },
     printMe: function printMe() {
       window.print();
@@ -11782,33 +11797,14 @@ var render = function render() {
     staticClass: "column"
   }, [_c("b-field", {
     attrs: {
-      label: "Date Range"
+      label: "Select Event"
     }
-  }, [_c("b-datepicker", {
-    model: {
-      value: _vm.search.from,
-      callback: function callback($$v) {
-        _vm.$set(_vm.search, "from", $$v);
-      },
-      expression: "search.from"
-    }
-  }), _vm._v(" "), _c("b-datepicker", {
-    model: {
-      value: _vm.search.to,
-      callback: function callback($$v) {
-        _vm.$set(_vm.search, "to", $$v);
-      },
-      expression: "search.to"
-    }
-  }), _vm._v(" "), _c("p", {
-    staticClass: "controls"
-  }, [_c("b-button", {
-    staticClass: "is-primary",
+  }, [_c("modal-browse-events", {
     attrs: {
-      "icon-left": "magnify"
+      "prop-name": _vm.event.event
     },
     on: {
-      click: _vm.loadData
+      browseEvents: _vm.emitBrowseEvent
     }
   }), _vm._v(" "), _c("b-button", {
     staticClass: "is-info",
@@ -11818,22 +11814,24 @@ var render = function render() {
     on: {
       click: _vm.printMe
     }
-  })], 1)], 1)], 1)])]), _vm._v(" "), _c("div", {
+  })], 1)], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "print-page"
   }, [_c("div", {
     staticClass: "has-text-weight-bold has-text-centered is-size-5"
-  }, [_vm._v("LIST OF EVENTS")]), _vm._v(" "), _c("table", {
-    staticClass: "table is-fullwidth"
-  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.data, function (item, index) {
+  }, [_vm._v("ATTENDANCES")]), _vm._v(" "), _c("div", {
+    staticClass: "has-text-weight-bold has-text-centered is-size-5"
+  }, [_vm._v(_vm._s(_vm.event.event))]), _vm._v(" "), _c("table", {
+    staticClass: "table is-fullwidth is-narrow"
+  }, [_vm._m(0), _vm._v(" "), _vm._l(_vm.data.event_attendances, function (item, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v(_vm._s(index += 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event_type.event_type))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.event))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(new Date(item.event_datetime).toLocaleString()))])]);
+    }, [_c("td", [_vm._v(_vm._s(index += 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.user.lname) + ", " + _vm._s(item.user.fname) + " " + _vm._s(item.user.mname))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(item.user.sex))]), _vm._v(" "), _c("td", [_c("b", [_vm._v("IN: ")]), _vm._v(" "), item.in_am ? _c("span", [_vm._v("\n                        " + _vm._s(new Date(item.in_am).toLocaleString()) + "\n                    ")]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("b", [_vm._v("OUT: ")]), item.out_am ? _c("span", [_vm._v("\n                        " + _vm._s(new Date(item.out_am).toLocaleString()) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c("td", [_c("b", [_vm._v("IN: ")]), item.in_pm ? _c("span", [_vm._v("\n                        " + _vm._s(new Date(item.in_pm).toLocaleString()) + "\n                    ")]) : _vm._e(), _vm._v(" "), _c("br"), _vm._v(" "), _c("b", [_vm._v("OUT: ")]), item.out_pm ? _c("span", [_vm._v("\n                        " + _vm._s(new Date(item.out_pm).toLocaleString()) + "\n                    ")]) : _vm._e()])]);
   })], 2)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("tr", [_c("th", [_vm._v("No.")]), _vm._v(" "), _c("th", [_vm._v("Event Type")]), _vm._v(" "), _c("th", [_vm._v("Event")]), _vm._v(" "), _c("th", [_vm._v("Event Date")])]);
+  return _c("tr", [_c("th", [_vm._v("No.")]), _vm._v(" "), _c("th", [_vm._v("Name")]), _vm._v(" "), _c("th", [_vm._v("Sex")]), _vm._v(" "), _c("th", [_vm._v("IN/OUT AM")]), _vm._v(" "), _c("th", [_vm._v("IN/OUT PM")])]);
 }];
 render._withStripped = true;
 
@@ -15874,6 +15872,7 @@ var render = function render() {
       }
     }, [_vm._v(" \n                                    " + _vm._s(item.academic_year_code) + " - " + _vm._s(item.academic_year_desc) + "\n                                ")]);
   }), 0)], 1), _vm._v(" "), _c("b-field", {
+    staticClass: "mt-2",
     attrs: {
       label: "Search",
       "label-position": "on-border"
@@ -15881,7 +15880,7 @@ var render = function render() {
   }, [_c("b-input", {
     attrs: {
       type: "text",
-      placeholder: "Search Item Name...",
+      placeholder: "Search Event...",
       expanded: "",
       "auto-focus": ""
     },
@@ -15904,7 +15903,7 @@ var render = function render() {
     staticClass: "is-primary",
     attrs: {
       "icon-pack": "fa",
-      "icon-left": "search"
+      "icon-left": "magnify"
     },
     on: {
       click: _vm.loadAsyncData
