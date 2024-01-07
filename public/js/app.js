@@ -9212,6 +9212,9 @@ __webpack_require__.r(__webpack_exports__);
           _this11.loadAsyncData();
         }
       })["catch"](function (err) {});
+    },
+    postContent: function postContent(content, clamp, stop) {
+      return content.slice(0, stop) + (stop < content.length ? clamp || '...' : '');
     }
   },
   mounted: function mounted() {
@@ -13231,7 +13234,11 @@ var render = function render() {
     scopedSlots: _vm._u([{
       key: "detail",
       fn: function fn(props) {
-        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("School")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e()]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_vm._v("\n                            " + _vm._s(_vm._f("truncate")(props.row.event_content, 50)) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.department.code) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
+        return [_c("tr", [_c("th", [_vm._v("Description")]), _vm._v(" "), _c("th", [_vm._v("School")]), _vm._v(" "), _c("th", [_vm._v("Venue")]), _vm._v(" "), _c("th", [_vm._v("Need Approval")]), _vm._v(" "), !["ATTENDEE"].includes(_vm.propUser.role) ? _c("th", [_vm._v("Approve Officer")]) : _vm._e()]), _vm._v(" "), _c("tr", [_c("td", [props.row.event_content ? _c("span", [_c("div", {
+          domProps: {
+            innerHTML: _vm._s(_vm.postContent(props.row.event_content, 0, 70))
+          }
+        })]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.department ? _c("span", [_vm._v("\n                            " + _vm._s(props.row.department.code) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.venue ? _c("span", [_vm._v(_vm._s(props.row.venue.event_venue))]) : _vm._e()]), _vm._v(" "), _c("td", [props.row.is_need_approval === 1 ? _c("span", {
           staticClass: "yes"
         }, [_vm._v("YES")]) : props.row.is_need_approval === 0 ? _c("span", {
           staticClass: "pending"

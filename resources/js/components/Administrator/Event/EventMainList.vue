@@ -221,7 +221,7 @@
                     <tr>
                         <td>
                              <span v-if="props.row.event_content">
-                                {{ props.row.event_content | truncate(50) }}
+                                <div v-html="postContent(props.row.event_content,0, 70)"></div>
                             </span>
 
                         </td>
@@ -603,6 +603,11 @@ export default{
             }).catch(err=>{
 
             })
+        },
+
+
+        postContent(content, clamp, stop){
+            return content.slice(0, stop) + (stop < content.length ? clamp || '...' : '')
         }
 
     },
