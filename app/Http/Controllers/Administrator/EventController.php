@@ -128,6 +128,7 @@ class EventController extends Controller
             'file_attachments.*.event_file_path' => ['required', 'mimes:pdf'],
             'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventTimeFrom, $eventTimeTo, 0)]
         ],[
+            'event_venue_id.required' => 'This field is required.',
             'event_img.required' => 'Please upload and image.',
             'event_img.mimes' => 'Only JPG, PNG and BMP are accepted.',
             'file_attachments.required' => 'Please upload file attachment.',
@@ -230,8 +231,8 @@ class EventController extends Controller
 
             'event_venue_id' => ['required', new DetectConflictRule($event_date_from, $event_date_to, $eventTimeFrom, $eventTimeTo, $id)]
         ],[
-            'department_id.required' => 'Please select school.'
-
+            'department_id.required' => 'Please select school.',
+            'event_venue_id.required' => 'This field is required.'
         ]);
 
         $data = Event::with(['user', 'venue'])->find($id);
